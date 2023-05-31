@@ -2,88 +2,88 @@ package com.kh.petopia.product.model.service;
 
 public interface ProductService {
 
-	// ¸ŞÀÎ »óÇ° Á¶È¸ (select)
-	// ¸ŞÀÎ Ä«Å×°í¸® »óÇ° Á¶È¸
+	// ë©”ì¸ ìƒí’ˆ ì¡°íšŒ (select)
+	// ë©”ì¸ ì¹´í…Œê³ ë¦¬ ìƒí’ˆ ì¡°íšŒ
 	ArrayList<Product> selectProductList(Category c);
-	SQL => ÇØ°á
-	if(Category.equals('ÀüÃ¼')) {
-		where category = 'ÀüÃ¼'
-	} else if(Category.equals('¾Ö°ß¿ëÇ°')) {
-		where category = '¾Ö°ß¿ëÇ°'
+	SQL => í•´ê²°
+	if(Category.equals('ì „ì²´')) {
+		where category = 'ì „ì²´'
+	} else if(Category.equals('ì• ê²¬ìš©í’ˆ')) {
+		where category = 'ì• ê²¬ìš©í’ˆ'
 	} ...
 	
-	// »óÇ° ÇÊÅÍ Á¶È¸ (select)
-	sort() ¹è¿ö¼­ JS¾Õ´Ü¿¡¼­ ÇØ°áÇÒ¼öÀÖ´ÂÁö ? ¾Æ´Ï¸é javaÂÊÀ¸·Î ¿Í¼­ ÇØ°áÇÑ²«Áö ¾Æ´Ï¸é SQL if¹® ½á¼­ ÇÒ²«Áö 
+	// ìƒí’ˆ í•„í„° ì¡°íšŒ (select)
+	sort() ë°°ì›Œì„œ JSì•ë‹¨ì—ì„œ í•´ê²°í• ìˆ˜ìˆëŠ”ì§€ ? ì•„ë‹ˆë©´ javaìª½ìœ¼ë¡œ ì™€ì„œ í•´ê²°í•œê»€ì§€ ì•„ë‹ˆë©´ SQL ifë¬¸ ì¨ì„œ í• ê»€ì§€ 
 	
-	// »óÇ° °Ë»ö Á¶È¸ (select)
+	// ìƒí’ˆ ê²€ìƒ‰ ì¡°íšŒ (select)
 	ArrayList<Product> searchProductList(String keyword);
-	SQL => ÇØ°á
+	SQL => í•´ê²°
 	where productTitle like '%' + keyword + '%';
 			
-	// »óÇ° »ó¼¼ Á¶È¸ (select)
+	// ìƒí’ˆ ìƒì„¸ ì¡°íšŒ (select)
 	Product selectDetailProduct(int productNo);
 	
-	// »óÇ° ¹®ÀÇ Á¶È¸ (select) board
+	// ìƒí’ˆ ë¬¸ì˜ ì¡°íšŒ (select) board
 	ArrayList<Ask> selectAskList(int productNo);
 	
-	// »óÇ° ¹®ÀÇ µî·Ï (insert)
-	int insertAsk(È¸¿ø¹øÈ£, »óÇ°¹øÈ£, ¹®ÀÇ³»¿ë)
-	hashMap 3°³ ³Ö°í 
-	SQL => ÇØ°á
+	// ìƒí’ˆ ë¬¸ì˜ ë“±ë¡ (insert)
+	int insertAsk(íšŒì›ë²ˆí˜¸, ìƒí’ˆë²ˆí˜¸, ë¬¸ì˜ë‚´ìš©)
+	hashMap 3ê°œ ë„£ê³  
+	SQL => í•´ê²°
 	insert
 	  into
 	  	   Ask
 	  	   (
 	  		njdanjd
-	  		..³Ö°í.
+	  		..ë„£ê³ .
 	  		)
 	values
 			(
 			seq
-			#(»óÇ°¹øÈ£)
-			#(È¸¿ø¹øÈ£)
-			#(¹®ÀÇ³»¿ë)
+			#(ìƒí’ˆë²ˆí˜¸)
+			#(íšŒì›ë²ˆí˜¸)
+			#(ë¬¸ì˜ë‚´ìš©)
 			sysdate
 			);
-	// ---------- °ü¸®ÀÚ ±â´É --------------------
+	// ---------- ê´€ë¦¬ì ê¸°ëŠ¥ --------------------
 	
-	// »óÇ° Ãß°¡ (insert)
-	// »óÁ¡Å×ÀÌºí¿¡ ±âº»Á¤º¸ insert ÀÌÈÄ 
-	ÇÑ¹ø¿¡ µÎ°³ÀÇ Å×ÀÌºí¿¡ °ªÀ» ³Ö¾î¾ßµÇ´Ï±î insert All ±×¸®°í 
-	ÇÑ°³ÀÇ Å×ÀÌºí¿¡ ¿©·¯°³¸¦ insertÇÒ °æ¿ì¿¡´Â forEachÅÂ±× »ç¿ë
+	// ìƒí’ˆ ì¶”ê°€ (insert)
+	// ìƒì í…Œì´ë¸”ì— ê¸°ë³¸ì •ë³´ insert ì´í›„ 
+	í•œë²ˆì— ë‘ê°œì˜ í…Œì´ë¸”ì— ê°’ì„ ë„£ì–´ì•¼ë˜ë‹ˆê¹Œ insert All ê·¸ë¦¬ê³  
+	í•œê°œì˜ í…Œì´ë¸”ì— ì—¬ëŸ¬ê°œë¥¼ insertí•  ê²½ìš°ì—ëŠ” forEachíƒœê·¸ ì‚¬ìš©
 	int insertProduct(Product p); 
 	
-	// »çÀÌÁîÅ×ÀÌºí¿¡ ¼±ÅÃÇÑ »çÀÌÁî °¹¼ö¸¸Å­ insert	
+	// ì‚¬ì´ì¦ˆí…Œì´ë¸”ì— ì„ íƒí•œ ì‚¬ì´ì¦ˆ ê°¯ìˆ˜ë§Œí¼ insert	
 	int insertProductSize(Product p);
-	controller´Ü¿¡¼­ for¹®? insert <c:choose>
+	controllerë‹¨ì—ì„œ forë¬¸? insert <c:choose>
 	<c:forEach item="product" index="">
-	// »óÇ° ¼öÁ¤ (update)
+	// ìƒí’ˆ ìˆ˜ì • (update)
 	
 	sqlSession.insert("dsadsamapper", list)
 	insert all
-		into AÅ×ÀÌºí
+		into Aí…Œì´ë¸”
 		<choose test=" empty list.siez()">
-		into BÅ×ÀÌºí
+		into Bí…Œì´ë¸”
 		</if test=" not empty list.size()">
 		<forEach item="Arraylist<Product>" collection="list" index="list.siez()">
-		into BÅ×ÀÌºí
+		into Bí…Œì´ë¸”
 		...
 		
 		<>
 	
-	// »óÇ° »èÁ¦ (update)
+	// ìƒí’ˆ ì‚­ì œ (update)
 	
-	// »óÇ° ¹®ÀÇ ´äº¯ µî·Ï (insert)
+	// ìƒí’ˆ ë¬¸ì˜ ë‹µë³€ ë“±ë¡ (insert)
 	
-	// ----------- °áÁ¦ ---------------
+	// ----------- ê²°ì œ ---------------
 	
-	// Àå¹Ù±¸´Ï (insert)(delete)(select)
+	// ì¥ë°”êµ¬ë‹ˆ (insert)(delete)(select)
 	
-	// »óÇ° °áÁ¦ (insert)
+	// ìƒí’ˆ ê²°ì œ (insert)
 	
-	// ------------- ¸¶ÀÌÆäÀÌÁö °áÁ¦ Ãë¼Ò ---------------
+	// ------------- ë§ˆì´í˜ì´ì§€ ê²°ì œ ì·¨ì†Œ ---------------
 	
-	// »óÇ° Ãë¼Ò (update)
+	// ìƒí’ˆ ì·¨ì†Œ (update)
 
 	
 	
