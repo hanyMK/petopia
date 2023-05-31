@@ -80,6 +80,7 @@ public class MemberController {
 			m.setBirthday(birthday_y + birthday_m + birthday_d);
 			
 			int member = memberService.joinMember(m);
+			System.out.println(member);
 			
 			Attachment memberAtt = insertMemberFile(upfile, session);
 			
@@ -95,6 +96,7 @@ public class MemberController {
 			}else {
 				model.addAttribute("errorMsg", "회원가입이 실패되었습니다");
 				return "common/errorPage";
+				
 			}
 		
 		}
