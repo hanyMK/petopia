@@ -23,13 +23,6 @@
 	
 	<context:component-scan base-package="com.kh.petopia" />
 	
-	<!-- interceptors( 맵핑으로 이동시 무조건 실행되어 거쳐가는 단계로 로그인 유무확인해주는 기능 )
-	<interceptors>
-		<interceptor>
-			<mapping path="/myPage.me/"/>
-			<mapping path="/enrollForm.bo"/>
-			<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
-		</interceptor>
-	</interceptors>
-	-->
+	
+	
 </beans:beans>
