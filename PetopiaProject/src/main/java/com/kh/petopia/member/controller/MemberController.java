@@ -11,7 +11,7 @@ public class MemberController {
 
 		System.out.println("실행");
 		
-		System.out.println("서히 막 써보는중");
+		
 
 		
 	}
@@ -20,4 +20,8 @@ public class MemberController {
 		System.out.println("충돌 발생~~");
 	}
 
+	
+	public void member() {
+		System.out.println("good");
+	}
 }
