@@ -20,7 +20,7 @@ import com.kh.petopia.member.model.vo.Pet;
 @Controller
 public class MemberController {
 	
-
+	
 		
 		@Autowired
 		private MemberService memberService;
@@ -35,7 +35,7 @@ public class MemberController {
 		}
 		
 		/**
-		 * 
+		 * dasdsadsadasdsadsadsasadsadsadsaasd
 		 * @param m : 사용자가 입력한 값으로 Member객체에 담겨 전달 받는다
 		 * @param mv : ModelAndView
 		 * @param session
