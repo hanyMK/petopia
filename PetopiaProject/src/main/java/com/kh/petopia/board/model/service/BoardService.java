@@ -2,52 +2,52 @@ package com.kh.petopia.board.model.service;
 
 public interface BoardService {
 
-	// °Ô½Ã±Û Á¶È¸ (select)
-	// °Ô½Ã±Û Ä«Å×°í¸® Á¶È¸ (select)
+	// ê²Œì‹œê¸€ ì¡°íšŒ (select)
+	// ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬ ì¡°íšŒ (select)
 	ArrayList<Board> selectBoard();
-	if(Category.equals('ÀüÃ¼')) {
-		//ÀÌ°Å¿¡ °üÇÑ °ª
-	} else if(Category.equals('¼Ò¸ğÀÓ')) {
+	if(Category.equals('ì „ì²´')) {
+		//ì´ê±°ì— ê´€í•œ ê°’
+	} else if(Category.equals('ì†Œëª¨ì„')) {
 		
 	} else {
-		// ÀÚ¶ûÇÏ±â~ Ä«Å×°í¸® ¸®½ºÆ® »Ì¾ÆÁÖ±â
+		// ìë‘í•˜ê¸°~ ì¹´í…Œê³ ë¦¬ ë¦¬ìŠ¤íŠ¸ ë½‘ì•„ì£¼ê¸°
 	}
 
-	// °Ô½Ã±Û »ó¼¼Á¶È¸(select)
+	// ê²Œì‹œê¸€ ìƒì„¸ì¡°íšŒ(select)
 	Board selectDetailBoard(int boardNo);
 	
-	// °Ô½Ã±Û Ãß°¡ (insert)
+	// ê²Œì‹œê¸€ ì¶”ê°€ (insert)
 	int insertBoard(int memberNo);
 	
-	// °Ô½Ã±Û ¼öÁ¤ (update)
+	// ê²Œì‹œê¸€ ìˆ˜ì • (update)
 	int updateBoard(Board b);
 	
-	// °Ô½Ã±Û »èÁ¦ (update)
+	// ê²Œì‹œê¸€ ì‚­ì œ (update)
 	int deleteBoard(int boardNo);
 	
-	/* °Ô½Ã±Û °Ë»ö (select)
+	/* ê²Œì‹œê¸€ ê²€ìƒ‰ (select)
 	ArrayList<Board> selectSearchBoard(Search s)
-	VO·Î ´ã±â
-	°Ë»ö³»¿ë
-	¼±ÅÃÇÑ Ä«Å×°í¸® option
+	VOë¡œ ë‹´ê¸°
+	ê²€ìƒ‰ë‚´ìš©
+	ì„ íƒí•œ ì¹´í…Œê³ ë¦¬ option
 	sql 
 	*/
 	
-	// °Ô½Ã±Û ÇÊÅÍ (select)
-	// sortÇÔ¼ö ¹è¿ö¼­ »ı°¢ÇØº¸±â 
-	// ±»ÀÌ db¿¡ °¡¼­ Á¶È¸¸¦ ÇØ¾ßÇÒ±î ? ÀÌ¹Ì ÀÖ´Â µ¥ÀÌÅÍ¸¦ °¡Áö°í ¿Í¼­ java´ÜÀÌ³ª JS´Ü¿¡¼­ ÇØ°áÀÌ °¡´ÉÇÏÁö ¾ÊÀ»±î~?
+	// ê²Œì‹œê¸€ í•„í„° (select)
+	// sortí•¨ìˆ˜ ë°°ì›Œì„œ ìƒê°í•´ë³´ê¸° 
+	// êµ³ì´ dbì— ê°€ì„œ ì¡°íšŒë¥¼ í•´ì•¼í• ê¹Œ ? ì´ë¯¸ ìˆëŠ” ë°ì´í„°ë¥¼ ê°€ì§€ê³  ì™€ì„œ javaë‹¨ì´ë‚˜ JSë‹¨ì—ì„œ í•´ê²°ì´ ê°€ëŠ¥í•˜ì§€ ì•Šì„ê¹Œ~?
 	
 	
-	// -------------- ÆäÀÌÂ¡ ----------------------
+	// -------------- í˜ì´ì§• ----------------------
 	
-	// °Ô½Ã±Û Ä«Å×°í¸® ¼ö Á¶È¸ (select)
-	// °Ô½Ã±Û ¸®½ºÆ® ¼ö Á¶È¸ (select)
+	// ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬ ìˆ˜ ì¡°íšŒ (select)
+	// ê²Œì‹œê¸€ ë¦¬ìŠ¤íŠ¸ ìˆ˜ ì¡°íšŒ (select)
 	select count(*)
 	  from board
 	 where stauts = 'Y'
 	if(category)
 	
-	// °Ô½Ã±Û °Ë»ö ¼ö Á¶È¸ (select)
+	// ê²Œì‹œê¸€ ê²€ìƒ‰ ìˆ˜ ì¡°íšŒ (select)
 	int searchBoardCount(Search s);
 	select count(*)
 	  from board
@@ -56,29 +56,29 @@ public interface BoardService {
 	   and boardWriter like '%' + keyword + '%'
 	// ------------------------------------------
 
-	// °Ô½Ã±Û Á¶È¸¼ö Áõ°¡ (update)
+	// ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€ (update)
 	int increaseCount(int boardNo);
 	
 	// ------------------------------------------
 	  
-	// ´ñ±ÛÀÛ¼º (insert)
+	// ëŒ“ê¸€ì‘ì„± (insert)
 	int insertReply(Reply r);
 	   
-	// ´ñ±ÛÁ¶È¸ (select)
+	// ëŒ“ê¸€ì¡°íšŒ (select)
 	ArrayList<Reply> selectReply(int boardNo);
 	
-	// ´ñ±Û¼öÁ¤ (update)
+	// ëŒ“ê¸€ìˆ˜ì • (update)
 	int updateReply(int replyNo);
 	
-	// ´ñ±Û»èÁ¦ (update)
+	// ëŒ“ê¸€ì‚­ì œ (update)
 	int deleteReply(int replyNo);
 	
-	// ´ñ±Û ÁÁ¾Æ¿ä ¼ö Áõ°¡ (update)
+	// ëŒ“ê¸€ ì¢‹ì•„ìš” ìˆ˜ ì¦ê°€ (update)
 	int increasReplyLike(int replyNo);
 	
 	// --------------------------------------------
 	
-	// Ã·ºÎÆÄÀÏ ÀÌ¹ÌÁö 
+	// ì²¨ë¶€íŒŒì¼ ì´ë¯¸ì§€ 
 
 	
 }
