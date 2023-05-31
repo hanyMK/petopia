@@ -3,7 +3,7 @@
 .class
 Servers
 MANIFEST.MF
-target/
+.target/
 # Compiled class file
 *.class
 # Log file
