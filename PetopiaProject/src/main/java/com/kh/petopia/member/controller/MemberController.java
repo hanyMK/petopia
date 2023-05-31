@@ -47,7 +47,95 @@ public class MemberController {
 		
 		System.out.println("dkdsud");
 		System.out.println("고마워");
-
+		
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
+		
+		System.out.println("우와우와");
 		
 	
 		
