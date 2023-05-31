@@ -11,7 +11,7 @@
 
 	<jsp:include page="common/header.jsp"/>
 	
-	<div style="width:500px;">
+	<div style="height:500px;">
 	
 	</div>
 	
