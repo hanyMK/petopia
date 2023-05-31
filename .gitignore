@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 ### STS ###
 .metadata
 .settings/
 .target/
 /Servers
 ### Java ###
+=======
+>>>>>>> parent of b12c353 (gitignore 4개 추가 -준빈-)
 # Compiled class file
 *.class
 # Log file
@@ -22,4 +25,8 @@
 *.rar
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+<<<<<<< HEAD
 replay_pid*
+=======
+replay_pid*
+>>>>>>> parent of b12c353 (gitignore 4개 추가 -준빈-)
