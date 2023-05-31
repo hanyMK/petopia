@@ -10,7 +10,14 @@ public class MemberController {
 
 
 		System.out.println("실행");
+		
+		System.out.println("서히 막 써보는중");
 
+		
+	}
+	
+	public void test() {
+		System.out.println("충돌 발생~~");
 	}
 
 }
