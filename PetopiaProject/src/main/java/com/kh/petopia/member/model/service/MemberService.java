@@ -1,5 +1,77 @@
 package com.kh.petopia.member.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.petopia.admin.model.vo.Coupon;
+import com.kh.petopia.common.model.vo.AllOrders;
+import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.member.model.vo.Pet;
+
 public interface MemberService {
+	
+	//로그인 서비스(SELECT)
+		Member loginMember(Member m);
+		
+		//회원가입 서비스(INSERT)
+		int joinMember(Member m );
+		int joinMember(Pet pet );
+		int joinMember(Attachment memberAtt );
+		
+
+		//SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = '시퀀스명(대문자)'-이거안돼;
+		/*
+		 * 펫 테이블과 보드넘버 테이블 삽입 시 currval대신 마지막 시퀀스 번호 조회해서 등록
+		 * INSERT INTO TP_TABLE(
+			    SEQ, 
+			    CODE, 
+			    NAME
+			    )
+			VALUES(
+			    (SELECT NVL(MAX(MEMBER_NO), 0) FROM MEMBER),
+			    'A01',
+			    'TEST'
+	    )
+	 
+		 */
+		
+		//회원정보 수정(UPDATE)
+		int updateMember(Member m, Attachment memberAtt);
+		
+		//이메일 찾기(SELECT/닉네임, 전화번호)
+		String findEmail(Member m);
+		
+		//비밀번호 재설정(INSERT/이메일, 새로운 비밀번호)
+		//이메일 인증을 동반
+		//1. 이메일이 존재하는지 확인(SELECT COUNT(*) FROM MEMBER WHERE EMAIL = ? /이메일 중복체크 SELECT문 활용)
+		//2. 메일로 비밀 번호 변경 가능한 링크 전송
+		//3. 링크를 통해 비밀번호 변겅(링크에 회원 이메일 정보가 담겨있어야함 또는 회원이 입력한 이메일을 변수에 담아서 기록해야함)
+		//4. 이메일과 새로운 비밀 번호를 UPDATE
+		int changeMemberPwd(Member m);
+		
+//		//회원탈퇴서비스(UPDATE)
+//		int deleteMember(String email);
+		
+		//주문 배송 리스트 조회(SELECT/멤버 넘버)
+		//날짜 순 내림차순(DESC)??
+		ArrayList<AllOrders> selectOrderList(int memberNo);
+		
+		
+		
+		//주문 배송 상세 조회(SELECT/멤버 넘버, 결제 번호, 상품 번호)??
+		AllOrders selectOrdersDatail (AllOrders ao);
+		
+		
+		//------AJax--------------------------
+
+		//이메일 중복 체크(SELECT)
+		int emailCheck(String checkEmail);
+		//닉네임 중복체크(SELECT)
+		int nicknameCkeck(String nickname);
+		
+		//회원 쿠폰 받기(INSERT/회원 번호와 쿠폰 번호 입력)
+		int getCoupon(Coupon c);
+		
+		
 
 }
