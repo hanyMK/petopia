@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>시작이야</h1>
+
+	<jsp:forward page="WEB-INF/views/main.jsp"/>
+	
+	
 </body>
 </html>
