@@ -13,7 +13,8 @@
 		<typeAlias type="com.kh.petopia.admin.model.vo.Admin" alias="admin"/> 
 		<typeAlias type="com.kh.petopia.member.model.vo.Member" alias="member"/> 
 		<typeAlias type="com.kh.petopia.board.model.vo.Board" alias="board"/> 
-		
+		<typeAlias type="com.kh.petopia.member.model.vo.Pet" alias="pet"/> 
+		<typeAlias type="com.kh.petopia.common.model.vo.Attachment" alias="att"/> 
 		<typeAlias type="com.kh.petopia.myPage.model.vo.MyPage" alias="myPage"/> 
 		<typeAlias type="com.kh.petopia.product.model.vo.Product" alias="product"/> 
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Reservation" alias="reservation"/> 
