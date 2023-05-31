@@ -10,8 +10,6 @@ public class MemberController {
 
 
 		System.out.println("실행");
-		
-		
 
 		
 	}
@@ -20,8 +18,4 @@ public class MemberController {
 		System.out.println("충돌 발생~~");
 	}
 
-	
-	public void member() {
-		System.out.println("good");
-	}
 }
