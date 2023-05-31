@@ -1,4 +1,4 @@
-package com.kh.petopia.myPage.model.vo;
+package com.kh.petopia.member.model.vo;
 
 import lombok.Data;
 
