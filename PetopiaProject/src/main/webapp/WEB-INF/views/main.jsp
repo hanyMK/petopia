@@ -11,6 +11,12 @@
 <body>
 
 	<jsp:include page="common/header.jsp"/>
+	
+	<div style="width:500px;">
+	
+	</div>
+	
+	<jsp:include page="common/footer.jsp"/>
 
 
 </body>
