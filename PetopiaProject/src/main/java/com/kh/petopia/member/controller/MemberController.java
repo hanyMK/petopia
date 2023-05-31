@@ -10,7 +10,13 @@ public class MemberController {
 
 
 		System.out.println("실행");
+		
+		
 
 	}
 
+	
+	public void member() {
+		System.out.println("good");
+	}
 }
