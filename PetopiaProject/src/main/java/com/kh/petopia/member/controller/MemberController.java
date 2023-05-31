@@ -4,7 +4,8 @@ public class MemberController {
 	
 	public void member() {
 		System.out.println("good");
-		System.out.println("ÀÎÄÚµù µÇ³ª¿ä ?");
+		System.out.println("ì´ì œ ì§„ì§œ ì¸ì½”ë”© ë ?");
+	
 	}
 	
 
