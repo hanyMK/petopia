@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     
     <style>
         .content {
@@ -444,7 +445,7 @@
         }
 
     </script>
-    
+    <!--  
     <script type="text/javascript">
 	  var naver_id_login = new naver_id_login("SzNT24__lVCFTwGtQmSh", "http://localhost:8007/spring/memberEnroll.me");
 	  // 접근 토큰 값 출력
@@ -458,6 +459,7 @@
 	    alert(naver_id_login.getProfileData('age'));
 	  }
 	</script>
+	-->
 
     <!-- 푸터바 -->
   

@@ -31,7 +31,7 @@ public class MemberController {
 		
 		@GetMapping("login")
 		public String loginView() {
-			return "petopia/member/login";
+			return "member/login";
 		}
 		
 		/**
@@ -61,7 +61,7 @@ public class MemberController {
 		
 		@RequestMapping("memberEnroll.me")
 		public String memberEnroll() {
-			return "petopia/member/memberEnrollForm";
+			return "member/memberEnrollForm";
 		}
 		
 		
@@ -118,7 +118,7 @@ public class MemberController {
 		
 		@GetMapping("findEmail.me")
 		public String findEmailView() {
-			return "petopia/member/findInfo";
+			return "member/findInfo";
 		}
 		
 
