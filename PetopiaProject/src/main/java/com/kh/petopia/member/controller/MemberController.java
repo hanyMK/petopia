@@ -11,10 +11,8 @@ public class MemberController {
 
 		System.out.println("실행");
 		
-		
-
-		
 	}
+	
 	
 	public void test() {
 		System.out.println("충돌 발생~~");
