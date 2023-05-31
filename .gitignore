@@ -1,10 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### STS ###
 .metadata
 .settings/
 .target/
 /Servers
 ### Java ###
+=======
+>>>>>>> parent of b12c353 (gitignore 4개 추가 -준빈-)
 =======
 >>>>>>> parent of b12c353 (gitignore 4개 추가 -준빈-)
 # Compiled class file
@@ -27,6 +30,9 @@
 hs_err_pid*
 <<<<<<< HEAD
 replay_pid*
+<<<<<<< HEAD
 =======
 replay_pid*
+>>>>>>> parent of b12c353 (gitignore 4개 추가 -준빈-)
+=======
 >>>>>>> parent of b12c353 (gitignore 4개 추가 -준빈-)
