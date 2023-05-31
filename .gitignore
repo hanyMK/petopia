@@ -1,9 +1,9 @@
-#STS
+### STS ###
 .metadata
-.class
-Servers
-MANIFEST.MF
+.settings/
 .target/
+/Servers
+### Java ###
 # Compiled class file
 *.class
 # Log file
