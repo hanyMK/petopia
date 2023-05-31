@@ -73,7 +73,14 @@ public interface ProductService {
 	
 	// 상품 삭제 (update)
 	
+		int deleteProduct(int productNo);
+		
 	// 상품 문의 답변 등록 (insert)
+		
+		
+		
+	// 	
+		
 	
 	// ----------- 결제 ---------------
 	
