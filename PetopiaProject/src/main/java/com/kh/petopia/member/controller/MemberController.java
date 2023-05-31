@@ -57,6 +57,12 @@ public class MemberController {
 			return mv;
 		}
 		
+		@RequestMapping("logout.me" )
+		public String logoutMember(HttpSession session) {
+			session.invalidate();
+			return "redirect:/";
+		}
+		
 		
 		
 		@RequestMapping("memberEnroll.me")

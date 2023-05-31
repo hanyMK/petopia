@@ -6,8 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <!-- jQuery 라이브러리 -->
+	<!-- jQuery 라이브러리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+  
+  	<!-- Alertify Framework -->
+  	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+  	
 
     <style>
         div {box-sizing:border-box;} 
@@ -113,12 +126,12 @@
 <body>
 
 
-    <c:if test="${ not empty alertMsg }">
-       <script>      
-          alertify.alert('추카추카룽','${alertMsg}',function(){ alertify.success('어 뿅'); });
-       </script>
-       <c:remove var="alertMsg" scope="session"/>
-    </c:if>
+   	<c:if test="${ not empty alertMsg }">
+	<script type="text/javascript">
+	alertify.alert('${alertMsg}');
+	</script>
+	<c:remove var="alertMsg" scope="session"/>
+	</c:if>
     
 
     <div id="header">
@@ -133,14 +146,14 @@
                <!-- null == loginUser // empty loginUser -->
                <!-- 빈문자열인지 아닌지도 체크  -->
                <c:choose>
-                  <c:when test="${ empty requestScope.loginMember }">
+                  <c:when test="${ empty sessionScope.loginMember }">
                       <!-- 로그인 전 -->
                       <a href="memberEnroll.me">회원가입 </a> |
                       <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targert에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
                   </c:when>
                   <c:otherwise>
                                     
-                      <label>${ requestScpoe.loginMember.memberName }횐님 환영합니다</label> &nbsp;
+                      <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
                       <a href="myPage.me">마이페이지</a>
                       <a href="logout.me">로그아웃</a>
                       
