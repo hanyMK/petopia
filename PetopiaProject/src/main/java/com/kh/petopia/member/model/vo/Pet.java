@@ -13,5 +13,7 @@ public class Pet {
 	private int age;//AGE	NUMBER
 	private double weight;//WEIGHT	NUMBER
 	private String isPet;
+	
+	
 
 }
