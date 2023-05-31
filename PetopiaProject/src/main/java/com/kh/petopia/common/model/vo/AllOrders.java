@@ -1,5 +1,5 @@
 package com.kh.petopia.common.model.vo;
 
-public class Common {
+public class AllOrders {
 
 }
