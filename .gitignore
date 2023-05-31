@@ -5,7 +5,8 @@
 /target
 target/*
 /Servers
-/targer/
+/target/
+
 ### Java ###
 # Compiled class file
 *.class
