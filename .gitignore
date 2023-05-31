@@ -4,6 +4,18 @@
 /target
 Servers
 
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.target/
+
 # Compiled class file
 *.class
 
