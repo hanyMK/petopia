@@ -47,6 +47,16 @@ public class MemberController {
 		
 		System.out.println("dkdsud");
 		System.out.println("고마워");
+		
+		
+		
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
+		System.out.println("얌얌ㅁㅁㅁ앙ㅁㅁ먕야 ");
 
 		
 	
