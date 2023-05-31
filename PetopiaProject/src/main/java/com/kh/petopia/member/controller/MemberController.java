@@ -16,6 +16,7 @@ public class MemberController {
 		
 		
 	
+		System.out.println("이렇게 하면 ? 충돌??");
 	}
 	
 
