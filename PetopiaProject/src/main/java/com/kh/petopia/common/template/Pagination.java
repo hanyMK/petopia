@@ -1,5 +1,7 @@
 package com.kh.petopia.common.template;
 
+import com.kh.petopia.common.model.vo.PageInfo;
+
 public class Pagination {
 	
 	public static PageInfo getPageInfo(int listCount, int currentPage, int boardLimit, int pageLimit) {
