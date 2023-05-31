@@ -10,13 +10,16 @@
 <body>
 	<h1>여기는 처음</h1>
 	
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
+	<div>충돌테스트하는고임-서희-</div>
 	
 	
-	<script type="text/javascript">
-		function test(){
-			console.log("good");
-		}
-	
-	</script>
 </body>
 </html>
