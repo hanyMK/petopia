@@ -6,7 +6,7 @@ public class MemberController {
 	public void good() {
 		System.out.println("동물 농장 화이팅");
 		
-		System.out.println("연습연습");
+		System.out.println("안녕");
 	}
 
 }
