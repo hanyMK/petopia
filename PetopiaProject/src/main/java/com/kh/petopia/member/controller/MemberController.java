@@ -7,7 +7,10 @@ public class MemberController {
 		System.out.println("동물 농장 화이팅");
 		
 		System.out.println("충돌 발생");
-		System.out.println("충돌 다시 도전");
+
+
+		System.out.println("실행");
+
 	}
 
 }
