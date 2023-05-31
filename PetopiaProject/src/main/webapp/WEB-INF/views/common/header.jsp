@@ -127,7 +127,7 @@
             <div id="header_1_left">
             </div>
             <div id="header_1_center" align="center">
-                <img src="petopiaLogo.png" alt="펫토피아로고" style="height: 60px; width: 170px;">
+                <img src="resources/images/petopiaLogo.png" alt="펫토피아로고" style="height: 60px; width: 170px;">
             </div>
             <div id="header_1_right">               
                <!-- null == loginUser // empty loginUser -->
