@@ -107,7 +107,11 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
+<<<<<<< HEAD
 			<artifactId>javax.jsp-api</artifactId>
+=======
+			<artifactId>javax.servlet.jsp-api</artifactId>
+>>>>>>> a5ea8c132644ad9386a70219b8594623f7892d9b
 			<version>2.3.3</version>
 			<scope>provided</scope>
 		</dependency>
@@ -278,8 +282,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
