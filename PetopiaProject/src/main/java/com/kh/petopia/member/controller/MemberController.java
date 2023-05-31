@@ -7,7 +7,7 @@ public class MemberController {
 		System.out.println("이제 진짜 인코딩 끝 ?");
 		
 		System.out.println("이거 괜찮겠지..?");
-	
+		System.out.println("이렇게 하면 ? 충돌??");
 	}
 	
 
