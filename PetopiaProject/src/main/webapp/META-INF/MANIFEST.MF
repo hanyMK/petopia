@@ -1,7 +1,9 @@
 Manifest-Version: 1.0
-
+<<<<<<< HEAD
+=======
+Built-By: todn9
+>>>>>>> 0d4af55486982e7d4513c363363be8a1c9d7b5e6
 Built-By: user1
-
 Build-Jdk: 1.8.0_362
 Created-By: Maven Integration for Eclipse
 
