@@ -7,6 +7,25 @@ public class MemberController {
 		System.out.println("잘됩니까");
 		
 		System.out.println("반영되냐고");
+		
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		System.out.println("잘되냐?");
+		
+		System.out.println("잘되냐고");
+		
+		
+		
 	}
 	
 
