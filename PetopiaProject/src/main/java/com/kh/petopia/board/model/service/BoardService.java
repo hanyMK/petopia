@@ -77,7 +77,7 @@ public interface BoardService {
 	int increasReplyLike(int replyNo);
 	
 	// --------------------------------------------
-	
+		
 	// 첨부파일 이미지 
 
 	
