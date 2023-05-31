@@ -9,5 +9,14 @@
 </head>
 <body>
 	<h1>여기는 처음</h1>
+	
+	
+	
+	<script type="text/javascript">
+		function test(){
+			console.log("good");
+		}
+	
+	</script>
 </body>
 </html>
