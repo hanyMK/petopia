@@ -38,9 +38,7 @@ public interface MemberService {
 		//회원정보 수정(UPDATE)
 		int updateMember(Member m, Attachment memberAtt);
 		
-		//이메일 찾기(SELECT/닉네임, 전화번호)
-		String findEmail(Member m);
-		
+
 		//비밀번호 재설정(INSERT/이메일, 새로운 비밀번호)
 		//이메일 인증을 동반
 		//1. 이메일이 존재하는지 확인(SELECT COUNT(*) FROM MEMBER WHERE EMAIL = ? /이메일 중복체크 SELECT문 활용)
@@ -72,6 +70,10 @@ public interface MemberService {
 		//회원 쿠폰 받기(INSERT/회원 번호와 쿠폰 번호 입력)
 		int getCoupon(Coupon c);
 		
+		//이메일 찾기(select)
+		String findEmail(String nickname);
+		
+		//비밀번호 재설정(update)
 		
 
 }

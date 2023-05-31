@@ -54,4 +54,10 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.nicknameCkeck", nickname);
 	}
 	
+	public String findEmail(SqlSessionTemplate sqlSession, String nickname) {
+		return sqlSession.selectOne("memberMapper.findEmail", nickname);
+		
+	}
+	
+	
 }

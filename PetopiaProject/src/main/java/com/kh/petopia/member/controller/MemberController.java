@@ -122,10 +122,21 @@ public class MemberController {
 			return null;
 		}
 		
-		@GetMapping("findEmail.me")
+		@GetMapping("findEmail")
 		public String findEmailView() {
 			return "member/findInfo";
 		}
+		
+		@GetMapping("findPwd")
+		public String findPwdView() {
+			return "member/findInfo";
+		}
+		
+		
+		
+		
+		
+
 		
 
 		

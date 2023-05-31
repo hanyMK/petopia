@@ -7,52 +7,61 @@
 <meta charset="UTF-8">
 <title>ID찾기</title>
 <style>
-    #idSearch{
-        text-align: center;
+    #serch{
+        
         margin: auto;
         width: 400px;
         height: 300px;
         margin-top: 30px;
     }
-    #idSearchbtn{
+    #emailSearchbtn{
         width: 400px;
         height: 50px;
         background-color: black;
         color: white;
     }
-    #memName , #email{
+     #nickname{
         width: 100%;
         height: 50px;
     }
-    #m-name, #m-email{
+    #nickname{
         padding-top: 20px;
     }
+    
+   #email-btn, #pwd-btn{
+   
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    color: #052159;
+    width: 300px;
+    height: 50px;
+    box-sizing: border-box;
+    font-size: 20px;
+   }
 </style>
 </head>
 <body>
- <%@ include file="../common/menubar.jsp" %>
+
+<jsp:include page="../common/header.jsp"/>
  
  <br>
-    <h1 align="center" >아이디 찾기</h1>
+ 	<button id="email-btn" > <h1  align="center" >이메일 찾기</h1></button>
+    <button id="pwd-btn"><h1 align="center" >비밀 번호 찾기</h1></button>
+    
 
     <hr style="border:2px solid black; width:600px">
     
     <div class="outer" align="center">
 
-    <form action="<%= contextPath %>/idResult.me" method="post"  align="center" id="idSearh-form">
-        <table id="idSearch" align="center" >
-            <tr>
-                <td height="10%" id="m-name"><h4>이름을 입력하세요</h4></td>
-                
-            </tr>
-            <tr>
-                <td ><input type="text" id="memName" name="memName" ></td>
-            </tr>
+    <form action="findEmail.me" method="post"  id="idSearh-form">
+        <table id="serch" align="center" >
+           
             <tr >
-                <td height="10%" id="m-email"><h4>이메일을 입력하세요</h4></td>
+                <td height="10%" id="nickname"><h4>가입한 닉네임으로 찾기</h4></td>
             </tr>
             <tr>
-                <td><input type="email" id="email" name="email"></td>
+                <td><input type="text" id="nickname" name="nickname" placeholder="닉네임"></td>
             </tr>
 
         </table>
@@ -60,11 +69,51 @@
         <hr style="border:2px solid black; width:600px">
         <br><br>
         <div align="center">
-            <button value="submit" id="idSearchbtn">아이디 찾기</button>
+            <button value="submit" id="emailSearchbtn">이메일찾기</button>
         </div>
 
 
     </form>
+    
+    <script type="text/javascript">
+    	
+    	$(() => {
+    		
+    		$('#emailSearchbtn').on('click', () => {
+    			
+	    		var $nickname = $('#nickname').val();
+	    		
+	    		$.ajax({
+	    			ulr : 'findEmail.me',
+	    			type: 'post',
+	    			data : {
+	    				nickname : $nickname
+	    			},
+	    			success : result => {
+	    				console.log(result);
+	    				if(!result.equals('NO')){
+	    					
+		    				alert('회원님의 Email은 ' + result +'입니다');
+	    				}else{
+	    					alert('닉네임을 다시 입력해주세요');
+	    				}
+	    			},
+	    			error : () => {
+	    				console.log('실패');
+	    			}
+	    			
+	    		});
+    		});
+    		
+    		
+    		
+    		
+    	})
+    
+    
+    </script>
+    
+    <jsp:include page="../common/footer.jsp"/>
 
     
 
