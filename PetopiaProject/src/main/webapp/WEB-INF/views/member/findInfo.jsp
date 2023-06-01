@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>ID찾기</title>
+
+     
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
     #serch{
         
@@ -73,6 +78,7 @@
         <br><br>
         <div align="center">
             <button type="button" id="searchbtn">${ requestScope.title }</button>
+           
         </div>
    </div>
 
@@ -97,9 +103,9 @@
 		    			success : result => {
 		    				console.log(result);
 		    				if(result != 'NO'){
-		    					
-			    				alert('회원님의 Email은 ' + result +'입니다');
-			    				$title.val('');
+		    					$('#result').text($title.val());
+		    					$('#emailFindModal').modal('show');
+		    				
 		    				}else{
 		    					alert('닉네임을 다시 입력해주세요');
 		    				}
@@ -110,8 +116,8 @@
 		    			
 		    		});
     			}else{
-        			$.ajax({
-        				url : 'findPwd.me',
+    				$.ajax({
+		    			url : 'findPwd.me',
 		    			type: 'POST',
 		    			data : {
 		    				email : $title.val()
@@ -120,31 +126,73 @@
 		    				console.log(result);
 		    				if(result != 'NO'){
 		    					
+			    				
 			    				$title.val('');
 		    				}else{
-		    					alert('이메일을 다시 입력해주세요');
+		    					alert('닉네임을 다시 입력해주세요');
 		    				}
 		    			},
 		    			error : () => {
 		    				console.log('실패');
 		    			}
-        				
-        				
-        			})
-        		}
+		    			
+		    		});
+    			}
     		});
     		
     		
     		
     	})
     	
-    	//가입한 이메일 입력
     	
-    	
-    	
-    
-    
     </script>
+    
+    
+    
+    
+	 <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
+    <div class="modal fade" id="emailFindModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">이메일 찾기</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div align="center">
+                     		회원님의 Email은 <b id="result"></b> 입니다
+                        </div>
+                        <br>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer" align="center">
+                        <button  class="btn btn-danger">확인</button>
+                        <button id="goLoginPage"class="btn btn-danger">로그인</button>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    	var goLogin = document.getElementById('goLoginPage');
+
+        goLogin.click = ()=>{
+            location.href = 'login';
+        }
+    	
+    </script>
+    
+  
+    	
+    	
+    
+    
+
     
     <jsp:include page="../common/footer.jsp"/>
 
