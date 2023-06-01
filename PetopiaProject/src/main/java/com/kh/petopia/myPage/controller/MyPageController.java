@@ -26,4 +26,11 @@ public class MyPageController {
 		return "myPage/myBoardList";
 	}
 	
+	// 마이페이지 댓글 조회
+	@RequestMapping("reply.me")
+	public String myReplyList(int mno, Model model) {
+		model.addAttribute("list", myPageService.myReplyList(mno));
+		return "myPage/myReplyList";
+	}
+	
 }
