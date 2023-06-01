@@ -28,11 +28,11 @@
 
 	#main{
 		box-sizing: border-box;
-		width: 1200px;
+		width: 100%;
 		height: 1000px;
 		margin: auto;
 	}
-	
+
 	#main_left{
 		width:20%; 
 		height:100%;
@@ -59,7 +59,8 @@
 <body> 
 
 	<jsp:include page="common/header.jsp"/>
-
+	
+	
 	<div id="swiper-area">
 		<!-- Slider main container -->
 		<div class="swiper">
