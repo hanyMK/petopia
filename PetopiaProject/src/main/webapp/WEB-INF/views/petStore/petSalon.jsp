@@ -5,39 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>여기는 애견 미용실</title>
+<title>여기는 애견 미용실 메인 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style>
-       #main{
-		box-sizing: border-box;
-		width: 100%;
-		height: 1000px;
-		margin: auto;
-		}
-
-		#main_left{
-			width:20%; 
-			height:100%;
-			border: 1px solid black;
-			box-sizing: border-box;
-			float: left;
-			}
-		#main_center{
-			width:60%; 
-			height:100%;
-			border: 1px solid black;
-			box-sizing: border-box;
-			float: left;
-			}
-		#main_right{
-			width:20%; 
-			height:100%;
-			border: 1px solid black;
-			box-sizing: border-box;
-			float: left;
-			}	
-			
-    </style>
 </head>
 <body>
 
@@ -45,49 +14,45 @@
 	
 	<div id="main">
 	
-		<div id="main_left">
+		<div id="main_left"></div>
 		
-		</div>
 		<div id="main_center">
 			
-		</div>
-		<div id="main_right">
-		
-		</div>
-		
-	</div>
-	
-	
-	<div style="height:500px;">
-	
-		<h3> petopia 애견 미용 </h3>
-	
-		<div>
-			* 애견 미용 정보 * <br>
-			${petSalon.petStoreName} <br>
-			${petSalon.petStoreAddress} <br>
-			${petSalon.openTime} <br>
-			${petSalon.closeTime} <br>
-			${petSalon.offDay} <br>
-			${petSalon.petStoreCall} <br>
-			${petSalon.petStoreInfo} <br>
-			${petSalon.usageFee} <br>
+			<!-- 애견 미용 콘텐츠 시작 -->
+			<div id="petSalone-content">
 			
-			<br>
+				<h3> petopia 애견 미용 </h3>
 			
-			<a href="reservation.ps" style="color:lightgray;">예약</a>
+				<div>
+					* 애견 미용 정보 * <br>
+					${petSalon.petStoreName} <br>
+					${petSalon.petStoreAddress} <br>
+					${petSalon.openTime} <br>
+					${petSalon.closeTime} <br>
+					${petSalon.offDay} <br>
+					${petSalon.petStoreCall} <br>
+					${petSalon.petStoreInfo} <br>
+					${petSalon.usageFee} <br>
+					
+					<br>
+					
+					<a href="reservation1.ps" style="color:lightgray;">예약</a>
+					
+					<br><br>
+					
+					<hr>
+					
+					*리뷰 영역*
+					
+				</div>
 			
-			
-			<br><br>
-			
-			<hr>
-			
-			*리뷰 영역*
+			</div>
+			<!-- 애견 미용 콘텐츠 끝 -->
 			
 		</div>
 		
+		<div id="main_right"></div>
 		
-	
 	</div>
 	
 	<jsp:include page="../common/footer.jsp"/>
