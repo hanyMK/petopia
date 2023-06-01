@@ -9,7 +9,6 @@ public class Board {
 	
 	private int boardNo;
 	private int memberNo;
-	private String boardWriter;
 	private String boardTitle;
 	private String boardContent;
 	private Date createDate;
@@ -17,7 +16,12 @@ public class Board {
 	private String status;
 	private String category;
 	private int boardLike;
-
+	
+	private int boardCount;
+	private String nickName;
+	private String originName;
+	private String changeName;
+	private String filePath;
 
 
 }

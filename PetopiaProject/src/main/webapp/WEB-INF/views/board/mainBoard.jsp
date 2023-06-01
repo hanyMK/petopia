@@ -54,7 +54,7 @@
             <h2>커뮤니티 게시판</h2>
             <br>
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <c:if test="${ not empty loginUser }">
+            <c:if test="${ not empty loginMember }">
             	<a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
             </c:if>
             <div align="center">
@@ -112,7 +112,7 @@
 
             <br clear="both"><br>
 
-            <form id="searchForm" action="" method="get" align="center">
+            <form id="searchForm" action="selectList(3);" method="get" align="center">
                 <div class="select">
                     <select class="custom-select" name="condition">
                         <option value="writer">작성자</option>
@@ -141,17 +141,20 @@
 		})
 		
 		function selectList(num){
-			
+			let category = '';
 			if(num == 0){
-				
-			}
-			
-			
+				category = 'all';
+			} else if(num == 1){
+				category = 'club';
+			} else if(num == 2){
+				category = 'boast';
+			} 
+			console.log(category);
 			$.ajax({
 				url : 'list.bo',
 				data : { category : category},
 				success : result => {
-					
+					console.log(result);
 				},
 				error : () => {
 					
