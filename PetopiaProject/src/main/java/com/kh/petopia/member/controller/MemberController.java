@@ -132,17 +132,4 @@ public class MemberController {
 			return "member/findInfo";
 		}
 		
-		
-		
-		
-		
-
-		
-
-		
-	
-		
-	
-	
-
 }
