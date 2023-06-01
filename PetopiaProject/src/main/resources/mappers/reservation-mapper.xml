@@ -5,6 +5,24 @@
   
 <mapper namespace="reservationMapper">
 
+	<resultMap type="employee" id="employeeResulSet">
+		<result column="EMPLOYEE_NO" property="employeeNo"/>
+		<result column="PET_STORE" property="petStore"/>
+		<result column="EMPLOYEE_NAME" property="employeeName"/>
+		<result column="EMPLOYEE_INFO" property="employeeInfo"/>
+	</resultMap>
+
+	<select id="selectEmployeeList" parameterType="_int" resultMap="employeeResulSet">
+		SELECT 
+				EMPLOYEE_NO,
+				PET_STORE,
+				EMPLOYEE_NAME,
+				EMPLOYEE_INFO
+		FROM EMPLOYEE
+		WHERE PET_STORE = #{psno}
+	
+	</select>
+
 
 
 </mapper>
