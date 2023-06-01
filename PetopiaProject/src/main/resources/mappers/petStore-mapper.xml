@@ -17,7 +17,7 @@
 		<result column="USAGE_FEE" property="usageFee"/>
 	</resultMap>
 
-	<select id="selectPetStore" resultMap="petStoreResultSet">
+	<select id="selectPetStore" parameterType="_int" resultMap="petStoreResultSet">
 		SELECT 
 				PET_STORE_NO, 
 				PET_STORE_NAME,

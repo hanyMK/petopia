@@ -1,10 +1,8 @@
 package com.kh.petopia.board.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.kh.petopia.board.model.service.BoardService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BoardController {
@@ -13,10 +11,16 @@ public class BoardController {
 	private BoardService boardService;
 */
 	@RequestMapping("board.bo")
-	public String selectBoardList() {
+	public String mainBoard() {
 		
 		return "board/mainBoard";
 	}
 	
+	@RequestMapping("list.bo")
+	public String selectBoardList(@RequestParam(value="cpage=", defaultValue="1") int currentPage, String category) {
+		
+		
+		return "";
+	}
 	
 }

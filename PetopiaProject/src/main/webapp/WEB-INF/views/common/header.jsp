@@ -119,6 +119,36 @@
 
         #navi > li > ul a{font-size : 11px;}
         #navi > li > ul a:hover{font-size : 14px;}
+        
+        /* 메인 공통 스타일 div 규격 */
+        #main{
+		box-sizing: border-box;
+		width: 100%;
+		height: 1000px;
+		margin: auto;
+		}
+	
+		#main_left{
+			width:20%; 
+			height:100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+			}
+		#main_center{
+			width:60%; 
+			height:100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+			}
+		#main_right{
+			width:20%; 
+			height:100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+			}
     </style>
 
 <script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
@@ -174,7 +204,7 @@
                 </li>
                 <li><a href="">유치원</a>
                 </li>
-                <li><a href="petSalon.pe?psno=3">미용</a>
+                <li><a href="petSalon.pe">미용</a>
                 </li>
                 <li><a href="">훈련</a>
                 </li>
