@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ArrayList<Product> selectProductList() {
-		return boardDao.selectProductList(sqlSession);
+		return null; //boardDao.selectProductList(sqlSession);
 	}
 
 	@Override
