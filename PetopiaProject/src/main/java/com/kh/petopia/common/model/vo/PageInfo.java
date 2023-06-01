@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class PageInfo {
 
 	private int listCount;
@@ -17,5 +17,6 @@ public class PageInfo {
 	private int maxPage;
 	private int startPage;
 	private int endPage;
+	
 	
 }
