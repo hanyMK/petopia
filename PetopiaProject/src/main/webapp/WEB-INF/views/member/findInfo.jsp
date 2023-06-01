@@ -53,8 +53,11 @@
     <hr style="border:2px solid black; width:600px">
     
     <div class="outer" align="center">
-
+    
+	<!--  
     <form action="findEmail.me" method="post"  id="idSearh-form">
+      </form>
+    -->
         <table id="serch" align="center" >
            
             <tr >
@@ -69,11 +72,11 @@
         <hr style="border:2px solid black; width:600px">
         <br><br>
         <div align="center">
-            <button value="submit" id="emailSearchbtn">이메일찾기</button>
+            <button type="button" id="emailSearchbtn">이메일찾기</button>
         </div>
 
 
-    </form>
+  
     
     <script type="text/javascript">
     	
@@ -84,14 +87,14 @@
 	    		var $nickname = $('#nickname').val();
 	    		
 	    		$.ajax({
-	    			ulr : 'findEmail.me',
-	    			type: 'post',
+	    			url : 'findEmail.me',
+	    			type: 'POST',
 	    			data : {
 	    				nickname : $nickname
 	    			},
 	    			success : result => {
 	    				console.log(result);
-	    				if(!result.equals('NO')){
+	    				if(result != 'NO'){
 	    					
 		    				alert('회원님의 Email은 ' + result +'입니다');
 	    				}else{
