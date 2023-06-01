@@ -5,4 +5,33 @@
   
 <mapper namespace="myPageMapper">
 
+	<resultMap id="boardResultSet" type="board">
+		<result column="board_no" 		property="boardNo" />
+		<result column="board_title" 	property="boardTitle" />
+		<result column="board_writer" 	property="boardWriter" />
+		<result column="count" 			property="count" />
+		<result column="create_date" 	property="createDate" />
+		<result column="origin_name" 	property="originName" />
+		<result column="change_name" 	property="changeName" />
+		<result column="board_content" 	property="boardContent" />
+	</resultMap>
+	
+	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
+		select
+		       board_title,
+		       board_content,
+		       create_date,
+		       category
+		  from 
+		       board b
+		  join
+		       member m on(m.member_no = b.member_no)
+		 where 
+		       m.member_no = #{ memberNo }
+		   and
+		       b.status = 'Y'
+	</select>
+	
+	
+
 </mapper>
