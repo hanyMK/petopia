@@ -58,7 +58,7 @@ public class AjaxMemberController {
 	
 	
 	@PostMapping(value="findPwd.me", produces="text/html; charset=UTF-8")
-	public String findPwd(String email, Model m) throws MessagingException {
+	public String findPwd(String checkEmail, Model m) throws MessagingException {
 		String key = randomString();
 		secret = key;
 		String url = ServletUriComponentsBuilder
@@ -72,14 +72,14 @@ public class AjaxMemberController {
 		System.out.println(url);
 				
 		
-		if(email.equals("") && (memberService.emailCheck(email) > 0)) {
+		if(!checkEmail.equals("") && (memberService.emailCheck(checkEmail) > 0)) {
 		
 			MimeMessage message = sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8" );
-			helper.setTo(email);
+			helper.setTo(checkEmail);
 			helper.setSubject("펫토피아에서 비밀번호 재설정을 위한 메일을 발송드립니다");
 			helper.setText("<h1>내 계정 찾기</h1>");
-			helper.setText("<p>회원님읜 계정은<b>" + email +"/<b>입니다</p>");
+			helper.setText("<p>회원님읜 계정은<b>" + checkEmail +"/<b>입니다</p>");
 			helper.setText("<p>비밀번호를 재설정하려면 다음 링크를 클릭해 변경해 주세요.</p>");
 			helper.setText("<button><a href=\"" + url + "\">비밀번호 재설정</a></button>");
 			helper.setText("<p>만약, 가입한 적이 없거나 내 계정 찾기 요청을 하지 않으신 경우 이 메일을 삭제 또는 무시해 주세요.</p>");
