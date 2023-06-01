@@ -10,7 +10,7 @@ public interface ProductService {
 
 	// 메인 상품 조회 (select)
 	// 메인 카테고리 상품 조회
-	ArrayList<Product> selectProductList(String c);
+	ArrayList<Product> selectProductList();
 //	SQL => 해결
 //	if(Category.equals('전체')) {
 //		where category = '전체'

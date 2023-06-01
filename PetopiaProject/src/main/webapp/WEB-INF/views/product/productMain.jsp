@@ -218,11 +218,24 @@
           }
       }); 
 	</script>
-	
+
 	<script>
-		$.ajax({
-			
+
+		$(function(){
+			selectProductList();
 		})
+
+		function selectProductList(){
+			$.ajax({
+				url : 'product.pd',
+				success : function(list){
+					console.log(list);
+				},
+				error : function(){
+
+				}
+			});
+		}
 	</script>
 
 </body>

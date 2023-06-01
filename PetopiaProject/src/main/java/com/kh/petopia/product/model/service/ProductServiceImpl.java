@@ -2,15 +2,25 @@ package com.kh.petopia.product.model.service;
 
 import java.util.ArrayList;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.kh.petopia.board.model.dao.BoardDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
 
 public class ProductServiceImpl implements ProductService {
+	
+	@Autowired
+	private BoardDao boardDao;
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public ArrayList<Product> selectProductList(String c) {
-		return null;
+	public ArrayList<Product> selectProductList() {
+		return boardDao.selectProductList(sqlSession);
 	}
 
 	@Override
