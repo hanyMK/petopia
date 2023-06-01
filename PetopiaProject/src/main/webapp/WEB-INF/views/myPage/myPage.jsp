@@ -25,26 +25,52 @@
             background-color:white;
         }
         
-        #myPage_left{ width:20% }
-        #myPage_center{ width:60% }
-        #myPage_right{ width:20% }
+        #main{
+		box-sizing: border-box;
+		width: 100%;
+		height: 1000px;
+		margin: auto;
+		}
+
+		#main_left{
+			width:20%; 
+			height:100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+			}
+		#main_center{
+			width:60%; 
+			height:100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+			}
+		#main_right{
+			width:20%; 
+			height:100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+			}
     </style>
 </head>
 <body>
     
     <jsp:include page="../common/header.jsp" />
 
-    <div class="content" border="1">
-		<div id="myPage_left">
-		fdsa
-		</div>        
-		<div id="myPage_center">
-		ddd
+    <div id="main">
+		<div id="main_left">
+		
 		</div>
-		<div id="myPage_center">
-		sss
+		<div id="main_center">
+			
 		</div>
-    </div>
+		<div id="main_right">
+		
+		</div>
+		
+	</div>
 
    
     <jsp:include page="../common/footer.jsp" />
