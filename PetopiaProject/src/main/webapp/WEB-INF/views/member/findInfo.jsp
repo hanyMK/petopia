@@ -11,7 +11,7 @@
         
         margin: auto;
         width: 400px;
-        height: 300px;
+        height: 200px;
         margin-top: 30px;
     }
     #emailSearchbtn{
@@ -24,7 +24,7 @@
         width: 100%;
         height: 50px;
     }
-    #nickname{
+    #find-nickname{
         padding-top: 20px;
     }
     
@@ -46,34 +46,38 @@
 <jsp:include page="../common/header.jsp"/>
  
  <br>
- 	<button id="email-btn" > <h1  align="center" >이메일 찾기</h1></button>
-    <button id="pwd-btn"><h1 align="center" >비밀 번호 찾기</h1></button>
-    
+ <h1  align="center" >${ requestScope.title }</h1>
+   
 
     <hr style="border:2px solid black; width:600px">
     
     <div class="outer" align="center">
-
+    
+	<!--  
     <form action="findEmail.me" method="post"  id="idSearh-form">
+      </form>
+    -->
         <table id="serch" align="center" >
            
             <tr >
-                <td height="10%" id="nickname"><h4>가입한 닉네임으로 찾기</h4></td>
+                <td height="10%" id="find-nickname"><h4>${ requestScope.findTitle }</h4></td>
             </tr>
             <tr>
-                <td><input type="text" id="nickname" name="nickname" placeholder="닉네임"></td>
+                <td><input type="text" id="nickname" name="nickname" placeholder="${ requestScope.findTitle }"></td>
             </tr>
+            
 
         </table>
         <br><br>
         <hr style="border:2px solid black; width:600px">
         <br><br>
         <div align="center">
-            <button value="submit" id="emailSearchbtn">이메일찾기</button>
+            <button type="button" id="emailSearchbtn">이메일찾기</button>
         </div>
+   </div>
 
 
-    </form>
+  
     
     <script type="text/javascript">
     	
@@ -81,19 +85,21 @@
     		
     		$('#emailSearchbtn').on('click', () => {
     			
-	    		var $nickname = $('#nickname').val();
+	    		var $nickname = $('#nickname');
+	    		console.log(nickname);
 	    		
 	    		$.ajax({
-	    			ulr : 'findEmail.me',
-	    			type: 'post',
+	    			url : 'findEmail.me',
+	    			type: 'POST',
 	    			data : {
-	    				nickname : $nickname
+	    				nickname : $nickname.val()
 	    			},
 	    			success : result => {
 	    				console.log(result);
-	    				if(!result.equals('NO')){
+	    				if(result != 'NO'){
 	    					
 		    				alert('회원님의 Email은 ' + result +'입니다');
+		    				$nickname.val('');
 	    				}else{
 	    					alert('닉네임을 다시 입력해주세요');
 	    				}

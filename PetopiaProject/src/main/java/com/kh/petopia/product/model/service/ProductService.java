@@ -45,6 +45,8 @@ public interface ProductService {
 			#(문의내용)
 			sysdate
 			);
+	// 상품 문의 삭제 (update)
+	
 	// ---------- 관리자 기능 --------------------
 	
 	// 상품 추가 (insert)
@@ -76,18 +78,21 @@ public interface ProductService {
 		int deleteProduct(int productNo);
 		
 	// 상품 문의 답변 등록 (insert)
-		
-		
-		
-	// 	
-		
+		int insertProductAsk(int askNo)
+	// 상품 문의 답변 삭제 (delete)
+	// 해당 상품문의 글이 삭제 되었을 경우 동시에 같이 삭제되야함.
+		int deleteProductAsk(int askNo)
 	
 	// ----------- 결제 ---------------
 	
 	// 장바구니 (insert)(delete)(select)
-	
+	// 로그인 유무 / 비로그인시 장바구니 클릭시 로그인 모달띄우기 로그인 O DB에 저장 시키기
+		int insertCart(int productNo);
+		int deleteCart(int productNo);
+		ArrayList<Cart> selectCart(int memberNo);
+		
 	// 상품 결제 (insert)
-	
+		
 	// ------------- 마이페이지 결제 취소 ---------------
 	
 	// 상품 취소 (update)
