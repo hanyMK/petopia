@@ -51,6 +51,7 @@
         #header_1_left {width:30%; position:relative;}
         #header_1_center {width:40%;}
         #header_1_right {width:30%; float: right;}
+        #header_1_right > a {font-size : 20px}
 
         #header_1_left>img {height:100%; position:absolute; margin:auto; top:0px; bottom:0px; right:0px; left:0px;}
         #header_1_right {text-align:right; line-height:35px; font-size:12px; text-indent:35px;}
