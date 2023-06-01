@@ -14,6 +14,12 @@
 	
 	<div style="height:500px;">
 	
+		<div>
+		
+		${hairSalon}
+		</div>
+		
+	
 	</div>
 	
 	<jsp:include page="../common/footer.jsp"/>
