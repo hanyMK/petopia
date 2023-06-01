@@ -74,6 +74,13 @@ public interface MemberService {
 		String findEmail(String nickname);
 		
 		//비밀번호 재설정(update)
+		//1. 이메일 찾기(select)
+		//2. 찾은 이메일로 비밀번호 재설정 링크 전송
+		//3. 링크를 전달할때 무작위값을 보내서 확인>??
+		//4. 비밀번호 변경(update)
+		int updatePwd(String pwd); 
+		
+		
 		
 
 }
