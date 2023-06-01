@@ -29,34 +29,7 @@
         /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
     }
 
-	#main{
-		box-sizing: border-box;
-		width: 100%;
-		height: 1000px;
-		margin: auto;
-	}
-
-	#main_left{
-		width:20%; 
-		height:100%;
-		border: 1px solid black;
-		box-sizing: border-box;
-		float: left;
-		}
-	#main_center{
-		width:60%; 
-		height:100%;
-		border: 1px solid black;
-		box-sizing: border-box;
-		float: left;
-		}
-	#main_right{
-		width:20%; 
-		height:100%;
-		border: 1px solid black;
-		box-sizing: border-box;
-		float: left;
-		}
+	
 </style>
 </head>
 <body> 
