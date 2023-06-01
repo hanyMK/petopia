@@ -50,7 +50,7 @@
         	<li><a href=""><h5><b>마이페이지</b></h5></a></li>
         	<li><a href=""><h6>알람 내역</h6></a></li>
         	<li><a href=""><h6>리뷰 관리</h6></a></li>
-        	<li><a href="board.me"><h6>게시글 관리</h6></a></li>
+        	<li><a href="board.me?"><h6>게시글 관리</h6></a></li>
         	<li><a href=""><h6>댓글 관리</h6></a></li>
         	<li><a href=""><h6>1:1 문의</h6></a></li>
         	<li><a href=""><h6>내 정보 수정</h6></a></li>
