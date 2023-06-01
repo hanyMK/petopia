@@ -1,29 +1,37 @@
 package com.kh.petopia.board.model.service;
 
-public interface BoardService {
+import java.util.ArrayList;
 
+import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.common.model.vo.PageInfo;
+
+public interface BoardService {
+	
+	
 	// 게시글 조회 (select)
 	// 게시글 카테고리 조회 (select)
-	ArrayList<Board> selectBoard();
-	if(Category.equals('전체')) {
+	ArrayList<Board> selectBoard(String category, PageInfo pi);
+	
+	
+	//if(Category.equals('전체')) {
 		//이거에 관한 값
-	} else if(Category.equals('소모임')) {
+	//} else if(Category.equals('소모임')) {
 		
-	} else {
+	//} else {
 		// 자랑하기~ 카테고리 리스트 뽑아주기
-	}
+	//}
 
 	// 게시글 상세조회(select)
-	Board selectDetailBoard(int boardNo);
+	//Board selectDetailBoard(int boardNo);
 	
 	// 게시글 추가 (insert)
-	int insertBoard(int memberNo);
+	//int insertBoard(int memberNo);
 	
 	// 게시글 수정 (update)
-	int updateBoard(Board b);
+	//int updateBoard(Board b);
 	
 	// 게시글 삭제 (update)
-	int deleteBoard(int boardNo);
+	//int deleteBoard(int boardNo);
 	
 	/* 게시글 검색 (select)
 	ArrayList<Board> selectSearchBoard(Search s)
@@ -42,43 +50,44 @@ public interface BoardService {
 	
 	// 게시글 카테고리 수 조회 (select)
 	// 게시글 리스트 수 조회 (select)
-	select count(*)
-	  from board
-	 where stauts = 'Y'
-	if(category)
+	int  countBoard(String category);
+	//  from board
+	// where stauts = 'Y'
+	//if(category)
 	
 	// 게시글 검색 수 조회 (select)
-	int searchBoardCount(Search s);
-	select count(*)
-	  from board
-	  where status = 'Y'
-	   and boardTitle keywoard;
-	   and boardWriter like '%' + keyword + '%'
+	//int searchBoardCount(Search s);
+	//select count(*)
+	//  from board
+	//  where status = 'Y'
+	//   and boardTitle keywoard;
+	//   and boardWriter like '%' + keyword + '%'
 	// ------------------------------------------
 
 	// 게시글 조회수 증가 (update)
-	int increaseCount(int boardNo);
+	//int increaseCount(int boardNo);
 	
 	// ------------------------------------------
 	  
 	// 댓글작성 (insert)
-	int insertReply(Reply r);
+	//int insertReply(Reply r);
 	   
 	// 댓글조회 (select)
-	ArrayList<Reply> selectReply(int boardNo);
+	//ArrayList<Reply> selectReply(int boardNo);
 	
 	// 댓글수정 (update)
-	int updateReply(int replyNo);
+	//int updateReply(int replyNo);
 	
 	// 댓글삭제 (update)
-	int deleteReply(int replyNo);
+	//int deleteReply(int replyNo);
 	
 	// 댓글 좋아요 수 증가 (update)
-	int increasReplyLike(int replyNo);
+	//int increasReplyLike(int replyNo);
 	
 	// --------------------------------------------
 		
-	// 첨부파일 이미지 
-
+	// 첨부파일 이미지 추가하여 게시글 작성
+	
+	// 
 	
 }

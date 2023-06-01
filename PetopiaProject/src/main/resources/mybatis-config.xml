@@ -17,7 +17,9 @@
 		<typeAlias type="com.kh.petopia.common.model.vo.Attachment" alias="att"/> 
 		<typeAlias type="com.kh.petopia.myPage.model.vo.MyPage" alias="myPage"/> 
 		<typeAlias type="com.kh.petopia.product.model.vo.Product" alias="product"/> 
-		<typeAlias type="com.kh.petopia.reservation.model.vo.Reservation" alias="reservation"/> 
+		<typeAlias type="com.kh.petopia.petStore.model.vo.PetStore" alias="petStore"/>
+		<typeAlias type="com.kh.petopia.reservation.model.vo.Reservation" alias="reservation"/>
+		<typeAlias type="com.kh.petopia.reservation.model.vo.Employee" alias="employee"/>
 	</typeAliases>
 	
 	<mappers> <!-- resource="매퍼의 경로" -->
@@ -25,7 +27,8 @@
 		<mapper resource="/mappers/board-mapper.xml" />
 		<mapper resource="/mappers/myPage-mapper.xml" />
 		<mapper resource="/mappers/product-mapper.xml" />
-		<mapper resource="/mappers/reservation-mapper.xml" />
+		<mapper resource="/mappers/petStore-mapper.xml" />
 		<mapper resource="/mappers/member-mapper.xml" />
+		<mapper resource="/mappers/reservation-mapper.xml"/>
 	</mappers>
 </configuration>
