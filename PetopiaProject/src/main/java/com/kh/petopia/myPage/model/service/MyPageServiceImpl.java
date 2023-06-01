@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 
 @Service
@@ -21,6 +22,11 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public ArrayList<Board> myBoardList(int memberNo) {
 		return myPageDao.myBoardList(sqlSession, memberNo);
+	}
+
+	@Override
+	public ArrayList<Reply> myReplyList(int memberNo) {
+		return myPageDao.myReplyList(sqlSession, memberNo);
 	}
 
 
