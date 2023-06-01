@@ -11,7 +11,7 @@
         
         margin: auto;
         width: 400px;
-        height: 300px;
+        height: 200px;
         margin-top: 30px;
     }
     #emailSearchbtn{
@@ -46,7 +46,7 @@
 <jsp:include page="../common/header.jsp"/>
  
  <br>
- <h1  align="center" >이메일 찾기</h1>
+ <h1  align="center" >${ requestScope.title }</h1>
    
 
     <hr style="border:2px solid black; width:600px">
@@ -60,10 +60,10 @@
         <table id="serch" align="center" >
            
             <tr >
-                <td height="10%" id="find-nickname"><h4>가입한 닉네임으로 찾기</h4></td>
+                <td height="10%" id="find-nickname"><h4>${ requestScope.findTitle }</h4></td>
             </tr>
             <tr>
-                <td><input type="text" id="nickname" name="nickname" placeholder="닉네임"></td>
+                <td><input type="text" id="nickname" name="nickname" placeholder="${ requestScope.findTitle }"></td>
             </tr>
             
 
