@@ -51,21 +51,24 @@
             <h2>게시판</h2>
             <br>
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <a class="btn btn-secondary" style="float:right;" href="">글쓰기</a>
+            <a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
+            <button class="category" onclick="category(1);">전체</button>
+            <button class="category" onclick="category(2);">소모임</button>
+            <button class="category" onclick="category(3);">자랑하기</button>
             <br>
             <br>
             <table id="boardList" class="table table-hover" align="center">
                 <thead>
                     <tr>
-                        <th>글번호</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>조회수</th>
+                        <th>댓글수</th>
                         <th>작성일</th>
-                        <th>첨부파일</th>
                     </tr>
                 </thead>
                 <tbody>
+                	<!-- 
                     <tr>
                         <td>5</td>
                         <td>마지막 공지사항제목</td>
@@ -74,38 +77,7 @@
                         <td>2023-02-10</td>
                         <td>★</td>
                     </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>네번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>10</td>
-                        <td>2023-02-07</td>
-                        <td>★</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>세번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>10</td>
-                        <td>2023-02-03</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>두번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>100</td>
-                        <td>2023-02-01</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>첫번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>45</td>
-                        <td>2022-12-25</td>
-                        <td>★</td>
-                    </tr>
+                    -->
                 </tbody>
             </table>
             <br>
