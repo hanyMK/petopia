@@ -132,7 +132,7 @@
                    <!-- <input type="text" class="form-control" id="birthday" placeholder="생년월일 8자리(99.01.01)" name="birthday"> <br>-->
 
                     <label for="phone"> &nbsp;* 전화번호 : </label>
-                    <input type="tel" class="form-control" id="phone" placeholder="전화번호" name="phone" onchange="checkPhone();"> <br>
+                    <input type="tel" class="form-control" id="phone" placeholder="전화번호를 -를 포함해서 입력해주세요." name="phone" onchange="checkPhone();"> <br>
                     <div id="phonehidden" class="hidden"></div><br>
 
                     <label for="address"> &nbsp;* 주소 : </label><br>
@@ -288,8 +288,9 @@
             if( emailCheck == 1 && phoneCheck == 1  && nameCheck == 1  && pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
                 $(this).attr('type','submit');  
             }
-            if($('#havePet').val()== ''){
-            	$('#age').val('0')
+            if($('#havePet').val()== 'Y'){
+            	$('#age').val('0');
+            	$('#weight').val('0');
             }
             
         })
@@ -321,8 +322,6 @@
                         
                     }
                 })
-            }else{
-
             }
             
         }
