@@ -26,23 +26,63 @@
         color : white;
         /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
     }
-
-	#product-outer{
-		border: 1px solid black;
+	#product_content_1{
 		box-sizing: border-box;
 		width: 1200px;
-		height: 1000px;
+		height: 60px;
 		margin: auto;
 	}
-	#product-area{
-		border: 1px solid black;
+	#product_content_2{
 		box-sizing: border-box;
-		width: 800px;
-		height: 1000px;
+		width: 1200px;
+		height: 900px;
 		margin: auto;
+	}
+	#product_content_2_1{
+		box-sizing: border-box;
+		width: 100%;
+		height: 7%;
+	}
+	#product_content_2_2{
+		box-sizing: border-box;
+		width: 100%;
+		height: 93%;
+	}
+	#product_header{
+		box-sizing: border-box;
+		width: 100%;
+		height: 40px;
+		display: block;
+		padding-top: 20px;
+		padding-left: 20px;
+	}
+	.product{
+		box-sizing: border-box;
+		width: 25%;
+		height: 400px;
 		float: left;
 	}
-
+	.product_1{
+		border: 1px solid black;
+		box-sizing: border-box;
+		width: 90%;
+		height: 90%;
+		margin: 15px;
+	}
+	.product_1_1{
+		box-sizing: border-box;
+		width: 100%;
+		height: 80%;
+	}
+	.product_1_2{
+		box-sizing: border-box;
+		width: 100%;
+		height: 20%;
+	}
+	#product_upfile{
+		width: 100%;
+		height: 100%;
+	}
 </style>
 </head>
 <body>
@@ -58,69 +98,6 @@
 				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
 				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
 				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-			   
 			</div>
 		
 			<!-- If we need pagination -->
@@ -134,11 +111,92 @@
 			<div class="swiper-scrollbar"></div>
 		</div>
 	  </div>
+
+	<div id="product_content_1">
+		<button>상품등록</button>
+	</div>
 	
-	<div id="product-outer">
-		<div id="product-area">
-			
+	<div id="product_content_2">
+		<div id="product_content_2_1">
+			<button>전체</button>
+			<button>애견용품</button>
+			<button>애견식품</button>
+			<button>애견의류</button>
+
+			<input type="text"><button>검색</button>
 		</div>
+		<div id="product_content_2_2">
+			<div id="product_header">
+				조회순 낮은가격순 높은가격순
+			</div>
+			<div class="product">
+				<div class="product_1">
+					<div class="product_1_1">
+						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+					</div>
+					<div class="product_1_2">
+						안녕하세요.안녕하세요. <br>
+						12000원
+					</div>
+				</div>
+			</div>
+			<div class="product">
+				<div class="product_1">
+					<div class="product_1_1">
+						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+					</div>
+					<div class="product_1_2">
+						안녕하세요.안녕하세요. <br>
+						12000원
+					</div>
+				</div>
+			</div>
+			<div class="product">
+				<div class="product_1">
+					<div class="product_1_1">
+						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+					</div>
+					<div class="product_1_2">
+						안녕하세요.안녕하세요. <br>
+						12000원
+					</div>
+				</div>
+			</div>
+			<div class="product">
+				<div class="product_1">
+					<div class="product_1_1">
+						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+					</div>
+					<div class="product_1_2">
+						안녕하세요.안녕하세요. <br>
+						12000원
+					</div>
+				</div>
+			</div>
+			<div class="product">
+				<div class="product_1">
+					<div class="product_1_1">
+						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+					</div>
+					<div class="product_1_2">
+						안녕하세요.안녕하세요. <br>
+						12000원
+					</div>
+				</div>
+			</div>
+			<div class="product">
+				<div class="product_1">
+					<div class="product_1_1">
+						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+					</div>
+					<div class="product_1_2">
+						안녕하세요.안녕하세요. <br>
+						12000원
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	
 	<jsp:include page="../common/footer.jsp"/>
@@ -159,6 +217,12 @@
               nextEl: '.swiper-button-next'
           }
       }); 
+	</script>
+	
+	<script>
+		$.ajax({
+			
+		})
 	</script>
 
 </body>
