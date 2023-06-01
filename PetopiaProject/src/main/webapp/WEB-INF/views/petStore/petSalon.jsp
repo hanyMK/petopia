@@ -14,10 +14,32 @@
 	
 	<div style="height:500px;">
 	
+		<h3> petopia 애견 미용 </h3>
+	
 		<div>
-		
-		${hairSalon}
+			* 애견 미용 정보 * <br>
+			${petSalon.petStoreName} <br>
+			${petSalon.petStoreAddress} <br>
+			${petSalon.openTime} <br>
+			${petSalon.closeTime} <br>
+			${petSalon.offDay} <br>
+			${petSalon.petStoreCall} <br>
+			${petSalon.petStoreInfo} <br>
+			${petSalon.usageFee} <br>
+			
+			<br>
+			
+			<a href="reservation.ps" style="color:lightgray;">예약</a>
+			
+			
+			<br><br>
+			
+			<hr>
+			
+			*리뷰 영역*
+			
 		</div>
+		
 		
 	
 	</div>

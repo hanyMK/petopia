@@ -9,6 +9,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .content {
             background-color:rgb(247, 245, 245);
@@ -48,13 +51,26 @@
     <div class="content">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
-            <h2>게시판</h2>
+            <h2>커뮤니티 게시판</h2>
             <br>
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
-            <button class="category" onclick="category(1);">전체</button>
-            <button class="category" onclick="category(2);">소모임</button>
-            <button class="category" onclick="category(3);">자랑하기</button>
+            <c:if test="${ not empty loginUser }">
+            	<a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
+            </c:if>
+            <div align="center">
+	            <button class="category" onclick="selectList(0);">전체</button>
+	            <button class="category" onclick="selectList(1);">소모임</button>
+	            <button class="category" onclick="selectList(2);">자랑하기</button>
+            </div>
+            <div class="dropdown" style="float:right;">
+			    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			      	최신순
+			    </button>
+			    <div class="dropdown-menu">
+			      <a class="dropdown-item" href="#">조회수</a>
+			      <a class="dropdown-item" href="#">댓글수</a>
+			    </div>
+		 	</div>
             <br>
             <br>
             <table id="boardList" class="table table-hover" align="center">
@@ -116,6 +132,40 @@
     </div>
 
     <jsp:include page="../common/footer.jsp" />
-
+	
+	<script>
+		$(function(){
+			selectList(0);
+			
+			
+		})
+		
+		function selectList(num){
+			
+			if(num == 0){
+				
+			}
+			
+			
+			$.ajax({
+				url : 'list.bo',
+				data : { category : category},
+				success : result => {
+					
+				},
+				error : () => {
+					
+				}
+				
+			})
+			
+			
+		};
+		
+		
+	</script>
+	
+	
+	
 </body>
 </html>

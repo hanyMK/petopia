@@ -204,7 +204,7 @@
                 </li>
                 <li><a href="">유치원</a>
                 </li>
-                <li><a href="petSalon.pe?psno=3">미용</a>
+                <li><a href="petSalon.pe">미용</a>
                 </li>
                 <li><a href="">훈련</a>
                 </li>
