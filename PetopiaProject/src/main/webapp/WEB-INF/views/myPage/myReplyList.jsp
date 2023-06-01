@@ -14,15 +14,13 @@
 	#main_center_right_bottom{
 		height:90%;
 	}
-	#myBoardList{
+	#myReplyList{
 		border: 1px solid black;
 		height: 100px;
 		width: 400px;
 		margin: auto;
 		text-align: center;
 	}
-	
-
 </style>
 </head>
 <body>
@@ -45,8 +43,8 @@
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
-					<c:forEach items="${ list }" var="b">
-						<div id="myBoardList">
+					<c:forEach items="${ list }" var="r">
+						<div id="myReplyList">
 							${ b.category }<br>
 							${ b.boardTitle }<br>
 							${ b.boardContent }<br>
