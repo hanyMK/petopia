@@ -56,8 +56,7 @@
 		}
 </style>
 </head>
-<body>
-
+<body> 
 
 	<jsp:include page="common/header.jsp"/>
 
