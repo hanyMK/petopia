@@ -15,8 +15,7 @@ public class PetStoreController {
 	private PetStoreService petStoreService;
 	
 	@RequestMapping("petSalon.pe")
-	public ModelAndView petSalon(int psno,
-						   ModelAndView mv) {
+	public ModelAndView petSalon(ModelAndView mv) {
 		
 		// 애견 미용은 고정적으로 번호가 3번
 		// 메인에서 미용을 클릭했을 때 3번을 넘겨주거나 
@@ -29,26 +28,27 @@ public class PetStoreController {
 		// 1. 애견미용 데이터 
 
 		// 1-1. 애견미용객체
+		int psno = 3;
 		PetStore petSalon = petStoreService.selectPetStore(psno);
 		
 		if( petSalon  != null ) {
 			
+			System.out.println(petSalon);
 			mv.addObject("petSalon",petSalon);
 			mv.setViewName("petStore/petSalon");
 			
 		}else {
 			mv.addObject("errorMsg","애견미용 페이지 이동 실패");
 			mv.setViewName("common/errorPage");
-			
 		}
 		
 		return mv;
 		
 		// 2. 애견미용에 대한 리뷰 데이터 
 		
-		
-		
-		
 	}
+	
+
+	
 
 }
