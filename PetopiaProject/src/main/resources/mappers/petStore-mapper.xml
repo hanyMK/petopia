@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="petStoreMapper">
+
+	<resultMap type="petStore" id="petStoreResultSet" >
+		<result column="PET_STORE_NO" property="petStoreNo"/>
+		<result column="PET_STORE_NAME" property="petStoreName"/>
+		<result column="PET_STORE_ADDRESS" property="petStoreAddress"/>
+		<result column="OPEN_TIME" property="openTime"/>
+		<result column="CLOSE_TIME" property="closeTime"/>
+		<result column="OFF_DAY" property="offDay"/>
+		<result column="PET_STORE_CALL" property="petStoreCall"/>
+		<result column="PET_STORE_INFO" property="petStoreInfo"/>
+		<result column="USAGE_FEE" property="usageFee"/>
+	</resultMap>
+
+	<select id="selectPetStore" parameterType="_int" resultMap="petStoreResultSet">
+		SELECT 
+				PET_STORE_NO, 
+				PET_STORE_NAME,
+				PET_STORE_ADDRESS,
+				OPEN_TIME,
+				CLOSE_TIME,
+				OFF_DAY,
+				PET_STORE_CALL,
+				PET_STORE_INFO petStoreInfo,
+				USAGE_FEE usageFee
+		FROM PET_STORE
+		WHERE PET_STORE_NO = #{hahahoho}
+	</select>
+
+</mapper>
