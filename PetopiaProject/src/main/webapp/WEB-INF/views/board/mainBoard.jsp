@@ -52,6 +52,9 @@
             <br>
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
             <a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
+            <button class="category" onclick="category(1);">전체</button>
+            <button class="category" onclick="category(2);">소모임</button>
+            <button class="category" onclick="category(3);">자랑하기</button>
             <br>
             <br>
             <table id="boardList" class="table table-hover" align="center">
