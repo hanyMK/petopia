@@ -24,7 +24,7 @@
         width: 100%;
         height: 50px;
     }
-    #nickname{
+    #find-nickname{
         padding-top: 20px;
     }
     
@@ -46,9 +46,8 @@
 <jsp:include page="../common/header.jsp"/>
  
  <br>
- 	<button id="email-btn" > <h1  align="center" >이메일 찾기</h1></button>
-    <button id="pwd-btn"><h1 align="center" >비밀 번호 찾기</h1></button>
-    
+ <h1  align="center" >이메일 찾기</h1>
+   
 
     <hr style="border:2px solid black; width:600px">
     
@@ -61,11 +60,12 @@
         <table id="serch" align="center" >
            
             <tr >
-                <td height="10%" id="nickname"><h4>가입한 닉네임으로 찾기</h4></td>
+                <td height="10%" id="find-nickname"><h4>가입한 닉네임으로 찾기</h4></td>
             </tr>
             <tr>
                 <td><input type="text" id="nickname" name="nickname" placeholder="닉네임"></td>
             </tr>
+            
 
         </table>
         <br><br>
@@ -74,6 +74,7 @@
         <div align="center">
             <button type="button" id="emailSearchbtn">이메일찾기</button>
         </div>
+   </div>
 
 
   
@@ -84,19 +85,21 @@
     		
     		$('#emailSearchbtn').on('click', () => {
     			
-	    		var $nickname = $('#nickname').val();
+	    		var $nickname = $('#nickname');
+	    		console.log(nickname);
 	    		
 	    		$.ajax({
 	    			url : 'findEmail.me',
 	    			type: 'POST',
 	    			data : {
-	    				nickname : $nickname
+	    				nickname : $nickname.val()
 	    			},
 	    			success : result => {
 	    				console.log(result);
 	    				if(result != 'NO'){
 	    					
 		    				alert('회원님의 Email은 ' + result +'입니다');
+		    				$nickname.val('');
 	    				}else{
 	    					alert('닉네임을 다시 입력해주세요');
 	    				}
