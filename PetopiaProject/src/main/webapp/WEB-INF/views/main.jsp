@@ -20,6 +20,8 @@
     .swiper-slide>img {
         width : 100%;
         height : 100%;
+        
+        
     }
     /* 화살표 버튼색 변경 (기본색은 파란색) */
     div[class^=swiper-button] {
