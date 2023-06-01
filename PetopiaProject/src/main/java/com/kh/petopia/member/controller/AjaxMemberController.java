@@ -41,14 +41,6 @@ public class AjaxMemberController {
 	}
 	
 	
-	@PostMapping(value ="findEmail.me", produces="text/html; charset=UTF-8")
-	public String findPwd(String email) {
-		
-		
-		
-		
-		
-	}
 	
 	
 

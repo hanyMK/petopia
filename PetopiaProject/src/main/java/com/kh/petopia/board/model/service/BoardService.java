@@ -1,7 +1,8 @@
 package com.kh.petopia.board.model.service;
 
 public interface BoardService {
-
+	
+	/*
 	// 게시글 조회 (select)
 	// 게시글 카테고리 조회 (select)
 	ArrayList<Board> selectBoard();
@@ -81,5 +82,5 @@ public interface BoardService {
 	// 첨부파일 이미지 추가하여 게시글 작성
 	
 	// 
-	
+	*/
 }
