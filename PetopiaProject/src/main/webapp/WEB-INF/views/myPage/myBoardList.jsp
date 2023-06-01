@@ -47,9 +47,9 @@
 				<div id="main_center_right_bottom">
 					<div id="myBoardList">
 					<c:forEach items="${ list }" var="b">
-						${ b.category }
-						${ b.boardTitle }
-						${ b.boardContent }
+						${ b.category }<br>
+						${ b.boardTitle }<br>
+						${ b.boardContent }<br>
 						${ b.createDate }
 		            </c:forEach>
 						
