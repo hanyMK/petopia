@@ -311,7 +311,7 @@
                         emailCheck = 1;
                         $('#emailhidden').css('display','none');
                         }else{
-                        	$('#emailhidden').css('display','block').text('이미 존재하는 이메일 입니다.');
+                        	$('#emailhidden').css({'display': 'block', 'color' :'red'}).text('이미 존재하는 이메일 입니다.');
                             $email.focus();
                             emailCheck = 0;
                         }
@@ -322,6 +322,10 @@
                         
                     }
                 })
+            }else{
+            	$('#emailhidden').css({'display': 'block', 'color' :'red'}).text('이메일형식을 확인해주세요.');
+                $email.focus();
+                emailCheck = 0;
             }
             
         }
@@ -341,7 +345,7 @@
                         nicknameCheck = 1;
                         $('#nicknamehidden').css('display','none');
                         }else{
-                        	 $('#nicknamehidden').css('display','block').text('이미 존재하는 닉네임 입니다.');
+                        	 $('#nicknamehidden').css({'display': 'block', 'color' :'red'}).text('이미 존재하는 닉네임 입니다.');
                              $nickname.focus();
                              nicknameCheck = 0;
                         }
@@ -352,6 +356,10 @@
                        
                     }
                 })
+            }else{
+            	 $('#nicknamehidden').css({'display': 'block', 'color' :'red'}).text('닉네임을 다시 입력해주세요.');
+                 $nickname.focus();
+                 nicknameCheck = 0;
             }
         }
 
@@ -362,7 +370,7 @@
                 nameCheck = 1;
                 $('#namehidden').css('display', 'none');
             }else{
-                $('#namehidden').css('display', 'block').text('이름을 다시 확인해주세요');
+                $('#namehidden').css({'display': 'block', 'color' :'red'}).text('이름을 다시 확인해주세요');
                 $name.focus();
                 nameCheck = 0;
             }
@@ -375,7 +383,7 @@
                 pwdCheck = 1;
                 $('#pwdhidden').css('display', 'none');
             }else {
-                $('#pwdhidden').css('display', 'block').text('영문자, 숫자를 포함한 8~15자를 입력하세요');
+                $('#pwdhidden').css({'display': 'block', 'color' :'red'}).text('영문자, 숫자를 포함한 8~15자를 입력하세요');
                 $pwd.focus();
                 
                 pwdCheck = 0;
@@ -391,7 +399,7 @@
                 pwdCheck2 = 1;
                 $('#checkhidden').css('display', 'none')
             }else{
-                $('#checkhidden').css('display', 'block').text('비밀번호를 동일하게 입력해주세요');
+                $('#checkhidden').css({'display': 'block', 'color' :'red'}).text('비밀번호를 동일하게 입력해주세요');
                 $checkPwd.focus();
                 pwdCheck2 = 0;
             }
@@ -404,7 +412,7 @@
                 phoneCheck = 1;
                 $('#phonehidden').css('display', 'none');
             }else{
-                $('#phonehidden').css('display', 'block').text('전화번호를 -를 포함해서 입력해주세요.');
+                $('#phonehidden').css({'display': 'block', 'color' :'red'}).text('전화번호를 -를 포함해서 입력해주세요.');
                 $phone.focus();
                 phoneCheck = 0;
             }
@@ -466,50 +474,7 @@
 	</script>
 	-->
 
-    <!-- 푸터바 -->
   
-    <script type="text/javascript">
-    	$(function(){
-    		const $idInput = $('.form-group #userId');
-    		
-    		$idInput.keyup(function(){
-    			//console.log($idInput.val());
-    			//최소 다섯글자 이상을 입력했을 때만 AJAX요청해서 중복체크
-    			if($idInput.val().length >= 5){
-    				$.ajax({
-    					url: 'idCheck.me',
-    					data: {checkId : $idInput.val()},
-    					success : function(result){
-    						//console.log(result);
-    						
-    						if(result === 'NNNNN'){//사용불가능
-    							$('#checkResult').show();
-    							$('#checkResult').css('color','crimson').text('중복된 아이디가 존재합니다');
-    							$('#enroll-form:submit').attr("disabled", true);
-    						}else{//사용가능
-    							$('#checkResult').show();
-    							$('#checkResult').css('color', 'lightgreen').text('멋진 아이디 입니다');
-    							$('#enroll-form:submit').removeAttr("disabled");
-    						}
-    							
-    					},
-    					error: function(){
-    						console.log("아이디중복 체크용AJAX통신 실패");
-    					}
-    				
-    				});
-    			}else{
-    				$('#checkResult').hide();
-    				$('#enroll-form:submit').attr("disabled", true);
-    			}
-    			
-    			
-    		});
-    		
-    	});
-    	
-    	
-    </script>
     
     <jsp:include page="../common/footer.jsp" />
 
