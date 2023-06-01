@@ -139,7 +139,7 @@
                     <input type="text" id="postcode" name="address" placeholder="우편번호">
 					<input type="button" onclick="findPostcode()" value="주소 검색"><br>
                      <input type="text" class="form-control" id="address" placeholder="주소" name="address"> 
-					<input type="text"  class="form-control" id="detailAddress" name="address" placeholder="상세주소"><br>
+					<input type="text"  class="form-control" id="detailAddress" name="address" placeholder="상세주소" required><br>
 					
                   
                     <label for="address"> &nbsp;* 계좌번호 : </label>&nbsp;
@@ -179,10 +179,10 @@
                         <input type="text" class="form-control" id="petName" placeholder="반려동물 이름" name="petName" > <br>
                         
                         <label for="age"> &nbsp; 반려동물 나이 : </label>
-                        <input type="number" class="form-control" id="age" placeholder="나이입력해주세요" name="age" value="0"> <br>
+                        <input type="number" class="form-control" id="age" placeholder="나이를 입력해주세요" name="age" > <br>
                     	
                     	<label for="weight"> &nbsp; 반려동물 무게 : </label>
-                        <input type="number" class="form-control" id="weight" placeholder="몸무게를 입력해주세요(kg제외)" name="weight" value="0.0">kg <br>
+                        <input type="number" step="0.1" class="form-control" id="weight" placeholder="몸무게를 입력해주세요(kg제외)" name="weight" ><br>
                     
                     	
                     </div>
@@ -225,6 +225,9 @@
                     $('#havePet').attr('checked', false);
                 }
             })
+            
+            
+          
 
         });
 
@@ -284,6 +287,9 @@
         $('#join').on('click', function(){
             if( emailCheck == 1 && phoneCheck == 1  && nameCheck == 1  && pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
                 $(this).attr('type','submit');  
+            }
+            if($('#havePet').val()== ''){
+            	$('#age').val('0')
             }
             
         })
