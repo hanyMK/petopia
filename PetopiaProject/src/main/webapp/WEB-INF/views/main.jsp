@@ -6,13 +6,33 @@
 <meta charset="UTF-8">
 <title>Petopia 메인</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+	#main-area{
+		height: 1000px;
+	}
+
+
+</style>
 </head>
 <body>
 
 	<jsp:include page="common/header.jsp"/>
 	
-	<div style="height:500px;">
-	
+	<div style="height:500px;" border="1" id="main-area">
+		<div>
+		
+		</div>
+		<div>
+			<div>
+			
+			</div>
+			<div>
+			
+			</div>
+			<div>
+			
+			</div>
+		</div>
 	</div>
 	
 	<jsp:include page="common/footer.jsp"/>
