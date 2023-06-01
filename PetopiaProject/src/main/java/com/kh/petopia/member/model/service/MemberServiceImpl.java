@@ -85,4 +85,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.findEmail(sqlSession, nickname);
 	}
 
+	@Override
+	public int updatePwd(String pwd) {
+		return 0;
+	}
+
 }

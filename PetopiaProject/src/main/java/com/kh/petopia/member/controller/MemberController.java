@@ -123,13 +123,28 @@ public class MemberController {
 		}
 		
 		@GetMapping("findEmail")
-		public String findEmailView() {
-			return "member/findInfo";
+		public ModelAndView findEmailView(ModelAndView mv) {
+			mv.addObject("title", "이메일 찾기")
+			.addObject("findTitle","가입한 닉네임 ")
+			.setViewName("member/findInfo");
+			
+			return mv;
+		
 		}
 		
 		@GetMapping("findPwd")
-		public String findPwdView() {
-			return "member/findInfo";
+		public ModelAndView findPwdView(ModelAndView mv) {
+			
+			mv.addObject("title", "비밀번호 찾기")
+			.addObject("findTitle","가입한 이메일 ")
+			.setViewName("member/findInfo");
+			
+			return mv;
+			
 		}
+		
+		
+		
+		
 		
 }

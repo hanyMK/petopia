@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,34 +27,42 @@
         /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
     }
 
-	#main-outer{
-		border: 1px solid black;
+	#main{
 		box-sizing: border-box;
-		width: 1200px;
-		height: 1000px;
-		margin: auto;
-	}
-	#main-area{
-		border: 1px solid black;
-		box-sizing: border-box;
-		width: 800px;
+		width: 100%;
 		height: 1000px;
 		margin: auto;
 	}
 
+	#main_left{
+		width:20%; 
+		height:100%;
+		border: 1px solid black;
+		box-sizing: border-box;
+		float: left;
+		}
+	#main_center{
+		width:60%; 
+		height:100%;
+		border: 1px solid black;
+		box-sizing: border-box;
+		float: left;
+		}
+	#main_right{
+		width:20%; 
+		height:100%;
+		border: 1px solid black;
+		box-sizing: border-box;
+		float: left;
+		}
 </style>
 </head>
-<body>
-
-	양옆 여백 200px
-메인 영역 800px
-1200px
-800px
-
+<body> 
 
 	<jsp:include page="common/header.jsp"/>
-
-	<div id="content_1">
+	
+	
+	<div id="swiper-area">
 		<!-- Slider main container -->
 		<div class="swiper">
 			<!-- Additional required wrapper -->
@@ -77,11 +86,19 @@
 		</div>
 	  </div>
 	
-	<div id="main-outer">
-		<div id="main-area">
+	<div id="main">
+		<div id="main_left">
+		
+		</div>
+		<div id="main_center">
 			
 		</div>
+		<div id="main_right">
+		
+		</div>
+		
 	</div>
+		
 	
 	<jsp:include page="common/footer.jsp"/>
 
