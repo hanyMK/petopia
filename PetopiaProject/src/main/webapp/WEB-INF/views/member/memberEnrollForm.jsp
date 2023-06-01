@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     
     <style>
         .content {
@@ -131,14 +132,14 @@
                    <!-- <input type="text" class="form-control" id="birthday" placeholder="생년월일 8자리(99.01.01)" name="birthday"> <br>-->
 
                     <label for="phone"> &nbsp;* 전화번호 : </label>
-                    <input type="tel" class="form-control" id="phone" placeholder="전화번호" name="phone" onchange="checkPhone();"> <br>
+                    <input type="tel" class="form-control" id="phone" placeholder="전화번호를 -를 포함해서 입력해주세요." name="phone" onchange="checkPhone();"> <br>
                     <div id="phonehidden" class="hidden"></div><br>
 
                     <label for="address"> &nbsp;* 주소 : </label><br>
                     <input type="text" id="postcode" name="address" placeholder="우편번호">
 					<input type="button" onclick="findPostcode()" value="주소 검색"><br>
                      <input type="text" class="form-control" id="address" placeholder="주소" name="address"> 
-					<input type="text"  class="form-control" id="detailAddress" name="address" placeholder="상세주소"><br>
+					<input type="text"  class="form-control" id="detailAddress" name="address" placeholder="상세주소" required><br>
 					
                   
                     <label for="address"> &nbsp;* 계좌번호 : </label>&nbsp;
@@ -178,10 +179,10 @@
                         <input type="text" class="form-control" id="petName" placeholder="반려동물 이름" name="petName" > <br>
                         
                         <label for="age"> &nbsp; 반려동물 나이 : </label>
-                        <input type="number" class="form-control" id="age" placeholder="나이입력해주세요" name="age" value="0"> <br>
+                        <input type="number" class="form-control" id="age" placeholder="나이를 입력해주세요" name="age" > <br>
                     	
                     	<label for="weight"> &nbsp; 반려동물 무게 : </label>
-                        <input type="number" class="form-control" id="weight" placeholder="몸무게를 입력해주세요(kg제외)" name="weight" value="0.0">kg <br>
+                        <input type="number" step="0.1" class="form-control" id="weight" placeholder="몸무게를 입력해주세요(kg제외)" name="weight" ><br>
                     
                     	
                     </div>
@@ -224,6 +225,9 @@
                     $('#havePet').attr('checked', false);
                 }
             })
+            
+            
+          
 
         });
 
@@ -284,6 +288,10 @@
             if( emailCheck == 1 && phoneCheck == 1  && nameCheck == 1  && pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
                 $(this).attr('type','submit');  
             }
+            if($('#havePet').val()== 'Y'){
+            	$('#age').val('0');
+            	$('#weight').val('0');
+            }
             
         })
 
@@ -303,7 +311,7 @@
                         emailCheck = 1;
                         $('#emailhidden').css('display','none');
                         }else{
-                        	$('#emailhidden').css('display','block').text('이미 존재하는 이메일 입니다.');
+                        	$('#emailhidden').css({'display': 'block', 'color' :'red'}).text('이미 존재하는 이메일 입니다.');
                             $email.focus();
                             emailCheck = 0;
                         }
@@ -315,7 +323,9 @@
                     }
                 })
             }else{
-
+            	$('#emailhidden').css({'display': 'block', 'color' :'red'}).text('이메일형식을 확인해주세요.');
+                $email.focus();
+                emailCheck = 0;
             }
             
         }
@@ -335,7 +345,7 @@
                         nicknameCheck = 1;
                         $('#nicknamehidden').css('display','none');
                         }else{
-                        	 $('#nicknamehidden').css('display','block').text('이미 존재하는 닉네임 입니다.');
+                        	 $('#nicknamehidden').css({'display': 'block', 'color' :'red'}).text('이미 존재하는 닉네임 입니다.');
                              $nickname.focus();
                              nicknameCheck = 0;
                         }
@@ -346,6 +356,10 @@
                        
                     }
                 })
+            }else{
+            	 $('#nicknamehidden').css({'display': 'block', 'color' :'red'}).text('닉네임을 다시 입력해주세요.');
+                 $nickname.focus();
+                 nicknameCheck = 0;
             }
         }
 
@@ -356,7 +370,7 @@
                 nameCheck = 1;
                 $('#namehidden').css('display', 'none');
             }else{
-                $('#namehidden').css('display', 'block').text('이름을 다시 확인해주세요');
+                $('#namehidden').css({'display': 'block', 'color' :'red'}).text('이름을 다시 확인해주세요');
                 $name.focus();
                 nameCheck = 0;
             }
@@ -369,7 +383,7 @@
                 pwdCheck = 1;
                 $('#pwdhidden').css('display', 'none');
             }else {
-                $('#pwdhidden').css('display', 'block').text('영문자, 숫자를 포함한 8~15자를 입력하세요');
+                $('#pwdhidden').css({'display': 'block', 'color' :'red'}).text('영문자, 숫자를 포함한 8~15자를 입력하세요');
                 $pwd.focus();
                 
                 pwdCheck = 0;
@@ -385,7 +399,7 @@
                 pwdCheck2 = 1;
                 $('#checkhidden').css('display', 'none')
             }else{
-                $('#checkhidden').css('display', 'block').text('비밀번호를 동일하게 입력해주세요');
+                $('#checkhidden').css({'display': 'block', 'color' :'red'}).text('비밀번호를 동일하게 입력해주세요');
                 $checkPwd.focus();
                 pwdCheck2 = 0;
             }
@@ -398,7 +412,7 @@
                 phoneCheck = 1;
                 $('#phonehidden').css('display', 'none');
             }else{
-                $('#phonehidden').css('display', 'block').text('전화번호를 -를 포함해서 입력해주세요.');
+                $('#phonehidden').css({'display': 'block', 'color' :'red'}).text('전화번호를 -를 포함해서 입력해주세요.');
                 $phone.focus();
                 phoneCheck = 0;
             }
@@ -444,7 +458,7 @@
         }
 
     </script>
-    
+    <!--  
     <script type="text/javascript">
 	  var naver_id_login = new naver_id_login("SzNT24__lVCFTwGtQmSh", "http://localhost:8007/spring/memberEnroll.me");
 	  // 접근 토큰 값 출력
@@ -458,51 +472,9 @@
 	    alert(naver_id_login.getProfileData('age'));
 	  }
 	</script>
+	-->
 
-    <!-- 푸터바 -->
   
-    <script type="text/javascript">
-    	$(function(){
-    		const $idInput = $('.form-group #userId');
-    		
-    		$idInput.keyup(function(){
-    			//console.log($idInput.val());
-    			//최소 다섯글자 이상을 입력했을 때만 AJAX요청해서 중복체크
-    			if($idInput.val().length >= 5){
-    				$.ajax({
-    					url: 'idCheck.me',
-    					data: {checkId : $idInput.val()},
-    					success : function(result){
-    						//console.log(result);
-    						
-    						if(result === 'NNNNN'){//사용불가능
-    							$('#checkResult').show();
-    							$('#checkResult').css('color','crimson').text('중복된 아이디가 존재합니다');
-    							$('#enroll-form:submit').attr("disabled", true);
-    						}else{//사용가능
-    							$('#checkResult').show();
-    							$('#checkResult').css('color', 'lightgreen').text('멋진 아이디 입니다');
-    							$('#enroll-form:submit').removeAttr("disabled");
-    						}
-    							
-    					},
-    					error: function(){
-    						console.log("아이디중복 체크용AJAX통신 실패");
-    					}
-    				
-    				});
-    			}else{
-    				$('#checkResult').hide();
-    				$('#enroll-form:submit').attr("disabled", true);
-    			}
-    			
-    			
-    		});
-    		
-    	});
-    	
-    	
-    </script>
     
     <jsp:include page="../common/footer.jsp" />
 

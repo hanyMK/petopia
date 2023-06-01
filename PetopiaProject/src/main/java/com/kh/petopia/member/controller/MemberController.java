@@ -31,7 +31,7 @@ public class MemberController {
 		
 		@GetMapping("login")
 		public String loginView() {
-			return "petopia/member/login";
+			return "member/login";
 		}
 		
 		/**
@@ -57,11 +57,17 @@ public class MemberController {
 			return mv;
 		}
 		
+		@RequestMapping("logout.me" )
+		public String logoutMember(HttpSession session) {
+			session.invalidate();
+			return "redirect:/";
+		}
+		
 		
 		
 		@RequestMapping("memberEnroll.me")
 		public String memberEnroll() {
-			return "petopia/member/memberEnrollForm";
+			return "member/memberEnrollForm";
 		}
 		
 		
@@ -116,16 +122,14 @@ public class MemberController {
 			return null;
 		}
 		
-		@GetMapping("findEmail.me")
+		@GetMapping("findEmail")
 		public String findEmailView() {
-			return "petopia/member/findInfo";
+			return "member/findInfo";
 		}
 		
-
+		@GetMapping("findPwd")
+		public String findPwdView() {
+			return "member/findInfo";
+		}
 		
-	
-		
-	
-	
-
 }

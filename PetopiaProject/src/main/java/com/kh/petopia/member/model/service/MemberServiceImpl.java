@@ -48,10 +48,7 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	@Override
-	public String findEmail(Member m) {
-		return null;
-	}
+
 
 	@Override
 	public int changeMemberPwd(Member m) {
@@ -81,6 +78,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getCoupon(Coupon c) {
 		return 0;
+	}
+
+	@Override
+	public String findEmail(String nickname) {
+		return memberDao.findEmail(sqlSession, nickname);
 	}
 
 }
