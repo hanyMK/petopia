@@ -10,8 +10,8 @@ import com.kh.petopia.board.model.vo.Board;
 @Repository
 public class MyPageDao {
 	
-	public ArrayList<Board> myBoardList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.myBoardList");
+	public ArrayList<Board> myBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myBoardList", memberNo);
 	}
 
 }

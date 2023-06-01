@@ -6,6 +6,8 @@ import com.kh.petopia.board.model.vo.Board;
 
 public interface MyPageService {
 	
-	ArrayList<Board> myBoardList();
+	ArrayList<Board> myBoardList(int memberNo);
+	
+	
 
 }

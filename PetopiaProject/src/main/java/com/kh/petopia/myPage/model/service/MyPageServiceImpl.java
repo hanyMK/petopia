@@ -19,8 +19,8 @@ public class MyPageServiceImpl implements MyPageService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Board> myBoardList() {
-		return myPageDao.myBoardList(sqlSession);
+	public ArrayList<Board> myBoardList(int memberNo) {
+		return myPageDao.myBoardList(sqlSession, memberNo);
 	}
 
 

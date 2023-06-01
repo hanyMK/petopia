@@ -13,6 +13,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
+	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		return "myPage/myPage";
@@ -20,11 +21,9 @@ public class MyPageController {
 	
 	// 마이페이지 게시글 조회
 	@RequestMapping("board.me")
-	public String myBoardList(Model model) {
-		
-		model.addAttribute("list", myPageService.myBoardList());
-		
-		return "member/myBoardList";
+	public String myBoardList(int mno, Model model) {
+		model.addAttribute("list", myPageService.myBoardList(mno));
+		return "myPage/myBoardList";
 	}
 	
 }

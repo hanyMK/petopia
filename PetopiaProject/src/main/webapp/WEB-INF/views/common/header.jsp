@@ -23,6 +23,16 @@
   	
 
     <style>
+    	@font-face {
+		  font-family: "font1";
+		  src: url("resources/fonts/BMHANNAAir_ttf.ttf");
+		}
+		
+		* {
+			font-family : "font1"
+		}
+		
+		
         div {box-sizing:border-box;} 
         #header {
             width:1200px;
