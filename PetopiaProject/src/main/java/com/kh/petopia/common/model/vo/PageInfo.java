@@ -2,6 +2,8 @@ package com.kh.petopia.common.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
 @AllArgsConstructor
@@ -15,5 +17,6 @@ public class PageInfo {
 	private int maxPage;
 	private int startPage;
 	private int endPage;
+	
 	
 }
