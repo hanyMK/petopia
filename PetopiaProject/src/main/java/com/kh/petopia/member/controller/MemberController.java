@@ -36,8 +36,7 @@ public class MemberController {
 		@Autowired
 		private BCryptPasswordEncoder bcyptPasswordEncoder;
 		
-		@Autowired
-		private JavaMailSender sender;
+	
 		
 		
 		@GetMapping("login")
@@ -62,7 +61,7 @@ public class MemberController {
 				session.setAttribute("loginMember", loginMember);
 				mv.setViewName("redirect:/");
 			}else {
-				mv.addObject("alertMsg", "로그인에 실패했습니다. 다시 시도해주세요");
+				mv.addObject("errorMsg", "로그인에 실패했습니다. 다시 시도해주세요");
 				mv.setViewName("common/errorPage");
 			}
 			return mv;
@@ -83,14 +82,14 @@ public class MemberController {
 		
 		
 		@RequestMapping("join.me")
-		public String joinMember(Member m, 
+		public ModelAndView joinMember(Member m, 
 									MultipartFile upfile,
 									String birthday_y,
 									String birthday_m,
 									String birthday_d,
 									Pet pet,
 									HttpSession session,
-									Model model) {
+									ModelAndView model) {
 			
 			
 			m.setMemberPwd(bcyptPasswordEncoder.encode(m.getMemberPwd()));
@@ -104,18 +103,20 @@ public class MemberController {
 			int att = memberAtt != null ? memberService.joinMember(memberAtt): 0;
 			int memberPet = pet.getIsPet().equals("Y")? memberService.joinMember(pet): 0;
 			
+			
 			System.out.println(m);
 			System.out.println(pet);
 			
 			if(member + att + memberPet > 0) {
-				model.addAttribute("alertMsg", "회원가입이 원료되었습니다");
-				return "redirect:/";
+				model.addObject("alertMsg", "회원가입이 원료되었습니다")
+				.setViewName("member/login");
 			}else {
-				model.addAttribute("errorMsg", "회원가입이 실패되었습니다");
-				return "common/errorPage";
+				model.addObject("errorMsg", "회원가입이 실패되었습니다")
+				.setViewName("common/errorPage");
 				
 			}
 		
+			return model;
 		}
 		
 		
@@ -155,52 +156,23 @@ public class MemberController {
 		}
 		
 		
-		private String randomString() {
-			
-			return UUID.randomUUID().toString();
+		@GetMapping("findPwdModal")
+		public String findPwdModal() {
+			return "member/findPwdModal";
 		}
 		
-		
-		
-		@PostMapping(value ="findEmail.me")
-		public String findPwd(String email, Model m) throws MessagingException {
-			String key = randomString();
-			String url = ServletUriComponentsBuilder
-					.fromCurrentContextPath()
-					.port(8282)
-					.path("/petopia")
-					.queryParam("mode", "change_password")
-					.queryParam("k",key)
-					.toUriString();
-			
-			System.out.println(url);
-					
-			
-			if(email.equals("") && (memberService.emailCheck(email) > 0)) {
-			
-				MimeMessage message = sender.createMimeMessage();
-				MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8" );
-				helper.setTo(email);
-				helper.setSubject("펫토피아에서 비밀번호 재설정을 위한 메일을 발송드립니다");
-				helper.setText("<h1>내 계정 찾기</h1>");
-				helper.setText("<p>회원님읜 계정은<b>" + email +"/<b>입니다</p>");
-				helper.setText("<p>비밀번호를 재설정하려면 다음 링크를 클릭해 변경해 주세요.</p>");
-				helper.setText("<button><a href=\"" + url + "\">비밀번호 재설정</a></button>");
-				helper.setText("<p>만약, 가입한 적이 없거나 내 계정 찾기 요청을 하지 않으신 경우 이 메일을 삭제 또는 무시해 주세요.</p>");
+
+		@RequestMapping("updatePwd.me")
+		public ModelAndView findPwd(String k, ModelAndView mv) {
+			if(k.equals("key")) {
+				System.out.println("여기오나??");
 				
-				sender.send(message);
-				m.addAttribute("key", key);
-				m.addAttribute("email", email);
-				
-				return "member/findPwdModl";
-			}else {
-				m.addAttribute("alertMsg", "다시 시도해 주세요");
-				
-				return "redirect:common/findInfo";
+				mv.addObject("key", k).setViewName("member/findPwdModal");
 			}
 			
-			
+			return mv;
 		}
+		
 		
 		
 		

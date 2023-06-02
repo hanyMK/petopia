@@ -2,6 +2,7 @@ package com.kh.petopia.common.template;
 
 import com.kh.petopia.common.model.vo.PageInfo;
 
+
 public class Pagination {
 	
 	public static PageInfo getPageInfo(int listCount, int currentPage, int boardLimit, int pageLimit) {
@@ -10,13 +11,13 @@ public class Pagination {
 		int startPage= (currentPage -1)/pageLimit * pageLimit +1;
 		int endPage = startPage + pageLimit - 1;
 		
-		if(endPage >maxPage) {
+		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
 		return new PageInfo(listCount, currentPage, boardLimit, pageLimit, maxPage, startPage, endPage);
 		
-		// 모르겠삼
+
 	}
 
 

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
