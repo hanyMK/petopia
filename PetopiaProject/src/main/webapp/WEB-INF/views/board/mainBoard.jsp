@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,165 +9,196 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .content {
-            background-color:rgb(247, 245, 245);
-            width:80%;
-            margin:auto;
+            background-color: rgb(247, 245, 245);
+            width: 80%;
+            margin: auto;
         }
+
         .innerOuter {
-            border:1px solid lightgray;
-            width:80%;
-            margin:auto;
-            padding:5% 10%;
-            background-color:white;
+            border: 1px solid lightgray;
+            width: 80%;
+            margin: auto;
+            padding: 5% 10%;
+            background-color: white;
         }
 
-        #boardList {text-align:center;}
-        #boardList>tbody>tr:hover {cursor:pointer;}
+        #boardList {
+            text-align: center;
+        }
 
-        #pagingArea {width:fit-content; margin:auto;}
-        
+        #boardList>tbody>tr:hover {
+            cursor: pointer;
+        }
+
+        #pagingArea {
+            width: fit-content;
+            margin: auto;
+        }
+
         #searchForm {
-            width:80%;
-            margin:auto;
+            width: 80%;
+            margin: auto;
         }
+
         #searchForm>* {
-            float:left;
-            margin:5px;
+            float: left;
+            margin: 5px;
         }
-        .select {width:20%;}
-        .text {width:53%;}
-        .searchBtn {width:20%;}
+
+        .select {
+            width: 20%;
+        }
+
+        .text {
+            width: 53%;
+        }
+
+        .searchBtn {
+            width: 20%;
+        }
     </style>
 </head>
 <body>
-    
-    <jsp:include page="../common/header.jsp" />
 
-    <div class="content">
-        <br><br>
-        <div class="innerOuter" style="padding:5% 10%;">
-            <h2>커뮤니티 게시판</h2>
-            <br>
-            <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <c:if test="${ not empty loginMember }">
-            	<a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
-            </c:if>
-            <div align="center">
-	            <button class="category" onclick="selectList(0);">전체</button>
-	            <button class="category" onclick="selectList(1);">소모임</button>
-	            <button class="category" onclick="selectList(2);">자랑하기</button>
-            </div>
-            <div class="dropdown" style="float:right;">
-			    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-			      	최신순
-			    </button>
-			    <div class="dropdown-menu">
-			      <a class="dropdown-item" href="#">조회수</a>
-			      <a class="dropdown-item" href="#">댓글수</a>
-			    </div>
-		 	</div>
-            <br>
-            <br>
-            <table id="boardList" class="table table-hover" align="center">
-                <thead>
-                    <tr>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>조회수</th>
-                        <th>댓글수</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<!-- 
-                    <tr>
-                        <td>5</td>
-                        <td>마지막 공지사항제목</td>
-                        <td>admin</td>
-                        <td>10</td>
-                        <td>2023-02-10</td>
-                        <td>★</td>
-                    </tr>
-                    -->
-                </tbody>
-            </table>
-            <br>
+<jsp:include page="../common/header.jsp" />
 
-            <div id="pagingArea">
-                <ul class="pagination">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </div>
-
-            <br clear="both"><br>
-
-            <form id="searchForm" action="selectList(3);" method="get" align="center">
-                <div class="select">
-                    <select class="custom-select" name="condition">
-                        <option value="writer">작성자</option>
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                    </select>
-                </div>
-                <div class="text">
-                    <input type="text" class="form-control" name="keyword">
-                </div>
-                <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-            </form>
-            <br><br>
+<div class="content">
+    <br><br>
+    <div class="innerOuter" style="padding:5% 10%;">
+        <h2>커뮤니티 게시판</h2>
+        <br>
+        <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
+        <c:if test="${not empty loginMember}">
+            <a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
+        </c:if>
+        <div align="center">
+            <button class="category" onclick="selectCategory(0);">전체</button>
+            <button class="category" onclick="selectCategory(1);">소모임</button>
+            <button class="category" onclick="selectCategory(2);">자랑하기</button>
         </div>
+        <div class="dropdown" style="float:right;">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                최신순
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">조회수</a>
+                <a class="dropdown-item" href="#">댓글수</a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <table id="boardList" class="table table-hover" align="center">
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회수</th>
+                <th>댓글수</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <br>
+
+        <div id="pagingArea">
+            <ul class="pagination">
+
+            </ul>
+        </div>
+
+        <br clear="both"><br>
+
+        <form id="searchForm" onsubmit="event.preventDefault(); selectList();" align="center">
+            <div class="select">
+                <select class="custom-select" name="condition">
+                    <option value="writer">작성자</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                </select>
+            </div>
+            <div class="text">
+                <input type="text" class="form-control" name="keyword">
+            </div>
+            <button type="submit" class="searchBtn btn btn-secondary">검색</button>
+        </form>
         <br><br>
-
     </div>
+    <br><br>
 
-    <jsp:include page="../common/footer.jsp" />
-	
-	<script>
-		$(function(){
-			selectList(0);
-			
-			
-		})
-		
-		function selectList(num){
-			let category = '';
-			if(num == 0){
-				category = 'all';
-			} else if(num == 1){
-				category = 'club';
-			} else if(num == 2){
-				category = 'boast';
-			} 
-			console.log(category);
-			$.ajax({
-				url : 'list.bo',
-				data : { category : category},
-				success : result => {
-					console.log(result);
-				},
-				error : () => {
-					
-				}
-				
-			})
-			
-			
-		};
-		
-		
-	</script>
-	
-	
-	
+</div>
+
+<jsp:include page="../common/footer.jsp" />
+
+<script>
+    var category = '';
+
+    function selectCategory(num) {
+        if (num == 0) {
+            category = 'all';
+        } else if (num == 1) {
+            category = 'CLUB';
+        } else {
+            category = 'BOAST';
+        }
+        selectList();
+    }
+
+    function selectList() {
+        console.log(category);
+
+        $.ajax({
+            url: 'list.bo',
+            data: {category: category},
+            success: result => {
+                let value = '';
+                let list = result.list;
+                console.log(result);
+                for (let i in list) {
+                    value += '<tr>'
+                        + '<td>' + list[i].boardTitle + '</td>'
+                        + '<td>' + list[i].nickName + '</td>'
+                        + '<td>' + list[i].boardCount + '</td>'
+                        + '<td>' + list[i].replyCount + '</td>'
+                        + '<td>' + list[i].createDate + '</td>'
+                        + '</tr>'
+                }
+                $('#boardList tbody').html(value);
+
+                // 페이징 처리
+                let paging = '';
+                let pi = result.pi;
+                if (pi.currentPage == 1) {
+                    paging += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0);">&lt;--</a></li>';
+                } else {
+                    paging += '<li class="page-item"><a class="page-link" href="javascript:selectList();">&lt;--</a></li>';
+                }
+
+                for (let i = pi.startPage; i <= pi.endPage; i++) {
+                    paging += '<li class="page-item' + (pi.currentPage == i ? ' active' : '') + '"><a class="page-link" href="javascript:selectList();">' + i + '</a></li>';
+                }
+
+                if (pi.currentPage == pi.maxPage) {
+                    paging += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0);">--&gt;</a></li>';
+                } else {
+                    paging += '<li class="page-item"><a class="page-link" href="javascript:selectList();">--&gt;</a></li>';
+                }
+
+                $('#pagingArea .pagination').html(paging);
+
+            }
+
+        })
+    }
+
+    selectList(); // 페이지 로드 시 초기 리스트 불러오기
+
+</script>
 </body>
 </html>

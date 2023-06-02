@@ -11,66 +11,65 @@
 		  FROM
 		  	   BOARD
 		<choose>
-			<when test="category == club">
+			<when test="category.equals('CLUB')">
 				WHERE
-				      CATEGORY = 'club'
+				      CATEGORY = 'CLUB'
+			      AND
+	   	   			  STATUS = 'Y'
 			</when>
-			<when test="category == boast">
+			<when test="category.equals('BOAST')">
 				WHERE
-					  CATEGORY = 'boast'
+					  CATEGORY = 'BOAST'
+				  AND
+		   	   		  STATUS = 'Y'
 			</when>
 			<otherwise>
-			
+				WHERE
+		   	   		  STATUS = 'Y'
 			</otherwise>
 		</choose>
-		   AND
-		   	   STATUS = 'Y'
 	</select>
 	
 	<select id="selectBoard" resultType="board" parameterType="string">
 		
 		select *
 	 	  from (SELECT
-					   BOARD_TITLE boardTitle
-					   ,NICKNAME nickName
-					   ,NVL((SELECT COUNT(*)
-		                       FROM REPLY
-		                      WHERE BOARD_NO = B.BOARD_NO
-		                        AND STATUS = 'Y' GROUP BY B.BOARD_NO), 0) AS "boardCount"
-					   ,ORIGIN_NAME originName
-					   ,CHANGE_NAME changeName
-					   ,FILE_PATH filePath
-					   ,CREATE_DATE createDate
+	 	  			   BOARD_NO boardNo
+					   ,BOARD_TITLE boardTitle
+					   ,M.NICKNAME nickName
+					   ,BOARD_COUNT boardCount
+					   ,(SELECT COUNT(*)
+		                       FROM REPLY R
+		                      WHERE R.BOARD_NO = B.BOARD_NO
+		                        AND B.STATUS = 'Y') AS "REPLYCOUNT"
+					   ,B.CREATE_DATE createDate
 			   	  FROM
 			   	  	   BOARD B
-		   	 LEFT JOIN
-			   	  	   MEMBER USING(MEMBER_NO)
-		   	 LEFT JOIN 
-			   	  	   REPLY USING(BOARD_NO)
+		   	 	  JOIN
+			   	  	   MEMBER M USING(MEMBER_NO)
 			   	  <choose>
-			   	  	<when test="'category' == club">
+			   	  	<when test="category.equals('CLUB')">
 			   	  		WHERE
-			   	  			  CATEGORY = 'CLUB'
+			   	  			  B.CATEGORY = 'CLUB'
 			   	  		  AND 
-			   	  	    	  STATUS = 'Y'
+			   	  	    	  B.STATUS = 'Y'
 			   	  	</when>
-			   	  	<when test="'category' == boast">
+			   	  	<when test="category.equals('BOAST')">
 			   	  		WHERE
-			   	  			  CATEGORY = 'BOAST'
+			   	  			  B.CATEGORY = 'BOAST'
 			   	  		  AND 
-			   	  	    	  STATUS = 'Y'
+			   	  	    	  B.STATUS = 'Y'
 			   	  	</when>
 			   	  	<otherwise>
 			   	  	   WHERE
-			   	  	   	     STATUS = 'Y'
+			   	  	   	     B.STATUS = 'Y'
 			   	  	</otherwise>
 			   	  </choose>
 			   	 ORDER
 			   	 	BY
-			   	 	   CREATE_DATE DESC)
+			   	 	   B.CREATE_DATE DESC)
 		where
 	 		  rownum between 1 and 5
-			  
 	</select>
 	
 </mapper>

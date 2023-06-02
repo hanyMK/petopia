@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Member;
 
-@Service
 public interface AdminService {
 	
 	// 총 맴버 수 조회

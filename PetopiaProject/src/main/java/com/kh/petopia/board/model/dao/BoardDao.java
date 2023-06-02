@@ -14,7 +14,6 @@ public class BoardDao {
 	
 	public int countBoard(SqlSessionTemplate sqlSession, String category) {
 		int num = sqlSession.selectOne("boardMapper.countBoard", category);
-		System.out.println(num);
 		return num;
 	}
 	

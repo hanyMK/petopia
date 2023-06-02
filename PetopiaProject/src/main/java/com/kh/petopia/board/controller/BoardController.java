@@ -31,9 +31,8 @@ public class BoardController {
 	@RequestMapping(value="list.bo", produces="application/json; charset=UTF-8")
 	public String selectBoardList(@RequestParam(value="cpage=", defaultValue="1")
 									int currentPage, String category) {
-		
+		System.out.println(currentPage);
 		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
-		
 		ArrayList<Board> list = boardService.selectBoard(category, pi);
 		
 		HashMap<String, Object> hashMap = new HashMap();
