@@ -210,13 +210,16 @@
         <div id="header_2">
             <ul id="navi">
                 <li>
-                    <a href="">호텔</a>
+                	<a href="petHotel.pe">호텔</a>
                 </li>
-                <li><a href="">유치원</a>
+                <li>
+                	<a href="petSchool.pe">유치원</a>
                 </li>
-                <li><a href="petSalon.pe">미용</a>
+                <li>
+                	<a href="petSalon.pe">미용</a>
                 </li>
-                <li><a href="">훈련</a>
+                <li>
+                	<a href="petTrainning.pe">훈련</a>
                 </li>
                 <li><a href="">상점</a>
                     <ul>

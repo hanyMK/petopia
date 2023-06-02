@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.petopia.board.model.dao.BoardDao;
+import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -15,14 +15,14 @@ import com.kh.petopia.product.model.vo.Product;
 public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
-	private BoardDao boardDao;
+	private ProductDao productDao;
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public ArrayList<Product> selectProductList() {
-		return null; //boardDao.selectProductList(sqlSession);
+		return productDao.selectProductList(sqlSession);
 	}
 
 	@Override
