@@ -163,11 +163,9 @@
 		/* 헤더 알람 / 페이 */
 		#alram_box, #pay_box {
 			display: none;
-			width:200px;
-			height:400px;
-			background-color: #ffffff;
 			vertical-align: bottom;
 			position: absolute;
+			z-index: 2;
 		}
 		
 		#alramIcon, #payIcon {
@@ -178,6 +176,12 @@
 		
 		#alramIcon:hover, #payIcon:hover {
 			cursor: pointer;
+		}
+		
+		#alramIframe, #payIframe {
+			width:300px;
+			height:500px;
+			background-color:white;
 		}
 		
 		
@@ -211,7 +215,7 @@
                   <c:when test="${ empty sessionScope.loginMember }">
                       <!-- 로그인 전 -->
                       <a href="memberEnroll.me">회원가입 </a> |
-                      <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targert에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
+                      <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-target에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
                   </c:when>
                   <c:otherwise>
                                     
@@ -226,12 +230,12 @@
                 <!-- 알림, 페이 아이콘-->
                 <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
                 <div id="pay_box" > 					               
-					<iframe src="" scrolling="auto"></iframe>
+					<iframe src="" scrolling="auto" id="payIframe"></iframe>
                 </div>
                 
                 <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
                 <div id="alram_box" > 					               
-					<iframe src="alram.me" scrolling="auto"></iframe>
+					<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
                 </div>
 				
 				
