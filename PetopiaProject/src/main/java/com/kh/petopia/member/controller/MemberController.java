@@ -82,14 +82,14 @@ public class MemberController {
 		
 		
 		@RequestMapping("join.me")
-		public String joinMember(Member m, 
+		public ModelAndView joinMember(Member m, 
 									MultipartFile upfile,
 									String birthday_y,
 									String birthday_m,
 									String birthday_d,
 									Pet pet,
 									HttpSession session,
-									Model model) {
+									ModelAndView model) {
 			
 			
 			m.setMemberPwd(bcyptPasswordEncoder.encode(m.getMemberPwd()));
@@ -103,18 +103,20 @@ public class MemberController {
 			int att = memberAtt != null ? memberService.joinMember(memberAtt): 0;
 			int memberPet = pet.getIsPet().equals("Y")? memberService.joinMember(pet): 0;
 			
+			
 			System.out.println(m);
 			System.out.println(pet);
 			
 			if(member + att + memberPet > 0) {
-				model.addAttribute("alertMsg", "회원가입이 원료되었습니다");
-				return "redirect:/";
+				model.addObject("alertMsg", "회원가입이 원료되었습니다")
+				.setViewName("member/login");
 			}else {
-				model.addAttribute("errorMsg", "회원가입이 실패되었습니다");
-				return "common/errorPage";
+				model.addObject("errorMsg", "회원가입이 실패되었습니다")
+				.setViewName("common/errorPage");
 				
 			}
 		
+			return model;
 		}
 		
 		
@@ -154,10 +156,16 @@ public class MemberController {
 		}
 		
 		
+		@GetMapping("findPwdModal")
+		public String findPwdModal() {
+			return "member/findPwdModal";
+		}
+		
 
-		@RequestMapping("checkKey")
+		@RequestMapping("updatePwd.me")
 		public ModelAndView findPwd(String k, ModelAndView mv) {
 			if(k.equals("key")) {
+				System.out.println("여기오나??");
 				
 				mv.addObject("key", k).setViewName("member/findPwdModal");
 			}

@@ -15,12 +15,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <!-- Remember to include jQuery :) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 
 	
@@ -57,6 +51,10 @@
     box-sizing: border-box;
     font-size: 20px;
    }
+   
+   #modal{
+   	display :none;
+   }
 </style>
 </head>
 <body>
@@ -88,10 +86,12 @@
         </table>
         <br><br>
         <hr style="border:2px solid black; width:600px">
+         	<a href="findEmail"  style="color:black; text-decoration: none;">이메일</a>
+            <a href="findPwd"  style="color:black; text-decoration: none;">/ 비밀번호 찾기</a>
         <br><br>
         <div align="center">
             <button type="button" id="searchbtn">${ requestScope.title }</button>
-           
+        
         </div>
    </div>
 
@@ -117,9 +117,9 @@
 		    			success : result => {
 		    				console.log(result);
 		    				if(result != 'NO'){
-		    					$('#result').text($title.val());
-		    					$('#emailFindModal').modal('show');
-		    					
+		    					$('#result').text(result);
+		    					$('#modal').click();
+		    					$title.val('');
 		    				
 		    				}else{
 		    					alert('닉네임을 다시 입력해주세요');
@@ -162,6 +162,8 @@
     	
     </script>
     
+     <button id="modal" type="button" class="btn btn-danger" data-toggle="modal" data-target="#emailFindModal">이메일 찾기</button>
+    
     
     <div class="modal" id="emailFindModal"  role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" style="width:850px;">
@@ -176,14 +178,14 @@
 				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false">
 					<div role="content">
 						<div class="widget-body">		
-								회원님의 Email은 <b id="result"> </b> 입니다
+							회원님의 Email은 <b id="result"></b> 입니다'
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button"  class="btn btn-default" data-dismiss="modal">확인</button>
-				<button type="button" id="goLoginPage" class="btn btn-primary" id="btn_save">로그인</button>
+				<button  type="button"  class="btn btn-primary" id="btn_login">로그인</button>
 			</div>
 		</div>
 	</div>
@@ -192,9 +194,9 @@
 
     
     <script>
-    	var goLogin = document.getElementById('goLoginPage');
+    	var goLogin = document.getElementById('btn_login');
 
-        goLogin.click = ()=>{
+        goLogin.onclick = ()=>{
             location.href = 'login';
         }
     	

@@ -64,10 +64,12 @@ public class AjaxMemberController {
 		String url = ServletUriComponentsBuilder
 				.fromCurrentContextPath()
 				.port(8282)
-				.path("/checkKey")
+				.path("/findPwdModal")
 				.queryParam("mode", "change_password")
 				.queryParam("k",key)
 				.toUriString();
+		String btnStyle = "width: 200px; height: 50px; background-color: #FAC264 ;";
+		String atagStyle = "text-decoration: none; color: black; font-weight: 900;";
 		
 		System.out.println(url);
 				
@@ -78,11 +80,15 @@ public class AjaxMemberController {
 			MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8" );
 			helper.setTo(checkEmail);
 			helper.setSubject("펫토피아에서 비밀번호 재설정을 위한 메일을 발송드립니다");
-			helper.setText("<h1>내 계정 찾기</h1>");
-			helper.setText("<p>회원님읜 계정은<b>" + checkEmail +"/<b>입니다</p>");
-			helper.setText("<p>비밀번호를 재설정하려면 다음 링크를 클릭해 변경해 주세요.</p>");
-			helper.setText("<button><a href=\"" + url + "\">비밀번호 재설정</a></button>");
-			helper.setText("<p>만약, 가입한 적이 없거나 내 계정 찾기 요청을 하지 않으신 경우 이 메일을 삭제 또는 무시해 주세요.</p>");
+			
+			helper.setText("<h1>내 계정 찾기</h1>\r\n" + 
+					"            <p>회원님읜 계정은 <b>"+ checkEmail +"</b>입니다</p>\r\n" + 
+					"            <p>비밀번호를 재설정하려면 다음 링크를 클릭해 변경해 주세요.</p>\r\n" + 
+					"            <button style=\""+btnStyle + "\"><a style=\""+ atagStyle + "\" href=\""+ url +"/\">비밀번호 재설정</a></button>\r\n" + 
+					"            <p>만약, 가입한 적이 없거나 내 계정 찾기 요청을\r\n" + 
+					"                하지 않으신 경우 이 메일을 삭제 또는 무시해 주세요.</p>", true);
+			
+			
 			
 			sender.send(message);
 			
