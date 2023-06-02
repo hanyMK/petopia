@@ -14,4 +14,5 @@ public class PetStoreReview {
 	private Date createDate;		// 리뷰 작성일자
 	private Date modifyDate;		// 리뷰 수정 일자
 	private int rating;				// 평점
+	
 }

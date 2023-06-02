@@ -42,7 +42,7 @@
 		WHERE PET_STORE_NO = #{psno}
 	</select>
 	
-	<select id="selectReviewList" parameterType="_int">
+	<select id="selectReviewList" parameterType="_int" resultMap="petStoreReviewResultSet">
 		
 		SELECT 
 				PET_STORE_REVIEW.REVIEW_NO,
