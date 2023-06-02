@@ -3,6 +3,7 @@ package com.kh.petopia.petStore.model.service;
 import java.util.ArrayList;
 
 import com.kh.petopia.petStore.model.vo.PetStore;
+import com.kh.petopia.petStore.model.vo.PetStoreReview;
 
 public interface PetStoreService {
 	
@@ -10,6 +11,6 @@ public interface PetStoreService {
 	PetStore selectPetStore(int psno);
 	
 	// 호텔, 유치원, 미용, 훈련 각각에 해당하는 리뷰리스트를 가져옴 
-	// ArrayList<PetStoreReview> list = new ArrayList();
+	ArrayList<PetStoreReview> selectReviewList(int psno);
 
 }

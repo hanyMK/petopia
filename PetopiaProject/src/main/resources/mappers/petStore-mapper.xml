@@ -16,6 +16,16 @@
 		<result column="PET_STORE_INFO" property="petStoreInfo"/>
 		<result column="USAGE_FEE" property="usageFee"/>
 	</resultMap>
+	
+	<resultMap type="petStoreReview" id="petStoreReviewResultSet" >
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="EMPLOYEE_NAME" property="employeeName"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="RATING" property="rating"/>
+	</resultMap>
 
 	<select id="selectPetStore" parameterType="_int" resultMap="petStoreResultSet">
 		SELECT 
@@ -30,6 +40,23 @@
 				USAGE_FEE
 		FROM PET_STORE
 		WHERE PET_STORE_NO = #{psno}
+	</select>
+	
+	<select id="selectReviewList" parameterType="_int" resultMap="petStoreReviewResultSet">
+		
+		SELECT 
+				PET_STORE_REVIEW.REVIEW_NO,
+				EMPLOYEE.EMPLOYEE_NAME,
+				MEMBER.NICKNAME,
+				PET_STORE_REVIEW.REVIEW_CONTENT,
+				PET_STORE_REVIEW.CREATE_DATE,
+				PET_STORE_REVIEW.MODIFY_DATE,
+				PET_STORE_REVIEW.RATING
+		FROM RESERVATION
+		JOIN EMPLOYEE ON (EMPLOYEE = EMPLOYEE_NO)
+		JOIN PET_STORE_REVIEW ON (PET_STORE_REVIEW.RESERVATION_NO = RESERVATION.RESERVATION_NO)
+		JOIN MEMBER ON (RESERVATION.MEMBER_NO = MEMBER.MEMBER_NO)
+		WHERE RESERVATION.PET_STORE = #{psno}
 	</select>
 
 </mapper>
