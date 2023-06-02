@@ -1,5 +1,6 @@
 package com.kh.petopia.member.controller;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -8,6 +9,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.kh.petopia.member.model.service.MemberService;
+import com.kh.petopia.member.model.vo.Member;
 
 @RestController
 @Controller
@@ -28,7 +31,10 @@ public class AjaxMemberController {
 	@Autowired
 	private JavaMailSender sender;
 	
-	private String secret ;
+	@Autowired
+	private BCryptPasswordEncoder bcyptPasswordEncoder;
+
+	private HashMap<String, String> email = new HashMap();
 	
 
 	
@@ -60,19 +66,13 @@ public class AjaxMemberController {
 	@PostMapping(value="findPwd.me", produces="text/html; charset=UTF-8")
 	public String findPwd(String checkEmail, Model m) throws MessagingException {
 		String key = randomString();
-		secret = key;
-		String url = ServletUriComponentsBuilder
-				.fromCurrentContextPath()
-				.port(8282)
-				.path("/findPwdModal")
-				.queryParam("mode", "change_password")
-				.queryParam("k",key)
-				.toUriString();
+		System.out.println(key);
+		String url = getUrl(key);
+		email.put(key, checkEmail);
+		
 		String btnStyle = "width: 200px; height: 50px; background-color: #FAC264 ;";
 		String atagStyle = "text-decoration: none; color: black; font-weight: 900;";
 		
-		System.out.println(url);
-				
 		
 		if(!checkEmail.equals("") && (memberService.emailCheck(checkEmail) > 0)) {
 		
@@ -102,13 +102,42 @@ public class AjaxMemberController {
 		
 	}
 	
+	
 	private String randomString() {
 		
 		return UUID.randomUUID().toString();
 	}
+	
+	
+	private String getUrl(String key) {
+		String url = ServletUriComponentsBuilder
+				.fromCurrentContextPath()
+				.port(8282)
+				.path("/resetPwd")
+				.queryParam("mode", "change_password")
+				.queryParam("k",key)
+				.toUriString();
+		return url;
+	}
 
 	
+	@RequestMapping(value="updatePwd.me", produces="text/html; charset=UTF-8")
+	public String resetPwd(String memberPwd, String k) {
+		
+		if(email.containsKey(k)) {
+			Member m = new Member();
+			m.setEmail(email.get(k));
+			System.out.println(email.get(k));
+			System.out.println(memberPwd);
+			m.setMemberPwd(bcyptPasswordEncoder.encode(memberPwd));
+			return memberService.updatePwd(m) >0 ? "YES" : "NO";
+			
+		}else {
+			return "NO";
+		}
 	
+	
+	}
 	
 	
 	

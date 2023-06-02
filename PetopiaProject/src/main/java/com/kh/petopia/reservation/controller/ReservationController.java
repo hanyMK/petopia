@@ -30,7 +30,7 @@ public class ReservationController {
 		ArrayList<Employee> eList = reservationService.selectEmployeeList(psno);
 		
 		mv.addObject("eList",eList);
-		mv.setViewName("reservation/reservationPetSalon");
+		mv.setViewName("reservation/reservationPetSalon1");
 		
 		return mv;
 	}

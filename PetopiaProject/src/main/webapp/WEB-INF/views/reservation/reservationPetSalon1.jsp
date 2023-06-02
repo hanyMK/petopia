@@ -57,17 +57,24 @@
 	
 					</div>
 					
-					* 예약  * <br>
+					* 예약  * <br><br>
 					
 					<div id="reservation-info">
 					
-						달력
-						<input type="date">
+						<div>
+							날짜
+							<input type="date"> 
+						</div>
 						
-						시간
-						<input type="time" min="10:00:00" max="20:00:00">
+						<br>
 						
-						<submit>예약하기</submit>
+						<div>
+							시간
+							<input type="time" min="10:00:00" max="20:00:00">
+						</div>
+						
+						
+						<button>예약하기/<button>>
 					
 					
 					</div>
