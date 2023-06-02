@@ -35,6 +35,7 @@
 <body> 
 
 	<jsp:include page="common/header.jsp"/>
+	<jsp:include page="member/findPwdModal.jsp" />
 	
 	
 	<div id="swiper-area">

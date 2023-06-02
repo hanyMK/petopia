@@ -21,12 +21,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public int memberListCount() {
-		return adminDao.MemberListCount(sqlSession);
+		return adminDao.memberListCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Member> memberList(PageInfo pi) {
-		return null;
+		return adminDao.memberList(sqlSession, pi);
 	}
 
 }

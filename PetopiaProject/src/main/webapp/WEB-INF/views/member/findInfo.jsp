@@ -6,6 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>ID찾기</title>
+
+     <!-- jQuery 라이브러리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- 부트스트랩에서 제공하고 있는 스타일 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+	
 <style>
     #serch{
         
@@ -39,6 +51,10 @@
     box-sizing: border-box;
     font-size: 20px;
    }
+   
+   #modal{
+   	display :none;
+   }
 </style>
 </head>
 <body>
@@ -70,9 +86,12 @@
         </table>
         <br><br>
         <hr style="border:2px solid black; width:600px">
+         	<a href="findEmail"  style="color:black; text-decoration: none;">이메일</a>
+            <a href="findPwd"  style="color:black; text-decoration: none;">/ 비밀번호 찾기</a>
         <br><br>
         <div align="center">
             <button type="button" id="searchbtn">${ requestScope.title }</button>
+        
         </div>
    </div>
 
@@ -84,9 +103,10 @@
     	$(() => {
     		var $title = $('#title');
     		$('#searchbtn').on('click', () => {
+    			
     			if('${ requestScope.title }' == '이메일 찾기'){
     				
-		    		console.log($title);
+		    		console.log($title.val());
 		    		
 		    		$.ajax({
 		    			url : 'findEmail.me',
@@ -97,9 +117,10 @@
 		    			success : result => {
 		    				console.log(result);
 		    				if(result != 'NO'){
-		    					
-			    				alert('회원님의 Email은 ' + result +'입니다');
-			    				$title.val('');
+		    					$('#result').text(result);
+		    					$('#modal').click();
+		    					$title.val('');
+		    				
 		    				}else{
 		    					alert('닉네임을 다시 입력해주세요');
 		    				}
@@ -110,41 +131,83 @@
 		    			
 		    		});
     			}else{
-        			$.ajax({
-        				url : 'findPwd.me',
+    				$.ajax({
+		    			url : 'findPwd.me',
 		    			type: 'POST',
 		    			data : {
-		    				email : $title.val()
+		    				checkEmail : $title.val()
 		    			},
 		    			success : result => {
 		    				console.log(result);
 		    				if(result != 'NO'){
 		    					
+			    				
 			    				$title.val('');
 		    				}else{
-		    					alert('이메일을 다시 입력해주세요');
+		    					alert('닉네임을 다시 입력해주세요');
 		    				}
 		    			},
 		    			error : () => {
 		    				console.log('실패');
 		    			}
-        				
-        				
-        			})
-        		}
+		    			
+		    		});
+    			}
     		});
     		
     		
     		
     	})
     	
-    	//가입한 이메일 입력
     	
-    	
-    	
-    
-    
     </script>
+    
+     <button id="modal" type="button" class="btn btn-danger" data-toggle="modal" data-target="#emailFindModal">이메일 찾기</button>
+    
+    
+    <div class="modal" id="emailFindModal"  role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="width:850px;">
+		<div class="modal-content" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h4 class="modal-title" id="myModalLabel">이메일 찾기</h4>
+			</div>
+			<div class="modal-body">
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false">
+					<div role="content">
+						<div class="widget-body">		
+							회원님의 Email은 <b id="result"></b> 입니다'
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-default" data-dismiss="modal">확인</button>
+				<button  type="button"  class="btn btn-primary" id="btn_login">로그인</button>
+			</div>
+		</div>
+	</div>
+</div>
+    
+
+    
+    <script>
+    	var goLogin = document.getElementById('btn_login');
+
+        goLogin.onclick = ()=>{
+            location.href = 'login';
+        }
+    	
+    </script>
+    
+  
+    	
+    	
+    
+    
+
     
     <jsp:include page="../common/footer.jsp"/>
 
