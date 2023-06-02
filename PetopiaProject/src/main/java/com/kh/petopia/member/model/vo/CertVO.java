@@ -11,8 +11,5 @@ public class CertVO {
 	
 	private String who, when, secret;
 	
-	public void bye() {
-		System.out.println("바이바이");
-	}
 
 }

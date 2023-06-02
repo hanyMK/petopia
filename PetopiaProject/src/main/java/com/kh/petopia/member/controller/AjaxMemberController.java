@@ -124,24 +124,24 @@ public class AjaxMemberController {
 	
 
 	
-	@RequestMapping(value="updatePwd.me", produces="text/html; charset=UTF-8")
-	public String resetPwd(String memberPwd, String k) {
-		
-		//if(member.containsKey(k)) {
-			if(member.get(k).getCodeDate()-1 )
-			Member m = new Member();
-			m.setEmail(member.get(k).getEmail());
-			m.setMemberPwd(memberPwd);
-			member.remove(k);
-			
-			return  memberService.updatePwd(m) >0 ? "YES" : "NO";
-			
-		//}else {
-			//return "NO";
-		//}
-	
-	}
-	
+//	@RequestMapping(value="updatePwd.me", produces="text/html; charset=UTF-8")
+//	public String resetPwd(String memberPwd, String k) {
+//		
+//		//if(member.containsKey(k)) {
+//			if(member.get(k).getCodeDate()-1 )
+//			Member m = new Member();
+//			m.setEmail(member.get(k).getEmail());
+//			m.setMemberPwd(memberPwd);
+//			member.remove(k);
+//			
+//			return  memberService.updatePwd(m) >0 ? "YES" : "NO";
+//			
+//		//}else {
+//			//return "NO";
+//		//}
+//	
+//	}
+//	
 	
 	
 	
