@@ -140,7 +140,7 @@
 		    			success : result => {
 		    				console.log(result);
 		    				if(result != 'NO'){
-		    					
+		    					alert('회원님의 이메일로 비밀번호 변경 주소를 보내드렸습니다. 이메일 함을 확인해주세요');
 			    				
 			    				$title.val('');
 		    				}else{
