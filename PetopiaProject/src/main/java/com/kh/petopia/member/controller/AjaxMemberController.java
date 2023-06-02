@@ -119,7 +119,6 @@ public class AjaxMemberController {
 				.queryParam("k",key)
 				.toUriString();
 		return url;
-	}
 	
 	
 
@@ -142,7 +141,7 @@ public class AjaxMemberController {
 //	
 //	}
 //	
-	
+	}
 	
 	
 
