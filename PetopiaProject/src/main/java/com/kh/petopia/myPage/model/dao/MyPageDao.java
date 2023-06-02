@@ -15,8 +15,4 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myBoardList", memberNo);
 	}
 
-	public ArrayList<Reply> myReplyList(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.myReplyList", memberNo);
-	}
-
 }

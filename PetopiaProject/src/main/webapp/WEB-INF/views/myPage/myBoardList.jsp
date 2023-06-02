@@ -40,8 +40,7 @@
 			<div id="main_center_right">
 				<div id="main_center_right_top">
 					<div align="center">
-						<a href="board.me?mno=${ loginMember.memberNo }">게시글 조회 </a>|
-						<a href="reply.me?mno=${ loginMember.memberNo }">댓글 조회</a>
+						<h3><b>게시글 조회</b></h3>
 					</div>
 				</div>
 				<div id="main_center_right_bottom">

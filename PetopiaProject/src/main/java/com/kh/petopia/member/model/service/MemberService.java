@@ -78,7 +78,7 @@ public interface MemberService {
 		//2. 받은이메일로 비밀번호 재설정 링크 전송
 		//3. 링크를 전달할때 무작위값을 보내서 확인>??
 		//4. 비밀번호 변경(update)
-		int updatePwd(String pwd); 
+		int updatePwd(Member m); 
 		
 		
 		

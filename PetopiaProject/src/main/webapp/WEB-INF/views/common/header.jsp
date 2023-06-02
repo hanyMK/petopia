@@ -159,6 +159,32 @@
 			box-sizing: border-box;
 			float: left;
 			}
+			
+		/* 헤더 알람 / 페이 */
+		#alram_box, #pay_box {
+			display: none;
+			vertical-align: bottom;
+			position: absolute;
+			z-index: 2;
+		}
+		
+		#alramIcon, #payIcon {
+			background-color:transparent;
+			border:0px;
+			padding-right:15px;
+		}
+		
+		#alramIcon:hover, #payIcon:hover {
+			cursor: pointer;
+		}
+		
+		#alramIframe, #payIframe {
+			width:300px;
+			height:500px;
+			background-color:white;
+		}
+		
+		
     </style>
 
 <script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
@@ -189,7 +215,7 @@
                   <c:when test="${ empty sessionScope.loginMember }">
                       <!-- 로그인 전 -->
                       <a href="memberEnroll.me">회원가입 </a> |
-                      <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targert에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
+                      <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-target에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
                   </c:when>
                   <c:otherwise>
                                     
@@ -199,10 +225,21 @@
                       
                   </c:otherwise>
                </c:choose>
+               
                <div id="header_1_right_bottom">
                 <!-- 알림, 페이 아이콘-->
-                <i class="fa-regular fa-credit-card fa-2x" id="payIcon"></i>
-                <i class="fa-regular fa-bell fa-2x" id="alarmIcon"></i>
+                <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
+                <div id="pay_box" > 					               
+					<iframe src="" scrolling="auto" id="payIframe"></iframe>
+                </div>
+                
+                <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
+                <div id="alram_box" > 					               
+					<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
+                </div>
+				
+				
+				
                </div>
             </div>
         </div>
@@ -221,7 +258,7 @@
                 <li>
                 	<a href="petTraining.pe">훈련</a>
                 </li>
-                <li><a href="">상점</a>
+                <li><a href="product.pd">상점</a>
                     <ul>
                         <li><a href="">메뉴1</a></li>
                         <li><a href="">메뉴2</a></li>
@@ -244,5 +281,32 @@
 
 
     </div>
+    
+    <script>
+    
+    // 알람 버튼
+    function alramBtn () {
+        var div = $("#alram_box");
+        
+        if(div.css("display") === 'none' ) {
+        	div.css("display", 'block');     	
+        }
+        else {
+        	div.css("display", 'none');   
+        }
+    }
+    
+ 	// 페이 버튼
+    function payBtn () {
+        var div = $("#pay_box");
+        
+        if(div.css("display") === 'none' ) {
+        	div.css("display", 'block');     	
+        }
+        else {
+        	div.css("display", 'none');   
+        }
+    }
+    </script>
 </body>
 </html>

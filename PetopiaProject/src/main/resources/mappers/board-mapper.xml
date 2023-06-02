@@ -43,9 +43,9 @@
 					   ,CREATE_DATE createDate
 			   	  FROM
 			   	  	   BOARD B
-			   	  JOIN
+		   	 LEFT JOIN
 			   	  	   MEMBER USING(MEMBER_NO)
-			   	  JOIN 
+		   	 LEFT JOIN 
 			   	  	   REPLY USING(BOARD_NO)
 			   	  <choose>
 			   	  	<when test="'category' == club">
