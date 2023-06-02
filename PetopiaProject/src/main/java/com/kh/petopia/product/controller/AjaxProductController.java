@@ -17,13 +17,17 @@ public class AjaxProductController {
 	@Autowired
 	private ProductService productService;
 	
+	@RequestMapping(value="product.pd")
+	public String productMain() {
+		
+		return "product/productMain";
+	}
+	
 	@ResponseBody
-	@RequestMapping(value="product.pd", produces="aplication/json; charset=UTF-8")
+	@RequestMapping(value="productAjax.pd", produces="application/json; charset=UTF-8")
 	public String selectProductList() {
 		
-		ArrayList<Product> list = new ArrayList();
-		
-		productService.selectProductList();
+		ArrayList<Product> list = productService.selectProductList();
 		
 		return new Gson().toJson(list);
 	}
