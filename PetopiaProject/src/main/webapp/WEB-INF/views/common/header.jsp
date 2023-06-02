@@ -219,7 +219,7 @@
                 	<a href="petSalon.pe">미용</a>
                 </li>
                 <li>
-                	<a href="petTrainning.pe">훈련</a>
+                	<a href="petTraining.pe">훈련</a>
                 </li>
                 <li><a href="">상점</a>
                     <ul>
