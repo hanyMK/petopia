@@ -135,6 +135,9 @@
                     },
                     success : result =>{
                         console.log(result);
+                        if(result == 'YES'){
+                        	location.href='main.jsp';
+                        }
                     },
                     error : () =>{
                         console.log('실패');
@@ -144,14 +147,6 @@
                 });
             };
         }
-    
-           
-            
-        
-
-       
-
-        
         //비밀번호 체크
         
         memberPwd.onchange = () =>{
