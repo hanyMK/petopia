@@ -195,7 +195,8 @@
 		update
 				member
 		   set
-		   		member_pwd = #{memberPwd}
+		   		member_pwd = #{memberPwd},
+		   		modify_date = sysdate
 		  where
 		  		email = #{email}
 	</update>

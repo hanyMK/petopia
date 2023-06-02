@@ -157,7 +157,7 @@ public class MemberController {
 		
 		
 		@GetMapping("resetPwd")
-		public String findPwdModal() {
+		public String resetPwd() {
 			return "member/resetPwd";
 		}
 		
