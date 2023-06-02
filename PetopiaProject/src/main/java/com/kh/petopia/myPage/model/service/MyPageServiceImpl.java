@@ -24,10 +24,4 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.myBoardList(sqlSession, memberNo);
 	}
 
-	@Override
-	public ArrayList<Reply> myReplyList(int memberNo) {
-		return myPageDao.myReplyList(sqlSession, memberNo);
-	}
-
-
 }

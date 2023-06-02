@@ -159,6 +159,28 @@
 			box-sizing: border-box;
 			float: left;
 			}
+			
+		/* 헤더 알람 / 페이 */
+		#alram_box, #pay_box {
+			display: none;
+			width:200px;
+			height:400px;
+			background-color: #ffffff;
+			vertical-align: bottom;
+			position: absolute;
+		}
+		
+		#alramIcon, #payIcon {
+			background-color:transparent;
+			border:0px;
+			padding-right:15px;
+		}
+		
+		#alramIcon:hover, #payIcon:hover {
+			cursor: pointer;
+		}
+		
+		
     </style>
 
 <script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
@@ -199,10 +221,21 @@
                       
                   </c:otherwise>
                </c:choose>
+               
                <div id="header_1_right_bottom">
                 <!-- 알림, 페이 아이콘-->
-                <i class="fa-regular fa-credit-card fa-2x" id="payIcon"></i>
-                <i class="fa-regular fa-bell fa-2x" id="alarmIcon"></i>
+                <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
+                <div id="pay_box" > 					               
+					<iframe src="" scrolling="auto"></iframe>
+                </div>
+                
+                <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
+                <div id="alram_box" > 					               
+					<iframe src="alram.me" scrolling="auto"></iframe>
+                </div>
+				
+				
+				
                </div>
             </div>
         </div>
@@ -241,5 +274,32 @@
 
 
     </div>
+    
+    <script>
+    
+    // 알람 버튼
+    function alramBtn () {
+        var div = $("#alram_box");
+        
+        if(div.css("display") === 'none' ) {
+        	div.css("display", 'block');     	
+        }
+        else {
+        	div.css("display", 'none');   
+        }
+    }
+    
+ 	// 페이 버튼
+    function payBtn () {
+        var div = $("#pay_box");
+        
+        if(div.css("display") === 'none' ) {
+        	div.css("display", 'block');     	
+        }
+        else {
+        	div.css("display", 'none');   
+        }
+    }
+    </script>
 </body>
 </html>

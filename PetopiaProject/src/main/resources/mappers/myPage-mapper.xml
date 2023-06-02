@@ -8,13 +8,17 @@
 	<resultMap id="boardResultSet" type="board">
 		<result column="board_no" 		property="boardNo" />
 		<result column="board_title" 	property="boardTitle" />
-		<result column="board_writer" 	property="boardWriter" />
-		<result column="count" 			property="count" />
-		<result column="create_date" 	property="createDate" />
-		<result column="origin_name" 	property="originName" />
-		<result column="change_name" 	property="changeName" />
 		<result column="board_content" 	property="boardContent" />
+		<result column="create_date" 	property="createDate" />
+		<result column="modify_date" 	property="modifyDate" />
+		<result column="status" 	property="status" />
+		<result column="category" 	property="category" />
+		<result column="board_like" 	property="boardLike" />
+		<result column="member_no" 	property="memberNo" />
+		
 	</resultMap>
+	
+	
 	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
