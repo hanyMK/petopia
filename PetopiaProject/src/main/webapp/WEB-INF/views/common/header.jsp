@@ -218,7 +218,7 @@
                 </li>
                 <li><a href="">훈련</a>
                 </li>
-                <li><a href="">상점</a>
+                <li><a href="product.pd">상점</a>
                     <ul>
                         <li><a href="">메뉴1</a></li>
                         <li><a href="">메뉴2</a></li>
