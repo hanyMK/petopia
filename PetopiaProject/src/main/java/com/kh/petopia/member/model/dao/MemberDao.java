@@ -1,7 +1,5 @@
 package com.kh.petopia.member.model.dao;
 
-import java.util.HashMap;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -61,8 +59,8 @@ public class MemberDao {
 		
 	}
 	
-	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Member> member) {
-		return sqlSession.update("memberMapper.updatePwd", member);
+	public int updatePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updatePwd", m);
 	}
 	
 	
