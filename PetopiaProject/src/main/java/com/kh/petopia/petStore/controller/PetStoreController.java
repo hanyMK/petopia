@@ -1,5 +1,7 @@
 package com.kh.petopia.petStore.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,13 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.petopia.petStore.model.service.PetStoreService;
 import com.kh.petopia.petStore.model.vo.PetStore;
+import com.kh.petopia.petStore.model.vo.PetStoreReview;
 
 @Controller
 public class PetStoreController {
 	
 	@Autowired
 	private PetStoreService petStoreService;
-	
 	
 	// 호텔
 	@RequestMapping("petHotel.pe")
@@ -77,11 +79,16 @@ public class PetStoreController {
 		PetStore petSalon = petStoreService.selectPetStore(psno);
 		
 		// 애견 미용 관련 리뷰 리스트 조회
+		ArrayList<PetStoreReview> pList = petStoreService.selectReviewList(psno);
 		
-		if( petSalon  != null ) {
+		System.out.println(pList);
+		
+		
+		if( petSalon  != null && pList != null) {
 			
 			System.out.println(petSalon);
 			mv.addObject("petSalon",petSalon);
+			mv.addObject("pList",pList);
 			mv.setViewName("petStore/petSalon");
 			
 		}else {
