@@ -16,6 +16,16 @@
 		<result column="PET_STORE_INFO" property="petStoreInfo"/>
 		<result column="USAGE_FEE" property="usageFee"/>
 	</resultMap>
+	
+	<resultMap type="petStoreReview" id="petStoreReviewResultSet" >
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="EMPLOYEE_NAME" property="employeeName"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="RATING" property="rating"/>
+	</resultMap>
 
 	<select id="selectPetStore" parameterType="_int" resultMap="petStoreResultSet">
 		SELECT 

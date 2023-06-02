@@ -16,7 +16,7 @@ public class PetStoreDao {
 	}
 
 	public ArrayList<PetStoreReview> selectReviewList(SqlSessionTemplate sqlSession, int psno) {
-		return sqlSession.selectOne("petStoreMapper.selectReviewList", psno);
+		return (ArrayList)sqlSession.selectList("petStoreMapper.selectReviewList", psno);
 	}
 
 }
