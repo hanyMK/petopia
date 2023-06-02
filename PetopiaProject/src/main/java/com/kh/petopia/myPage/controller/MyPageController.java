@@ -26,5 +26,10 @@ public class MyPageController {
 		return "myPage/myBoardList";
 	}
 	
+	@RequestMapping("alram.me")
+	public String alramList() {
+		
+		return "myPage/alram";
+	}
 
 }
