@@ -11,8 +11,12 @@
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <style>
 
-	 /* 이미지 영역 사이즈 조절 */
-	 .swiper {
+	/* 이미지 영역 사이즈 조절 */
+	#swiper-area {
+	z-index: 1;
+	}
+	
+	.swiper {
         width: 100%;
         height: 600px;
     }
@@ -35,7 +39,7 @@
 <body> 
 
 	<jsp:include page="common/header.jsp"/>
-	<jsp:include page="member/findPwdModal.jsp" />
+
 	
 	
 	<div id="swiper-area">

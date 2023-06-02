@@ -18,4 +18,11 @@ public class AdminController {
 		
 		return "admin/adminMemberList";
 	}
+	
+	
+	@RequestMapping("/admin/insertCouponList")
+	public String delete() {
+		return "admin/insertCouponList";
+	}
+	
 }

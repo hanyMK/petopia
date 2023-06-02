@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 재설정 </title>
+<title>ID찾기</title>
 
-   <!-- jQuery 라이브러리 -->
+     <!-- jQuery 라이브러리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- 부트스트랩에서 제공하고 있는 스타일 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,53 +17,84 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+	
+<style>
+    #serch{
+        
+        margin: auto;
+        width: 400px;
+        height: 200px;
+        margin-top: 30px;
+    }
+    #changePassword{
+        width: 400px;
+        height: 50px;
+        background-color: black;
+        color: white;
+    }
+     #memberPwd,#checkPwd{
+        width: 100%;
+        height: 50px;
+    }
+    #find-nickname{
+        padding-top: 20px;
+    }
+    
+
+   
+   #modal{
+   	display :none;
+   }
+</style>
 </head>
 <body>
 
-	<jsp:forward page="../main.jsp" />
-	
-		
-	
+<jsp:include page="../common/header.jsp"/>
+ 
+ <br>
+ <h1  align="center" >비밀번호 재설정</h1>
+   
 
-	
-	
-	<div id="cocoaModal" role="dialog" aria-hidden="false" class="modal in modal_site_change_password" data-backdrop="true" data-keyboard="true" style="display: block; padding-left: 26px;">
-			<div class="modal-dialog ui-draggable">
-				<div class="modal-content"><!-- 비밀번호 찾기 -->
-				<article class="modal_article pop p_lr_space pb16 bg-white no-padding" id="find_step_4">
-					<div class="tit_wrap">
-						<button class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" data-original-title="닫기"><i class="btl bt-times"></i></button>
-						<h2 class="find_tit _find_pw_title" ">비밀번호 변경</h2>
-					</div>	
-					<div class="force-padding _result_update_password_wrap">
-						<form id="find_password_form">
-							<div class="_token_obj" data-type="change_password">
-								<input type="hidden" name="write_token" class="_tk_obj" value="rg0MBL8RMpVSzweDsj7MvBZ0QDr/vxtej8MmnQMv1bAJPPsZyo8gp3yjDelOe/TjXztXxOzFNVpJsSBmlMMkMCPl4GU5n239ckxIw9UkfljaH6SpxuyowqIVqJvtKSex">
-								<input type="hidden" name="write_token_key" class="_tk_key_obj" value="5521">
-							</div>
-			
-							<input type="hidden" name="k" value="${ param.k }">
-							<input type="hidden" name="mode" value="change_password">
-							<div class="mb8">
-								<div class="form-group input-group input-group-login">
-									<input class="form-control" title="새 비밀번호" type="password"  id="memberPwd" name="memberPwd" onchange="checkPwd1();" placeholder="새 비밀번호">
-									<div id="pwdhidden" class="hidden"></div><br>
-									<input class="form-control" title="새 비밀번호 확인" id="checkPwd" type="password" name="checkPwd" onchange="checkPwd2();" placeholder="새 비밀번호 확인">
-									  <div id="checkhidden" class="hidden"></div><br>
-								</div>
-							</div>
-						</form>
-					<p class="txt_c mt16">
-						<button  class="btn btn-primary w100p h48" onclick="changePwd();">변경하기</button>
-					</p>
-					<p class="text-12 margin-bottom-xxl tip_bold"><span class="text-brand">TIP</span> 비밀번호에 영문 대소문자, 숫자, 특수문자를 조합하시면 안전도가 높아져 도용의 위험이 줄어듭니다.</p>
-				</div>
-			</article>
+    <hr style="border:2px solid black; width:600px">
+    
+    <div class="outer" align="center">
+    
+	<!--  
+    <form action="findEmail.me" method="post"  id="idSearh-form">
+      </form>
+    -->
+        <table id="serch" align="center" >
+           
+            <tr >
+                <td colspan="2" height="10%" id="find-nickname"><h4>비밀번호 재설정</h4></td>
+            </tr>
+            <tr>
+                <td><input type="password" id="memberPwd" name="memberPwd" placeholder="새로운 비밀번호를 입력해주세요" required ></td>
+             	<td>  <div id="pwdhidden" class="hidden"></td>
+            </tr>
+               <tr >
+                <td colspan="2" height="10%" id="find-nickname"><h4>비밀번호 재설정 확인</h4></td>
+            </tr>
+            <tr>
+                <td ><input type="password" id="checkPwd" name="checkPwd" placeholder="비밀번호를 동일하게 입력해주세요" required ></td>
+            	 <td>  <div id="checkhidden" class="hidden"></td>
+            </tr>
 
-
-
-		
-	<script> 
+        </table>
+        <br><br>
+        <hr style="border:2px solid black; width:600px">
+         	
+        <br><br>
+        <div align="center">
+            <button type="button" id="changePassword" >비밀번호 재설정</button>
+        
+        </div>
+        
+   </div>
+   
+   
+   
+   <script> 
         
     
       
@@ -80,7 +111,6 @@
         var pwdCheck2 = 0;
         
         let chpwd = document.getElementById('changePassword');
-        let findPwd = document.getElementById('find_password_form');
         let memberPwd = document.getElementById('memberPwd');
         let checkPwd  = document.getElementById('checkPwd');
         let pwdhidden= document.getElementById('pwdhidden');
@@ -89,35 +119,39 @@
 
 
         //가입조건 충족시 버튼 속성 변경
-      
-        console.log(memberPwd);
-        function changePwd(){
+      window.onload = () => {
+		var paramK = '${ param.k}';
+        chpwd.onclick = () => {
             if(  pwdCheck == 1 && pwdCheck2 ==1 ) {
                 console.log("hi");
+                console.log('${param.k}');
 
                 $.ajax({
                     url : 'updatePwd.me',
                     type: 'post',
                     data: {
-                        memberPwd : memberPwd.value
+                        memberPwd : memberPwd.value,
+                        k : paramK.slice(0, -1)
                     },
                     success : result =>{
                         console.log(result);
+                        if(result == 'YES'){
+                        	location.href='main.jsp';
+                        }
                     },
                     error : () =>{
                         console.log('실패');
+                        
                     }
 
                 });
             };
         }
-       
-           
-            
         //비밀번호 체크
-        function checkPwd1(){
-            
-            
+        
+        memberPwd.onchange = () =>{
+
+       
             if(regExpPwd(memberPwd.value)== true ){
                 pwdCheck = 1;
                 //$('#pwdhidden').css('display', 'none');
@@ -133,9 +167,10 @@
             }
           
         }
+    
 
         //비밀번호 입력확인
-        function checkPwd2(){
+        checkPwd.onchange =  () => {
            
             if(checkPwd.value == memberPwd.value){
                 pwdCheck2 = 1;
@@ -151,16 +186,17 @@
             }
         }
         
-        
+    }
     
     </script>
-			
-			
-			</div>
-		</div>
-	</div>
 
 
+  
+
+    
+    <jsp:include page="../common/footer.jsp"/>
+
+    
 
 </body>
 </html>

@@ -26,35 +26,44 @@
         color : white;
         /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
     }
-	#product_content_1{
+	#product_create_btn_div{
 		box-sizing: border-box;
 		width: 1200px;
-		height: 60px;
+		height: 50px;
 		margin: auto;
+		padding: 4px;
+		padding-left: 1100px;
 	}
-	#product_content_2{
+	#product_create_btn{
+		width: 90px;
+		height: 40px;
+		font-size: 17px;
+		background-color: #007BFF;
+		color: white;
+		border: none;
+		border-radius: 5px;
+	}
+	#product_create_btn:hover{
+		cursor: pointer;
+		background-color: #248eff;
+	}
+	#product_select_category_div{
 		box-sizing: border-box;
 		width: 1200px;
-		height: 900px;
+		height: 50px;
 		margin: auto;
-	}
-	#product_content_2_1{
-		box-sizing: border-box;
-		width: 100%;
-		height: 7%;
-	}
-	#product_content_2_2{
-		box-sizing: border-box;
-		width: 100%;
-		height: 93%;
 	}
 	#product_header{
 		box-sizing: border-box;
-		width: 100%;
-		height: 40px;
-		display: block;
-		padding-top: 20px;
-		padding-left: 20px;
+		width: 1200px;
+		height: 30px;
+		margin: auto;
+	}
+	#product_content{
+		box-sizing: border-box;
+		width: 1200px;
+		margin: auto;
+		overflow:hidden;
 	}
 	.product{
 		box-sizing: border-box;
@@ -63,7 +72,6 @@
 		float: left;
 	}
 	.product_1{
-		border: 1px solid black;
 		box-sizing: border-box;
 		width: 90%;
 		height: 90%;
@@ -72,17 +80,19 @@
 	.product_1_1{
 		box-sizing: border-box;
 		width: 100%;
-		height: 80%;
+		height: 85%;
 	}
 	.product_1_2{
 		box-sizing: border-box;
 		width: 100%;
-		height: 20%;
+		height: 15%;
 	}
 	#product_upfile{
 		width: 100%;
 		height: 100%;
 	}
+
+
 </style>
 </head>
 <body>
@@ -110,95 +120,39 @@
 			<!-- If we need scrollbar -->
 			<div class="swiper-scrollbar"></div>
 		</div>
-	  </div>
-
-	<div id="product_content_1">
-		<button>상품등록</button>
 	</div>
-	
-	<div id="product_content_2">
-		<div id="product_content_2_1">
-			<button>전체</button>
-			<button>애견용품</button>
-			<button>애견식품</button>
-			<button>애견의류</button>
 
-			<input type="text"><button>검색</button>
-		</div>
-		<div id="product_content_2_2">
-			<div id="product_header">
-				조회순 낮은가격순 높은가격순
-			</div>
-			<div class="product">
-				<div class="product_1">
-					<div class="product_1_1">
-						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
-					</div>
-					<div class="product_1_2">
-						안녕하세요.안녕하세요. <br>
-						12000원
-					</div>
-				</div>
-			</div>
-			<div class="product">
-				<div class="product_1">
-					<div class="product_1_1">
-						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
-					</div>
-					<div class="product_1_2">
-						안녕하세요.안녕하세요. <br>
-						12000원
-					</div>
-				</div>
-			</div>
-			<div class="product">
-				<div class="product_1">
-					<div class="product_1_1">
-						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
-					</div>
-					<div class="product_1_2">
-						안녕하세요.안녕하세요. <br>
-						12000원
-					</div>
-				</div>
-			</div>
-			<div class="product">
-				<div class="product_1">
-					<div class="product_1_1">
-						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
-					</div>
-					<div class="product_1_2">
-						안녕하세요.안녕하세요. <br>
-						12000원
-					</div>
-				</div>
-			</div>
-			<div class="product">
-				<div class="product_1">
-					<div class="product_1_1">
-						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
-					</div>
-					<div class="product_1_2">
-						안녕하세요.안녕하세요. <br>
-						12000원
-					</div>
-				</div>
-			</div>
-			<div class="product">
-				<div class="product_1">
-					<div class="product_1_1">
-						<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
-					</div>
-					<div class="product_1_2">
-						안녕하세요.안녕하세요. <br>
-						12000원
-					</div>
-				</div>
-			</div>
-		</div>
-		
+	<div id="product_create_btn_div">
+		<button id="product_create_btn">상품등록</button>
 	</div>
-	
+
+	<div id="product_select_category_div">
+		<button>전체</button>
+		<button>애견용품</button>
+		<button>애견식품</button>
+		<button>애견의류</button>
+
+		<input type="text"><button>검색</button>
+	</div>
+
+	<div id="product_header">
+		조회순 낮은가격순 높은가격순
+	</div>
+
+	<div id="product_content">
+		<!-- <div class="product">
+			<div class="product_1">
+				<div class="product_1_1">
+					<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+				</div>
+				<div class="product_1_2">
+					안녕하세요.안녕하세요. <br>
+					12000원
+				</div>
+			</div>
+		</div> -->
+	</div>
+
 	<jsp:include page="../common/footer.jsp"/>
 
 	<script>
@@ -220,16 +174,32 @@
 	</script>
 
 	<script>
-
 		$(function(){
 			selectProductList();
 		})
 
 		function selectProductList(){
 			$.ajax({
-				url : 'product.pd',
+				url : 'productAjax.pd',
 				success : function(list){
-					console.log(list);
+					console.log(list[0].categoryName);
+					
+					var result = '';
+					for(let i in list){
+
+						result += '<div class="product">'
+							    + 	'<div class="product_1">'
+								+ 		'<div class="product_1_1">'
+								+ 			'<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">'
+								+ 		'</div>'
+								+ 		'<div class="product_1_2">'
+								+       '<div>'+ list[i].productTitle +'</div>'
+								+       '<div>'+ list[i].productPrice +'</div>'
+								+ 		'</div>'
+								+ 	'</div>'
+							    + '</div>'
+					};
+					$('#product_content').html(result);
 				},
 				error : function(){
 
@@ -238,5 +208,10 @@
 		}
 	</script>
 
+	<script>
+		$('#product_create_btn').click(function(){
+			
+		})
+	</script>
 </body>
 </html>

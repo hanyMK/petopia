@@ -156,22 +156,13 @@ public class MemberController {
 		}
 		
 		
-		@GetMapping("findPwdModal")
-		public String findPwdModal() {
-			return "member/findPwdModal";
+		@GetMapping("resetPwd")
+		public String resetPwd() {
+			return "member/resetPwd";
 		}
 		
 
-		@RequestMapping("updatePwd.me")
-		public ModelAndView findPwd(String k, ModelAndView mv) {
-			if(k.equals("key")) {
-				System.out.println("여기오나??");
-				
-				mv.addObject("key", k).setViewName("member/findPwdModal");
-			}
-			
-			return mv;
-		}
+
 		
 		
 		

@@ -189,5 +189,16 @@
 		  		status = 'Y' 
 		  
 	</select>
+	
+	<!-- 비밀번호 재설정 -->
+	<update id="updatePwd" parameterType="member">
+		update
+				member
+		   set
+		   		member_pwd = #{memberPwd},
+		   		modify_date = sysdate
+		  where
+		  		email = #{email}
+	</update>
 
 </mapper>  
