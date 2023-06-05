@@ -151,8 +151,8 @@ public class AjaxMemberController {
 	public String resetPwd(String k, String memberPwd) {
 		
 		//certVo.setSecret(k);
-		System.out.println(certVo);
-		System.out.println("여기왜 안와    "+certVo.getWho());
+		//System.out.println(certVo);
+		//System.out.println("여기왜 안와    "+certVo.getWho());
 		
 		System.out.println(memberService.validata(certVo));
 		if(memberService.validata(certVo)) {
@@ -160,7 +160,7 @@ public class AjaxMemberController {
 			Member m = new Member();
 			System.out.println(certVo.getWho());
 			m.setEmail(certVo.getWho());
-			m.setMemberPwd(memberPwd);
+			m.setMemberPwd(bcyptPasswordEncoder.encode(memberPwd));
 			
 			return  memberService.updatePwd(m) >0 ? "YES" : "NO";
 			
