@@ -26,7 +26,7 @@ public class AjaxAdminController {
 	@RequestMapping(value="ajaxMemberList.ad", produces="application/json; charset=UTF-8")
 	public String selectMemberList(@RequestParam(value="cPage", defaultValue="1") int currentPage) {
 		
-		PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 5, 10);
+		PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 10, 5);
 		ArrayList<Member> list = new ArrayList(adminService.memberList(pi));
 		HashMap<String, Object> hashMap = new HashMap();
 		hashMap.put("pi",pi);
