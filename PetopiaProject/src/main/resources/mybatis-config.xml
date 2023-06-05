@@ -25,7 +25,8 @@
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Employee" alias="employee"/>
 		<typeAlias type="com.kh.petopia.board.model.vo.Reply" alias="reply"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.AlramReply" alias="alramReply"/>
-		
+		<typeAlias type="com.kh.petopia.admin.model.vo.Coupon" alias="coupon"/>
+		<typeAlias type="com.kh.petopia.product.model.vo.ProductReceipt" alias="productReceipt"/>
 
 	</typeAliases>
 	

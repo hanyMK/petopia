@@ -76,6 +76,7 @@
 	 	SELECT
 	  			BOARD_NO boardNo
 			   ,BOARD_TITLE boardTitle
+			   ,CATEGORY category
 			   ,M.NICKNAME nickName
 			   ,BOARD_COUNT boardCount
 			   ,(SELECT COUNT(*)
@@ -122,6 +123,7 @@
 	 <select id="selectDetailBoard" resultType="board">
 	 	select 
 	 		   B.BOARD_TITLE boardTitle
+	 		   ,B.BOARD_NO boardNo
 	 		   ,NICKNAME nickName
 	 		   ,B.CREATE_DATE createDate
 	 		   ,ORIGIN_NAME originName
@@ -133,11 +135,68 @@
 	      JOIN
 	           MEMBER USING(MEMBER_NO)
 	 LEFT JOIN
-	      	   ATTACHMENT ON(MEMBER_NO = REF_NO)
+	      	   ATTACHMENT ON(BOARD_NO = REF_NO)
 	     WHERE
 	           B.BOARD_NO = #{boardNo}
 	       AND
 	           B.STATUS = 'Y'	 	 		   	
 	 </select>
+	 
+	 <insert id="insertBoard1" parameterType="board">
+	 	insert
+	 	  into
+	 	  	   board
+	 	  	   (
+	 	  	   board_no
+	 	  	   ,member_no
+	 	  	   ,board_title
+	 	  	   ,board_content
+	 	  	   ,category
+	 	  	   )
+	 	values
+	 		   (
+	 		   seq_bod_no.nextval
+	 		   ,#{memberNo}
+	 		   ,#{boardTitle}
+	 		   ,#{boardContent}
+	 		   ,#{category}
+	 		   )
+	 </insert>
+	 
+	 <insert id="insertBoard2" parameterType="board">
+	 	insert
+	 	  into
+	 	       attachment
+	 	       (
+	 	       file_no
+	 	       ,file_category
+	 	       ,ref_no
+	 	       ,file_level
+	 	       ,origin_name
+	 	       ,change_name
+	 	       ,file_path
+	 	       ,file_status
+	 	       )
+	 	values
+	 		   (
+	 		   seq_fno.nextval
+	 		   ,3
+	 		   ,seq_bod_no.currval
+	 		   ,1
+	 		   ,#{originName}
+	 		   ,#{changeName}
+	 		   ,#{filePath}
+	 		   ,'Y'
+	 		   )
+	 </insert>
+	 
+	 <update id="deleteBoard" parameterType="_int">
+	 	update
+	 			board
+	 	set
+	 			status = 'N'
+	 	where
+	 			board_no = #{boardNo}
+	 </update>
 	 
 </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,14 @@
                 <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
-                        <a href="${b.filePath }+${b.changeName}" download="${b.originName }">${b.originName }</a>
+	                    <c:choose>
+		                    <c:when test="${ empty b.originName }">
+		                    	<a>파일없음</a>
+		                    </c:when>
+		                    <c:otherwise>
+		                        <a href="${b.filePath} + ${b.changeName}" download="${b.originName }">${b.originName }</a>
+		                    </c:otherwise>
+	                    </c:choose>
                     </td>
                 </tr>
                 <tr>
@@ -66,11 +74,29 @@
             </table>
             <br>
 
-            <div align="center">
-                <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
-                <a class="btn btn-primary" href="">수정하기</a>
-                <a class="btn btn-danger" href="">취소하기</a>
-            </div>
+            <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
+            <c:if test="${ loginMember.nickname eq b.nickName }">
+	            <div align="center">
+		                <a class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</a>
+		                <a class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</a>
+	            </div>
+            </c:if>
+            
+            <form action="" method="post" id="postForm">
+            	<input type="hidden" name="bno" value="${ b.boardNo }">
+            	<input type="hidden" name="file" value="${ b.changeName }">
+            </form>
+            
+            <script>
+            	function postFormSubmit(num){
+            		if(num == 1){
+            			$('#postForm').attr('action', 'update.bo').submit();
+            		} else{
+            			$('#postForm').attr('action', 'delete.bo').submit();
+            		}
+            	}
+            </script>
+            
             <br><br>
 
             <!-- 댓글 기능은 나중에 ajax 배우고 나서 구현할 예정! 우선은 화면구현만 해놓음 -->

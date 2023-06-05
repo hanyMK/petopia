@@ -14,6 +14,6 @@ public class ProductReceipt {
 	private int point; //POINT	NUMBER
 	private int shippingNo; //OSHIPPING_NO	NUMBER
 	
-	private String productStatus;
+	private String shippingStatus; // 배송상태 .......
 
 }
