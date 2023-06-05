@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ID찾기</title>
+<title>${ requestScope.findTitle }</title>
 
      <!-- jQuery 라이브러리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -122,7 +122,7 @@
 		    					$title.val('');
 		    				
 		    				}else{
-		    					alert('닉네임을 다시 입력해주세요');
+		    					alert('이메일을 다시 입력해주세요');
 		    				}
 		    			},
 		    			error : () => {

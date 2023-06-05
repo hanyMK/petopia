@@ -11,5 +11,11 @@ public class AjaxMyPageController {
 	
 	@Autowired
 	private MyPageService myPageService;
-
+	
+	@ResponseBody
+	@RequestMapping(value="ajaxAlramReply.me", produces="application/json; charset=UTF-8")
+	public String AjaxalramReplyList(int mno) { // ajax selectReplyList()에서 bno로 넘겨줬으면 bno로 받기
+		return new Gson().toJson(myPageService.alramReplyList(mno));
+	}
+	
 }

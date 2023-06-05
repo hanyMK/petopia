@@ -29,7 +29,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+	<!-- 
 	<select id="selectBoard" resultType="board" parameterType="string">
 		
 		select *
@@ -71,5 +71,122 @@
 		where
 	 		  rownum between 1 and 5
 	</select>
-	
+	 -->
+	 <select id="selectBoard" resultType="board" parameterType="string">
+	 	SELECT
+	  			BOARD_NO boardNo
+			   ,BOARD_TITLE boardTitle
+			   ,CATEGORY category
+			   ,M.NICKNAME nickName
+			   ,BOARD_COUNT boardCount
+			   ,(SELECT COUNT(*)
+	                      FROM REPLY R
+	                     WHERE R.BOARD_NO = B.BOARD_NO
+	                       AND B.STATUS = 'Y') AS "REPLYCOUNT"
+			   ,B.CREATE_DATE createDate
+   	  	  FROM
+   	  	  		BOARD B
+  	 	  JOIN
+   	  	   		MEMBER M USING(MEMBER_NO)
+   	  <choose>
+   	  	<when test="category.equals('CLUB')">
+   	  		WHERE
+   	  			  B.CATEGORY = 'CLUB'
+   	  		  AND 
+   	  	    	  B.STATUS = 'Y'
+   	  	</when>
+   	  	<when test="category.equals('BOAST')">
+   	  		WHERE
+   	  			  B.CATEGORY = 'BOAST'
+   	  		  AND 
+   	  	    	  B.STATUS = 'Y'
+   	  	</when>
+   	  	<otherwise>
+   	  	   WHERE
+   	  	   	     B.STATUS = 'Y'
+   	  	</otherwise>
+   	  </choose>
+   	 ORDER
+   	 	BY
+   	 	   B.BOARD_NO DESC
+	 </select>
+	 
+	 <update id="increaseCount" parameterType="_int">
+	 	update 
+	 	  	   board
+	 	   set
+	 	       BOARD_COUNT = BOARD_COUNT + 1
+	 	 where
+	 	       BOARD_NO = #{boardNo}
+	 </update>
+	 
+	 <select id="selectDetailBoard" resultType="board">
+	 	select 
+	 		   B.BOARD_TITLE boardTitle
+	 		   ,NICKNAME nickName
+	 		   ,B.CREATE_DATE createDate
+	 		   ,ORIGIN_NAME originName
+	 		   ,CHANGE_NAME changeName
+	 		   ,FILE_PATH filePath
+	 		   ,B.BOARD_CONTENT boardContent
+	 	  FROM 
+	 	       BOARD B
+	      JOIN
+	           MEMBER USING(MEMBER_NO)
+	 LEFT JOIN
+	      	   ATTACHMENT ON(BOARD_NO = REF_NO)
+	     WHERE
+	           B.BOARD_NO = #{boardNo}
+	       AND
+	           B.STATUS = 'Y'	 	 		   	
+	 </select>
+	 
+	 <insert id="insertBoard1" parameterType="board">
+	 	insert
+	 	  into
+	 	  	   board
+	 	  	   (
+	 	  	   board_no
+	 	  	   ,member_no
+	 	  	   ,board_title
+	 	  	   ,board_content
+	 	  	   ,category
+	 	  	   )
+	 	values
+	 		   (
+	 		   seq_bod_no.nextval
+	 		   ,#{memberNo}
+	 		   ,#{boardTitle}
+	 		   ,#{boardContent}
+	 		   ,#{category}
+	 		   )
+	 </insert>
+	 
+	 <insert id="insertBoard2" parameterType="board">
+	 	insert
+	 	  into
+	 	       attachment
+	 	       (
+	 	       file_no
+	 	       ,file_category
+	 	       ,ref_no
+	 	       ,file_level
+	 	       ,origin_name
+	 	       ,change_name
+	 	       ,file_path
+	 	       ,file_status
+	 	       )
+	 	values
+	 		   (
+	 		   seq_fno.nextval
+	 		   ,3
+	 		   ,seq_bod_no.currval
+	 		   ,1
+	 		   ,#{originName}
+	 		   ,#{changeName}
+	 		   ,#{filePath}
+	 		   ,'Y'
+	 		   )
+	 </insert>
+	 
 </mapper>

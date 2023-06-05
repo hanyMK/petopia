@@ -22,10 +22,36 @@ public class BoardDao {
 										String category){
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectBoard", category, rowBounds);
 	}
 	
+	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("boardMapper.increaseCount", boardNo);
+	}
 	
+	public Board selectDetailBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectDetailBoard", boardNo);
+	}
+	
+	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
+		int insert1 = 0;
+		int insert2 = 0;
+		
+		if((insert1 = sqlSession.insert("boardMapper.insertBoard1", b)) > 0) {
+			if(b.getOriginName() != null) {
+				insert2 = sqlSession.insert("boardMapper.insertBoard2", b);
+				return insert2;
+			} else {
+				return insert1;
+			}
+			
+		} else {
+			return insert1;
+		}
+		
+	}
 }
