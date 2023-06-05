@@ -184,6 +184,24 @@
 			background-color:white;
 		}
 		
+		/* 알람 jsp */
+		#alram_area_top{
+		height: 10%;
+		padding-top: 30px;
+		padding-bottom: 30px;		
+		}
+		#alram_area_bottom{
+			height:90%;
+		}
+		#myAlramList{
+			border: 1px solid black;
+			height: 100px;
+			width: 250px;
+			margin: auto;
+			text-align: center;
+			font-size: 12px;
+		}
+			
 		
     </style>
 
@@ -249,7 +267,7 @@
 	                  </div>
 	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
 	                  <div id="alram_box" > 					               
-						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
+						<iframe src="alramReply.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
                   </c:otherwise>
                </c:choose>
