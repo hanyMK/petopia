@@ -238,7 +238,15 @@
                   <c:otherwise>
                                     
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
-                      <a href="myPage.me">마이페이지</a>
+                      <c:choose>
+                      	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
+                      		<a href="managerPage.ma">관리자 페이지</a>
+                      	</c:when>
+                      	<c:otherwise>
+		                     <a href="myPage.me">마이페이지</a>
+                      	
+                      	</c:otherwise>
+                      </c:choose>
                       <a href="logout.me">로그아웃</a>
                       
                   </c:otherwise>

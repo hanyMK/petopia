@@ -59,10 +59,10 @@
     
     <div class="outer" align="center">
     
-	<!--  
+	
     <form action="findEmail.me" method="post"  id="idSearh-form">
-      </form>
-    -->
+      
+   
         <table id="serch" align="center" >
            
             <tr >
@@ -91,7 +91,7 @@
         </div>
         
    </div>
-   
+   </form>
    
    
    <script> 
@@ -123,7 +123,8 @@
 		var paramK = '${ param.k}';
         chpwd.onclick = () => {
             if(  pwdCheck == 1 && pwdCheck2 ==1 ) {
-                console.log("hi");
+            	
+             //  console.log("hi");
                 console.log('${param.k}');
 
                 $.ajax({
@@ -131,11 +132,12 @@
                     type: 'post',
                     data: {
                         memberPwd : memberPwd.value,
-                        k : paramK.slice(0, -1)
+                        k : paramK
                     },
                     success : result =>{
                         console.log(result);
                         if(result == 'YES'){
+                        alert('비밀번호가 변경되었습니다');
                         	location.href='main.jsp';
                         }
                     },
@@ -145,6 +147,13 @@
                     }
 
                 });
+                
+                
+                //가입조건 충족시 버튼 속성 변경
+              
+             
+             // checkPwd.setAttribute('type', 'submit');
+              
             };
         }
         //비밀번호 체크

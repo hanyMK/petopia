@@ -13,6 +13,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminservice;
 	
+	@RequestMapping("managerPage.ma")
+	public String adminPage() {
+		return "admin/adminPage";
+	}
+	
 	@RequestMapping("admin.ad")
 	public String memberList(Model model) {
 		
@@ -20,9 +25,41 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/admin/insertCouponList")
-	public String delete() {
-		return "admin/insertCouponList";
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//----------------------하은--------------------
+	
+	
+	
+	@RequestMapping("couponList.manager")
+	public String coponListShow() {
+		return "admin/couponList";
 	}
+	
+	
+	
+	
+	
+	
 	
 }
