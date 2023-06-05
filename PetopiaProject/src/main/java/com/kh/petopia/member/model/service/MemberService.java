@@ -1,11 +1,11 @@
 package com.kh.petopia.member.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.member.model.vo.CertVO;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 
@@ -81,6 +81,11 @@ public interface MemberService {
 		//4. 비밀번호 변경(update)
 		int updatePwd(Member m); 
 		
+		//인증키 저장
+		int sendMail(CertVO certVo);
+		
+		//인증키 확인 및 
+		boolean validata(CertVO certVo);
 		
 		
 

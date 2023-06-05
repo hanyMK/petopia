@@ -10,6 +10,7 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.member.model.dao.MemberDao;
+import com.kh.petopia.member.model.vo.CertVO;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 
@@ -87,7 +88,17 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updatePwd(Member m) {
-		return memberDao.updateMember(sqlSession, m);
+		return memberDao.updatePwd(sqlSession, m);
+	}
+
+	@Override
+	public int sendMail(CertVO certVo) {
+		return memberDao.sendMail(sqlSession, certVo);
+	}
+
+	@Override
+	public boolean validata(CertVO certVo) {
+		return memberDao.validata(sqlSession, certVo);
 	}
 
 }

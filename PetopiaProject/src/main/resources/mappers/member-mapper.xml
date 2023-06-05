@@ -200,5 +200,30 @@
 		  where
 		  		email = #{email}
 	</update>
+	
+	<!-- 인증키 저장 -->
+	
+	<insert id="sendMail" parameterType="certVo">
+		insert into cert 
+		(who, secret)
+		values 
+		(#{who}, #{secret})
+	</insert>
+	
+	<!-- 인증 키 확인 -->
+	<select id="validata" parameterType="certVo" resultType="certVo">
+		select who, secret, when_date
+		from cert
+		where who = #{who}
+		and secret = #{secret}
+		and when_date between sysdate - 10/24*60 and sysdate
+	</select>
+	
+	<!-- 인증 번호 삭제 -->
+	
+	<delete id="remove" parameterType="certVo">
 
+		delete cert where who = #{who} and secret =#{secret}
+		
+	</delete>
 </mapper>  
