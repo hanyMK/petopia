@@ -16,7 +16,7 @@ public class AdminController {
 	@RequestMapping("admin.ad")
 	public String memberList(Model model) {
 		
-		return "admin/adminMemberList";
+		return "admin/adminMemberList"; 
 	}
 	
 	

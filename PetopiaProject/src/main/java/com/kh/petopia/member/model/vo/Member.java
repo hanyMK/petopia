@@ -17,7 +17,7 @@ public class Member {
 	private String bank;
 	private String account;
 	private String address;
-	private Date enrollDate;
+	private String enrollDate;
 	private Date modifyDate;
 	private String status;
 	

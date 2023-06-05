@@ -5,10 +5,43 @@
   
 <mapper namespace="adminMapper">
 	
+	<resultMap type="member" id="memberResultSet">
+		<result column="member_no" property="memberNo" />
+		<result column="email" property="email" />
+		<result column="member_pwd" property="memberPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="member_name" property="memberName" />
+		<result column="birthday" property="birthday" />
+		<result column="phone" property="phone" />
+		<result column="bank" property="bank" />
+		<result column="account" property="account" />
+		<result column="address" property="address" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="status" property="status" />
+	</resultMap>
+	
 	<select id="memberListCount" resultType="_int">
 		select
 			   count(*)
 		  from
 		       member
 	</select>
+	
+	<select id="memberList" resultMap="memberResultSet">
+		select
+		       member_no
+		      ,member_name
+		      ,nickname
+		      ,phone
+		      ,address
+		      ,to_char(enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		      ,status
+		 from 
+		      member
+		 order
+		    by
+		      member_no desc     
+	</select>
+	
 </mapper>
