@@ -8,8 +8,8 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	
-		<!-- type="경로(주소값)" alias="별칭" -->  
 	<typeAliases>
+		<!-- type="경로(주소값)" alias="별칭" -->
 		<typeAlias type="com.kh.petopia.admin.model.vo.Admin" alias="admin"/> 
 		<typeAlias type="com.kh.petopia.member.model.vo.Member" alias="member"/> 
 		<typeAlias type="com.kh.petopia.member.model.vo.CertVO" alias="certVo"/> 
@@ -22,11 +22,12 @@
 		<typeAlias type="com.kh.petopia.petStore.model.vo.PetStoreReview" alias="petStoreReview"/>
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Reservation" alias="reservation"/>
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Employee" alias="employee"/>
-		
+		<typeAlias type="com.kh.petopia.board.model.vo.Reply" alias="reply"/>
+		<typeAlias type="com.kh.petopia.myPage.model.vo.AlramReply" alias="alramReply"/>
+
 	</typeAliases>
 	
-	<!-- resource="매퍼의 경로" -->
-	<mappers> 
+	<mappers> <!-- resource="매퍼의 경로" -->
 		<mapper resource="/mappers/admin-mapper.xml" />
 		<mapper resource="/mappers/board-mapper.xml" />
 		<mapper resource="/mappers/myPage-mapper.xml" />
@@ -35,5 +36,4 @@
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/reservation-mapper.xml"/>
 	</mappers>
-	
 </configuration>

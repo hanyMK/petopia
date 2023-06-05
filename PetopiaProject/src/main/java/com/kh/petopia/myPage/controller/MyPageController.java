@@ -27,8 +27,10 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("alram.me")
-	public String alramList() {
-		
+	public String alramList(int mno, Model model) {
+		System.out.println(mno);
+		model.addAttribute("replyList", myPageService.alramReplyList(mno));
+		System.out.println(myPageService.alramReplyList(mno));
 		return "myPage/alram";
 	}
 
