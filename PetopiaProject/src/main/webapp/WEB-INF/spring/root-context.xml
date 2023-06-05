@@ -7,8 +7,16 @@
 	
 	 <!-- DB연결 설정을 위한 3단게 -->
 	 <!-- 1단계. DB연결 설정 -->                <!-- DB연결을 위한 객체 => 파괴되었을때 close를 해라 -->
-	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
 	 	<!-- 어떤 DB에 접속할건지 정보 작성  -->
+	 <!--
+	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	 	<property name="username" value="PETOPIA" />
+	 	<property name="password" value="PETOPIA" />
+	 </bean>
+	 -->
+	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
 	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	 	<property name="url" value="jdbc:oracle:thin:@192.168.31.19:1521:xe"/>
 	 	<property name="username" value="PETOPIA_SAMPLE" />

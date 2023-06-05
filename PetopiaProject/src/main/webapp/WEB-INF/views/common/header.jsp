@@ -274,13 +274,15 @@
                         <li><a href="">메뉴4</a></li>
                     </ul>
                 </li>
-                <li><a href="">커뮤니티</a>
+                <li><a href="board.bo?category=ALL">커뮤니티</a>
+                	<!-- 
                     <ul>
                         <li><a href="">메뉴1</a></li>
                         <li><a href="">메뉴2</a></li>
                         <li><a href="">메뉴3</a></li>
                         <li><a href="">메뉴4</a></li>
                     </ul>
+                     -->
                 </li>
             </ul>
     
