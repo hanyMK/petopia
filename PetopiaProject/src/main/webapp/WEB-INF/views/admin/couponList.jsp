@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
+    <style type="text/css">
+    
+    </style>
 
 </head>
 <body>
@@ -67,12 +70,59 @@
                 <form action="delete.me" method="post">
                     <!-- Modal body -->
                     <div class="modal-body">
+                     <form action="test.me" method="post" id="sign-form">
+    
+			            <table align="center">
+			            
+			                <tr>
+			                    <th>쿠폰 이름 :</th>
+			                    <td><input type="password" name="userPwd" id="userPwd" maxlength="20" required></td>
+			                    
+			    
+			                </tr>
+			                <tr>
+			                    <th>쿠폰 타입 :</th>
+			                    <td><input type="password" name="checkPwd"  maxlength="20" required></td>
+			    
+			                </tr>
+			               
+			                <tr>
+			                    <th>할인가 :</th>
+			                    <td><input type="text" name="userName" id="userName" maxlength="5" required></td>
+			                </tr>
+			             
+			                <tr>
+			                    <th>시작일 : </th>
+			                    <td><input type="email"  name="email"></td>
+			                </tr>
+			                <tr>
+			                    <th>종료일 : </th>
+			                    <td><input type="email"  name="email"></td>
+			                </tr>
+			                <tr>
+			                    <th>최대할인 금액 : </th>
+			                    <td><input type="email"  name="email"></td>
+			                </tr>
+			                <tr>
+			                    <th>최소사용 금액 : </th>
+			                    <td><input type="email"  name="email"></td>
+			                </tr>
+			           
+			                
+			            </table>
+			            </form>
+                    
+                    	<!--  
                         <div align="center">
-              				<input tyep="text" name="">
-                        </div>
-                        <br>
-                            <label for="userPwd" class="mr-sm-2">Password : </label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userPwd"> <br>
+              				쿠폰 이름 : <input tyep="text" name="copu"><br>
+              				쿠폰 타입 : <input tyep="text" name="copu"><br>
+              				쿠폰 이름 : <input tyep="text" name="copu"><br>
+              				할인가 : <input tyep="text" name="copu"><br>
+              				시작일 : <input tyep="text" name="copu"><br>
+              				종료일: <input tyep="text" name="copu"><br>
+              				최대할인 금액 : <input tyep="text" name="copu"><br>
+              				최소사용 금액 : <input tyep="text" name="copu"><br>
+                        </div>-->
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
