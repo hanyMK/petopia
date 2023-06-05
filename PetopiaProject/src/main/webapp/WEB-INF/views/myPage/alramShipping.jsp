@@ -7,6 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	#alram_area_top{
+		height: 10%;
+		padding-top: 30px;
+		padding-bottom: 30px;		
+	}
+	#alram_area_bottom{
+		height:90%;
+	}
+	#myAlramList{
+		border: 1px solid black;
+		height: 50px;
+		width: 250px;
+		margin: auto;
+		text-align: center;
+		font-size: 12px;
+	}
 </style>
 </head>
 <body>
@@ -20,13 +36,11 @@
 			</div>
 		</div>
 		<div id="alram_area_bottom">
-			<c:forEach var="r" items="${ replyList }" >
+			<c:forEach var="s" items="${ shippingList }" >
 				<div id="myAlramList">
-					${ r.category } 게시판 <br>
-					${ r.createDate }<br>
-					제목 : ${ r.boardTitle }<br>
-					댓글 작성자 : ${ r.nickname }<br>
-					댓글 : ${ r.replyContent }<br>
+					<c:if test="${ s.shippingStatus eq '배송중' }" >
+						고객님께서 주문하신 상품이 ${ s.shippingStatus } 입니다.
+					</c:if>
 				</div><br>
             </c:forEach>	
 		</div>
