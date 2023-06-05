@@ -15,6 +15,7 @@
 		<result column="status" 	property="status" />
 		<result column="category" 	property="category" />
 		<result column="board_like" 	property="boardLike" />
+		<result column="qna_yn" 	property="qnaYN" />
 	</resultMap>
 	
 	<resultMap id="replyResultSet" type="reply">
