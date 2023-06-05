@@ -15,7 +15,15 @@
 		<result column="category" 	property="category" />
 		<result column="board_like" 	property="boardLike" />
 		<result column="member_no" 	property="memberNo" />
-		
+	</resultMap>
+	
+	<resultMap id="petResultSet" type="pet">
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="GENDER" property="gender"/>
+		<result column="SPECIES" property="species"/>
+		<result column="PET_NAME" property="petName"/>
+		<result column="AGE" property="age"/>
+		<result column="WEIGHT" property="weight"/>
 	</resultMap>
 	
 	
@@ -34,6 +42,21 @@
 		       m.member_no = #{ memberNo }
 		   and
 		       b.status = 'Y'
+	</select>
+	
+	
+	<select id="selectPet" parameterType="int" resultMap="petResultSet">
+		SELECT
+				MEMBER_NO,
+				GENDER,
+				SPECIES,
+				PET_NAME,
+				AGE,
+				WEIGHT
+		  FROM
+		  		PET
+		 WHERE
+		 		MEMBER_NO = #{memberNo}
 	</select>
 	
 	
