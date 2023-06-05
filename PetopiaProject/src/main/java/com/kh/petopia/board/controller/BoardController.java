@@ -114,5 +114,27 @@ public class BoardController {
 		
 	}
 
+	@RequestMapping("delete.bo")
+	public String deleteBoard(int bno, String file, HttpSession session) {
+		
+		if(boardService.deleteBoard(bno) > 0) {
+			if(!file.equals("")) {
+				new File(session.getServletContext().getRealPath(file)).delete();
+			
+			}
+			session.setAttribute("alertMsg", "삭제 성공~");
+			return "redirect:board.bo?category=ALL";
+		} else {
+			session.setAttribute("errorMsg", "삭제 실패..ㅠ");
+			return "common/errorPage";
+		}
+		
+		
+	}
+	 
+	@RequestMapping("update.bo")
+	public String updateBoard(int bno, String file, HttpSession session) {
+		
+	}
 	
 }

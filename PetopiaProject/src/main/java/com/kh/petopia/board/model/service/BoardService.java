@@ -31,7 +31,7 @@ public interface BoardService {
 	//int updateBoard(Board b);
 	
 	// 게시글 삭제 (update)
-	//int deleteBoard(int boardNo);
+	int deleteBoard(int boardNo);
 	
 	/* 게시글 검색 (select)
 	ArrayList<Board> selectSearchBoard(Search s)
