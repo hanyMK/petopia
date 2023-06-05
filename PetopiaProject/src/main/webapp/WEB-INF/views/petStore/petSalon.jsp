@@ -23,8 +23,9 @@
 			
 				<h3> petopia 애견 미용 </h3>
 			
-				<div>
-					* 애견 미용 정보 * <br>
+				<div id="salon-employee">
+				
+					<h4>* 애견 미용 정보 * </h4>
 					${petSalon.petStoreName} <br>
 					${petSalon.petStoreAddress} <br>
 					${petSalon.openTime} <br>
@@ -34,17 +35,35 @@
 					${petSalon.petStoreInfo} <br>
 					${petSalon.usageFee} <br>
 					
-					<br>
-					
-					<a href="reservation1.ps" style="color:lightgray;">예약</a>
-					
-					<br><br>
-					
-					<hr>
-					
-					*리뷰 영역*
-					
 				</div>
+				
+				<br>
+					
+				<a href="reservation1.ps" style="color:lightgray;">예약</a>
+				
+				<br><br>
+				
+				<hr>
+				
+				<div id="salon-review">
+					<h4>* 리뷰 영역 *</h4>
+					<ul style="list-style:none;">
+						<c:forEach var="review" items="${rList}">
+							<li>${review.reviewNo}</li>
+							<li>미용사 : ${review.employeeName}</li>
+							<li>작성자 : ${review.nickName}</li>
+							<li>리뷰내용 : ${review.reviewContent}</li>
+							<li>작성일자 : ${review.createDate}</li>
+							<c:if test="${ not empty review.modifyDate  }">
+								<li>수정일자 : ${review.modifyDate}</li>
+							</c:if>
+							<li>평점 : ${review.rating}</li>
+							<br>
+						</c:forEach>
+					
+					</ul>
+				</div>
+				
 			
 			</div>
 			<!-- 애견 미용 콘텐츠 끝 -->
