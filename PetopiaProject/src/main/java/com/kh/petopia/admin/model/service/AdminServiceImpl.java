@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.petopia.admin.model.dao.AdminDao;
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Member;
 
@@ -27,6 +28,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<Member> memberList(PageInfo pi) {
 		return adminDao.memberList(sqlSession, pi);
+	}
+
+	@Override
+	public int insertCoupon(Coupon c) {
+		return adminDao.insertCoupon(sqlSession , c);
+	}
+
+	@Override
+	public ArrayList<Coupon> cList(PageInfo pi) {
+		return null;
 	}
 
 }

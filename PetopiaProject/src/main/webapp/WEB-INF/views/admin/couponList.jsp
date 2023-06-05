@@ -66,51 +66,52 @@
                     <h4 class="modal-title">쿠폰 발급</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
+                     <form action="insertCoupon.ad" method="post" id="sign-form">
 
-                <form action="delete.me" method="post">
                     <!-- Modal body -->
                     <div class="modal-body">
-                     <form action="test.me" method="post" id="sign-form">
     
 			            <table align="center">
 			            
 			                <tr>
 			                    <th>쿠폰 이름 :</th>
-			                    <td><input type="password" name="userPwd" id="userPwd" maxlength="20" required></td>
+			                    <td><input type="text" name=couponName id="couponName"  required></td>
 			                    
 			    
 			                </tr>
 			                <tr>
 			                    <th>쿠폰 타입 :</th>
-			                    <td><input type="password" name="checkPwd"  maxlength="20" required></td>
+			                    <td><input type="number" name="couponType"  required></td>
 			    
 			                </tr>
 			               
 			                <tr>
 			                    <th>할인가 :</th>
-			                    <td><input type="text" name="userName" id="userName" maxlength="5" required></td>
+			                    <td><input type="number" name="discount" id="discount" required></td>
 			                </tr>
 			             
 			                <tr>
 			                    <th>시작일 : </th>
-			                    <td><input type="email"  name="email"></td>
+			                    <td><input type="datetime-local"  id="reulstStartDate" >
+			                    <<input type="hidden"  name="startDate" id="startDate" value=""></td>
 			                </tr>
 			                <tr>
 			                    <th>종료일 : </th>
-			                    <td><input type="email"  name="email"></td>
+			                    <td><input type="datetime-local"  id="reulstEndDate">
+			                    <input type="hidden"  name="endDate" id="endDate"></td>
 			                </tr>
 			                <tr>
 			                    <th>최대할인 금액 : </th>
-			                    <td><input type="email"  name="email"></td>
+			                    <td><input type="number"  name="maxPrice" id="maxPrice"></td>
 			                </tr>
 			                <tr>
 			                    <th>최소사용 금액 : </th>
-			                    <td><input type="email"  name="email"></td>
+			                    <td><input type="number"  name="minPriace" id="minPriace"></td>
 			                </tr>
 			           
 			                
 			            </table>
-			            </form>
+			           
                     
                     	<!--  
                         <div align="center">
@@ -126,13 +127,51 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
-                        <button type="submit" class="btn btn-danger">쿠폰 발급하기</button>
+                        <button id="insertCoupon"  type="submit" class="btn btn-danger">쿠폰 발급하기</button>
                         <button type="reset" class="btn btn-danger">초기화</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+	<script>
+	
+		// var couponBtn = document.getElementById('insertCoupon');
+		// var sDate = document.getElementById('startDate'); 
+		// var eDate = document.getElementById('endDate');
+		// var rsDate = document.getElementById('reulstStartDate'); 
+		// var reDate = document.getElementById('reulstEndtDate');
+		
+		// function changeDate(){
+
+		// 	console.log(sDate.value.replace("T", " "));
+		// 	sDate.value = rsDate.value.replace("T", " ");
+		// 	eDate.value = reDate.value.replace("T", " ");
+		// 	//sDate.att('value',eDate.value.replace("T", " "));
+		
+		// 	console.log(rsDate.value);
+		
+		//}
+		//couponBtn.onclick = () =>{
+
+		//}
+
+		$(function(){
+
+		
+
+			$('#insertCoupon').on('click', ()=>{
+
+				var sDate = $('#reulstStartDate').val().replace("T", " ");
+				var eDate = $('#reulstEndtDate').val().replace("T", " ");
+				console.log(sDate +" / " +rDate);
+				$('#endDate').val(eDate);
+				console.log($('#endDate').val());
+			})
+			
+		})
+	</script>
 
 </body>
 </html>

@@ -11,6 +11,7 @@
 	<typeAliases>
 		<!-- type="경로(주소값)" alias="별칭" -->
 		<typeAlias type="com.kh.petopia.admin.model.vo.Admin" alias="admin"/> 
+		<typeAlias type="com.kh.petopia.admin.model.vo.Coupon" alias="coupon"/> 
 		<typeAlias type="com.kh.petopia.member.model.vo.Member" alias="member"/> 
 		<typeAlias type="com.kh.petopia.member.model.vo.CertVO" alias="certVo"/> 
 		<typeAlias type="com.kh.petopia.board.model.vo.Board" alias="board"/> 
@@ -24,6 +25,7 @@
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Employee" alias="employee"/>
 		<typeAlias type="com.kh.petopia.board.model.vo.Reply" alias="reply"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.AlramReply" alias="alramReply"/>
+		
 
 	</typeAliases>
 	

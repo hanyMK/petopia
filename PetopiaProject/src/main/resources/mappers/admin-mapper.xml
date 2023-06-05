@@ -11,4 +11,27 @@
 		  from
 		       member
 	</select>
+	
+	<insert id="insertCoupon" parameterType="coupon">
+		INSERT INTO COUPON
+		VALUES
+		(
+		SEQ_CNO.nextval, 
+		#{couponName}, 
+		#{couponType},
+		#{discount}, 
+		TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:mi'),
+		TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:mi'),
+		#{maxPrice}, 
+		#{minPriace}
+		)
+		
+		INSERT INTO COUPON
+VALUES
+(SEQ_CNO.nextval, 
+'구냥 할인 쿠폰', 
+1, 1000, 
+TO_DATE('2023-05-01 00:00', 'YYYY-MM-DD HH24:mi'),
+TO_DATE('2023-05-31 23:59', 'YYYY-MM-DD HH24:mi'),NULL, 10000);
+	</insert>
 </mapper>
