@@ -36,28 +36,27 @@ public class MyPageController {
 		System.out.println(myPageService.alramReplyList(mno));
 		return "myPage/alramReply";
 	}
-	// 알람 - 공지사항(1:1댓글알림)
-	@RequestMapping("alramNotice.me")
-	public String alramNoticeList(int mno, Model model) {
-		System.out.println("공지사항 : " + mno);
-		model.addAttribute("replyList", myPageService.alramNoticeList(mno));
-		return "myPage/alramNotice";
-	}
-	// 알람 - 쿠폰
-	@RequestMapping("alramCoupon.me")
-	public String alramCouponList(int mno, Model model) {
-		System.out.println("쿠폰 : " + mno);
-		model.addAttribute("couponList", myPageService.alramCouponList(mno));
-		return "myPage/alramCoupon";
-	}
-	// 알람 - 배송
-	@RequestMapping("alramShipping.me")
-	public String alramShippingList(int mno, Model model) {
-		System.out.println("배송 : " + mno);
-		model.addAttribute("couponList", myPageService.alramShippingList(mno));
-		
-		return "myPage/alramShipping";
-	}
+//	// 알람 - 공지사항(1:1댓글알림)
+//	@RequestMapping("alramNotice.me")
+//	public String alramNoticeList(int mno, Model model) {
+//		System.out.println("공지사항 : " + mno);
+//		model.addAttribute("noticeList", myPageService.alramNoticeList(mno));
+//		return "myPage/alramNotice";
+//	}
+//	// 알람 - 쿠폰
+//	@RequestMapping("alramCoupon.me")
+//	public String alramCouponList(int mno, Model model) {
+//		System.out.println("쿠폰 : " + mno);
+//		model.addAttribute("couponList", myPageService.alramCouponList(mno));
+//		return "myPage/alramCoupon";
+//	}
+//	// 알람 - 배송
+//	@RequestMapping("alramShipping.me")
+//	public String alramShippingList(int mno, Model model) {
+//		System.out.println("배송 : " + mno);
+//		model.addAttribute("shippingList", myPageService.alramShippingList(mno));
+//		return "myPage/alramShipping";
+//	}
 	
 
 }
