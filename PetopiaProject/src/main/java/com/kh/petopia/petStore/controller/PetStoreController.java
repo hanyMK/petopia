@@ -79,16 +79,16 @@ public class PetStoreController {
 		PetStore petSalon = petStoreService.selectPetStore(psno);
 		
 		// 애견 미용 관련 리뷰 리스트 조회
-		ArrayList<PetStoreReview> pList = petStoreService.selectReviewList(psno);
+		ArrayList<PetStoreReview> rList = petStoreService.selectReviewList(psno);
 		
-		System.out.println(pList);
+		System.out.println(rList);
 		
 		
-		if( petSalon  != null && pList != null) {
+		if( petSalon  != null && rList != null) {
 			
 			System.out.println(petSalon);
 			mv.addObject("petSalon",petSalon);
-			mv.addObject("pList",pList);
+			mv.addObject("rList",rList);
 			mv.setViewName("petStore/petSalon");
 			
 		}else {
