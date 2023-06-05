@@ -76,9 +76,9 @@
             <a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
         </c:if>
         <div align="center">
-            <button class="category" onclick="selectCategory(0);">전체</button>
-            <button class="category" onclick="selectCategory(1);">소모임</button>
-            <button class="category" onclick="selectCategory(2);">자랑하기</button>
+            <button class="category" onclick="selectCategory('ALL');">전체</button>
+            <button class="category" onclick="selectCategory('CLUB');">소모임</button>
+            <button class="category" onclick="selectCategory('BOAST');">자랑하기</button>
         </div>
         <div class="dropdown" style="float:right;">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -109,12 +109,32 @@
 
         <div id="pagingArea">
             <ul class="pagination">
-
+				<c:choose>
+                        <c:when test="${pi.currentPage eq 1}">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="javascript:selectList('${category}', ${pi.currentPage - 1});">Previous</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                    
+                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                        <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${p});">${p}</a></li>                    
+                    </c:forEach>
+                    
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq pi.maxPage}">
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>                    	
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${pi.currentPage + 1});">Next</a></li>
+                        </c:otherwise>
+                    </c:choose>
             </ul>
         </div>
 
         <br clear="both"><br>
-
+		<!-- 
         <form id="searchForm" onsubmit="event.preventDefault(); selectList();" align="center">
             <div class="select">
                 <select class="custom-select" name="condition">
@@ -128,40 +148,46 @@
             </div>
             <button type="submit" class="searchBtn btn btn-secondary">검색</button>
         </form>
+         -->
         <br><br>
     </div>
     <br><br>
-
+	
 </div>
 
 <jsp:include page="../common/footer.jsp" />
 
 <script>
-    var category = '';
+	let category = "${category}";
+	let cPage = ${pi.currentPage};
+	
+	$(function(){ // 자바스크립트/제이쿼리 onload함수		
+		selectList(category, cPage);
+	
+		$('#boardList > tbody').on('click', 'tr',(function(){
+			location.href = 'detail.bo?bno=' + $(this).children('#bno').val();
+		}))
+	})
 
-    function selectCategory(num) {
-        if (num == 0) {
-            category = 'all';
-        } else if (num == 1) {
-            category = 'CLUB';
-        } else {
-            category = 'BOAST';
-        }
-        selectList();
-    }
-
-    function selectList() {
-        console.log(category);
-
-        $.ajax({
+	function selectCategory(type) {
+	       selectList(type, 1);
+	    }
+	
+	function selectList(category, cPage) {
+	    console.log(category);
+		$.ajax({
             url: 'list.bo',
-            data: {category: category},
+            data: {
+            		category: category,
+            		currentPage : cPage
+            		},
             success: result => {
                 let value = '';
                 let list = result.list;
-                console.log(result);
+                
                 for (let i in list) {
                     value += '<tr>'
+                    	+ '<input id="bno" type=hidden name="boardNo" value="' + list[i].boardNo + '">'
                         + '<td>' + list[i].boardTitle + '</td>'
                         + '<td>' + list[i].nickName + '</td>'
                         + '<td>' + list[i].boardCount + '</td>'
@@ -170,35 +196,16 @@
                         + '</tr>'
                 }
                 $('#boardList tbody').html(value);
-
-                // 페이징 처리
-                let paging = '';
-                let pi = result.pi;
-                if (pi.currentPage == 1) {
-                    paging += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0);">&lt;--</a></li>';
-                } else {
-                    paging += '<li class="page-item"><a class="page-link" href="javascript:selectList();">&lt;--</a></li>';
-                }
-
-                for (let i = pi.startPage; i <= pi.endPage; i++) {
-                    paging += '<li class="page-item' + (pi.currentPage == i ? ' active' : '') + '"><a class="page-link" href="javascript:selectList();">' + i + '</a></li>';
-                }
-
-                if (pi.currentPage == pi.maxPage) {
-                    paging += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0);">--&gt;</a></li>';
-                } else {
-                    paging += '<li class="page-item"><a class="page-link" href="javascript:selectList();">--&gt;</a></li>';
-                }
-
-                $('#pagingArea .pagination').html(paging);
-
+                
             }
-
         })
     }
-
-    selectList(); // 페이지 로드 시 초기 리스트 불러오기
-
+	
+	
 </script>
+
+
+
+
 </body>
 </html>
