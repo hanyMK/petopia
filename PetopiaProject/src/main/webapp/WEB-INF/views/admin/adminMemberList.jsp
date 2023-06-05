@@ -11,7 +11,7 @@
 <style>
 
 	.memberList-table {
-	  width: 40%;
+	  width: 50%;
 	  border-collapse: collapse;
 	  margin-top: 100px;
 	  text-align: center;
@@ -61,18 +61,6 @@
 </head>
 <body>
 	
-	<script>
-		$(function(){
-			$.ajax({
-				url : 'ajaxMemberList.ad',
-				success : function(list){
-					console.log(list);
-				 	}
-			})
-		})
-	
-	</script>
-
 	
 	<jsp:include page="../common/header.jsp"/>
 	
@@ -80,34 +68,44 @@
 	<h1> 회원 목록 </h1>
 	
 		<table class="memberList-table">
-		  <tr>
-		    <th>회원번호</th>
-		    <th>이름</th>
-		    <th>전화번호</th>
-		    <th>주소</th>
-		    <th>가입일</th>
-		    <th>상태</th>
-		  </tr>
-		  <tr>
-		    <td>1</td>
-		    <td>홍길동</td>
-		    <td>010-1234-5678</td>
-		    <td>서울시 강남구</td>
-		    <td>2021-01-01</td>
-		    <td>활성</td>
-		  </tr>
-		  <tr>
-		  	<c:forEach items="${ list }" var="b">
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-		  	</c:forEach>
-		  </tr>
-		 
+		  <thead>
+			  <tr>
+			    <th>회원번호</th>
+			    <th>이름</th>
+			    <th>전화번호</th>
+			    <th>주소</th>
+			    <th>가입일</th>
+			    <th>상태</th>
+			  </tr>
+		  </thead>
+		  <tbody>
+		  </tbody>
 		</table>
+		
+	<script>
+		$(function(){
+			$.ajax({
+				url : 'ajaxMemberList.ad',
+				success : function(result){
+				let value = '';
+				let list = result.list;
+				console.log(list);
+					for(let i in list){
+						value += '<tr>'
+							+ '<td>' + list[i].memberNo + '</td>'
+	                        + '<td>' + list[i].memberName + '</td>'
+	                        + '<td>' + list[i].phone + '</td>'
+	                        + '<td>' + list[i].address + '</td>'
+	                        + '<td>' + list[i].enrollDate + '</td>'
+	                        + '<td>' + list[i].status + '</td>'
+	                        + '</tr>'
+					}
+					$('.memberList-table tbody').html(value);
+				 }
+			})
+		})
+	
+	</script>
 		
 		
 		

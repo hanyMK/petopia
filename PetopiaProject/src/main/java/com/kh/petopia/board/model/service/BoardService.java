@@ -25,7 +25,7 @@ public interface BoardService {
 	Board selectDetailBoard(int boardNo);
 	
 	// 게시글 추가 (insert)
-	// int insertBoard(int memberNo);
+	int insertBoard(Board b);
 	
 	// 게시글 수정 (update)
 	//int updateBoard(Board b);

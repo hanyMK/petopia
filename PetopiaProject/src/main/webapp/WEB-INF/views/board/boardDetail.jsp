@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,14 @@
                 <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
-                        <a href="${b.filePath }+${b.changeName}" download="${b.originName }">${b.originName }</a>
+	                    <c:choose>
+		                    <c:when test="${ empty b.originName }">
+		                    	<a>파일없음</a>
+		                    </c:when>
+		                    <c:otherwise>
+		                        <a href="${b.filePath} + ${b.changeName}" download="${b.originName }">${b.originName }</a>
+		                    </c:otherwise>
+	                    </c:choose>
                     </td>
                 </tr>
                 <tr>
