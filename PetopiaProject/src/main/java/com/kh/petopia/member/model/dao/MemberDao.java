@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.member.model.vo.CertVO;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 
@@ -61,6 +62,23 @@ public class MemberDao {
 	
 	public int updatePwd(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updatePwd", m);
+	}
+	
+	public int sendMail(SqlSessionTemplate sqlSession, CertVO certVo) {
+		return sqlSession.insert("memberMapper.sendMail", certVo);
+	}
+	
+	
+	public boolean validata(SqlSessionTemplate sqlSession, CertVO certVo ) {
+		CertVO result = sqlSession.selectOne("memberMapper.validata", certVo);
+		System.out.println("dao결과" + result);
+		
+		if(result == null) {
+			sqlSession.delete("memberMapper.remove", certVo);
+		}
+		
+		return result != null;
+	
 	}
 	
 	

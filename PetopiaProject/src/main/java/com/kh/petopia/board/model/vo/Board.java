@@ -18,6 +18,7 @@ public class Board {
 	private String category;
 	private int boardLike;
 	private int boardCount;
+	private String qnaYN;
 	
 	private int replyCount;
 	private String nickName;

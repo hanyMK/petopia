@@ -6,7 +6,8 @@
 <mapper namespace="myPageMapper">
 
 	<resultMap id="boardResultSet" type="board">
-		<result column="board_no" 		property="boardNo" />
+		<result column="board_no"	property="boardNo" />
+		<result column="member_no" 	property="memberNo" />
 		<result column="board_title" 	property="boardTitle" />
 		<result column="board_content" 	property="boardContent" />
 		<result column="create_date" 	property="createDate" />
@@ -14,10 +15,26 @@
 		<result column="status" 	property="status" />
 		<result column="category" 	property="category" />
 		<result column="board_like" 	property="boardLike" />
-		<result column="member_no" 	property="memberNo" />
-		
+		<result column="qna_yn" 	property="qnaYN" />
 	</resultMap>
 	
+	<resultMap id="replyResultSet" type="reply">
+		<result column="reply_no"	property="replyNo" />
+		<result column="board_no"	property="boardNo" />
+		<result column="member_no"	property="memberNo" />
+		<result column="nickname"	property="nickname" />
+		<result column="reply_content"	property="replyContent" />
+		<result column="reply_like"	property="replyLick" />
+		<result column="create_date"	property="createDate" />
+	</resultMap>
+	
+	<resultMap id="alramReplyResultSet" type="alramReply">
+		<result column="category"	property="category" />
+		<result column="create_date"	property="createDate" />
+		<result column="board_title"	property="boardTitle" />
+		<result column="nickname"	property="nickname" />
+		<result column="reply_content"	property="replyContent" />
+	</resultMap>
 	
 	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
@@ -34,6 +51,15 @@
 		       m.member_no = #{ memberNo }
 		   and
 		       b.status = 'Y'
+	</select>
+	
+	<select id="alramReplyList" parameterType="_int" resultMap="alramReplyResultSet">
+		select b.category, b.create_date, b.board_title, r.nickname, r.reply_content
+		  from member m
+		  left join board b on(m.member_no = b.member_no)
+		  left join reply r on(r.board_no = b.board_no)
+		 where b.member_no = #{ memberNo }
+		   and r.member_no != #{ memberNo }
 	</select>
 	
 	
