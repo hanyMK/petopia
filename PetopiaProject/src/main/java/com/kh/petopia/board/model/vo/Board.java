@@ -1,6 +1,7 @@
 package com.kh.petopia.board.model.vo;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import lombok.Data;
 

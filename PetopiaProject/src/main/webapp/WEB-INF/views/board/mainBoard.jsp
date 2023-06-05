@@ -73,7 +73,7 @@
         <br>
         <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
         <c:if test="${not empty loginMember}">
-            <a class="btn btn-secondary" style="float:left;" href="">글쓰기</a>
+            <a class="btn btn-secondary" style="float:left;" href="enrollForm.bo">글쓰기</a>
         </c:if>
         <div align="center">
             <button class="category" onclick="selectCategory('ALL');">전체</button>
@@ -95,6 +95,7 @@
             <thead>
             <tr>
                 <th>제목</th>
+                <th>카테고리</th>
                 <th>작성자</th>
                 <th>조회수</th>
                 <th>댓글수</th>
@@ -189,6 +190,7 @@
                     value += '<tr>'
                     	+ '<input id="bno" type=hidden name="boardNo" value="' + list[i].boardNo + '">'
                         + '<td>' + list[i].boardTitle + '</td>'
+                        + '<td>' + list[i].category + '</td>'
                         + '<td>' + list[i].nickName + '</td>'
                         + '<td>' + list[i].boardCount + '</td>'
                         + '<td>' + list[i].replyCount + '</td>'
@@ -196,7 +198,7 @@
                         + '</tr>'
                 }
                 $('#boardList tbody').html(value);
-                
+                console.log(category);
             }
         })
     }
