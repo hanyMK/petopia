@@ -22,10 +22,10 @@ public interface BoardService {
 	//}
 
 	// 게시글 상세조회(select)
-	//Board selectDetailBoard(int boardNo);
+	Board selectDetailBoard(int boardNo);
 	
 	// 게시글 추가 (insert)
-	//int insertBoard(int memberNo);
+	// int insertBoard(int memberNo);
 	
 	// 게시글 수정 (update)
 	//int updateBoard(Board b);
@@ -65,7 +65,7 @@ public interface BoardService {
 	// ------------------------------------------
 
 	// 게시글 조회수 증가 (update)
-	//int increaseCount(int boardNo);
+	int increaseCount(int boardNo);
 	
 	// ------------------------------------------
 	  
