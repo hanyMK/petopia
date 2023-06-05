@@ -7,12 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.myPage.model.vo.AlramReply;
 
 @Repository
 public class MyPageDao {
 	
 	public ArrayList<Board> myBoardList(SqlSessionTemplate sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myBoardList", memberNo);
+	}
+
+	public ArrayList<AlramReply> alramReplyList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.alramReplyList", memberNo);
 	}
 
 }

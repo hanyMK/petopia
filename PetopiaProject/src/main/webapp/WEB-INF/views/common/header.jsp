@@ -227,17 +227,25 @@
                </c:choose>
                
                <div id="header_1_right_bottom">
-                <!-- 알림, 페이 아이콘-->
-                <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
-                <div id="pay_box" > 					               
-					<iframe src="" scrolling="auto" id="payIframe"></iframe>
-                </div>
-                
-                <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
-                <div id="alram_box" > 					               
-					<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
-                </div>
-				
+               <c:choose>
+                  <c:when test="${ empty sessionScope.loginMember }">
+                      <!-- 로그인 전 -->
+                      <button class="fa-regular fa-credit-card fa-2x" id="payIcon"></button>
+                      <button class="fa-regular fa-bell fa-2x" id="alramIcon"></button>
+                  </c:when>
+                  <c:otherwise>
+                  	  <!-- 알림, 페이 아이콘-->
+	                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
+	                  <div id="pay_box" > 					               
+						<iframe src="" scrolling="auto" id="payIframe"></iframe>
+	                  </div>
+	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
+	                  <div id="alram_box" > 					               
+						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
+	                  </div>
+                  </c:otherwise>
+               </c:choose>
+               
 				
 				
                </div>

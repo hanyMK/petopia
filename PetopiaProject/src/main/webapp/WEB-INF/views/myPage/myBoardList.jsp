@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
 	#main_center_right_top{
 		height: 10%;
 		padding-top: 30px;
