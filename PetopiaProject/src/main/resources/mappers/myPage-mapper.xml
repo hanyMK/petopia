@@ -71,8 +71,8 @@
 		select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
 		            WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
 		            WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
-		            ELSE 'ALL'
-		        END AS 쿠폰종류
+		            ELSE '이벤트'
+		        END AS 쿠폰이름
 		  from coupon c
 		  join member_coupon mc on(mc.coupon_no = c.coupon_no)
 		 where member_no = #{ memberNo }
