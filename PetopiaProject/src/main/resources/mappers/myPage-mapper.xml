@@ -67,8 +67,7 @@
 		       b.board_title,
 		       r.reply_content,
 		       r.create_date,
-		       b.category,
-		       r.nickname
+		       b.category
 		  from 
 		       board b
 		  join
