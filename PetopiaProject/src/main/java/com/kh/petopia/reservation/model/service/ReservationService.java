@@ -10,6 +10,7 @@ public interface ReservationService {
 	// 미용사 리스트 조회 
 	ArrayList<Employee> selectEmployeeList(int psno);
 	
+	// 사용자의 
 	Pet selectMyPet(int mno);
 
 }

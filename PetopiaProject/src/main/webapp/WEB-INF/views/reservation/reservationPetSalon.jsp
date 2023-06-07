@@ -25,7 +25,7 @@
 		<div id="main_center">
 			
 			<%-- 미용 예약 콘텐츠 시작 --%>
-			<div id="petSalone-content">
+			<div id="petSalon-content">
 			
 				<h3> 미용 예약</h3>
 				
@@ -40,7 +40,7 @@
 									<div>
 										<div> 이름 : ${ e.employeeName } </div>
 										<div> 정보 : ${ e.employeeInfo } </div>
-										<button type="button" onclick="selectEmployee(${e.employeeNo});">예약</button>	<!-- 사용자가 미용사를 선택하면 해당 미용사의  -->
+										<button type="button" onclick="selectEmployee(${e.employeeNo},'${e.employeeName}');">예약</button>	<!-- 사용자가 미용사를 선택하면 해당 미용사의  -->
 									</div>
 									
 									<hr>
@@ -54,16 +54,19 @@
 	
 					</div>
 					
-					<!-- 사용자가 미용사를 선택하면 해당 미용사의 예약 가능한 날짜와 시간이 출력되어야 함 .. -->
+					<!-- 사용자가 미용사를 선택하면 해당 미용사의 예약 가능한 날짜와 시간이 출력되어야 함  -->
+					
 					<script>
 					
-						function selectEmployee(eno){
+						function selectEmployee(eno,eName){
 							
 							console.log('나 눌렀어?');
 							console.log(eno);
+							console.log(eName);
 							
-							$('#reservation-info').css('display','block')
-							$('input[name=employeeNo]').attr('value',eno)
+							$('#reservation-info').css('display','block');
+							$('input[name=employeeNo]').attr('value',eno);
+							$('label[for=employeeName]').text(eName);
 							
 						}
 					
@@ -78,10 +81,16 @@
 						
 							<input type="hidden" name="employeeNo" value="">
 							
-							날짜 <input type="date" name="checkIn" required><br><br>
+							* 담당  : <label for="employeeName"></label><br><br>
 							
-							시간 <input type="time" min="10:00" max="20:00" name="reservationTime" required><br><br>
+							<label for="checkIn">* 날짜  </label>		
+							<input type="date" name="checkIn" required><br><br>
 							
+							<label for="reservationTime">* 시간  </label>	
+							<input type="time" min="10:00" max="20:00" name="reservationTime" required><br><br>
+							
+							
+							<label for="myPet">* 마이펫 정보 </label>	
 							<!-- 사용자가 등록한 마이펫 정보가 있으면 출력  -->
 							<c:choose> 
 								<c:when test="${ not empty pet }">
@@ -98,14 +107,6 @@
 								</c:otherwise>
 							</c:choose>
 							
-							<!-- 미용예약하려는 동물의 무게에 따라 금액이 다르게 측정됨 -->
-							<!-- 무게가 10kg이상이면 10000원 추가  -->
-							<!-- 펫 나이가 10살이상인 경우 5000원 추가  -->
-							
-							예약금액
-		
-							
-							<br>
 							<button type="submit">예약하기</button>
 							
 						</form>

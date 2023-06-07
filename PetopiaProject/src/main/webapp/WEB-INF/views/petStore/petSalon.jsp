@@ -39,7 +39,7 @@
 				
 				<br>
 					
-				<a href="reservation.ps" style="color:lightgray;">예약</a>
+				<a href="reservation.ps?fee=${petSalon.usageFee}" style="color:lightgray;">예약</a>
 				
 				<br><br>
 				
