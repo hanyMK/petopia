@@ -123,6 +123,7 @@
 	 <select id="selectDetailBoard" resultType="board">
 	 	select 
 	 		   B.BOARD_TITLE boardTitle
+	 		   ,B.BOARD_NO boardNo
 	 		   ,NICKNAME nickName
 	 		   ,B.CREATE_DATE createDate
 	 		   ,ORIGIN_NAME originName
@@ -188,5 +189,14 @@
 	 		   ,'Y'
 	 		   )
 	 </insert>
+	 
+	 <update id="deleteBoard" parameterType="_int">
+	 	update
+	 			board
+	 	set
+	 			status = 'N'
+	 	where
+	 			board_no = #{boardNo}
+	 </update>
 	 
 </mapper>
