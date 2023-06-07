@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.service.MyPageService;
@@ -58,10 +59,10 @@ public class ReservationController {
 	public ModelAndView paymentPetSalon(Reservation r, HttpSession session, ModelAndView mv) {
 		
 		Member loginMember = (Member)(session.getAttribute("loginMember"));
-		System.out.println(loginMember);
+		int memberNo = loginMember.getMemberNo();
 		
 		r.setPetStoreNo(3);
-		r.setMemberNo(loginMember.getMemberNo());
+		r.setMemberNo(memberNo);
 		
 		System.out.println(r);
 		
@@ -72,7 +73,7 @@ public class ReservationController {
 		// r.getCheckIn(), r.getReservationTime()
 		
 		// 2. 사용자의 마이펫 정보 
-		Pet pet = myPageService.selectPet(loginMember.getMemberNo());
+		Pet pet = myPageService.selectPet(memberNo);
 		
 		// 3. 사용자가 선택한 담당 직원 
 		// r.getEmployeeNo()로 select해오기 
@@ -86,11 +87,15 @@ public class ReservationController {
 		// 5. 사용자가 가지고있는 쿠폰이랑 적립금 조회
 		
 		// 5-1. 보유한 쿠폰 조회 
+		int couponCount = myPageService.selectMemberCouponCount(memberNo);
+		ArrayList<Coupon> cList = myPageService.selectMemberCouponList(memberNo);
+		
+		System.out.println(couponCount);
+		System.out.println(cList);
 		
 		// 5-2. 적립금 조회 
-		
-		
-		
+		int point = myPageService.selectMemberPoint(memberNo);
+		System.out.println("적립금 출력 안 되냐?:"+point);
 		
 		
 		// 보유 적립금 출력 
@@ -107,6 +112,8 @@ public class ReservationController {
 		
 		return mv;
 	}
+
+
 	
 	
 }
