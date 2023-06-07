@@ -22,6 +22,12 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	@RequestMapping(value="product.pd")
+	public String productMain() {
+		
+		return "product/productMain";
+	}
+	
 	@RequestMapping(value="productManagement.pd")
 	public String productManagement() {
 		return "product/productManagementPage";
