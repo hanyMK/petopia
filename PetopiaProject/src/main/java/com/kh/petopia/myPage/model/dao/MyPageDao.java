@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.member.model.vo.Pet;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
@@ -32,5 +35,24 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.alramNoticeList", memberNo);
 	}
 
+	public ArrayList<Reply> myReplyList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myReplyList", memberNo);
+	}
 
+
+	public Pet selectPet(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPet", memberNo);
+	}
+	
+	public ArrayList<Coupon> selectMemberCouponList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectMemberCouponList", memberNo);
+	}
+
+	public int selectMemberCouponCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberCouponCount", memberNo);
+	}
+
+	public int selectMemberPoint(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberPoint", memberNo);
+	}
 }

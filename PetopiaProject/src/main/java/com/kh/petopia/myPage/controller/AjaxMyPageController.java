@@ -38,6 +38,19 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.alramNoticeList(mno));
 	}
 	
+	// 마이페이지 게시글 댓글 조회
+	@ResponseBody
+	@RequestMapping(value="ajaxMyBoard.me", produces="application/json; charset=UTF-8")
+	public String myBoardList(int mno) {
+		return new Gson().toJson(myPageService.myBoardList(mno));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="myReply.me", produces="application/json; charset=UTF-8")
+	public String myReplyList(int mno) {
+		return new Gson().toJson(myPageService.myReplyList(mno));
+	}
+	
 	
 	
 }

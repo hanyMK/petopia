@@ -17,7 +17,7 @@ public class MyPageController {
 	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
-	public String myPage() {
+	public String myPage(int mno) {
 		return "myPage/myPage";
 	}
 	
@@ -33,6 +33,12 @@ public class MyPageController {
 	public String alramList(int mno, Model model) {
 		model.addAttribute("list", myPageService.alramList(mno));
 		return "myPage/alramList";
+	}
+	
+	// 헤더 마이페이지 클릭
+	@RequestMapping("myPetpayPoint.me")
+	public String myPetpayPoint(int mno) {
+		return "myPage/myPetpayPoint";
 	}
 	
 }

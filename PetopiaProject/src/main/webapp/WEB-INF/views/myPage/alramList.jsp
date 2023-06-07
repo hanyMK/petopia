@@ -33,9 +33,9 @@
 		<div id="alram_area_top">
 			<div align="center">
 				<button onclick="myAlramList();">전체</button>
-				<button onclick="myShippingList();">상품/배송</button>
-				<button onclick="myReplyList();">게시글/댓글</button>
-				<button onclick="myNoticeList();">공지사항</button>
+				<button onclick="alramShippingList();">상품/배송</button>
+				<button onclick="alramReplyList();">게시글/댓글</button>
+				<button onclick="alramNoticeList();">공지사항</button>
 			</div>
 		</div>
 		<!-- 메인페이지 알람아이콘 클릭 시 iframe jsp -->
@@ -106,7 +106,7 @@
 	};
 	
 	/* 상품 배송출발 알람 */
-	function myShippingList() {
+	function alramShippingList() {
 		
 		$.ajax({
 			url : 'alramShipping.me', 
@@ -144,7 +144,7 @@
 	};
 	
 	/* 댓글 알람 */
-	function myReplyList() {
+	function alramReplyList() {
 		
 		$.ajax({
 			url : 'alramReply.me', 
@@ -174,7 +174,7 @@
 	
 	
 	/* 쿠폰 들어온 거 알람 */
- 	function myNoticeList() {
+ 	function alramNoticeList() {
 		
 		$.ajax({
 			url : 'alramNotice.me', 
