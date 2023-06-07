@@ -1,5 +1,7 @@
 package com.kh.petopia.admin.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@RequestMapping("managerPage.ma")
+	@RequestMapping("adminPage.ad")
 	public String adminPage() {
 		return "admin/adminPage";
 	}
@@ -62,10 +64,7 @@ public class AdminController {
 	
 	
 	
-	@RequestMapping("couponList.manager")
-	public String coponListShow() {
-		return "admin/couponList";
-	}
+
 	
 	//관리자 쿠폰 발급
 	@RequestMapping("insertCoupon.ad")
@@ -74,13 +73,38 @@ public class AdminController {
 		
 		if(adminService.insertCoupon(c)> 0) {
 			mv.addObject("alertMsg", "쿠폰이 발급되었습니다")
-			.setViewName("redirect:admin/couponList");
+			.setViewName("redirect:/couponList.admin");
 		}else {
 			mv.addObject("errorMsg", "쿠폰발급이 실패했습니다")
 			.setViewName("errorPage");
 		}
 		return mv;
 	}
+	
+	/**
+	 * 관리자 관점 쿠폰 리스트 조회
+	 * @param currentPage : 페이징 처리를 위한 현재 페이지 번호
+	 * @return
+	 */
+	@RequestMapping("couponList.admin")
+	public ModelAndView coponListShow(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+								ModelAndView mv) {
+		PageInfo pi = Pagination.getPageInfo(adminService.adminCouponListCount(), currentPage, 10, 10);
+		ArrayList<Coupon> couponList = adminService.adminCouponList(pi);
+		System.out.println(couponList);
+		System.out.println(pi);
+		if(!couponList.isEmpty()) {
+			mv.addObject("pi", pi)
+			.addObject("couponList",couponList )
+			.setViewName("admin/couponList");
+		}
+		
+		return mv;
+	}
+	
+	
+	
+	
 	
 	
 	

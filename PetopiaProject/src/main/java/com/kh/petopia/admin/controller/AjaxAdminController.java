@@ -47,6 +47,8 @@ public class AjaxAdminController {
 		return new Gson().toJson(result);
 		
 	}
+
+	
 }
 
 

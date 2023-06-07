@@ -30,6 +30,9 @@ public interface AdminService {
 	
 
 
+	//페이지 카운트
+	int adminCouponListCount();
+	ArrayList<Coupon> adminCouponList(PageInfo pi);
 	
 	
 	

@@ -20,8 +20,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public ArrayList<Employee> selectEmployeeList(int psno) {
-		
 		return reservationDao.selectEmployeeList(sqlSession,psno);
 	}
-
 }

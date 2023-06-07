@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
@@ -44,9 +45,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int insertProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertProduct(Product p, Attachment atmt) {
+		
+		int result1 = productDao.insertProduct(sqlSession, p);
+		int result2 = productDao.insertProduct(sqlSession, atmt);
+
+		if(result1 * result2 > 0) {
+			return result1 * result2;
+		} else {
+			sqlSession.rollback();
+			return result1 * result2;
+		}
 	}
 
 	@Override

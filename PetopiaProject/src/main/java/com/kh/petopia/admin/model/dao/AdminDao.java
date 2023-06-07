@@ -43,4 +43,16 @@ public class AdminDao {
 
 	
 	
+	public int adminCouponListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.adminCouponListCount");
+	}
+	
+	public ArrayList<Coupon> adminCouponList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		return (ArrayList)sqlSession.selectList("adminMapper.adminCouponList", 
+												null,
+												new RowBounds(offset, pi.getBoardLimit()));
+	}
+	
+	
 }
