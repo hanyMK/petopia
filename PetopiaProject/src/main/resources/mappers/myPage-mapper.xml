@@ -28,7 +28,6 @@
 		<result column="WEIGHT" property="weight"/>
 	</resultMap>
 	
-	<resultMap id="alramReplyResultSet" type="alramReply">
 	<resultMap id="replyResultSet" type="reply">
 		<result column="reply_no" 	property="replyNo" />
 		<result column="board_no"	property="boardNo" />

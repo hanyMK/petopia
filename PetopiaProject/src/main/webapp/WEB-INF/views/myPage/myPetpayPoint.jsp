@@ -5,6 +5,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+	#main_center_right_top{
+		height: 30%;
+		padding-top: 30px;
+	}
+	#main_center_right_top>div{
+		margin: auto;
+		text-align: center;
+	}
+	#main_center_right_bottom{
+		height:70%;
+	}
+	#myBoardList{
+		border: 1px solid black;
+		height: 100px;
+		width: 400px;
+		margin: auto;
+		text-align: center;
+	}
+
+</style>
 </head>
 <body>
 
@@ -20,9 +42,13 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<div algin="center">
-						<a href="#" onclick="myBoardList();"><h6>내가 쓴 게시글</h6></a>
-						<a href="#" onclick="myReplyList();"><h6>내가 쓴 댓글</h6></a>
+					<div>
+						<div>
+						</div>
+						<div>
+						
+						</div>
+					
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
