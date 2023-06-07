@@ -47,7 +47,7 @@ public class ProductController {
 			atmt.setChangeName("resources/uploadFiles/" + saveFile(upfile, session));
 		}
 		
-		productService.insertProduct(p);
+		productService.insertProduct(p, atmt);
 		
 		return "product/productMain";
 	}
