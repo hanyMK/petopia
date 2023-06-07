@@ -54,6 +54,17 @@
 		<result column="shipping_status"	property="shippingStatus" />
 	</resultMap>
 	
+	<resultMap type="coupon" id="couponResultSet">
+		<result column="COUPON_NO"   property="couponNo"/>
+		<result column="COUPON_NAME" property="couponName"/>
+		<result column="COUPON_TYPE" property="couponType"/>
+		<result column="DISCOUNT" 	 property="discount"/>
+		<result column="START_DATE"  property="startDate"/>
+		<result column="END_DATE" 	 property="endDate"/>
+		<result column="MAX_PRICE"   property="maxPrice"/>
+		<result column="MIN_PRICE"   property="minPrice"/>
+	</resultMap>
+	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
 		       board_title,
@@ -189,6 +200,45 @@
 		 WHERE
 		 		MEMBER_NO = #{memberNo}
 	</select>
+	
+	
+	<!-- 예약결제 페이지에서 필요한 회원 쿠폰 정보  SELECT문 시작 -->
+	
+	<!-- 회원이 보유하고 있는 쿠폰 개수  -->
+	<select id="selectMemberCouponCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) 
+		FROM MEMBER_COUPON 
+		JOIN COUPON ON (MEMBER_COUPON.COUPON_NO = COUPON.COUPON_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_COUPON_STATUS = 'Y'
+		AND SYSDATE BETWEEN START_DATE AND END_DATE
+	</select>
+	
+	<!--  회원이 보유하고 있는 쿠폰  List  -->
+	<select id="selectMemberCouponList" parameterType="_int" resultMap="couponResultSet">
+		SELECT 
+				MEMBER_COUPON.COUPON_NO,
+				COUPON.COUPON_NAME,
+				COUPON.COUPON_TYPE,
+				COUPON.DISCOUNT,
+				COUPON.START_DATE,
+				COUPON.END_DATE,
+				COUPON.MAX_PRICE,
+				COUPON.MIN_PRICE 
+		FROM MEMBER_COUPON 
+		JOIN COUPON ON (MEMBER_COUPON.COUPON_NO = COUPON.COUPON_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_COUPON_STATUS = 'Y'                  
+		AND SYSDATE BETWEEN START_DATE AND END_DATE
+	</select>
+	
+	<select id="selectMemberPoint" parameterType="_int" resultType="_int">
+		SELECT NVL(SUM(POINT_AMOUNT),0)
+		FROM POINT
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 예약결제 페이지에서 필요한 회원 쿠폰 및 적릭금 정보  SELECT문 끝 -->
 	
 	
 

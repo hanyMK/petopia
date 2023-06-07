@@ -2,6 +2,7 @@ package com.kh.petopia.myPage.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.board.model.vo.Reply;
@@ -28,4 +29,14 @@ public interface MyPageService {
 
 	// SELECT 마이펫  -> VO는 memer밑에 있음
 	Pet selectPet(int memberNo);
+	
+	// 예약 결제 페이지에서 조회할 사용자의 쿠폰 개수
+	int selectMemberCouponCount(int memberNo);
+	
+	// 예약 결제 페이지에서 조회할 사용자의 쿠폰 리스트
+	ArrayList<Coupon> selectMemberCouponList(int memberNo);
+
+	// 예약 결제 페이지에서 조회할 사용자의 포인트 
+	int selectMemberPoint(int memberNo);
+
 }
