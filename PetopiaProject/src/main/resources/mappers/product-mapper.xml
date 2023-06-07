@@ -27,4 +27,24 @@
 		 where 
 		       product_status = 'Y'
 	</select>
+	
+	<insert id="insertProduct" parameterType="product">
+		
+		insert 
+		  into 
+		       product
+		              (
+		               product_no, 
+		               product_title, 
+		               product_price,
+		               category_name
+		               ) 
+		               values
+		               (
+		               SEQ_PRODUCT_NO.NEXTVAL,
+		               #{productTitle},
+		               #{productPrice},
+		               #{categoryName}
+		               )
+	</insert>
 </mapper>

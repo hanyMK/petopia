@@ -15,7 +15,19 @@ public class AjaxMyPageController {
 	private MyPageService myPageService;
 	
 	@ResponseBody
-	@RequestMapping(value="ajaxAlramReply.me", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="ajaxAlram.me", produces="application/json; charset=UTF-8")
+	public String alramList(int mno) {
+		return new Gson().toJson(myPageService.alramList(mno));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="alramShipping.me", produces="application/json; charset=UTF-8")
+	public String alramShippingList(int mno) {
+		return new Gson().toJson(myPageService.alramShippingList(mno));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="alramReply.me", produces="application/json; charset=UTF-8")
 	public String alramReplyList(int mno) {
 		return new Gson().toJson(myPageService.alramReplyList(mno));
 	}
@@ -26,18 +38,17 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.alramNoticeList(mno));
 	}
 	
+	// 마이페이지 게시글 댓글 조회
 	@ResponseBody
-	@RequestMapping(value="alramCoupon.me", produces="application/json; charset=UTF-8")
-	public String alramCouponList(int mno) {
-		System.out.println(mno);
-		System.out.println(new Gson().toJson(myPageService.alramCouponList(mno)));
-		return new Gson().toJson(myPageService.alramCouponList(mno));
+	@RequestMapping(value="ajaxMyBoard.me", produces="application/json; charset=UTF-8")
+	public String myBoardList(int mno) {
+		return new Gson().toJson(myPageService.myBoardList(mno));
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="alramShipping.me", produces="application/json; charset=UTF-8")
-	public String alramShippingList(int mno) {
-		return new Gson().toJson(myPageService.alramShippingList(mno));
+	@RequestMapping(value="myReply.me", produces="application/json; charset=UTF-8")
+	public String myReplyList(int mno) {
+		return new Gson().toJson(myPageService.myReplyList(mno));
 	}
 	
 	

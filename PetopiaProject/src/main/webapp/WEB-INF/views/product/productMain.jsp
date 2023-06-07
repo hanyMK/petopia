@@ -105,9 +105,9 @@
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<!-- Slides -->
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
+				<div class="swiper-slide"><img src="https://techrecipe.co.kr/wp-content/uploads/2023/02/230208_zoom_000001-1200x500.png"></div>
+				<div class="swiper-slide"><img src="https://coloradoteardropcamper.com/wp-content/uploads/2018/05/1200x500.png"></div>
+				<div class="swiper-slide"><img src="https://coloradoteardropcamper.com/wp-content/uploads/2018/05/1200x500.png"></div>
 			</div>
 		
 			<!-- If we need pagination -->
@@ -123,7 +123,11 @@
 	</div>
 
 	<div id="product_create_btn_div">
-		<button id="product_create_btn">상품등록</button>
+		<c:set var="name" value="${sessionScope.loginMember.email}" />
+
+		<c:if test="${ name == 'admin@email.com' }">
+			<button id="product_create_btn">상품관리</button>
+		</c:if>
 	</div>
 
 	<div id="product_select_category_div">
@@ -174,6 +178,7 @@
 	</script>
 
 	<script>
+	
 		$(function(){
 			selectProductList();
 		})
@@ -210,7 +215,7 @@
 
 	<script>
 		$('#product_create_btn').click(function(){
-			
+			location.href='productManagement.pd';
 		})
 	</script>
 </body>

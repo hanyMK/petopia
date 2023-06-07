@@ -34,4 +34,6 @@ public class AjaxAdminController {
 		return new Gson().toJson(hashMap);
 	}
 	
+
+	
 }
