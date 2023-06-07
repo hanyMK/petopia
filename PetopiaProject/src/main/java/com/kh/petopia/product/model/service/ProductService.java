@@ -12,6 +12,8 @@ public interface ProductService {
 	// 메인 상품 조회 (select)
 	// 메인 카테고리 상품 조회
 	ArrayList<Product> selectProductList();
+	
+	ArrayList<Attachment> selectProductImg();
 //	SQL => 해결
 //	if(Category.equals('전체')) {
 //		where category = '전체'
@@ -61,7 +63,7 @@ public interface ProductService {
 	// 상점테이블에 기본정보 insert 이후 
 //	한번에 두개의 테이블에 값을 넣어야되니까 insert All 그리고 
 //	한개의 테이블에 여러개를 insert할 경우에는 forEach태그 사용
-	int insertProduct(Product p, Attachment atmt); 
+	int insertProduct(Product p, Attachment atmtThumbnail, Attachment atmtDetail); 
 	
 	// 사이즈테이블에 선택한 사이즈 갯수만큼 insert	
 	int insertProductSize(Product p);
