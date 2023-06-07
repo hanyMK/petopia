@@ -1,5 +1,7 @@
 package com.kh.petopia.myPage.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +28,13 @@ public class MyPageController {
 		return "myPage/myBoardList";
 	}
 	
-	@RequestMapping("alram.me")
-	public String alramList() {
-		
-		return "myPage/alram";
+	// 알람 iframe 초기페이지
+	@RequestMapping("alramReply.me")
+	public String alramReplyList(int mno, Model model) {
+		System.out.println(mno);
+		model.addAttribute("replyList", myPageService.alramReplyList(mno));
+		System.out.println(myPageService.alramReplyList(mno));
+		return "myPage/alramList";
 	}
-
+	
 }

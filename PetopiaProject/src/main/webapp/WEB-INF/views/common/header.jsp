@@ -184,6 +184,24 @@
 			background-color:white;
 		}
 		
+		/* 알람 jsp */
+		#alram_area_top{
+		height: 10%;
+		padding-top: 30px;
+		padding-bottom: 30px;		
+		}
+		#alram_area_bottom{
+			height:90%;
+		}
+		#myAlramList{
+			border: 1px solid black;
+			height: 100px;
+			width: 250px;
+			margin: auto;
+			text-align: center;
+			font-size: 12px;
+		}
+			
 		
     </style>
 
@@ -220,24 +238,40 @@
                   <c:otherwise>
                                     
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
-                      <a href="myPage.me">마이페이지</a>
+                      <c:choose>
+                      	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
+                      		<a href="managerPage.ma">관리자 페이지</a>
+                      	</c:when>
+                      	<c:otherwise>
+		                     <a href="myPage.me">마이페이지</a>
+                      	
+                      	</c:otherwise>
+                      </c:choose>
                       <a href="logout.me">로그아웃</a>
                       
                   </c:otherwise>
                </c:choose>
                
                <div id="header_1_right_bottom">
-                <!-- 알림, 페이 아이콘-->
-                <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
-                <div id="pay_box" > 					               
-					<iframe src="" scrolling="auto" id="payIframe"></iframe>
-                </div>
-                
-                <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
-                <div id="alram_box" > 					               
-					<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
-                </div>
-				
+               <c:choose>
+                  <c:when test="${ empty sessionScope.loginMember }">
+                      <!-- 로그인 전 -->
+                      <button class="fa-regular fa-credit-card fa-2x" id="payIcon"></button>
+                      <button class="fa-regular fa-bell fa-2x" id="alramIcon"></button>
+                  </c:when>
+                  <c:otherwise>
+                  	  <!-- 알림, 페이 아이콘-->
+	                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
+	                  <div id="pay_box" > 					               
+						<iframe src="" scrolling="auto" id="payIframe"></iframe>
+	                  </div>
+	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
+	                  <div id="alram_box" > 					               
+						<iframe src="alramReply.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
+	                  </div>
+                  </c:otherwise>
+               </c:choose>
+               
 				
 				
                </div>
@@ -261,18 +295,20 @@
                 <li><a href="product.pd">상점</a>
                     <ul>
                         <li><a href="">메뉴1</a></li>
-                        <li><a href="">메뉴2</a></li>
+                        <li><a href="">메뉴2</a></li> 
                         <li><a href="">메뉴3</a></li>
                         <li><a href="">메뉴4</a></li>
                     </ul>
                 </li>
-                <li><a href="">커뮤니티</a>
+                <li><a href="board.bo?category=ALL">커뮤니티</a>
+                	<!-- 
                     <ul>
                         <li><a href="">메뉴1</a></li>
                         <li><a href="">메뉴2</a></li>
                         <li><a href="">메뉴3</a></li>
                         <li><a href="">메뉴4</a></li>
                     </ul>
+                     -->
                 </li>
             </ul>
     

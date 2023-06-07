@@ -53,7 +53,7 @@
             <h2>회원가입</h2>
             <br>
 
-            <form action="join.me" method="post" id="enroll-form" enctype="multipart/form-data">
+            <form action="join.me" method="post" id="enroll-form" enctype="multipart/form-data" >
                 <div class="form-group">
                     <img name="upfile" id="upfile" src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male4-256.png">
                    

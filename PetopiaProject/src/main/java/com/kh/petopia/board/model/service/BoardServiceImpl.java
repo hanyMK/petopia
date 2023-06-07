@@ -29,5 +29,25 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectBoard(sqlSession, pi, category);
 	}
 
+	@Override
+	public Board selectDetailBoard(int boardNo) {
+		return boardDao.selectDetailBoard(sqlSession, boardNo);
+	}
+
+	@Override
+	public int increaseCount(int boardNo) {
+		return boardDao.increaseCount(sqlSession, boardNo);
+	}
+
+	@Override
+	public int insertBoard(Board b) {
+		return boardDao.insertBoard(sqlSession, b);
+	}
+
+	@Override
+	public int deleteBoard(int boardNo) {
+		return boardDao.deleteBoard(sqlSession, boardNo);
+	}
+
 
 }

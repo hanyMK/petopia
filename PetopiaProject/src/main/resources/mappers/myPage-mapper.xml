@@ -6,7 +6,8 @@
 <mapper namespace="myPageMapper">
 
 	<resultMap id="boardResultSet" type="board">
-		<result column="board_no" 		property="boardNo" />
+		<result column="board_no"	property="boardNo" />
+		<result column="member_no" 	property="memberNo" />
 		<result column="board_title" 	property="boardTitle" />
 		<result column="board_content" 	property="boardContent" />
 		<result column="create_date" 	property="createDate" />
@@ -14,11 +15,24 @@
 		<result column="status" 	property="status" />
 		<result column="category" 	property="category" />
 		<result column="board_like" 	property="boardLike" />
-		<result column="member_no" 	property="memberNo" />
-		
+		<result column="qna_yn" 	property="qnaYN" />
 	</resultMap>
 	
+	<resultMap id="alramReplyResultSet" type="alramReply">
+		<result column="category"	property="category" />
+		<result column="create_date"	property="createDate" />
+		<result column="board_title"	property="boardTitle" />
+		<result column="nickname"	property="nickname" />
+		<result column="reply_content"	property="replyContent" />
+	</resultMap>
 	
+	<resultMap id="couponResultSet" type="coupon">
+		<result column="coupon_name"	property="couponName" />
+	</resultMap>
+	
+	<resultMap id="productReceiptResultSet" type="productReceipt">
+		<result column="shipping_status"	property="shippingStatus" />
+	</resultMap>
 	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
@@ -35,6 +49,48 @@
 		   and
 		       b.status = 'Y'
 	</select>
+	
+	<select id="alramReplyList" parameterType="_int" resultMap="alramReplyResultSet">
+		select b.category, b.create_date, b.board_title, r.nickname, r.reply_content
+		  from member m
+		  left join board b on(m.member_no = b.member_no)
+		  left join reply r on(r.board_no = b.board_no)
+		 where b.member_no = #{ memberNo }
+		   and r.member_no != #{ memberNo }
+	</select>
+	
+	<select id="alramNoticeList" parameterType="_int" resultMap="boardResultSet">
+		select qna_yn
+		  from board
+		 where category = 'QNA'
+		   and qna_yn = 'Y'
+		   and member_no = #{ memberNo }
+	</select>
+	
+	<select id="alramCouponList" parameterType="_int" resultMap="couponResultSet">
+		select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
+		            WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
+		            WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
+		            ELSE '이벤트'
+		        END AS 쿠폰이름
+		  from coupon c
+		  join member_coupon mc on(mc.coupon_no = c.coupon_no)
+		 where member_no = #{ memberNo }
+		   and member_coupon_status = 'Y'
+	</select>
+	
+	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
+		select shipping_status
+		  from product_receipt p
+		  join shipping s on(s.shipping_no = p.shipping_no)
+		   and member_no = #{ memberNo }
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 

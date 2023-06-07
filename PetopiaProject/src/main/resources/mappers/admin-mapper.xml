@@ -5,10 +5,62 @@
   
 <mapper namespace="adminMapper">
 	
+	<resultMap type="member" id="memberResultSet">
+		<result column="member_no" property="memberNo" />
+		<result column="email" property="email" />
+		<result column="member_pwd" property="memberPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="member_name" property="memberName" />
+		<result column="birthday" property="birthday" />
+		<result column="phone" property="phone" />
+		<result column="bank" property="bank" />
+		<result column="account" property="account" />
+		<result column="address" property="address" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="status" property="status" />
+	</resultMap>
+	
 	<select id="memberListCount" resultType="_int">
 		select
 			   count(*)
 		  from
 		       member
 	</select>
+	
+	<insert id="insertCoupon" parameterType="coupon">
+		INSERT INTO COUPON
+		VALUES
+		(
+		SEQ_CNO.nextval, 
+		#{couponName}, 
+		#{couponType},
+		#{discount}, 
+		TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:mi'),
+		TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:mi'),
+		#{maxPrice}, 
+		#{minPriace}
+		)
+		
+		INSERT INTO COUPON
+VALUES
+(SEQ_CNO.nextval, 
+'구냥 할인 쿠폰', 
+1, 1000, 
+TO_DATE('2023-05-01 00:00', 'YYYY-MM-DD HH24:mi'),
+TO_DATE('2023-05-31 23:59', 'YYYY-MM-DD HH24:mi'),NULL, 10000);
+	</insert>
+	<select id="memberList" resultMap="memberResultSet">
+	select
+	       member_no
+	      ,member_name
+	      ,nickname
+	      ,phone
+	      ,address
+	      ,to_char(enroll_date, 'YYYY-MM-DD') as "enroll_date"       
+	      ,decode(status,'Y','활동','N','탈퇴','B','블랙') "status"
+	  from
+	       member
+	</select>
+	
 </mapper>

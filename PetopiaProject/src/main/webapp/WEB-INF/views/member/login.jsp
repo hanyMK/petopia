@@ -88,7 +88,7 @@
             <td><a href="findEmail"  style="color:black;">이메일</a></td>
             <td><a href="findPwd"  style="color:black;">/ 비밀번호 찾기</a></td>
             <td> | </td>
-            <td><a href="enrollForm.me"  style="color:black;"> 회원가입하기 </a></td>
+            <td><a href="memberEnroll.me"  style="color:black;"> 회원가입하기 </a></td>
         </tr>
     </table>
     
