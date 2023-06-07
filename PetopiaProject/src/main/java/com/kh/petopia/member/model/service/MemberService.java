@@ -70,6 +70,8 @@ public interface MemberService {
 		
 		//회원 쿠폰 받기(INSERT/회원 번호와 쿠폰 번호 입력)
 		int getCoupon(Coupon c);
+		//발급 가능한 쿠폰 리스트 보기
+		
 		
 		//이메일 찾기(select)
 		String findEmail(String nickname);

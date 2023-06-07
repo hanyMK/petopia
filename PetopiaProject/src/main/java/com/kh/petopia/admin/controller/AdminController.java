@@ -90,6 +90,7 @@ public class AdminController {
 		PageInfo pi = Pagination.getPageInfo(adminService.adminCouponListCount(), currentPage, 10, 10);
 		ArrayList<Coupon> couponList = adminService.adminCouponList(pi);
 		System.out.println(couponList);
+		System.out.println(pi);
 		if(!couponList.isEmpty()) {
 			mv.addObject("pi", pi)
 			.addObject("couponList",couponList )
