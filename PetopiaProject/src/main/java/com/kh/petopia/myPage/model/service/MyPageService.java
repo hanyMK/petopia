@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.member.model.vo.Pet;
-import com.kh.petopia.myPage.model.vo.AlramReply;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.product.model.vo.ProductReceipt;

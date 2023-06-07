@@ -52,8 +52,6 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.myReplyList(sqlSession, memberNo);
 	}
 	
-
-
 	@Override
 	public Pet selectPet(int memberNo) {
 		// SELECT 마이펫  -> VO는 memer밑에 있음
