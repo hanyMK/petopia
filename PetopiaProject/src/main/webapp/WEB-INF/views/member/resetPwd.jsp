@@ -138,7 +138,7 @@
                         console.log(result);
                         if(result == 'YES'){
                         alert('비밀번호가 변경되었습니다');
-                        	location.href='main.jsp';
+                        	location.href='login';
                         }
                     },
                     error : () =>{
