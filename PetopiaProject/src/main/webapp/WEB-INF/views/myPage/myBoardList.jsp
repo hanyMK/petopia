@@ -108,7 +108,6 @@
 						   + list[i].replyContent + '<br>'
 						   + list[i].createDate + '<br>'
 						   + list[i].category + '<br>'
-						   + list[i].nickname + '<br>'
 						   + '</div><br>';
 				};
 				$('#main_center_right_bottom').html(value);

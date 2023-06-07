@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.product.model.vo.ProductReceipt;
@@ -51,6 +52,10 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.myReplyList(sqlSession, memberNo);
 	}
 	
-
+	@Override
+	public Pet selectPet(int memberNo) {
+		// SELECT 마이펫  -> VO는 memer밑에 있음
+		return myPageDao.selectPet(sqlSession,memberNo);
+	}
 
 }

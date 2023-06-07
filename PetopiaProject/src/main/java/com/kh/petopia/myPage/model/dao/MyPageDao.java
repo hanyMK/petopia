@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.product.model.vo.ProductReceipt;
@@ -38,4 +39,7 @@ public class MyPageDao {
 	}
 
 
+	public Pet selectPet(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPet", memberNo);
+	}
 }
