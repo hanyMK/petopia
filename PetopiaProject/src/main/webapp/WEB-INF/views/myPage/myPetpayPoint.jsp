@@ -23,48 +23,43 @@
 <style>
 
 	#main_center_right_top{
-		border: 1px solid black;
 		width: 500px;
 		height: 25%;
 		padding-top: 25px;
 		margin: auto;
+		border: 1px solid black;
 	}
 	#main_center_right_top>div{
 		margin: auto;
 		text-align: center;
 	}
 	#main_center_right_bottom{
-		border: 1px solid black;
 		width: 500px;
 		height:75%;
 		padding-top: 25px;
 		margin: auto;
+		border: 1px solid black;
 	}
 	#pay_point_top {
-	border: 1px solid black;
 		height:70%;
 		text-align:center;
 	}
 	
 	#pay_point_middle {
-	border: 1px solid black;
 		height:10%;
 		padding-right
 	}
 	
 	#pay_point_bottom {
-	border: 1px solid black;
 		height:20%;
 	}
 	
 	.pay_point_top_1 {
-		border: 1px solid black;
 		display: inline-block;
 		width: 200px;
 	}
 	
 	.pay_point_middle_1 {
-		border: 1px solid black;
 		display: inline-block;
 		width: 200px;
 	}
