@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.product.model.vo.ProductReceipt;
@@ -43,6 +44,11 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public ArrayList<Alram> alramNoticeList(int memberNo) {
 		return myPageDao.alramNoticeList(sqlSession, memberNo);
+	}
+	
+	@Override
+	public ArrayList<Reply> myReplyList(int memberNo) {
+		return myPageDao.myReplyList(sqlSession, memberNo);
 	}
 	
 

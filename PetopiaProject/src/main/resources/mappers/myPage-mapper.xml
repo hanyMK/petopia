@@ -18,6 +18,17 @@
 		<result column="qna_yn" 	property="qnaYN" />
 	</resultMap>
 	
+	<resultMap id="replyResultSet" type="reply">
+		<result column="reply_no" 	property="replyNo" />
+		<result column="board_no"	property="boardNo" />
+		<result column="member_no" 	property="memberNo" />
+		<result column="nickname" 	property="nickname" />
+		<result column="reply_content" 	property="replyContent" />
+		<result column="create_date" 	property="createDate" />
+		<result column="category" 	property="category" />
+		<result column="board_title" 	property="boardTitle" />
+	</resultMap>
+	
 	<resultMap id="alramResultSet" type="alram">
 		<result column="column_all"	property="columnAll" />
 		<result column="date_all"	property="dateAll" />
@@ -47,7 +58,32 @@
 		       m.member_no = #{ memberNo }
 		   and
 		       b.status = 'Y'
+		 order
+		    by create_date desc
 	</select>
+	
+	<select id="myReplyList" parameterType="_int" resultMap="replyResultSet">
+		select
+		       b.board_title,
+		       r.reply_content,
+		       r.create_date,
+		       b.category,
+		       r.nickname
+		  from 
+		       board b
+		  join
+		       member m on(m.member_no = b.member_no)
+		  join
+		       reply r on(b.board_no = r.board_no)
+		 where 
+		       r.member_no = #{ memberNo }
+		   and
+		       b.status = 'Y'
+		 order
+		    by r.create_date desc
+	</select>
+	
+	
 	
 	<select id="alramList" parameterType="_int" resultMap="alramResultSet">
 		select column_all, date_all, category, board_title, nickname, reply_content

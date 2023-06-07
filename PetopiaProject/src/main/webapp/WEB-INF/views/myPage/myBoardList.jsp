@@ -12,6 +12,10 @@
 		height: 10%;
 		padding-top: 30px;
 	}
+	#main_center_right_top>div{
+		margin: auto;
+		text-align: center;
+	}
 	#main_center_right_bottom{
 		height:90%;
 	}
@@ -40,8 +44,9 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<div align="center">
-						<h3><b>게시글 조회</b></h3>
+					<div algin="center">
+						<a href="#" onclick="myBoardList();"><h6>내가 쓴 게시글</h6></a>
+						<a href="#" onclick="myReplyList();"><h6>내가 쓴 댓글</h6></a>
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
@@ -61,6 +66,62 @@
 		</div>
 		
 	</div>
+	
+	<script>
+	function myBoardList() {
+		
+		$.ajax({
+			url : 'ajaxMyBoard.me', 
+			data : { mno : ${ loginMember.memberNo } },
+			success : function(list) {
+				let value = "";
+				for(let i in list) {
+					console.log(list);
+					value += '<div id="myBoardList">'							
+						   + list[i].boardTitle + '<br>'
+						   + list[i].boardContent + '<br>'
+						   + list[i].createDate + '<br>'
+						   + list[i].category + '<br>'
+						   + '</div><br>';
+				};
+				$('#main_center_right_bottom').html(value);
+				
+			},
+			error : function() {
+				console.log('AJAX 댓글 조회 실팽이');
+			}
+		});
+		
+	};
+	
+	function myReplyList() {
+		
+		$.ajax({
+			url : 'myReply.me', 
+			data : { mno : ${ loginMember.memberNo } },
+			success : function(list) {
+				let value = "";
+				for(let i in list) {
+					console.log(list);
+					value += '<div id="myBoardList">'							
+						   + list[i].boardTitle + '<br>'
+						   + list[i].replyContent + '<br>'
+						   + list[i].createDate + '<br>'
+						   + list[i].category + '<br>'
+						   + list[i].nickname + '<br>'
+						   + '</div><br>';
+				};
+				$('#main_center_right_bottom').html(value);
+				
+			},
+			error : function() {
+				console.log('AJAX 댓글 조회 실팽이');
+			}
+		});
+		
+	};
+	
+	</script>
 
    
     <jsp:include page="../common/footer.jsp" />
