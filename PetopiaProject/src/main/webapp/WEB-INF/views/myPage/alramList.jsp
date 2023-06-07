@@ -27,7 +27,8 @@
 </style>
 </head>
 <body>
-
+	
+	<!-- 알람창 카테고리 -->
 	<div id="alram_area">
 		<div id="alram_area_top">
 			<div align="center">
@@ -37,6 +38,7 @@
 				<button onclick="myCouponList();">쿠폰</button>
 			</div>
 		</div>
+		<!-- 메인페이지 알람아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
 			<c:forEach var="r" items="${ replyList }" >
 				<div id="myAlramList">
@@ -53,6 +55,7 @@
 	
 	<script>
 	
+	/* 댓글 알람 */
 	function myReplyList() {
 		
 		$.ajax({
@@ -80,6 +83,7 @@
 		
 	};
 	
+	/* 1:1문의 알람 */
 	function myNoticeList() {
 		
 		$.ajax({
@@ -104,6 +108,7 @@
 		
 	};
 	
+	/* 상품 배송출발 알람 */
 	function myShippingList() {
 		
 		$.ajax({
@@ -130,18 +135,26 @@
 		
 	};
 	
- function myCouponList() {
+	/* 공지사항 알람 */
+ 	function myCouponList() {
 		
 		$.ajax({
-			url : 'alramCoupon.me', 
+			url : 'alramNotice.me', 
 			data : { mno : ${ loginMember.memberNo } },
 			success : function(list) {
+				console.log(list);
 				let value = "";
 				for(let i in list) {
-					if(list[i].couponName != '') {
-						value += '<div id="myAlramList">'
-							   + list[i].couponName
-							   + '쿠폰이 발행되었습니다. </div><br>';
+					if(list[i].qnaYN != '') {
+						if(list[i].qnaYN == 'Y') {
+							value += '<div id="myAlramList">'
+								   + '답변이 완료되었습니다.'
+								   + '</div><br>';
+						} else {
+							value += '<div id="myAlramList">'
+								   + list[i].qnaYN + ' 쿠폰이 발행되었습니다.'
+								   + '</div><br>';
+						}
 					}
 				};
 				

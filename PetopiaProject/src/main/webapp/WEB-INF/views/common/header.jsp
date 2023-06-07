@@ -24,7 +24,7 @@
     <style>
     	@font-face {
 		  font-family: "font1";
-		  src: url("resources/fonts/BMHANNAAir_ttf.ttf");
+		  src: url("resources/fonts/PoorStory-Regular.ttf");
 		}
 		
 		* {

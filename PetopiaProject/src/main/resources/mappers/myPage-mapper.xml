@@ -26,7 +26,8 @@
 		<result column="reply_content"	property="replyContent" />
 	</resultMap>
 	
-	<resultMap id="couponResultSet" type="coupon">
+	<resultMap id="alramAdminResultSet" type="alramAdmin">
+		<result column="qna_yn" 	property="qnaYN" />
 		<result column="coupon_name"	property="couponName" />
 	</resultMap>
 	
@@ -67,7 +68,20 @@
 		   and member_no = #{ memberNo }
 	</select>
 	
-	<select id="alramCouponList" parameterType="_int" resultMap="couponResultSet">
+	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
+		select shipping_status
+		  from product_receipt p
+		  join shipping s on(s.shipping_no = p.shipping_no)
+		   and member_no = #{ memberNo }
+	</select>
+	
+	<select id="alramCouponList" parameterType="_int" resultMap="alramAdminResultSet">
+		select qna_yn
+		  from board
+		 where category = 'QNA'
+		   and qna_yn = 'Y'
+		   and member_no = #{ memberNo }
+		union all
 		select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
 		            WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
 		            WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
@@ -79,12 +93,6 @@
 		   and member_coupon_status = 'Y'
 	</select>
 	
-	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
-		select shipping_status
-		  from product_receipt p
-		  join shipping s on(s.shipping_no = p.shipping_no)
-		   and member_no = #{ memberNo }
-	</select>
 	
 	
 	
