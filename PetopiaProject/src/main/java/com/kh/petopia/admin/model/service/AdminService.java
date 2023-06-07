@@ -19,7 +19,9 @@ public interface AdminService {
 	int insertCoupon(Coupon c);
 	
 	//관리자 쿠폰 목록 조회 
-	ArrayList<Coupon> cList(PageInfo pi);
+	//페이지 카운트
+	int adminCouponListCount();
+	ArrayList<Coupon> adminCouponList(PageInfo pi);
 	
 	
 	
