@@ -240,7 +240,7 @@
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
                       <c:choose>
                       	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
-                      		<a href="managerPage.ma">관리자 페이지</a>
+                      		<a href="adminPage.ad">관리자 페이지</a>
                       	</c:when>
                       	<c:otherwise>
 		                     <a href="myPage.me?mno=${ loginMember.memberNo }">마이페이지</a>
