@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,40 @@
     
     <style type="text/css">
      #pagingArea {width:fit-content; margin:auto;}
-    </style>
+     
+     .coupon-list-table {
+	  width: 80%;
+	  border-collapse: collapse;
+	  margin-top: 100px;
+	  text-align: center;
+	  margin: auto;
+	}
+
+	.coupon-list-table th, .coupon-list-table td {
+	  padding: 8px;
+	  border: 1px solid #ddd;
+	}
+
+	.coupon-list-table th {
+	  background-color: #f2f2f2;
+	}
+
+	.coupon-list-table tr:nth-child(even) {
+	  background-color: #f9f9f9;
+	}
+	
+	.title{
+	  margin: 40px;	
+	  margin-bottom: 30px;
+	}
+	#addCoupon{
+	
+		display: block;
+	}
+
+
+ </style>
+   
 
 </head>
 <body>
@@ -37,71 +71,72 @@
 			<div id="main_center_left">
 				<jsp:include page="adminNavi.jsp" />
 			</div>
-			
+		
 			<div id="main_center_right">
-				 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">쿠폰 발급</button>
-				<table id="n_list-area" align="center">
+				<h1 class="title"> 쿠폰 목록 </h1>
+				<div style="float: right;">
+					<button  type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">쿠폰 발급</button>
+				</div>
+				<table class="coupon-list-table" align="center">
                     <thead>
                         <tr>
-                            <td width="70px" height="40px" align="center">번호</td>
-                            <td width="70px" align="center">경매<td>
-                            <td width="240px" align="center">상품 이름</td>
-                            <td width="120px" align="center">회원 아이디</td>
-                            <td width="140px" align="center">회원 이름</td>
-                            <td width="120px" align="center">판매여부</td>
-                            <td width="140px" align="center">등록일</td>
-                            <td> </td>
+                         
+							<th width="240px" align="center">쿠폰 타입</th>
+                            <th width="240px" align="center">할인율(액)</th>
+                            <th width="500px" align="center">쿠폰이름</th>
+                            <th width="340px" align="center">시작일</th>
+                            <th width="340px" align="center">종료일 </th>
+                            <th width="440px" align="center">최대할인금액 </th>
+                            <th width="440px" align="center">최소사용금액  </th>
+                            <th width="240px" align="center">발급 가능 여부  </th>
                         </tr>
                     </thead>
                     <tbody>
-                        
                      
-                            <!-- 상품이 없을 경우-->
-                            <tr>
-                                <td colspan="5">상품이 존재하지 않습니다.</td>
-                            </tr>
-
-                     
-                        	<!-- 상품이 있을 경우 -->
-								
-	                     
-                        		<tr>	
-                                   <td width="70px" height="50px" align="center">번호</td>                                         
-                                   
-                                   <!-- 경매인 상품 보여주기 -->
-                                 
-                                   		<td width="70px" align="center">경매</td>
-                                  
-                                       <td></td>
-                                
-                                   <td width="240px" align="center"></td>
-                                   <td width="120px" align="center"></td>
-                                   <td width="140px" align="center"></td>
-                                   <td width="120px" align="center"></td>
-                                   <td width="140px" align="center"></td>
-                                   
-                                       <td style="padding-left: 50px;"><a onclick="return deleteProduct();" href=" /productDelete.ad?pno=">삭제</a></td>
-                               
-                                       <td style="padding-left: 50px;"><a onclick="return recoverProduct();" href="/productRecover.ad?pno=">복구</a></td>
-                              
-                                </tr>
-	                    
-	                         
+					<jsp:useBean id="now" class="java.util.Date"/>
+					<fmt:formatDate value="${ now }" pattern="yyyy-MM-dd" var="today"/>
+                     <c:choose>
+                     	<c:when test="${ empty requestScope.couponList }">
+                     	
+	                        <!-- 상품이 없을 경우-->
+	                        <tr>
+	                            <td colspan="7">쿠폰이 존재하지 않습니다.</td>
+	                        </tr>
+                     	</c:when>
+                     	<c:otherwise>
+                     	  <c:forEach items="${ requestScope.couponList }" var="cList">
+                     		<tr>
+	                           <td width="500px" align="center"> ${ cList.couponName }</td>
+	                           <c:choose>
+	                           	<c:when test="${ cList.couponType eq 1 }">
+		                       		<td width="240px" align="center">정액할인</td>
+		                       		 <td width="240px" align="center"> ${ cList.discount }원</td>
+	                           	</c:when>
+	                           	<c:otherwise>
+	                           		<td width="240px" align="center">정율할인</td>
+	                           		 <td width="240px" align="center"> ${ cList.discount }%</td>
+	                           	</c:otherwise>
+	                           </c:choose>
+	                           <td width="340px" align="center">${ cList.startDate }</td>
+	                           <td width="340px" align="center">${ cList.endDate } </td>
+	                           <td width="440px" align="center"> ${ cList.maxPrice }원 </td>
+	                           <td width="440px" align="center"> ${ cList.minPrice }원 </td>
+	                           <c:choose>
+	                           	<c:when test="${ cList.endDate  gt today }">
+		                       		 <td width="440px" align="center"> 발급 가능 </td>
+	                           	</c:when>
+	                           	<c:otherwise>
+	                           		 <td width="440px" align="center">발급 불가능</td>
+	                           	</c:otherwise>
+	                           </c:choose>
+                       		 </tr>
+                       	 </c:forEach>
+                     	</c:otherwise>
+                     </c:choose>
                         
                     </tbody>
                 </table>
-                <c:forEach items="${ requestScope.couponList }" var="cList">
-                
-				<p>
-				쿠폰 이름 : ${ cList.couponName }<br>
-				쿠폰 타입 : ${ cList.couponType }<br>
-				할인율(액) : ${ cList.discount }<br>
-				시작일 : ${ cList.startDate }<br>
-				종료일 : ${ cList.endDate }<br>
-				최대할인율 : ${ cList.maxPrice }<br>
-				최소사용금액 : ${ cList.minPrice }<br>
-				</p>
-                </c:forEach>
+              
                 
              <div id="pagingArea">
                 <ul class="pagination">
@@ -116,10 +151,12 @@
                 	
                 	
                 	<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                	
-                    <li class="page-item"><a class="page-link" href="list.bo?cPage=${p}">${p}</a></li>
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq 1 }">
+                    			<li  class="page-item"><a class="page-link" href="list.bo?cPage=${p}">${p}</a></li>
+                			</c:when>
+                		</c:choose>
                 	</c:forEach>
-                	
                 	
                 	<c:choose>
                 		<c:when test="${ pi.currentPage eq pi.maxPage }">
@@ -222,7 +259,14 @@
 		 var eDate = document.getElementById('endDate');
 		 var rsDate = document.getElementById('reulstStartDate'); 
 		 var reDate = document.getElementById('reulstEndtDate');
+		 
+		 var nowDate = Date.now();
+		 var timeOff = new Date().getTimezoneOffset() *60000;
+		 var today = new Date(nowDate + timeOff).toISOString().substring(0,16);
+		 document.getElementById("startDate1").setAttribute('min', today);
+		 document.getElementById("endDate1").setAttribute('min', today);
 		
+
 		// function changeDate(){
 
 			
@@ -239,8 +283,6 @@
 
 		$(function(){
 
-		
-
 			$('#insertCoupon').on('click', ()=>{
 
 				var sDate = $('#startDate1').val().replace("T", " ");
@@ -249,7 +291,9 @@
 				$('#endDate').val(eDate);
 				$('#startDate').val(sDate);
 				console.log($('#endDate').val());
-			})
+			});
+			
+			
 			
 		})
 		
