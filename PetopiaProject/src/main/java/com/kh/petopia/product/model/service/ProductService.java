@@ -2,6 +2,7 @@ package com.kh.petopia.product.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -60,7 +61,7 @@ public interface ProductService {
 	// 상점테이블에 기본정보 insert 이후 
 //	한번에 두개의 테이블에 값을 넣어야되니까 insert All 그리고 
 //	한개의 테이블에 여러개를 insert할 경우에는 forEach태그 사용
-	int insertProduct(Product p); 
+	int insertProduct(Product p, Attachment atmt); 
 	
 	// 사이즈테이블에 선택한 사이즈 갯수만큼 insert	
 	int insertProductSize(Product p);

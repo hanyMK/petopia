@@ -18,15 +18,14 @@
 		<result column="qna_yn" 	property="qnaYN" />
 	</resultMap>
 	
-	<resultMap id="alramReplyResultSet" type="alramReply">
+	<resultMap id="alramResultSet" type="alram">
+		<result column="column_all"	property="columnAll" />
+		<result column="date_all"	property="dateAll" />
 		<result column="category"	property="category" />
-		<result column="create_date"	property="createDate" />
 		<result column="board_title"	property="boardTitle" />
 		<result column="nickname"	property="nickname" />
 		<result column="reply_content"	property="replyContent" />
-	</resultMap>
-	
-	<resultMap id="couponResultSet" type="coupon">
+		<result column="qna_yn" 	property="qnaYn" />
 		<result column="coupon_name"	property="couponName" />
 	</resultMap>
 	
@@ -50,33 +49,45 @@
 		       b.status = 'Y'
 	</select>
 	
-	<select id="alramReplyList" parameterType="_int" resultMap="alramReplyResultSet">
-		select b.category, b.create_date, b.board_title, r.nickname, r.reply_content
-		  from member m
-		  left join board b on(m.member_no = b.member_no)
-		  left join reply r on(r.board_no = b.board_no)
-		 where b.member_no = #{ memberNo }
-		   and r.member_no != #{ memberNo }
-	</select>
-	
-	<select id="alramNoticeList" parameterType="_int" resultMap="boardResultSet">
-		select qna_yn
-		  from board
-		 where category = 'QNA'
-		   and qna_yn = 'Y'
-		   and member_no = #{ memberNo }
-	</select>
-	
-	<select id="alramCouponList" parameterType="_int" resultMap="couponResultSet">
-		select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
-		            WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
-		            WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
-		            ELSE '이벤트'
-		        END AS 쿠폰이름
-		  from coupon c
-		  join member_coupon mc on(mc.coupon_no = c.coupon_no)
-		 where member_no = #{ memberNo }
-		   and member_coupon_status = 'Y'
+	<select id="alramList" parameterType="_int" resultMap="alramResultSet">
+		select column_all, date_all, category, board_title, nickname, reply_content
+		  from 
+		  (
+		    select qna_yn as column_all, create_date as date_all, null as category, null as board_title, null as nickname, null as reply_content
+		      from board
+		     where category = 'QNA'
+		       and qna_yn = 'Y'
+		       and member_no = #{ memberNo }
+		       
+		    union all
+		    
+		    select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
+		                WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
+		                WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
+		                ELSE '이벤트'
+		            END AS column_all, start_date date_all, null as category, null as board_title, null as nickname, null as reply_content
+		      from coupon c
+		      join member_coupon mc on(mc.coupon_no = c.coupon_no)
+		     where member_no = #{ memberNo }
+		       and member_coupon_status = 'Y'
+		       
+		    union all
+		    
+		    select s.shipping_status as column_all, p.receipt_date as date_all, null as category, null as board_title, null as nickname, null as reply_content
+		      from product_receipt p
+		      join shipping s on(s.shipping_no = p.shipping_no)
+		     where member_no = #{ memberNo }
+		     
+		    union all
+		    
+		    select null as column_all, b.create_date as date_all, b.category as category, b.board_title as board_title, r.nickname as nickname, r.reply_content as reply_content
+		      from member m
+		      left join board b on(m.member_no = b.member_no)
+		      left join reply r on(r.board_no = b.board_no)
+		     where b.member_no = #{ memberNo }
+		       and r.member_no != #{ memberNo }
+		    )
+		 order by date_all desc
 	</select>
 	
 	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
@@ -84,14 +95,41 @@
 		  from product_receipt p
 		  join shipping s on(s.shipping_no = p.shipping_no)
 		   and member_no = #{ memberNo }
+		 order by p.receipt_date desc
 	</select>
 	
+	<select id="alramReplyList" parameterType="_int" resultMap="alramResultSet">
+		select null as column_all, b.create_date as date_all, b.category as category, b.board_title as board_title, r.nickname as nickname, r.reply_content as reply_content
+	      from member m
+	      left join board b on(m.member_no = b.member_no)
+	      left join reply r on(r.board_no = b.board_no)
+	     where b.member_no = #{ memberNo }
+	       and r.member_no != #{ memberNo }
+	     order by b.create_date desc
+	</select>
 	
-	
-	
-	
-	
-	
+	<select id="alramNoticeList" parameterType="_int" resultMap="alramResultSet">
+		select column_all, date_all
+		  from
+		  	   (
+				select qna_yn as column_all, create_date as date_all
+				  from board
+				 where category = 'QNA'
+				   and qna_yn = 'Y'
+				   and member_no = #{ memberNo }
+				union all
+				select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
+				            WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
+				            WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
+				            ELSE '이벤트'
+				        END AS column_all, start_date as date_all
+				  from coupon c
+				  join member_coupon mc on(mc.coupon_no = c.coupon_no)
+				 where member_no = #{ memberNo }
+				   and member_coupon_status = 'Y'
+				)
+		  order by date_all desc
+	</select>
 	
 
 </mapper>

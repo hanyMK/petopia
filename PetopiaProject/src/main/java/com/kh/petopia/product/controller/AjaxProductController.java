@@ -17,11 +17,7 @@ public class AjaxProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping(value="product.pd")
-	public String productMain() {
-		
-		return "product/productMain";
-	}
+
 	
 	@ResponseBody
 	@RequestMapping(value="productAjax.pd", produces="application/json; charset=UTF-8")
