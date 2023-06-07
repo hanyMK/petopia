@@ -28,12 +28,12 @@ public class MyPageController {
 		return "myPage/myBoardList";
 	}
 	
-	// 알람 iframe 초기페이지
-	@RequestMapping("alramReply.me")
-	public String alramReplyList(int mno, Model model) {
+	// 알람 iframe페이지
+	@RequestMapping("alram.me")
+	public String alramList(int mno, Model model) {
 		System.out.println(mno);
-		model.addAttribute("replyList", myPageService.alramReplyList(mno));
-		System.out.println(myPageService.alramReplyList(mno));
+		model.addAttribute("list", myPageService.alramList(mno));
+		System.out.println(myPageService.alramList(mno));
 		return "myPage/alramList";
 	}
 	

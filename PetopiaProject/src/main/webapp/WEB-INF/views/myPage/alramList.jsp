@@ -32,21 +32,22 @@
 	<div id="alram_area">
 		<div id="alram_area_top">
 			<div align="center">
-				<button onclick="myNoticeList();">공지사항</button>
+				<button onclick="myAlramList();">전체</button>
 				<button onclick="myShippingList();">상품/배송</button>
 				<button onclick="myReplyList();">게시글/댓글</button>
-				<button onclick="myCouponList();">쿠폰</button>
+				<button onclick="myNoticeList();">공지사항</button>
 			</div>
 		</div>
 		<!-- 메인페이지 알람아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
-			<c:forEach var="r" items="${ replyList }" >
+			<c:forEach var="l" items="${ list }" >
 				<div id="myAlramList">
-					${r.category} <br>
-					${r.createDate} <br>
-					${r.boardTitle} <br>
-					${r.nickname} <br>
-					${r.replyContent} <br>
+					${l.columnAll} <br>
+					${l.dateAll} <br>
+					${l.category} <br>
+					${l.boardTitle} <br>
+					${l.nickname} <br>
+					${l.replyContent} <br>
 				</div><br>
             </c:forEach>	
 		</div>
@@ -55,46 +56,42 @@
 	
 	<script>
 	
-	/* 댓글 알람 */
-	function myReplyList() {
+	/* 전체 알람 */
+	function myAlramList() {
 		
 		$.ajax({
-			url : 'ajaxAlramReply.me', 
+			url : 'ajaxAlram.me', 
 			data : { mno : ${ loginMember.memberNo } },
 			success : function(list) {
 				let value = "";
 				for(let i in list) {
+					console.log(list);
+					// columnAll이 null이면 댓글 조회 
+					if(list[i].columnAll == null) {
 					
-					value += '<div id="myAlramList">'
+					value += '<div id="myAlramList">'							
+						   + list[i].columnAll + '<br>'
+						   + list[i].dateAll + '<br>'
 						   + list[i].category + '<br>'
-						   + list[i].createDate + '<br>'
 						   + list[i].boardTitle + '<br>'
 						   + list[i].nickname + '<br>'
 						   + list[i].replyContent + '<br>'
 						   + '</div><br>';
-				};
-				$('#alram_area_bottom').html(value);
-				
-			},
-			error : function() {
-				console.log('AJAX 댓글 조회 실팽이');
-			}
-		});
-		
-	};
-	
-	/* 1:1문의 알람 */
-	function myNoticeList() {
-		
-		$.ajax({
-			url : 'alramNotice.me', 
-			data : { mno : ${ loginMember.memberNo } },
-			success : function(list) {
-				let value = "";
-				for(let i in list) {
-						if(list[i].qnaYN = 'Y') {
+					} else if(list[i].columnAll != null && list[i].columnAll == '배송중') {
 						value += '<div id="myAlramList">'
-							   + '답변이 완료되었습니다.'
+							   + '배송중 입니다.'
+							   + '</div><br>';
+					} else if(list[i].columnAll != null && list[i].columnAll == '상품준비중') {
+						value += '<div id="myAlramList">'
+							   + '상품준비중 입니다.'
+							   + '</div><br>';
+					} else if(list[i].columnAll != null && list[i].columnAll == 'Y') {
+						value += '<div id="myAlramList">'
+							   + '1:1 답변 완료.'
+							   + '</div><br>';
+					} else {
+						value += '<div id="myAlramList">'
+							   + '쿠폰 들어옴.'
 							   + '</div><br>';
 					}
 				};
@@ -115,13 +112,24 @@
 			url : 'alramShipping.me', 
 			data : { mno : ${ loginMember.memberNo } },
 			success : function(list) {
+				console.log(list);
 				let value = "";
 				for(let i in list) {
-					if(list[i].shippingSatatus = '배송중') {
+					if(list[i].shippingStatus == '배송중') {
 						value += '<div id="myAlramList">'
 							   + '주문하신 상품이 '
-							   + list[i].shippingSatatus
+							   + list[i].shippingStatus
 							   + '입니다. </div><br>';
+					} else if (list[i].shippingStatus == '상품준비중') {
+						value += '<div id="myAlramList">'
+							   + '주문하신 상품이 '
+							   + list[i].shippingStatus
+							   + '입니다. </div><br>';
+					} else if (list[i].shippingStatus == '배송완료') {
+						value += '<div id="myAlramList">'
+							   + '주문하신 상품이 '
+							   + list[i].shippingStatus
+							   + '되었습니다. </div><br>';
 					}
 				};
 				
@@ -135,8 +143,38 @@
 		
 	};
 	
-	/* 공지사항 알람 */
- 	function myCouponList() {
+	/* 댓글 알람 */
+	function myReplyList() {
+		
+		$.ajax({
+			url : 'alramReply.me', 
+			data : { mno : ${ loginMember.memberNo } },
+			success : function(list) {
+				let value = "";
+				for(let i in list) {
+					console.log(list);
+					value += '<div id="myAlramList">'							
+						   + list[i].columnAll + '<br>'
+						   + list[i].dateAll + '<br>'
+						   + list[i].category + '<br>'
+						   + list[i].boardTitle + '<br>'
+						   + list[i].nickname + '<br>'
+						   + list[i].replyContent + '<br>'
+						   + '</div><br>';
+				};
+				$('#alram_area_bottom').html(value);
+				
+			},
+			error : function() {
+				console.log('AJAX 댓글 조회 실팽이');
+			}
+		});
+		
+	};
+	
+	
+	/* 쿠폰 들어온 거 알람 */
+ 	function myNoticeList() {
 		
 		$.ajax({
 			url : 'alramNotice.me', 
@@ -146,13 +184,13 @@
 				let value = "";
 				for(let i in list) {
 					if(list[i].qnaYN != '') {
-						if(list[i].qnaYN == 'Y') {
+						if(list[i].columnAll == 'Y') {
 							value += '<div id="myAlramList">'
 								   + '답변이 완료되었습니다.'
 								   + '</div><br>';
 						} else {
 							value += '<div id="myAlramList">'
-								   + list[i].qnaYN + ' 쿠폰이 발행되었습니다.'
+								   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
 								   + '</div><br>';
 						}
 					}

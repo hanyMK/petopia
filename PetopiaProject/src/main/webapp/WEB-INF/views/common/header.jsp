@@ -267,7 +267,7 @@
 	                  </div>
 	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
 	                  <div id="alram_box" > 					               
-						<iframe src="alramReply.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
+						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
                   </c:otherwise>
                </c:choose>
@@ -325,10 +325,16 @@
         var div = $("#alram_box");
         
         if(div.css("display") === 'none' ) {
-        	div.css("display", 'block');     	
+        	div.css("display", 'block');  
+        	
+        	var target = $("#payIcon");
+            target.prop("readonly", true);
         }
         else {
-        	div.css("display", 'none');   
+        	div.css("display", 'none'); 
+        	
+        	var target = $("#payIcon");
+            target.prop("readonly", false);
         }
     }
     
@@ -337,11 +343,19 @@
         var div = $("#pay_box");
         
         if(div.css("display") === 'none' ) {
-        	div.css("display", 'block');     	
+        	div.css("display", 'block');    
+        	
+        	var target = $("#alramIcon");
+            target.prop("readonly", true);
+            taget.pr
         }
         else {
-        	div.css("display", 'none');   
+        	div.css("display", 'none'); 
+        	
+        	var target = $("#alramIcon");
+            target.prop("readonly", false);
         }
+        
     }
     </script>
 </body>
