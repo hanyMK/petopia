@@ -125,7 +125,7 @@
 	<div id="product_create_btn_div">
 		<c:set var="name" value="${sessionScope.loginMember.email}" />
 
-		<c:if test="${ name == 'wnsqls@naver.com' }">
+		<c:if test="${ name == 'admin@email.com' }">
 			<button id="product_create_btn">상품관리</button>
 		</c:if>
 	</div>

@@ -42,7 +42,7 @@
 
     <div id="area">
         <div id="area_in">
-            <form action="" method="get">
+            <form action="insert.pd" method="post" enctype="multipart/form-data">
                 <br>
                 카테고리 <select id="select_el">
                         <option value="goods">애견용품</option>
@@ -60,7 +60,7 @@
 
                 </div>
                 <br>
-                썸네일 사진 넣기 <input type="file">
+                썸네일 사진 넣기 <input type="file" name="upfile">
                 <br>
                 
                 <br>
