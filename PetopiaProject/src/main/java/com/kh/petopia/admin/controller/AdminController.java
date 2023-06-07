@@ -20,7 +20,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@RequestMapping("managerPage.ma")
+	@RequestMapping("adminPage.ad")
 	public String adminPage() {
 		return "admin/adminPage";
 	}
