@@ -1,6 +1,8 @@
 package com.kh.petopia.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,5 +29,18 @@ public class AdminDao {
 	public int insertCoupon(SqlSessionTemplate sqlSession, Coupon c) {
 		return sqlSession.insert("adminMapper.insertCoupon", c);
 	}
+
+	public int memberSearchCount(SqlSessionTemplate sqlSession, Map params) {
+		
+		int a = sqlSession.selectOne("adminMapper.memberSearchCount", params);
+		System.out.println(a);
+		return sqlSession.selectOne("adminMapper.memberSearchCount", params);
+	}
+	
+	public ArrayList memberSearch(SqlSessionTemplate sqlSession, Map params, PageInfo pi) {
+		return (ArrayList)sqlSession.selectList("adminMapper.memberSearch", params);
+	}
+
+	
 	
 }

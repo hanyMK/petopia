@@ -1,6 +1,7 @@
 package com.kh.petopia.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,17 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Coupon> cList(PageInfo pi) {
 		return null;
 	}
+
+	@Override
+	public int memberSearchCount(Map params) {
+		return adminDao.memberSearchCount(sqlSession, params);
+	}
+	
+	@Override
+	public ArrayList memberSearch(Map params,PageInfo pi) {
+		return adminDao.memberSearch(sqlSession, params, pi);
+	}
+
+
 
 }

@@ -50,6 +50,7 @@ VALUES
 TO_DATE('2023-05-01 00:00', 'YYYY-MM-DD HH24:mi'),
 TO_DATE('2023-05-31 23:59', 'YYYY-MM-DD HH24:mi'),NULL, 10000);
 	</insert>
+	
 	<select id="memberList" resultMap="memberResultSet">
 	select
 	       member_no
@@ -63,4 +64,43 @@ TO_DATE('2023-05-31 23:59', 'YYYY-MM-DD HH24:mi'),NULL, 10000);
 	       member
 	</select>
 	
+	<select id="memberSearchCount" parameterType="map" resultType="_int">
+		select
+			   count(*)
+		  from
+		       member
+		 where
+		       <if test="searchType == 'memberName'">
+	                member_name = #{keyword}
+	            </if>
+	            <if test="searchType == 'memberNo'">
+	                member_no = #{keyword}
+	            </if>
+	            <if test="searchType == 'status'">
+	                status = #{keyword}
+	            </if>      
+	</select>
+	
+	<select id="memberSearch" parameterType="map" resultMap="memberResultSet">
+	  select
+            member_no
+		   ,member_name
+		   ,nickname
+		   ,phone
+		   ,address
+		   ,to_char(enroll_date, 'YYYY-MM-DD') as "enroll_date"       
+		   ,decode(status,'Y','활동','N','탈퇴','B','블랙') "status"
+        from
+            member
+        where
+            <if test="searchType == 'memberName'">
+                member_name = #{keyword}
+            </if>
+            <if test="searchType == 'memberNo'">
+                member_no = #{keyword}
+            </if>
+            <if test="searchType == 'status'">
+                status = #{keyword}
+            </if>
+	</select>
 </mapper>
