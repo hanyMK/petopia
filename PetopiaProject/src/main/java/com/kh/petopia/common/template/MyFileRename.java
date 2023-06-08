@@ -22,7 +22,7 @@ public class MyFileRename {
 		
 		String ext = originName.substring(originName.lastIndexOf("."));
 		
-		String savePath = session.getServletContext().getRealPath("/resources/uploadfiles/");
+		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
 		
 		String changeName = "petopia_" + currentTime + randomNum + ext;
 		

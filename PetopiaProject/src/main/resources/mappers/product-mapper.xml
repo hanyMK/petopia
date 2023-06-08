@@ -14,6 +14,17 @@
 		<result column="category_name" property="categoryName" />
 	</resultMap>
 	
+	<resultMap type="att" id="attResultSet">
+		<result column="file_no" property="fileNo" />
+		<result column="file_category" property="fileCategory" />
+		<result column="ref_no" property="refNo" />
+		<result column="file_level" property="fileLevel" />
+		<result column="origin_name" property="originName" />
+		<result column="change_name" property="changeName" />
+		<result column="file_path" property="filePath" />
+		<result column="file_status" property="fileStatus" />
+	</resultMap>
+	
 	<select id="selectProductList" resultMap="productResultSet">
 		select 
 		       product_no, 
@@ -27,4 +38,77 @@
 		 where 
 		       product_status = 'Y'
 	</select>
+	<select id="selectProductImg" resultMap="attResultSet">
+		select * from attachment where file_category = 1 and file_status = 'Y'
+	</select>
+	
+	<!-- 상품 상세 insert문 -->
+	<insert id="insertProduct" parameterType="product">
+		insert 
+		  into 
+		       product
+		              (
+		               product_no, 
+		               product_title, 
+		               product_price,
+		               category_name
+		               ) 
+		         values
+		               (
+		               SEQ_PRODUCT_NO.NEXTVAL,
+		               #{productTitle},
+		               #{productPrice},
+		               #{categoryName}
+		               )
+	</insert>
+	<!-- 상품 이미지 insert문 -->
+	<insert id="insertThumbnailImgProduct" parameterType="att">
+		insert 
+		  into 
+		       Attachment 
+		              (
+		               file_no, 
+		               file_category,
+		               ref_no,
+		               file_level,
+		               origin_name,
+		               change_name,
+		               file_path
+		               ) 
+		         values
+		               (
+		               SEQ_FNO.NEXTVAL,
+		               1,
+		               SEQ_PRODUCT_NO.CURRVAL,
+		               0,
+		               #{originName},
+		               #{changeName},
+		               #{filePath}
+		               )
+	</insert>
+	
+	<insert id="insertDetailImgProduct" parameterType="att">
+		insert 
+		  into 
+		       Attachment 
+		              (
+		               file_no, 
+		               file_category,
+		               ref_no,
+		               file_level,
+		               origin_name,
+		               change_name,
+		               file_path
+		               ) 
+		         values
+		               (
+		               SEQ_FNO.NEXTVAL,
+		               1,
+		               SEQ_PRODUCT_NO.CURRVAL,
+		               1,
+		               #{originName},
+		               #{changeName},
+		               #{filePath}
+		               )
+	</insert>
 </mapper>

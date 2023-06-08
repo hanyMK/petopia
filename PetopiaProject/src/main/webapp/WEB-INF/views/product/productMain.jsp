@@ -105,9 +105,9 @@
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<!-- Slides -->
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
+				<div class="swiper-slide"><img src="https://techrecipe.co.kr/wp-content/uploads/2023/02/230208_zoom_000001-1200x500.png"></div>
+				<div class="swiper-slide"><img src="https://coloradoteardropcamper.com/wp-content/uploads/2018/05/1200x500.png"></div>
+				<div class="swiper-slide"><img src="https://coloradoteardropcamper.com/wp-content/uploads/2018/05/1200x500.png"></div>
 			</div>
 		
 			<!-- If we need pagination -->
@@ -123,7 +123,11 @@
 	</div>
 
 	<div id="product_create_btn_div">
-		<button id="product_create_btn">상품등록</button>
+		<c:set var="name" value="${sessionScope.loginMember.email}" />
+
+		<c:if test="${ name == 'admin@email.com' }">
+			<button id="product_create_btn">상품관리</button>
+		</c:if>
 	</div>
 
 	<div id="product_select_category_div">
@@ -174,6 +178,7 @@
 	</script>
 
 	<script>
+	
 		$(function(){
 			selectProductList();
 		})
@@ -181,25 +186,28 @@
 		function selectProductList(){
 			$.ajax({
 				url : 'productAjax.pd',
-				success : function(list){
-					console.log(list[0].categoryName);
-					
-					var result = '';
+				success : function(result){
+					console.log(result.list[0].productTitle);
+					console.log(result.listImg[0].fileNo);
+					console.log(result);
+					var img = result.listImg;
+					var list = result.list;
+					var value = '';
 					for(let i in list){
 
-						result += '<div class="product">'
+						value += '<div class="product">'
 							    + 	'<div class="product_1">'
 								+ 		'<div class="product_1_1">'
-								+ 			'<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">'
+								+ 			'<img id="product_upfile" src="'+ img[i].filePath + img[i].changeName +'">'
 								+ 		'</div>'
 								+ 		'<div class="product_1_2">'
 								+       '<div>'+ list[i].productTitle +'</div>'
 								+       '<div>'+ list[i].productPrice +'</div>'
 								+ 		'</div>'
 								+ 	'</div>'
-							    + '</div>'
+							    + '</div>';
 					};
-					$('#product_content').html(result);
+					$('#product_content').html(value);
 				},
 				error : function(){
 
@@ -210,7 +218,7 @@
 
 	<script>
 		$('#product_create_btn').click(function(){
-			
+			location.href='productManagement.pd';
 		})
 	</script>
 </body>

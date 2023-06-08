@@ -30,6 +30,13 @@
 			<mapping path="/enrollForm.bo"/>
 			<beans:bean class="com.kh.petopia.common.Interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/couponList.admin" />
+			<mapping path="/insertCoupon.ad" />
+			<mapping path="/admin.ad" />
+			<mapping path="/adminPage.ad" />
+			<beans:bean class="com.kh.petopia.common.Interceptor.AdminInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 </beans:beans>

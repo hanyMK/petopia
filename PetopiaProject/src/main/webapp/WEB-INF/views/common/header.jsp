@@ -24,7 +24,7 @@
     <style>
     	@font-face {
 		  font-family: "font1";
-		  src: url("resources/fonts/BMHANNAAir_ttf.ttf");
+		  src: url("resources/fonts/PoorStory-Regular.ttf");
 		}
 		
 		* {
@@ -240,10 +240,10 @@
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
                       <c:choose>
                       	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
-                      		<a href="managerPage.ma">관리자 페이지</a>
+                      		<a href="adminPage.ad">관리자 페이지</a>
                       	</c:when>
                       	<c:otherwise>
-		                     <a href="myPage.me">마이페이지</a>
+		                     <a href="myPage.me?mno=${ loginMember.memberNo }">마이페이지</a>
                       	
                       	</c:otherwise>
                       </c:choose>
@@ -267,7 +267,7 @@
 	                  </div>
 	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
 	                  <div id="alram_box" > 					               
-						<iframe src="alramReply.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
+						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
                   </c:otherwise>
                </c:choose>
@@ -325,10 +325,16 @@
         var div = $("#alram_box");
         
         if(div.css("display") === 'none' ) {
-        	div.css("display", 'block');     	
+        	div.css("display", 'block');  
+        	
+        	var target = $("#payIcon");
+            target.prop("readonly", true);
         }
         else {
-        	div.css("display", 'none');   
+        	div.css("display", 'none'); 
+        	
+        	var target = $("#payIcon");
+            target.prop("readonly", false);
         }
     }
     
@@ -337,11 +343,19 @@
         var div = $("#pay_box");
         
         if(div.css("display") === 'none' ) {
-        	div.css("display", 'block');     	
+        	div.css("display", 'block');    
+        	
+        	var target = $("#alramIcon");
+            target.prop("readonly", true);
+            taget.pr
         }
         else {
-        	div.css("display", 'none');   
+        	div.css("display", 'none'); 
+        	
+        	var target = $("#alramIcon");
+            target.prop("readonly", false);
         }
+        
     }
     </script>
 </body>

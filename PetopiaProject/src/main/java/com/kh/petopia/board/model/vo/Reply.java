@@ -14,5 +14,9 @@ public class Reply {
 	private String replyContent; //REPLY_CONTENT	VARCHAR2(4000 BYTE)
 	private int replyLike; //REPLY_LIKE	NUMBER
 	private Date createDate; //CREATE_DATE	DATE
+	
+	// 마이페이지 사용
+	private String boardTitle;
+	private String category;
 
 }

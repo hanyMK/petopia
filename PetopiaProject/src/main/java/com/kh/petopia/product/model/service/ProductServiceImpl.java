@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
@@ -24,29 +25,39 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<Product> selectProductList() {
 		return productDao.selectProductList(sqlSession);
 	}
+	@Override
+	public ArrayList<Attachment> selectProductImg() {
+		return productDao.selectProductImg(sqlSession);
+	}
 
 	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Product selectDetailProduct(int productNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<Ask> selectAskList(int productNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertProduct(Product p, Attachment atmtThumbnail, Attachment atmtDetail) {
+		
+		int result1 = productDao.insertProduct(sqlSession, p);
+		int result2 = productDao.insertThumbnailProduct(sqlSession, atmtThumbnail);
+		int result3 = productDao.insertDetailProduct(sqlSession, atmtDetail);
+
+		if(result1 * result2 * result3 > 0) {
+			return result1 * result2 * result3;
+		} else {
+			sqlSession.rollback();
+			return result1 * result2 * result3;
+		}
 	}
 
 	@Override
@@ -90,5 +101,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

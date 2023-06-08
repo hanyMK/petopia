@@ -17,7 +17,7 @@ public class MyPageController {
 	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
-	public String myPage() {
+	public String myPage(int mno) {
 		return "myPage/myPage";
 	}
 	
@@ -28,35 +28,17 @@ public class MyPageController {
 		return "myPage/myBoardList";
 	}
 	
-	// 알람 - 댓글
-	@RequestMapping("alramReply.me")
-	public String alramReplyList(int mno, Model model) {
-		System.out.println(mno);
-		model.addAttribute("replyList", myPageService.alramReplyList(mno));
-		System.out.println(myPageService.alramReplyList(mno));
-		return "myPage/alramReply";
+	// 알람 iframe페이지
+	@RequestMapping("alram.me")
+	public String alramList(int mno, Model model) {
+		model.addAttribute("list", myPageService.alramList(mno));
+		return "myPage/alramList";
 	}
-//	// 알람 - 공지사항(1:1댓글알림)
-//	@RequestMapping("alramNotice.me")
-//	public String alramNoticeList(int mno, Model model) {
-//		System.out.println("공지사항 : " + mno);
-//		model.addAttribute("noticeList", myPageService.alramNoticeList(mno));
-//		return "myPage/alramNotice";
-//	}
-//	// 알람 - 쿠폰
-//	@RequestMapping("alramCoupon.me")
-//	public String alramCouponList(int mno, Model model) {
-//		System.out.println("쿠폰 : " + mno);
-//		model.addAttribute("couponList", myPageService.alramCouponList(mno));
-//		return "myPage/alramCoupon";
-//	}
-//	// 알람 - 배송
-//	@RequestMapping("alramShipping.me")
-//	public String alramShippingList(int mno, Model model) {
-//		System.out.println("배송 : " + mno);
-//		model.addAttribute("shippingList", myPageService.alramShippingList(mno));
-//		return "myPage/alramShipping";
-//	}
 	
-
+	// 헤더 마이페이지 클릭
+	@RequestMapping("myPetpayPoint.me")
+	public String myPetpayPoint(int mno) {
+		return "myPage/myPetpayPoint";
+	}
+	
 }

@@ -31,6 +31,11 @@
 	  background-color: #f9f9f9;
 	}
 	
+	#pagingArea {
+            width: fit-content;
+            margin: auto;
+            margin-top : 20px;
+        }
 	
 	.search {
 	  margin-bottom: 10px;
@@ -85,7 +90,7 @@
 	<div id="pagingArea">
             <ul class="pagination">
 				<c:choose>
-                        <c:when test="${pi.currentPage eq 1}">
+                        <c:when test="${pi.currentPage != 1}">
                             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
                         </c:when>
                         <c:otherwise>
@@ -109,13 +114,78 @@
         </div>	
 		
 	<script>
+		var cPage = ${pi.currentPage};
+		
 		$(function(){
+			selectList(cPage);
+		})
+
+		function selectList(cPage){
 			$.ajax({
 				url : 'ajaxMemberList.ad',
+				data: {
+						currentPage : cPage
+				},
 				success : function(result){
+				
+				console.log(result);
 				let value = '';
 				let list = result.list;
-				console.log(list);
+				
+					for(let i in list){
+						value += '<tr>'
+							+ '<td>' + list[i].memberNo + '</td>'
+	                        + '<td>' + list[i].memberName + '</td>'
+	                        + '<td>' + list[i].phone + '</td>'
+	                        + '<td>' + list[i].address + '</td>'
+	                        + '<td>' + list[i].enrollDate + '</td>'
+	                        + '<td>' + list[i].status + '</td>'
+	                        + '</tr>'
+					}
+					$('.memberList-table tbody').html(value);
+				 }
+			})
+		}
+		
+	
+	</script>
+		
+
+		<div class="search">
+				  <input type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword">
+				  <select name="searchType">
+				    <option value="memberName" >이름</option>
+				    <option value="memberNo">회원번호</option>
+				    <option value="status">상태</option>
+				  </select>
+				  <button type="button" id="memberSearchBtn" class="search-btn">검색</button>
+		</div>
+	
+	<script>
+
+	
+	$(() => {
+		
+		var cPage = ${pi.currentPage};
+		
+		$('#memberSearchBtn').click(() =>{
+			
+			var searchType = $('select[name="searchType"]').val();
+		    var keyword = $('#keyword').val();
+	
+			$.ajax({
+				url : 'ajaxMemberSearch.ad',
+				data: {
+					currentPage : cPage,
+					searchType: searchType, 
+					keyword: keyword 
+			         
+				},
+				success : function(result){
+				console.log(result);
+				let value = '';
+				let list = result.list;
+				
 					for(let i in list){
 						value += '<tr>'
 							+ '<td>' + list[i].memberNo + '</td>'
@@ -130,21 +200,10 @@
 				 }
 			})
 		})
+		
 	
-	</script>
-		
-		
-		
-		
-		<div class="search">
-		  <input type="text" placeholder="검색어를 입력하세요">
-		  <select>
-		    <option value="memberName">이름</option>
-		    <option value="memberNo">회원번호</option>
-		    <option value="status">상태</option>
-		  </select>
-		  <button class="search-btn">검색</button>
-		</div>
+	})
+	</script>	
 	
 	</div>
 	
