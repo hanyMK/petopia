@@ -57,12 +57,24 @@ public class MyPageDao {
 	public int selectMemberPoint(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMemberPoint", memberNo);
 	}
-
-	public ArrayList<Petpay> myPetpay(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.myPetpay", memberNo);
+	
+	public int selectMemberPetPay(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberPetPay", memberNo);
 	}
 
-	public ArrayList<Point> myPoint(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.myPoint", memberNo);
+	public int selectPetPayCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPetPayCount", memberNo);
+	}
+
+	public int selectPointCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPointCount", memberNo);
+	}
+
+	public ArrayList<Petpay> myPetpayList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myPetpayList", memberNo);
+	}
+
+	public ArrayList<Point> myPointList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myPointList", memberNo);
 	}
 }
