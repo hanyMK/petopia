@@ -47,25 +47,89 @@
 					<div id="coupon-area">
 						쿠폰 
 						<select id="coupon">
-							 	<option> 사용 가능 쿠폰 ?장 / 보유 ${couponCount}장 </option>
+							<option> 사용 가능 쿠폰 ?장 / 보유 ${couponCount}장 </option>
+							<c:forEach var="c" items="${requestScope.cList}">
+								 <option>${c.couponName}</option>
+							</c:forEach>
 						</select>
 						
-						<c:forEach var="c" items="${requestScope.cList}">
-							${c.couponName} <br>
-						</c:forEach>
+						<br><br>
 						
-						${cList}
-							 
-							 <br><br>
 					</div>
 					
 					<div id="point-area">
 						적립금 
-						<input name="point" value=""> <br>
-						<small>보유적립금 : ${point}p</small>
+						<input name="point" value="0"">
+						<button id="useAll" onclick="useAllBtn();">모두 사용</button>
+						
+						<br>
+						
+						<small id="left-point">보유 적립금 : ${point} p</small>
 						<!-- 모두 사용 클릭하면 적립금에 내가 보유한 적립금이 모두 출력되고  버튼 클릭이 사용 안 함으로 바꿈 -->
-						<button>모두 사용</button>
+						
 					</div>
+					
+					<script>
+						
+						function useAllBtn() {
+							
+							// 보유적립금
+							var point = '${point}';
+							
+							console.log(point);
+							
+							if( $('input[name=point]').val() == '0' ){
+								
+								$('input[name=point]').attr('value',point); // 8000포인트가 입력됨
+								
+								$('#left-point').text('보유적립금: ' + 0 +'p');
+								$('button[id=useAll]').text('사용 안 함');
+								
+							}else if( $('input[name=point]').val() == point ){
+									
+									$('input[name=point]').attr('value',0);
+									$('#left-point').text('보유적립금: ' + point +'p');
+									$('button[id=useAll]').text('모두 사용');
+									
+							}else {
+								
+								// 사용자가 직접 적립금을 입력한 상태에서 모두 사용 클릭한 경우 
+								
+								console.log('직접 입력하고나서 모두 사용 누른거지 ?');
+								
+								console.log($('input[name=point]'))
+								
+								$('input[name=point]').attr('value',0);
+								
+								// $('button[id=useAll]').text('사용 안 함');
+								
+							}
+							
+						}
+						
+						function inputPoint(){
+							
+							console.log('적립금 입력해써?!');
+							
+							// 보유적립금
+							var point = '${point}';
+							
+							// 사용자가 입력한 적립금
+							 $('input[name=point]').val()
+							
+							var left = point - $('input[name=point]').val();
+							
+							console.log(left);
+							
+							$('#left-point').text('보유적립금: ' + left +'p');
+							
+							
+							
+							
+						}
+					
+					</script>
+				
 				</div>
 				
 				<br>
