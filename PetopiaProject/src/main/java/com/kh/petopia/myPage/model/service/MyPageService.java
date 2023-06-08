@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
@@ -52,6 +53,12 @@ public interface MyPageService {
 	ArrayList<Petpay> myPetpayList(int mno);
 	
 	ArrayList<Point> myPointList(int mno);
+	
+	
+	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
+	//listCount
+	int CouponListCount();
+	ArrayList<Coupon> memberCouponList(PageInfo pi);
 
 	
 

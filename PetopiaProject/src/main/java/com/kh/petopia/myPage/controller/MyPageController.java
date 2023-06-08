@@ -55,4 +55,26 @@ public class MyPageController {
 		return "myPage/myPetpayPoint";
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

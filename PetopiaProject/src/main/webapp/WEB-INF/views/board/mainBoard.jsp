@@ -198,7 +198,6 @@
                         + '</tr>'
                 }
                 $('#boardList tbody').html(value);
-                console.log(category);
             }
         })
     }
