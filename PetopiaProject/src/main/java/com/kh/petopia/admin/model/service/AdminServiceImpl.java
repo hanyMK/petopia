@@ -56,6 +56,12 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.memberSearch(sqlSession, params, pi);
 	}
 
+	@Override
+	public ArrayList<Coupon> cList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

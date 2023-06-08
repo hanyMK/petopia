@@ -10,20 +10,10 @@
 
 	<!-- jQuery 라이브러리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- 부트스트랩에서 제공하고 있는 스타일 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
- 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
 <style>
 
 	#main_center_right_top{
-		width: 500px;
 		height: 25%;
 		padding-top: 25px;
 		margin: auto;
@@ -34,7 +24,6 @@
 		text-align: center;
 	}
 	#main_center_right_bottom{
-		width: 500px;
 		height:75%;
 		padding-top: 25px;
 		margin: auto;
@@ -80,6 +69,11 @@
 	#main_center_right_bottom_4 {
 		height:70%;
 	}
+	
+	#petpayAmount {
+		width: 200px;
+	}
+	
 	
 </style>
 </head>
@@ -150,34 +144,37 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h3 class="modal-title">포인트 충전</h3>
+                    <h3 class="modal-title">펫페이 충전</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                     <form action="insertCoupon.ad" method="post" id="sign-form">
+                     <form action="#" method="post" id="sign-form">
 
                     <!-- Modal body -->
                     <div class="modal-body">	
                     	<h5>펫페이 충전</h5>
-    					<h6>1만원 단위로 충전이 가능합니다.</h6><br>
+    					<h6>1천원 단위로 충전이 가능합니다.</h6><br>
     					
-			             <input type="number" name=petpayAmount id="petpayAmount"  required><br><br>
+			             <input type="number" name="petpayAmount" id="petpayAmount" max="1000000">  원
+			             
+			             
+			             <div id="alertPetpay"></div>
+			             <div id="overPetpay"></div>
+			            	
+			             <br>
+			             <div>
+				             <a class="btn btn-light" id="plus1man">1만</a>
+				             <a class="btn btn-light" id="plus3man">3만</a>
+				             <a class="btn btn-light" id="plus5man">5만</a>
+				             <a class="btn btn-light" id="plus10man">10만</a>
+			             </div>
+			             
+			             <br>
 			              
-			            
-			             <button>1만</button><button>3만</button><button>5만</button><button>10만</button>
+			             <h6>출금 계좌 : ${ loginMember.bank }은행  ${ loginMember.account }</h6>
 			             
-			             <br><br>
-			              
-			             <h6>출금 계좌</h6>
+			             <br>
 			             
-			             <select>
-			             	<option>신한 11000000000</option>
-			             	<option>카뱅 11000000000</option>
-			             	<option>우리 11000000000</option>
-			             </select>
-			             
-			             <br><br>
-			             
-			             <a href="">계좌 등록하기</a>
+			             <a href="">계좌 수정하기</a>
 			             
                     </div>
                     <!-- Modal footer -->
@@ -189,6 +186,76 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    	// 1만원 충전
+    	$(function () {
+    		$('#plus1man').on('click', function() {
+    			var input = $('#petpayAmount').val();
+    			input = Number(input) + 10000;
+    			$('#petpayAmount').val(input);
+    		});
+    	});
+    	
+    	// 3만원 충전
+    	$(function () {
+    		$('#plus3man').on('click', function() {
+    			var input = $('#petpayAmount').val();
+    			input = Number(input) + 30000;
+    			$('#petpayAmount').val(input);
+    		});
+    	});
+    	
+    	// 5만원 충전
+    	$(function () {
+    		$('#plus5man').on('click', function() {
+    			var input = $('#petpayAmount').val();
+    			input = Number(input) + 50000;
+    			$('#petpayAmount').val(input);
+    		});
+    	});
+    	
+    	// 10만원 충전
+    	$(function () {
+    		$('#plus10man').on('click', function() {
+    			var input = $('#petpayAmount').val();
+    			input = Number(input) + 100000;
+    			$('#petpayAmount').val(input);
+    		});
+    	});
+    	
+    	// 1천원 단위로 충전 가능
+    	$(function () {
+    		$('#petpayAmount').on('change', function() {
+    			var input = $(this).val();
+    			
+    			// 최대 가능 금액 백만원이 넘어가는 경우
+    			if(input > 1000000) {
+    				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+    				
+    			} else {
+    				$('#overPetpay').remove();
+    			}
+    			
+    			// 천원 단위로 입력을 안했을 경우
+    			if(input != Math.floor(input/1000) * 1000) {
+    				$('#alertPetpay').html('<small>1천원 단위로 충전이 가능합니다.</small>');
+    				input = Math.floor(input/1000) * 1000;
+    				
+    				// 천원 단위로 입력도 안하고 백만원 초과 시
+    				if(input > 1000000) {
+        				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+        				
+        			} else {
+        				$('#overPetpay').remove();
+        			}
+    			}
+    			
+    			$('#petpayAmount').val(input);
+    			
+    		});
+    	});
+    </script>
 
 </body>
 </html>

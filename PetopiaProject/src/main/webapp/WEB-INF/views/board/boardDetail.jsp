@@ -90,7 +90,7 @@
             <script>
             	function postFormSubmit(num){
             		if(num == 1){
-            			$('#postForm').attr('action', 'update.bo').submit();
+            			$('#postForm').attr('action', 'updateForm.bo').submit();
             		} else{
             			$('#postForm').attr('action', 'delete.bo').submit();
             		}

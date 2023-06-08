@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
-import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.vo.Alram;
+import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 public interface MyPageService {
@@ -38,5 +40,9 @@ public interface MyPageService {
 
 	// 예약 결제 페이지에서 조회할 사용자의 포인트 
 	int selectMemberPoint(int memberNo);
+
+	ArrayList<Petpay> myPetpay(int mno);
+	
+	ArrayList<Point> myPoint(int mno);
 
 }
