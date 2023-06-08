@@ -28,7 +28,7 @@ public interface BoardService {
 	int insertBoard(Board b);
 	
 	// 게시글 수정 (update)
-	//int updateBoard(Board b);
+	int updateBoard(Board b);
 	
 	// 게시글 삭제 (update)
 	int deleteBoard(int boardNo);

@@ -26,8 +26,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin.ad")
-	public String memberList(Model model) {
-		
+	public String memberList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 10 , 5);
+		model.addAttribute("pi",pi);
+		System.out.println("여기는 처음"+ pi);
 		return "admin/adminMemberList"; 
 	}
 	

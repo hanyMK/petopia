@@ -132,10 +132,38 @@ public class BoardController {
 		
 	}
 	 
-	@RequestMapping("update.bo")
-	public String updateBoard(int bno, String file, HttpSession session) {
-		
-		return "";
+	@RequestMapping("updateForm.bo")
+	public ModelAndView updateForm(int bno, ModelAndView mv) {
+		mv.addObject("b", boardService.selectDetailBoard(bno)).setViewName("board/boardUpdateForm");
+		return mv;
 	}
+	
+	
+	@RequestMapping("update.bo")
+	public String updateBoard(Board b, MultipartFile reUpfile, HttpSession session) {
+		
+		if(!reUpfile.getOriginalFilename().equals("")) {
+			
+			if(b.getOriginName() != null) {
+				new File(session.getServletContext().getRealPath(b.getChangeName())).delete();
+			}
+			
+			String changeName = saveFile(reUpfile, session);
+			
+			b.setOriginName(reUpfile.getOriginalFilename());
+			b.setChangeName("resources/uploadFile" + changeName);
+		}
+		
+		if(boardService.updateBoard(b) > 0) {
+			session.setAttribute("alertMsg", "게시글 수정 성공!");
+			return "redirect:detail.bo?bno=" + b.getBoardNo();
+		} else {
+			session.setAttribute("errorMsg", "게시글 수정 실패!");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
 	
 }

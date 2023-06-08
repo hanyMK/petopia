@@ -2,6 +2,7 @@ package com.kh.petopia.admin.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,16 +25,38 @@ public class AjaxAdminController {
 	
 	
 	@RequestMapping(value="ajaxMemberList.ad", produces="application/json; charset=UTF-8")
-	public String selectMemberList(@RequestParam(value="cPage", defaultValue="1") int currentPage) {
-		
+	public String selectMemberList(int currentPage) {
 		PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 10, 5);
-		ArrayList<Member> list = new ArrayList(adminService.memberList(pi));
-		HashMap<String, Object> hashMap = new HashMap();
-		hashMap.put("pi",pi);
-		hashMap.put("list", list);
-		return new Gson().toJson(hashMap);
+		ArrayList<Member> list = adminService.memberList(pi);
+		HashMap<String, Object> result = new HashMap();
+		result.put("pi",pi);
+		result.put("list", list);
+		return new Gson().toJson(result);
 	}
 	
+	
+	@RequestMapping(value="ajaxMemberSearch.ad", produces="application/json; charset=UTF-8")
+	public String memberSearch(String searchType, String keyword,@RequestParam(value="cpage", defaultValue="1") int currentPage) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("searchType", searchType);
+		params.put("keyword", keyword);
+		PageInfo pi = Pagination.getPageInfo(adminService.memberSearchCount(params), currentPage, 10, 5);
+		HashMap<String, Object>  result = new HashMap();
+		result.put("pi", pi);
+		result.put("list",adminService.memberSearch(params, pi));
+		return new Gson().toJson(result);
+		
+	}
 
 	
 }
+
+
+
+
+
+
+
+
+
+

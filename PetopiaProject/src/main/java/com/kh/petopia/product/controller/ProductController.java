@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.product.model.service.ProductService;
 import com.kh.petopia.product.model.vo.Product;
 
@@ -21,6 +22,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	private String filePath ="resources/uploadFiles/";
 	
 	@RequestMapping(value="product.pd")
 	public String productMain() {
@@ -39,41 +42,34 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="insert.pd")
-	public String productInsert(Product p, Attachment atmt, MultipartFile upfile, HttpSession session) {
+	public String productInsert(String category, 
+			                    Product p, 
+			                    Attachment atmt, 
+			                    MultipartFile thumbnail,
+			                    MultipartFile detail,
+			                    HttpSession session) {
 		
-		System.out.println(session.getServletContext().getRealPath("/resource/uploadFiles/"));
+		p.setCategoryName(category);
 		
+		System.out.println(category);
 		System.out.println(p);
-		System.out.println(upfile);
+		System.out.println(thumbnail);
+		System.out.println(detail);
 		
-		// 전달된 파일이 있을 경우 => 파일명 수정 후 서버에 업로드
-		if(!upfile.getOriginalFilename().equals("")) {
-			String changeName = saveFile(upfile, session);
-			atmt.setOriginName(upfile.getOriginalFilename());
-			atmt.setChangeName("resources/uploadFiles/" + saveFile(upfile, session));
-		}
+		Attachment atmtThumbnail = new Attachment();
+		Attachment atmtDetail = new Attachment();
 		
-		productService.insertProduct(p, atmt);
+		atmtThumbnail.setOriginName(thumbnail.getOriginalFilename());
+		atmtThumbnail.setChangeName(MyFileRename.saveFile(session, thumbnail));
+		atmtThumbnail.setFilePath(filePath);
+		
+		atmtDetail.setOriginName(detail.getOriginalFilename());
+		atmtDetail.setChangeName(MyFileRename.saveFile(session, detail));
+		atmtDetail.setFilePath(filePath);
+		
+		productService.insertProduct(p, atmtThumbnail, atmtDetail);
 		
 		return "product/productMain";
 	}
-	
-	public String saveFile(MultipartFile upfile, HttpSession session) {
-		String originName = upfile.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyMMddHHmmss").format(new Date());
-		int ranNum = (int)(Math.random() * 90000 + 10000);
-		String ext = originName.substring(originName.lastIndexOf("."));
-		String changeName = currentTime + ranNum + ext;
-		String savePath = session.getServletContext().getRealPath("/resource/uploadFiles/");
-		try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		return changeName;
-	}
-	
-	
-	
 	
 }

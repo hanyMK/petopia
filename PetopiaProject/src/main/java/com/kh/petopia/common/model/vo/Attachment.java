@@ -12,6 +12,5 @@ public class Attachment {
 	private String changeName;//CHANGE_NAME	VARCHAR2(255 BYTE)
 	private String filePath;//FILE_PATH	VARCHAR2(1000 BYTE)
 	private String fileStatus;//FILE_STATUS	CHAR(3 BYTE)
-	
 
 }

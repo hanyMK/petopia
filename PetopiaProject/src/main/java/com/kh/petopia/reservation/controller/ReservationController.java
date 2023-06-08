@@ -95,18 +95,22 @@ public class ReservationController {
 		
 		// 5-2. 적립금 조회 
 		int point = myPageService.selectMemberPoint(memberNo);
-		System.out.println("적립금 출력 안 되냐?:"+point);
-		
+		// System.out.println("적립금 출력 안 되냐?:"+point);
 		
 		// 보유 적립금 출력 
+		
+		
 		
 		// 6. 결제 정보 출력
 		// 사용자의 입력에 따른 예약금액 
 		// 사용자가 선택한 쿠폰과 적립금에 따른 총 결제 금액 
 		
 		
-		mv.addObject("r",r);
-		mv.addObject("pet",pet);
+		mv.addObject("r",r);						// 사용자가 입력한 예약 정보
+		mv.addObject("pet",pet);					// 사용자의 펫 정보
+		mv.addObject("couponCount",couponCount);	// 쿠폰 개수
+		mv.addObject("cList",cList);				// 사용자가 갖고있는 쿠폰 리스트 
+		mv.addObject("point",point);				// 적립금 
 		
 		mv.setViewName("reservation/paymentPetSalon");
 		

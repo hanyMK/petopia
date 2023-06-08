@@ -44,10 +44,10 @@
         <div id="area_in">
             <form action="insert.pd" method="post" enctype="multipart/form-data">
                 <br>
-                카테고리 <select id="select_el">
-                        <option value="goods">애견용품</option>
-                        <option value="food">애견식품</option>
-                        <option value="clothes">애견의류</option>
+                카테고리 <select name="category">
+                        <option>애견용품</option>
+                        <option>애견식품</option>
+                        <option>애견의류</option>
                         </select> <br><br>
                 제목    <input type="text" name="productTitle" id="input_title"> <br><br>
                 가격    <input type="number" name="productPrice" id="input_price"> <br><br>
@@ -60,11 +60,11 @@
 
                 </div>
                 <br>
-                썸네일 사진 넣기 <input type="file" name="upfile">
+                썸네일 사진 넣기 <input type="file" name="thumbnail">
                 <br>
                 
                 <br>
-                상세페이지 사진 넣기 <input type="file">
+                상세페이지 사진 넣기 <input type="file" name="detail">
 
                 <hr>
 
