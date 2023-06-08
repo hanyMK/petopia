@@ -67,7 +67,6 @@
 		)
 		
 	</insert>
-
 	
 	<select id="memberSearchCount" parameterType="map" resultType="_int">
 		select

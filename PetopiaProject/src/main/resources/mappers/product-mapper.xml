@@ -12,6 +12,9 @@
 		<result column="product_price" property="productPrice" />
 		<result column="product_date" property="productDate" />
 		<result column="category_name" property="categoryName" />
+		<result column="origin_name" property="originName" />
+		<result column="change_name" property="changeName" />
+		<result column="file_path" property="filePath" />
 	</resultMap>
 	
 	<resultMap type="att" id="attResultSet">
@@ -32,11 +35,21 @@
 		       product_title, 
 		       product_price, 
 		       product_date, 
-		       category_name 
+		       category_name,
+               origin_name,
+               change_name,
+               file_path
 		  from 
 		       product 
+     left join 
+               attachment on(product_no = ref_no)
 		 where 
-		       product_status = 'Y'
+		       file_category = 1 
+		   and 
+		       file_level = 0 
+         order 
+            by 
+               product_date desc
 	</select>
 	<select id="selectProductImg" resultMap="attResultSet">
 		select * from attachment where file_category = 1 and file_status = 'Y'
@@ -111,4 +124,27 @@
 		               #{filePath}
 		               )
 	</insert>
+	
+	<select id="selectDetail" parameterType="_int" resultMap="productResultSet">
+		select 
+		       product_title, 
+			   product_price, 
+			   product_date, 
+			   category_name,
+			   origin_name,
+			   change_name,
+			   file_path
+		  from 
+		       product 
+	 left join 
+	           attachment on(product_no = ref_no)
+		 where 
+		       product_status = 'Y' 
+		   and 
+		       product_no = #{bno} 
+		   and 
+		       file_category = 1 
+		   and 
+		       file_level = 0
+	</select>
 </mapper>
