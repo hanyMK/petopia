@@ -10,6 +10,8 @@ import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.vo.Alram;
+import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Repository
@@ -54,5 +56,13 @@ public class MyPageDao {
 
 	public int selectMemberPoint(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMemberPoint", memberNo);
+	}
+
+	public ArrayList<Petpay> myPetpay(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.myPetpay", memberNo);
+	}
+
+	public ArrayList<Point> myPoint(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.myPoint", memberNo);
 	}
 }

@@ -54,7 +54,8 @@ public class AjaxMyPageController {
 	// 펫페이 금액 추가
 	@ResponseBody
 	@RequestMapping(value="plus1man.me", produces="application/json; charset=UTF-8")
-	public String plus1man(int amount) {
+	public String plus1man(String amount) {
+		System.out.println(amount);
 		return new Gson().toJson(amount + 10000);
 	}
 	
