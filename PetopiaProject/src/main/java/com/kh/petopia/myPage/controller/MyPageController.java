@@ -37,7 +37,11 @@ public class MyPageController {
 	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPetpayPoint.me")
-	public String myPetpayPoint(int mno) {
+	public String myPetpayPoint(int mno, Model model) {
+		model.addAttribute("petpay", myPageService.myPetpay(mno));
+		model.addAttribute("point", myPageService.myPoint(mno));
+		
+		
 		return "myPage/myPetpayPoint";
 	}
 	

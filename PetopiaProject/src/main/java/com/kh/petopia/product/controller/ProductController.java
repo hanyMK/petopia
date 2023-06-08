@@ -1,16 +1,12 @@
 package com.kh.petopia.product.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
@@ -69,7 +65,17 @@ public class ProductController {
 		
 		productService.insertProduct(p, atmtThumbnail, atmtDetail);
 		
-		return "product/productMain";
+		return "redirect:product.pd";
+	}
+	
+	@RequestMapping(value="detail.pd")
+	public ModelAndView productSelectDetail(String bno, ModelAndView mv) {
+		
+		System.out.println(bno);
+		
+		mv.addObject("p",productService.productSelectDetail(Integer.parseInt(bno))).setViewName("product/productDetailEnrollForm");
+		
+		return mv;
 	}
 	
 }

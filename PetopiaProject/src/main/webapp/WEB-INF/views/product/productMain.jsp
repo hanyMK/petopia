@@ -87,7 +87,7 @@
 		width: 100%;
 		height: 15%;
 	}
-	#product_upfile{
+	.product_upfile{
 		width: 100%;
 		height: 100%;
 	}
@@ -178,7 +178,6 @@
 	</script>
 
 	<script>
-	
 		$(function(){
 			selectProductList();
 		})
@@ -186,27 +185,26 @@
 		function selectProductList(){
 			$.ajax({
 				url : 'productAjax.pd',
-				success : function(result){
-					console.log(result.list[0].productTitle);
-					console.log(result.listImg[0].fileNo);
-					console.log(result);
-					var img = result.listImg;
-					var list = result.list;
+				success : function(list){
+					
 					var value = '';
+					
 					for(let i in list){
 
 						value += '<div class="product">'
-							    + 	'<div class="product_1">'
-								+ 		'<div class="product_1_1">'
-								+ 			'<img id="product_upfile" src="'+ img[i].filePath + img[i].changeName +'">'
-								+ 		'</div>'
-								+ 		'<div class="product_1_2">'
-								+       '<div>'+ list[i].productTitle +'</div>'
-								+       '<div>'+ list[i].productPrice +'</div>'
-								+ 		'</div>'
-								+ 	'</div>'
-							    + '</div>';
+							   + 	'<div class="product_1">'
+							   + 		'<div class="product_1_1">'
+							   +           '<div hidden class="bno">' + list[i].productNo + '</div>'
+							   + 			'<img class="product_upfile" src="'+ list[i].filePath + list[i].changeName +'">'
+							   + 		'</div>'
+							   + 		'<div class="product_1_2">'
+							   +       '<div>'+ list[i].productTitle +'</div>'
+							   +       '<div>가격 : '+ list[i].productPrice +'</div>'
+							   + 		'</div>'
+							   + 	'</div>'
+							   + '</div>';
 					};
+					
 					$('#product_content').html(value);
 				},
 				error : function(){
@@ -217,9 +215,16 @@
 	</script>
 
 	<script>
+
+	</script>
+
+	<script>
 		$('#product_create_btn').click(function(){
 			location.href='productManagement.pd';
-		})
+		});
+		$('#product_content').on('click', '.product_1_1' , (function(){
+		 	location.href='detail.pd?bno=' + $(this).find('.bno').html();
+		}));
 	</script>
 </body>
 </html>

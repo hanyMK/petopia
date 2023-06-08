@@ -31,14 +31,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Product productSelectDetail(int pno) {
+		return productDao.productSelectDetail(sqlSession, pno);
+	}
+	
+	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
 		return null;
 	}
 
-	@Override
-	public Product selectDetailProduct(int productNo) {
-		return null;
-	}
 
 	@Override
 	public ArrayList<Ask> selectAskList(int productNo) {
