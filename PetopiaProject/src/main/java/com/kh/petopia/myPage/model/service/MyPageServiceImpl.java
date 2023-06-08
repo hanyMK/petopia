@@ -77,15 +77,31 @@ public class MyPageServiceImpl implements MyPageService {
 	public int selectMemberPoint(int memberNo) {
 		return myPageDao.selectMemberPoint(sqlSession,memberNo);
 	}
-
+	
 	@Override
-	public ArrayList<Petpay> myPetpay(int memberNo) {
-		return myPageDao.myPetpay(sqlSession,memberNo);
+	public int selectMemberPetPay(int memberNo) {
+		return myPageDao.selectMemberPetPay(sqlSession,memberNo);
+	}
+	
+	@Override
+	public int selectPetPayCount(int memberNo) {
+		return myPageDao.selectPetPayCount(sqlSession,memberNo);
 	}
 
 	@Override
-	public ArrayList<Point> myPoint(int memberNo) {
-		return myPageDao.myPoint(sqlSession,memberNo);
+	public int selectPointCount(int memberNo) {
+		return myPageDao.selectPointCount(sqlSession,memberNo);
 	}
+
+	@Override
+	public ArrayList<Petpay> myPetpayList(int memberNo) {
+		return myPageDao.myPetpayList(sqlSession,memberNo);
+	}
+
+	@Override
+	public ArrayList<Point> myPointList(int memberNo) {
+		return myPageDao.myPointList(sqlSession,memberNo);
+	}
+
 
 }

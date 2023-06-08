@@ -105,9 +105,10 @@
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<!-- Slides -->
-				<div class="swiper-slide"><img src="https://techrecipe.co.kr/wp-content/uploads/2023/02/230208_zoom_000001-1200x500.png"></div>
-				<div class="swiper-slide"><img src="https://coloradoteardropcamper.com/wp-content/uploads/2018/05/1200x500.png"></div>
-				<div class="swiper-slide"><img src="https://coloradoteardropcamper.com/wp-content/uploads/2018/05/1200x500.png"></div>
+				<div class="swiper-slide"><img src="https://bananab2b.co.kr/data/bananab2b/editor/202305/RLGHLRWJS.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/crong1.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/crong2.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/crong3.jpg"></div>
 			</div>
 		
 			<!-- If we need pagination -->
