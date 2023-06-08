@@ -67,19 +67,7 @@
 		)
 		
 	</insert>
-	
-	<select id="memberList" resultMap="memberResultSet">
-	select
-	       member_no
-	      ,member_name
-	      ,nickname
-	      ,phone
-	      ,address
-	      ,to_char(enroll_date, 'YYYY-MM-DD') as "enroll_date"       
-	      ,decode(status,'Y','활동','N','탈퇴','B','블랙') "status"
-	  from
-	       member
-	</select>
+
 	
 	<select id="memberSearchCount" parameterType="map" resultType="_int">
 		select
