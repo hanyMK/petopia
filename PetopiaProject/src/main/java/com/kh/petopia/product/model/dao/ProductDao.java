@@ -30,4 +30,8 @@ public class ProductDao {
 	public int insertDetailProduct(SqlSessionTemplate sqlSession, Attachment atmtDetail) {
 		return sqlSession.insert("productMapper.insertDetailImgProduct", atmtDetail);
 	}
+	
+	public Product productSelectDetail(SqlSessionTemplate sqlSession, int bno ) {
+		return sqlSession.selectOne("productMapper.selectDetail", bno);
+	}
 }

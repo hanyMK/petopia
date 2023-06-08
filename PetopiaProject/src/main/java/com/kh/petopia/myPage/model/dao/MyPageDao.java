@@ -10,6 +10,8 @@ import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.myPage.model.vo.Alram;
+import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Repository
@@ -54,5 +56,25 @@ public class MyPageDao {
 
 	public int selectMemberPoint(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMemberPoint", memberNo);
+	}
+	
+	public int selectMemberPetPay(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberPetPay", memberNo);
+	}
+
+	public int selectPetPayCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPetPayCount", memberNo);
+	}
+
+	public int selectPointCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPointCount", memberNo);
+	}
+
+	public ArrayList<Petpay> myPetpayList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myPetpayList", memberNo);
+	}
+
+	public ArrayList<Point> myPointList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myPointList", memberNo);
 	}
 }

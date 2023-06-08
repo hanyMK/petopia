@@ -12,6 +12,8 @@ import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 import com.kh.petopia.myPage.model.vo.Alram;
+import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Service
@@ -75,5 +77,31 @@ public class MyPageServiceImpl implements MyPageService {
 	public int selectMemberPoint(int memberNo) {
 		return myPageDao.selectMemberPoint(sqlSession,memberNo);
 	}
+	
+	@Override
+	public int selectMemberPetPay(int memberNo) {
+		return myPageDao.selectMemberPetPay(sqlSession,memberNo);
+	}
+	
+	@Override
+	public int selectPetPayCount(int memberNo) {
+		return myPageDao.selectPetPayCount(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectPointCount(int memberNo) {
+		return myPageDao.selectPointCount(sqlSession,memberNo);
+	}
+
+	@Override
+	public ArrayList<Petpay> myPetpayList(int memberNo) {
+		return myPageDao.myPetpayList(sqlSession,memberNo);
+	}
+
+	@Override
+	public ArrayList<Point> myPointList(int memberNo) {
+		return myPageDao.myPointList(sqlSession,memberNo);
+	}
+
 
 }

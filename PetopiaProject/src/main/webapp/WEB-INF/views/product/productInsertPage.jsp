@@ -8,7 +8,7 @@
     #area{
         border: 1px solid black;
         width: 1200px;
-        height: 800px;
+        height: 1200px;
         margin: auto;
     }
     #area_in{
@@ -29,9 +29,22 @@
         height: 30px;
     }
     #product_thumbnail{
+        width: 300px;
+        height: 300px;
+    }
+    #preview_thumbnail{
         border: 1px solid black;
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
+    }
+    #product_detail{
+        width: 300px;
+        height: 300px;
+    }
+    #preview_detail{
+        border: 1px solid black;
+        width: 300px;
+        height: 300px;
     }
 </style>
 <title>상품 등록</title>
@@ -56,24 +69,52 @@
                 <input type="checkbox" name="mSize"> M<br>
                 <input type="checkbox" name="lSiez"> L<br>
                 <br>
+                <br>
+                썸네일 사진 넣기 <input type="file" name="thumbnail" onchange="thumbnailReadURL(this)">
+                <br>
+                <br>
                 <div id="product_thumbnail">
-
+                    <img id="preview_thumbnail">
                 </div>
                 <br>
-                썸네일 사진 넣기 <input type="file" name="thumbnail">
+                상세페이지 사진 넣기 <input type="file" name="detail" onchange="detailReadURL(this)">
                 <br>
-                
                 <br>
-                상세페이지 사진 넣기 <input type="file" name="detail">
-
+                <div id="product_detail">
+                    <img id="preview_detail">
+                </div>
+                <br>
                 <hr>
-
                 <input type="submit" value="상품등록">
 
             </form>
         </div>
     </div>
 
+    <script>
+        function thumbnailReadURL(input){
+            if(input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview_thumbnail').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                document.getElementById('preview_thumbnail').src = "";
+            }
+        }
+        function detailReadURL(input){
+            if(input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview_detail').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                document.getElementById('preview_detail').src = "";
+            }
+        }
+    </script>
 
 
     <jsp:include page="../common/footer.jsp"/>
