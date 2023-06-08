@@ -37,7 +37,7 @@
             <h2>게시글 상세보기</h2>
             <br>
 
-            <a class="btn btn-secondary" style="float:right;" href="">목록으로</a>
+            <a class="btn btn-secondary" style="float:right;" href="board.bo?category=ALL">목록으로</a>
             <br><br>
 
             <table id="contentArea" algin="center" class="table">
@@ -56,10 +56,12 @@
                     <td colspan="3">
 	                    <c:choose>
 		                    <c:when test="${ empty b.originName }">
+		                    <img id="preview" width="100px" height="100px">
 		                    	<a>파일없음</a>
 		                    </c:when>
 		                    <c:otherwise>
-		                        <a href="${b.filePath} + ${b.changeName}" download="${b.originName }">${b.originName }</a>
+		                        <a href="${b.filePath }${b.changeName}" download="${b.originName }">${b.originName }</a>
+		                        <img src="${b.filePath }${b.changeName}" width="100px" height="100px">
 		                    </c:otherwise>
 	                    </c:choose>
                     </td>
@@ -102,32 +104,31 @@
             <!-- 댓글 기능은 나중에 ajax 배우고 나서 구현할 예정! 우선은 화면구현만 해놓음 -->
             <table id="replyArea" class="table" align="center">
                 <thead>
+                	<c:choose>
+	                	<c:when test="${ empty loginMember }">
+		                    <tr>
+		                        <th colspan="2">
+		                            <textarea class="form-control" cols="55" rows="2" readonly style="resize:none; width:100%;">로그인 후 이용 바랍니다.</textarea>
+		                        </th>
+		                        <th style="vertical-align:middle"><button class="btn btn-secondary" id="replyButton">등록하기</button></th>
+		                    </tr>
+	                    </c:when>
+	                    <c:otherwise>
+		                    <tr>
+		                        <th colspan="2">
+		                            <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+		                        </th>
+		                        <th style="vertical-align:middle"><button class="btn btn-secondary" onclick="addReply();">등록하기</button></th>
+		                    </tr>
+	                    </c:otherwise>
+                    </c:choose>
+                    
                     <tr>
-                        <th colspan="2">
-                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
-                        </th>
-                        <th style="vertical-align:middle"><button class="btn btn-secondary">등록하기</button></th>
-                    </tr>
-                    <tr>
-                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                        <td colspan="3">댓글(<span id="rcount">0</span>)</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>user02</th>
-                        <td>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ꿀잼</td>
-                        <td>2023-03-12</td>
-                    </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>재밌어요</td>
-                        <td>2023-03-11</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다!!</td>
-                        <td>2023-03-10</td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -136,6 +137,65 @@
     </div>
     
     <jsp:include page="../common/footer.jsp" />
+    
+    <script>
+    
+    	$(function(){
+    		selectReplyList();
+    	})
+    
+    	function addReply(){
+    		
+    		if($('#content').val().trim() != ''){
+    			$.ajax({
+    				url : 'replyInsert.bo',
+    				data : {
+    					boardNo : ${b.boardNo},
+    					memberNo : ${loginMember.memberNo},
+    					replyContent : $('#content').val(),
+    					nickname : '${loginMember.nickname}'
+    				},
+    				success : result => {
+    					selectReplyList();
+    					$('#content').val('');
+    				},
+    				error : () => {
+    					console.log('ajax통신 실패');
+    				}
+    				
+    			});
+    		} else {
+    			alertify.alert('댓글 작성시 빈공백은 작성이 불가능 합니다.');
+    		}
+    		
+    	}
+    	
+    	function selectReplyList(){
+    		$.ajax({
+    			url : 'rlist.bo',
+    			data : { bno : ${b.boardNo}},
+    			success : result => {
+    				// console.log(result);
+    				let value = "";
+    				
+    				for(let i in result){
+    					value += '<tr>'
+    						   + '<td>' + result[i].nickname + '</td>'
+    						   + '<td>' + result[i].replyContent + '</td>'
+    						   + '<td>' + result[i].createDate + '</td>'
+    						   + '<td><button onclick="deleteReply(this);">삭제</button></td>'
+    						   + '</tr>'
+    				}
+    				$('#replyArea > tbody').html(value);
+    				$('#rcount').text(result.length);
+    			},
+    			error : () => {
+    				console.log('ajax통신 실패 ~');
+    			}
+    		})
+    	}
+    	
+    </script>
     
 </body>
 </html>

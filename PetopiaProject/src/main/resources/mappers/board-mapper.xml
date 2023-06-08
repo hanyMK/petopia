@@ -220,4 +220,72 @@
 	 	   and
 	 	       file_category = 3	   
 	 </update>
+	 
+	 <insert id="updateBoard3" parameterType="board">
+	 	insert
+	 	  into
+	 	       attachment
+	 	       (
+	 	       file_no
+	 	       ,file_category
+	 	       ,ref_no
+	 	       ,file_level
+	 	       ,origin_name
+	 	       ,change_name
+	 	       ,file_path
+	 	       ,file_status
+	 	       )
+	 	values
+	 		   (
+	 		   seq_fno.nextval
+	 		   ,3
+	 		   ,#{boardNo}
+	 		   ,1
+	 		   ,#{originName}
+	 		   ,#{changeName}
+	 		   ,#{filePath}
+	 		   ,'Y'
+	 		   )
+	 </insert>
+	 
+	 <select id="selectReply" resultType="reply" parameterType="reply">
+	 	select
+	 		   reply_no replyNo
+	 		   ,r.nickname nickname
+	 		   ,reply_content replyContent
+	 		   ,create_date createDate
+	 	  from
+	 	       reply r
+	 	  join
+	 	  	   member m using(member_no)     
+	 	 where
+	 	  	   r.board_no = #{boardNo}
+	 	   and
+			   m.status = 'Y'
+		 order
+		 	by
+		 	   create_date desc	 		   
+	 </select>
+	 
+	 <insert id="insertReply" parameterType="reply">
+	 	insert
+	 	  into
+	 	  	   reply
+	 	  	   (
+	 	  	   reply_no
+	 	  	   ,board_no
+	 	  	   ,member_no
+	 	  	   ,nickname
+	 	  	   ,reply_content
+	 	  	   )
+	 	values
+	 	 	   (
+	 	 	   seq_rep_no.nextval
+	 	 	   ,#{boardNo}
+	 	 	   ,#{memberNo}
+	 	 	   ,#{nickname}
+	 	 	   ,#{replyContent}
+	 	 	   )
+	 </insert>
+	 
 </mapper>

@@ -88,9 +88,9 @@
 		</table>
 	
 	<div id="pagingArea">
-            <ul class="pagination">
+            <ul id="pagination" class="pagination">
 				<c:choose>
-                        <c:when test="${pi.currentPage == 1}">
+                        <c:when test="${pi.currentPage eq 1}">
                             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
                         </c:when>
                         <c:otherwise>
@@ -112,10 +112,19 @@
                     </c:choose>
             </ul>
         </div>	
+        <script>
+        	let value = '';
+        
+        	if(result.pi.currentPage == 1){
+        		value += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>'
+        	}
+        
+        </script>
 		
 	<script>
 		var cPage = ${pi.currentPage};
-		
+		var pagingAreaCode = $('#pagingArea').html();
+		var pi = "";
 		$(function(){
 			selectList(cPage);
 		})
@@ -128,7 +137,7 @@
 				},
 				success : function(result){
 				
-				console.log(result);
+				pi = result.pi;
 				let value = '';
 				let list = result.list;
 				let statusColor = "black";	
@@ -150,8 +159,11 @@
 	                        + '</tr>'
 	                        
 	                      
+	                        
+	                      
 					}
 					$('.memberList-table tbody').html(value);
+					
 				
 					$('.memberList-table tbody tr').hover(
 					        function() {
@@ -161,6 +173,11 @@
 					        	$(this).find('td').css('background-color', '');
 					        }
 					      );
+					if(pi.currentPage === 2){
+						$('#pagingArea').html(pagingAreaCode);
+					}
+					
+					
 				 }
 			})
 		}

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
 
 @Repository
@@ -38,44 +39,38 @@ public class BoardDao {
 	}
 	
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
-		int insert1 = 0;
-		int insert2 = 0;
-		
-		if((insert1 = sqlSession.insert("boardMapper.insertBoard1", b)) > 0) {
-			if(b.getOriginName() != null) {
-				insert2 = sqlSession.insert("boardMapper.insertBoard2", b);
-				return insert2;
-			} else {
-				return insert1;
-			}
-			
-		} else {
-			return insert1;
-		}
-		
+		return sqlSession.insert("boardMapper.insertBoard1", b);
 	}
+	
+	public int insertBoard2(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertBoard2", b);
+	}
+	
 	
 	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.update("boardMapper.deleteBoard", boardNo);
 	}
 	
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
-		int update1 = 0;
-		int update2 = 0;
-		
-		if((update1 = sqlSession.update("boardMapper.updateBoard1", b)) > 0) {
-			if(b.getOriginName() != null) {
-				update2 = sqlSession.update("boardMapper.updateBoard2", b);
-				return update2;
-			} else {
-				return update1;
-			}
-		} else {
-			return update1;
-		}
+		return sqlSession.update("boardMapper.updateBoard1", b);
+
 	}
 	
+	public int updateBoard2(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateBoard2", b);
+	}
 	
+	public int updateBoard3(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.updateBoard3", b);
+	}
+	
+	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int boardNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", boardNo);
+	}
+	
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r){
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
 	
 	
 }
