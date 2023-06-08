@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class AjaxAdminController {
 	
 	
 	@RequestMapping(value="ajaxMemberSearch.ad", produces="application/json; charset=UTF-8")
-	public String memberSearch(String searchType, String keyword,@RequestParam(value="cpage", defaultValue="1") int currentPage) {
+	public String memberSearch(String searchType, String keyword,@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("searchType", searchType);
 		params.put("keyword", keyword);
@@ -44,8 +45,8 @@ public class AjaxAdminController {
 		HashMap<String, Object>  result = new HashMap();
 		result.put("pi", pi);
 		result.put("list",adminService.memberSearch(params, pi));
+		model.addAttribute("pi", pi);
 		return new Gson().toJson(result);
-		
 	}
 
 	
