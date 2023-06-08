@@ -44,8 +44,8 @@ public class MyPageController {
 		model.addAttribute("petpayAmount", myPageService.selectMemberPetPay(mno));
 		model.addAttribute("pointAmount", myPageService.selectMemberPoint(mno));
 		
-		model.addAttribute("petpayAmount", myPageService.selectPetPayCount(mno));
-		model.addAttribute("petpayAmount", myPageService.selectPointCount(mno));
+		model.addAttribute("petpayCount", myPageService.selectPetPayCount(mno));
+		model.addAttribute("pointCount", myPageService.selectPointCount(mno));
 		
 		// 금액, 날짜, 사용M, 충전P ArrayList
 		model.addAttribute("petpayList", myPageService.myPetpayList(mno));

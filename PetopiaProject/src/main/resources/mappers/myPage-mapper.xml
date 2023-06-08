@@ -65,10 +65,26 @@
 		<result column="MIN_PRICE"   property="minPrice"/>
 	</resultMap>
 	
+	<resultMap type="petpay" id="petpayResultSet">
+		<result column="PETPAY_NO"   property="petpayNo"/>
+		<result column="PETPAY_AMOUNT" property="petpayAmount"/>
+		<result column="PETPAY_DATE" property="petpayDate"/>
+		<result column="PETPAY_STATUS" 	 property="petpayStatus"/>
+		<result column="MEMBER_NO"  property="memberNo"/>
+	</resultMap>
+	
+	<resultMap type="point" id="pointResultSet">
+		<result column="POINT_NO"   property="pointNo"/>
+		<result column="POINT_AMOUNT" property="pointAmount"/>
+		<result column="POINT_DATE" property="pointDate"/>
+		<result column="POINT_STATUS" 	 property="pointStatus"/>
+		<result column="MEMBER_NO"  property="memberNo"/>
+	</resultMap>
+	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
 		       board_title,
-		       board_content,
+		       b$oard_content,
 		       create_date,
 		       category
 		  from 
@@ -241,26 +257,51 @@
 	<!-- 예약결제 페이지에서 필요한 회원 쿠폰 및 적릭금 정보  SELECT문 끝 -->
 	
 	<!-- 마이페이지 펫페이, 포인트  -->
-	<select id="selectMemberPetpay" parameterType="_int" resultType="_int">
+	<select id="selectMemberPetPay" parameterType="_int" resultType="_int">
 		SELECT NVL(SUM(PETPAY_AMOUNT),0)
 		FROM PETPAY
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 	<select id="selectPetPayCount" parameterType="_int" resultType="_int">
-	
+		SELECT COUNT(PETPAY_NO)
+		  FROM PETPAY
+		 WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 	<select id="selectPointCount" parameterType="_int" resultType="_int">
-	
+		SELECT COUNT(POINT_NO)
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
-	<select id="myPetpayList" parameterType="_int" >
-	
+	<select id="myPetpayList" parameterType="_int" resultMap="petpayResultSet">
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT)
+		  FROM PETPAY
+		  JOIN MEMBER USING(MEMBER_NO)
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+		 	<when test="petpayStatus.equals('M')">
+		 		AND PETPAY_STATUS = 'M'
+		 	</when>
+		 	<otherwise>
+		 		AND PETPAY_STATUS = 'P'
+		 	</otherwise>
+		 </choose>
 	</select>
 	
-	<select id="myPointList" parameterType="_int" >
-	
+	<select id="myPointList" parameterType="_int" resultMap="pointResultSet">
+		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+		 	<when test="pointStatus.equals('M')">
+		 		AND PETPAY_STATUS = 'M'
+		 	</when>
+		 	<otherwise>
+		 		AND PETPAY_STATUS = 'P'
+		 	</otherwise>
+		 </choose>
 	</select>
 
 	

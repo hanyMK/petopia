@@ -95,11 +95,11 @@
 						<div id="pay_point_top">
 							<div class="pay_point_top_1">
 								<h4>펫페이</h4><br>
-								<h5>???원</h5>
+								<h5>${ petpayAmount }원</h5>
 							</div>
 							<div class="pay_point_top_1">
 								<h4>포인트</h4><br>
-								<h5>???원</h5>
+								<h5>${ pointAmount }원</h5>
 							</div>
 						</div>
 						<div id="pay_point_middle">
@@ -110,7 +110,7 @@
 							</div>
 						</div><br>
 						<div id="pay_point_bottom">
-							<small>작성 가능한 리뷰 : ?개</small><br>
+							<small>작성 가능한 리뷰 : ??개개</small><br>
 							<small>펫페이 충전 후 결제 시, 결제 금액의 5%를 포인트로 적립해드려요!</small>
 						</div>
 					</div>
@@ -118,6 +118,12 @@
 				<div id="main_center_right_bottom">	
 					<div id="main_center_right_bottom_1">
 						펫페이 내역, 포인트 내역
+					</div>
+					<div id="main_center_right_bottom_2">
+					
+						<button class="petpayStatus" onclick="selectCategory('ALL');">전체</button>
+						<button onclick="selectCategory('PLUS');">충전</button>
+						<button onclick="selectCategory('MINUS');">사용</button>
 					</div>
 					<div id="main_center_right_bottom_2">
 							전체, 충전 사용
@@ -255,6 +261,12 @@
     			
     		});
     	});
+    </script>
+    
+    <!-- 조회 카테고리 -->
+    <script>
+    	
+    
     </script>
 
 </body>
