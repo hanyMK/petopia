@@ -13,5 +13,9 @@ public class Product {
 	private int productPrice; //PRODUCT_PRICE	NUMBER
 	private Date productDate; //PRODUCT_DATE	DATE
 	private String categoryName; //CATEGORY_NAME	VARCHAR2(50 BYTE)
+	
+	private String originName;
+	private String changeName;
+	private String filePath;
 
 }

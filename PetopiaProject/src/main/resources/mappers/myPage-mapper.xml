@@ -240,6 +240,29 @@
 	
 	<!-- 예약결제 페이지에서 필요한 회원 쿠폰 및 적릭금 정보  SELECT문 끝 -->
 	
+	<!-- 마이페이지 펫페이, 포인트  -->
+	<select id="selectMemberPetpay" parameterType="_int" resultType="_int">
+		SELECT NVL(SUM(PETPAY_AMOUNT),0)
+		FROM PETPAY
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectPetPayCount" parameterType="_int" resultType="_int">
+	
+	</select>
+	
+	<select id="selectPointCount" parameterType="_int" resultType="_int">
+	
+	</select>
+	
+	<select id="myPetpayList" parameterType="_int" >
+	
+	</select>
+	
+	<select id="myPointList" parameterType="_int" >
+	
+	</select>
+
 	
 
 </mapper>

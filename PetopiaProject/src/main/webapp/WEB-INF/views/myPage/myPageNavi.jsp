@@ -67,7 +67,7 @@
         </ul>
         <ul class="myPage_navi_category">
         	<li><a href=""><h5><b>혜택</b></h5></a></li>
-        	<li><a href=""><h6>쿠폰</h6></a></li>
+        	<li><a href="memberCouponList.me"><h6>쿠폰</h6></a></li>
         </ul>
         <ul class="myPage_navi_category">
         	<li><a href="#"><h5><b>마이페이지</b></h5></a></li>

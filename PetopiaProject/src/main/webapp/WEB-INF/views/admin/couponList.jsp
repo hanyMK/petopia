@@ -186,7 +186,7 @@
 		
 
 	
-	  <!-- 쿠폰발급시 보여질 Modal -->
+	<!-- 쿠폰발급시 보여질 Modal -->
     <div class="modal fade" id="deleteForm">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -232,7 +232,7 @@
 			                </tr>
 			                <tr>
 			                    <th>최대할인 금액 : </th>
-			                    <td><input type="number"  name="maxPrice" id="maxPrice"></td>
+			                    <td><input type="number"  name="maxPrice" id="maxPrice" value="0"></td>
 			                </tr>
 			                <tr>
 			                    <th>최소사용 금액 : </th>

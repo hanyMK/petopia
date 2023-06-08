@@ -50,6 +50,9 @@
 	      ,decode(status,'Y','활동','N','탈퇴','B','블랙') "status"
 	  from
 	       member
+	 order
+	    by 
+	       member_no 
 	</select>
 	
 	<insert id="insertCoupon" parameterType="coupon">
@@ -63,11 +66,10 @@
 		TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:mi'),
 		TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:mi'),
 		#{maxPrice}, 
-		#{minPriace}
+		#{maxPrice}
 		)
 		
 	</insert>
-
 	
 	<select id="memberSearchCount" parameterType="map" resultType="_int">
 		select
@@ -76,7 +78,7 @@
 		       member
 		 where
 		       <if test="searchType == 'memberName'">
-	                member_name = #{keyword}
+	                member_name like '%' || #{keyword} || '%'
 	            </if>
 	            <if test="searchType == 'memberNo'">
 	                member_no = #{keyword}
@@ -99,7 +101,7 @@
             member
         where
             <if test="searchType == 'memberName'">
-                member_name = #{keyword}
+                member_name like '%' || #{keyword} || '%'
             </if>
             <if test="searchType == 'memberNo'">
                 member_no = #{keyword}
