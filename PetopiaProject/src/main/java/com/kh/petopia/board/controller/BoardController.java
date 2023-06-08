@@ -135,7 +135,8 @@ public class BoardController {
 	@RequestMapping("update.bo")
 	public String updateBoard(int bno, String file, HttpSession session) {
 		
-		return "";
+		
+		
 	}
 	
 }
