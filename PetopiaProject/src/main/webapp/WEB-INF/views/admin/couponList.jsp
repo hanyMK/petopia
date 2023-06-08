@@ -232,7 +232,7 @@
 			                </tr>
 			                <tr>
 			                    <th>최대할인 금액 : </th>
-			                    <td><input type="number"  name="maxPrice" id="maxPrice"></td>
+			                    <td><input type="number"  name="maxPrice" id="maxPrice" value="0"></td>
 			                </tr>
 			                <tr>
 			                    <th>최소사용 금액 : </th>
