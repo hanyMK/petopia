@@ -31,9 +31,6 @@ public class AdminDao {
 	}
 
 	public int memberSearchCount(SqlSessionTemplate sqlSession, Map params) {
-		
-		int a = sqlSession.selectOne("adminMapper.memberSearchCount", params);
-		System.out.println(a);
 		return sqlSession.selectOne("adminMapper.memberSearchCount", params);
 	}
 	

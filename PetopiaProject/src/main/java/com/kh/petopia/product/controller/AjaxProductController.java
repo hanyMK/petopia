@@ -24,18 +24,10 @@ public class AjaxProductController {
 	public String selectProductList() {
 		
 		ArrayList<Product> list = productService.selectProductList();
-		ArrayList<Attachment> listImg = productService.selectProductImg();
-		
-		HashMap<String, Object> result = new HashMap();
-		
-		result.put("list", list);
-		result.put("listImg", listImg);
 		
 		System.out.println(list);
-		System.out.println(listImg);
-		System.out.println(result);
 		
-		return new Gson().toJson(result);
+		return new Gson().toJson(list);
 	}
 	
 }

@@ -30,7 +30,7 @@ public interface ProductService {
 //	where productTitle like '%' + keyword + '%';
 			
 	// 상품 상세 조회 (select)
-	Product selectDetailProduct(int productNo);
+	Product productSelectDetail(int productNo);
 	
 	// 상품 문의 조회 (select) board
 	ArrayList<Ask> selectAskList(int productNo);

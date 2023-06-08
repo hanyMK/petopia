@@ -131,18 +131,36 @@
 				console.log(result);
 				let value = '';
 				let list = result.list;
-				
+				let statusColor = "black";	
 					for(let i in list){
+						
+						if (list[i].status === '블랙') {
+					      statusColor = 'red';
+				    	} else if(list[i].status === '탈퇴'){
+				    	  statusColor = 'lightGray';
+				    	}
+								
 						value += '<tr>'
 							+ '<td>' + list[i].memberNo + '</td>'
 	                        + '<td>' + list[i].memberName + '</td>'
 	                        + '<td>' + list[i].phone + '</td>'
 	                        + '<td>' + list[i].address + '</td>'
 	                        + '<td>' + list[i].enrollDate + '</td>'
-	                        + '<td>' + list[i].status + '</td>'
+	                        + '<td style="color: ' + statusColor + ';">' + list[i].status + '</td>'
 	                        + '</tr>'
+	                        
+	                      
 					}
 					$('.memberList-table tbody').html(value);
+				
+					$('.memberList-table tbody tr').hover(
+					        function() {
+					        	$(this).find('td').css('background-color', 'LightSkyBlue');
+					        },
+					        function() {
+					        	$(this).find('td').css('background-color', '');
+					        }
+					      );
 				 }
 			})
 		}
@@ -168,11 +186,25 @@
 		
 		var cPage = ${pi.currentPage};
 		
+		
 		$('#memberSearchBtn').click(() =>{
 			
 			var searchType = $('select[name="searchType"]').val();
 		    var keyword = $('#keyword').val();
-	
+		
+			
+		    if(searchType === 'memberNo'){
+		    	var memberNo = parseInt(keyword);
+		    	if (isNaN(memberNo)) {
+		    		alert('숫자로 입력 바랍니다.');
+		    	    }
+		    } else if(searchType === 'status'){
+		    	keyword = keyword.toUpperCase();
+		    	if(keyword != 'Y' && keyword != 'N' && keyword != 'B'){
+		    		alert("'Y' 혹은 'N'을 입력 바랍니다.");
+		    	} 
+		    }
+		    	
 			$.ajax({
 				url : 'ajaxMemberSearch.ad',
 				data: {
@@ -199,10 +231,16 @@
 					$('.memberList-table tbody').html(value);
 				 }
 			})
-		})
 		
 	
-	})
+		})
+	})	
+		
+	
+    
+	
+	
+
 	</script>	
 	
 	</div>
