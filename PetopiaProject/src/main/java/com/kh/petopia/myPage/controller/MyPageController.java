@@ -56,7 +56,10 @@ public class MyPageController {
 	}
 	
 	
-	
+	@RequestMapping("memberCouponList.me")
+	public String memberCouponListView() {
+		return "myPage/memberCouponList";
+	}
 	
 	
 	
