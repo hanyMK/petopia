@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.petopia.board.model.dao.BoardDao;
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
 
 @Service
@@ -41,7 +42,18 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int insertBoard(Board b) {
-		return boardDao.insertBoard(sqlSession, b);
+		int insert1 = boardDao.insertBoard(sqlSession, b);
+		
+		if(insert1 > 0) {
+			if(b.getOriginName() != null) {
+				return boardDao.insertBoard2(sqlSession, b);
+			} else {
+				return insert1;
+			}
+		} else {
+			return insert1;
+		}
+		
 	}
 
 	@Override
@@ -51,7 +63,35 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int updateBoard(Board b) {
-		return boardDao.updateBoard(sqlSession, b);
+		
+		int update1 = boardDao.updateBoard(sqlSession, b);
+		
+		if(update1 > 0) {
+			if(b.getOriginName() != null) {
+				int update2 = boardDao.updateBoard2(sqlSession, b);
+				
+				if(update2 == 0) {
+					return boardDao.updateBoard3(sqlSession, b);
+				}
+				return update2;
+				
+			} else {
+				return update1;
+			}
+			
+		}
+		
+		return update1;
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return boardDao.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReply(int boardNo) {
+		return boardDao.selectReply(sqlSession, boardNo);
 	}
 
 

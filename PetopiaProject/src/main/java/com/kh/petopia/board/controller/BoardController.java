@@ -1,10 +1,7 @@
 package com.kh.petopia.board.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -21,15 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.petopia.board.model.service.BoardService;
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.common.template.Pagination;
 
 @Controller
 public class BoardController {
-
+	
+	private String filePath = "resources/uploadFiles/";
+	
 	@Autowired
 	private BoardService boardService;
-
+	
 	@RequestMapping("board.bo")
 	public String mainBoard(String category, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
@@ -67,28 +68,6 @@ public class BoardController {
 		return "board/boardEnrollForm";
 	}
 	
-	public String saveFile(MultipartFile upfile,
-							HttpSession session) {
-		String originName = upfile.getOriginalFilename();
-		
-		String currentTime = new SimpleDateFormat("YYYYMMDDHHmmss").format(new Date());
-		
-		int ranNum = (int)(Math.random() * 90000 + 10000);
-		
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ranNum + ext;
-		
-		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-		
-		try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		return changeName;
-	}
 	
 	@RequestMapping("insert.bo")
 	public String insertBoard(Board b,
@@ -100,8 +79,8 @@ public class BoardController {
 			
 			
 			b.setOriginName(upfile.getOriginalFilename());
-			b.setChangeName(saveFile(upfile, session));
-			b.setFilePath("resources/uploadFiles/");
+			b.setChangeName(MyFileRename.saveFile(session, upfile));
+			b.setFilePath(filePath);
 		}
 		
 		if(boardService.insertBoard(b) > 0) {
@@ -148,10 +127,11 @@ public class BoardController {
 				new File(session.getServletContext().getRealPath(b.getChangeName())).delete();
 			}
 			
-			String changeName = saveFile(reUpfile, session);
+			String changeName = MyFileRename.saveFile(session, reUpfile);
 			
 			b.setOriginName(reUpfile.getOriginalFilename());
-			b.setChangeName("resources/uploadFile" + changeName);
+			b.setChangeName(changeName);
+			b.setFilePath(filePath);
 		}
 		
 		if(boardService.updateBoard(b) > 0) {
@@ -164,6 +144,17 @@ public class BoardController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="rlist.bo", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int bno) {
+		return new Gson().toJson(boardService.selectReply(bno));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="replyInsert.bo", produces="application/json; charset=UTF-8")
+	public String ajaxInsertReply(Reply r) {
+		return new Gson().toJson(boardService.insertReply(r));
+	}
 	
 	
 }
