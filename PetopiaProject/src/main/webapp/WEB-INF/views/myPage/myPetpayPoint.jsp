@@ -10,20 +10,10 @@
 
 	<!-- jQuery 라이브러리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- 부트스트랩에서 제공하고 있는 스타일 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
- 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
 <style>
 
 	#main_center_right_top{
-		width: 500px;
 		height: 25%;
 		padding-top: 25px;
 		margin: auto;
@@ -34,7 +24,6 @@
 		text-align: center;
 	}
 	#main_center_right_bottom{
-		width: 500px;
 		height:75%;
 		padding-top: 25px;
 		margin: auto;
@@ -160,10 +149,10 @@
                     	<h5>펫페이 충전</h5>
     					<h6>1만원 단위로 충전이 가능합니다.</h6><br>
     					
-			             <input type="number" name=petpayAmount id="petpayAmount"  required><br><br>
+			             <input type="number" name=petpayAmount id="petpayAmount" required><br><br>
 			              
 			            
-			             <button>1만</button><button>3만</button><button>5만</button><button>10만</button>
+			             <button id="plus1man();">1만</button><button id="plus3man();">3만</button><button id="plus5man();">5만</button><button id="plus10man();">10만</button>
 			             
 			             <br><br>
 			              
@@ -189,6 +178,25 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    	$(function () {
+    		
+    		$('#plus1man').click(function() {
+    			
+    			$.ajax({
+    				url : 'plus1man.me',
+    				data : {amount : $('#petpayAmount').val()},
+    				success : function(result) {
+    					console.log(result);
+    					
+    					$('#petpayAmount').val(result);
+    				}
+    			});
+    		});
+    	});
+    
+    </script>
 
 </body>
 </html>

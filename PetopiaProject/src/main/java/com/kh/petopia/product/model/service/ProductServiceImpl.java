@@ -25,36 +25,38 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<Product> selectProductList() {
 		return productDao.selectProductList(sqlSession);
 	}
+	@Override
+	public ArrayList<Attachment> selectProductImg() {
+		return productDao.selectProductImg(sqlSession);
+	}
 
 	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Product selectDetailProduct(int productNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<Ask> selectAskList(int productNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertProduct(Product p, Attachment atmt) {
+	public int insertProduct(Product p, Attachment atmtThumbnail, Attachment atmtDetail) {
 		
 		int result1 = productDao.insertProduct(sqlSession, p);
-		int result2 = productDao.insertProduct(sqlSession, atmt);
+		int result2 = productDao.insertThumbnailProduct(sqlSession, atmtThumbnail);
+		int result3 = productDao.insertDetailProduct(sqlSession, atmtDetail);
 
-		if(result1 * result2 > 0) {
-			return result1 * result2;
+		if(result1 * result2 * result3 > 0) {
+			return result1 * result2 * result3;
 		} else {
 			sqlSession.rollback();
-			return result1 * result2;
+			return result1 * result2 * result3;
 		}
 	}
 
@@ -99,5 +101,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

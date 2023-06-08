@@ -14,13 +14,20 @@ public class ProductDao {
 	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("productMapper.selectProductList");
 	}
+	public ArrayList<Attachment> selectProductImg(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductImg");
+	}
+	
 	// OverLoading( 상품정보 insert )
 	public int insertProduct(SqlSessionTemplate sqlSession, Product p) {
 		return sqlSession.insert("productMapper.insertProduct", p);
 	}
 	// OverLoading( 상품이미지 insert )
-	public int insertProduct(SqlSessionTemplate sqlSession,Attachment atmt) {
-		return sqlSession.insert("productMapper.insertImgProduct", atmt);
+	public int insertThumbnailProduct(SqlSessionTemplate sqlSession, Attachment atmtThumbnail) {
+		return sqlSession.insert("productMapper.insertThumbnailImgProduct", atmtThumbnail);
 	}
-
+	
+	public int insertDetailProduct(SqlSessionTemplate sqlSession, Attachment atmtDetail) {
+		return sqlSession.insert("productMapper.insertDetailImgProduct", atmtDetail);
+	}
 }

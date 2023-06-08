@@ -186,25 +186,28 @@
 		function selectProductList(){
 			$.ajax({
 				url : 'productAjax.pd',
-				success : function(list){
-					console.log(list[0].categoryName);
-					
-					var result = '';
+				success : function(result){
+					console.log(result.list[0].productTitle);
+					console.log(result.listImg[0].fileNo);
+					console.log(result);
+					var img = result.listImg;
+					var list = result.list;
+					var value = '';
 					for(let i in list){
 
-						result += '<div class="product">'
+						value += '<div class="product">'
 							    + 	'<div class="product_1">'
 								+ 		'<div class="product_1_1">'
-								+ 			'<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">'
+								+ 			'<img id="product_upfile" src="'+ img[i].filePath + img[i].changeName +'">'
 								+ 		'</div>'
 								+ 		'<div class="product_1_2">'
 								+       '<div>'+ list[i].productTitle +'</div>'
 								+       '<div>'+ list[i].productPrice +'</div>'
 								+ 		'</div>'
 								+ 	'</div>'
-							    + '</div>'
+							    + '</div>';
 					};
-					$('#product_content').html(result);
+					$('#product_content').html(value);
 				},
 				error : function(){
 
