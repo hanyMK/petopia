@@ -11,6 +11,7 @@
 	#main_center_right_top{
 		height: 10%;
 		padding-top: 30px;
+		margin: auto;
 	}
 	#main_center_right_top>div{
 		margin: auto;
@@ -19,13 +20,15 @@
 	#main_center_right_bottom{
 		height:90%;
 	}
-	#myCouponList{
+	.myCouponList{
 		border: 1px solid black;
-		border-radiors: 20px
+		border-radius: 20px;
 		height: 100px;
-		width: 300px;
-		margin: auto;
+		width: 400px;
+		margin: 20px;
+		margin-left: 50px;
 		text-align: center;
+		float: left;
 	}
 	
 
@@ -49,13 +52,14 @@
 				</div>
 				<div id="main_center_right_bottom">
 				
-						<div id="myCouponList">
-						안녕<br>
-							${ b.boardTitle }<br>
-							${ b.boardContent }<br>
-							${ b.createDate }<br>
-						</div><br>
-		           				
+						<div class="myCouponList">
+						회원 쿠폰 <br>
+					
+						</div>
+						<div class="myCouponList">
+							안녕<br>
+							
+							</div>           				
 				</div>
 			</div>
 		</div>
@@ -66,7 +70,27 @@
 	</div>
 	
 	<script>
+		(() => {
 
+			console.log(${sesseionScopt.loginMember.memberNo});
+			$.ajax({
+				url : 'couponList.me',
+				type : 'post',
+				data :{
+					memberNo: ${sesseionScopt.loginMember.memberNo}
+				},
+				seccess: result => {
+					console.log(result)
+
+				},
+				error : () => {
+					console.log(result);
+				};
+			});
+
+
+
+		})
 	</script>
 
    

@@ -105,13 +105,13 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int CouponListCount() {
-		return myPageDao.CouponListCount(sqlSession);
+	public int couponListCount() {
+		return myPageDao.couponListCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Coupon> memberCouponList(PageInfo pi) {
-		return null;
+		return myPageDao.memberCouponList(sqlSession, pi);
 	}
 
 

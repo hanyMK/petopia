@@ -57,9 +57,10 @@ public interface MyPageService {
 	
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
 	//listCount
-	int CouponListCount();
+	int couponListCount();
 	ArrayList<Coupon> memberCouponList(PageInfo pi);
 
+	//회원의 지난달 실적 조회
 	
 
 	
