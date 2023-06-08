@@ -199,4 +199,25 @@
 	 			board_no = #{boardNo}
 	 </update>
 	 
+	 <update id="updateBoard1" parameterType="board">
+	 	update
+	 		   board
+	 	   set 
+	 	   	   board_title = #{boardTitle}
+	 	   	   ,board_content = #{boardContent}
+	 	 where
+	 	 	   board_no = #{boardNo} 
+	 </update>
+	 
+	 <update  id="updateBoard2" parameterType="board">
+	 	update
+	 		   Attachment
+	 	   set
+	 	   	   origin_name = #{originName}
+	 	   	   ,change_name = #{changeName}
+	 	 where
+	 	 	   ref_no = #{boardNo}
+	 	   and
+	 	       file_category = 3	   
+	 </update>
 </mapper>

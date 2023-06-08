@@ -59,7 +59,21 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.deleteBoard", boardNo);
 	}
 	
-	
+	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
+		int update1 = 0;
+		int update2 = 0;
+		
+		if((update1 = sqlSession.update("boardMapper.updateBoard1", b)) > 0) {
+			if(b.getOriginName() != null) {
+				update2 = sqlSession.update("boardMapper.updateBoard2", b);
+				return update2;
+			} else {
+				return update1;
+			}
+		} else {
+			return update1;
+		}
+	}
 	
 	
 	
