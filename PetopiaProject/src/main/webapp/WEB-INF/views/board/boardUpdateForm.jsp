@@ -51,11 +51,11 @@
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
                         <td>
-                            <input type="file" id="upfile" class="form-control-file border" name="reUpfile">
-                         	
+                            <input type="file" id="upfile" class="form-control-file border" name="reUpfile" onchange="readURL(this);">
+                         	<img id="preview" width="100px" height="100px">
                          	<c:if test="${ not empty b.originName }">
                          	   	현재 업로드된 파일 : 
-                            	<a href="${b.changeName }" download="${ b.originName }">${b.originName }</a>
+                            	<a href="${b.filePath }${b.changeName }" download="${ b.originName }">${b.originName }</a>
                             	<input type="hidden" name="originName" value="${b.originName }" />
                             	<input type="hidden" name="changeName" value="${b.changeName }" />
                             </c:if>
@@ -70,15 +70,36 @@
 
                 <div align="center">
                     <button type="submit" class="btn btn-primary">수정하기</button>
-                    <button type="reset" class="btn btn-danger">이전으로</button>
                 </div>
             </form>
+            <br>
+            	<div align="center">
+                    <button class="btn btn-danger" id="prePage">이전으로</button>
+            	</div>
         </div>
         <br><br>
 
     </div>
     
     <jsp:include page="../common/footer.jsp" />
+    
+     <script>
+	    function readURL(input){
+	        if(input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            reader.onload = function(e) {
+	                document.getElementById('preview').src = e.target.result;
+	            };
+	            reader.readAsDataURL(input.files[0]);
+	        } else {
+	            document.getElementById('preview').src = "";
+	        }
+	    }
+	    
+	    $('#prePage').click(function(){
+	    	history.back();
+	    })
+    </script>
     
 </body>
 </html>

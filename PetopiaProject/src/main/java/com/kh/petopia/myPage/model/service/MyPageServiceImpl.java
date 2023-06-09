@@ -1,6 +1,7 @@
 package com.kh.petopia.myPage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 import com.kh.petopia.myPage.model.vo.Alram;
@@ -77,15 +79,61 @@ public class MyPageServiceImpl implements MyPageService {
 	public int selectMemberPoint(int memberNo) {
 		return myPageDao.selectMemberPoint(sqlSession,memberNo);
 	}
-
+	
 	@Override
-	public ArrayList<Petpay> myPetpay(int memberNo) {
-		return myPageDao.myPetpay(sqlSession,memberNo);
+	public int selectMemberPetPay(int memberNo) {
+		return myPageDao.selectMemberPetPay(sqlSession,memberNo);
+	}
+	
+	@Override
+	public int selectPetPayCount(int memberNo) {
+		return myPageDao.selectPetPayCount(sqlSession,memberNo);
 	}
 
 	@Override
-	public ArrayList<Point> myPoint(int memberNo) {
-		return myPageDao.myPoint(sqlSession,memberNo);
+	public int selectPointCount(int memberNo) {
+		return myPageDao.selectPointCount(sqlSession,memberNo);
 	}
+
+	@Override
+	public ArrayList<Petpay> myPetpayList(int memberNo) {
+		return myPageDao.myPetpayList(sqlSession,memberNo);
+	}
+
+	@Override
+	public ArrayList<Point> myPointList(int memberNo) {
+		return myPageDao.myPointList(sqlSession,memberNo);
+	}
+
+	@Override
+	public int couponListCount() {
+		return myPageDao.couponListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Coupon> memberCouponList(PageInfo pi) {
+		return myPageDao.memberCouponList(sqlSession, pi);
+	}
+
+	@Override
+	public int paymentPerfomanceToProduct(int memberNo) {
+		return myPageDao.paymentPerfomanceToProduct(sqlSession, memberNo);
+	}
+
+	@Override
+	public int paymentPsrfomanceToReservation(int memberNo) {
+		return myPageDao.paymentPsrfomanceToReservation(sqlSession, memberNo);
+	}
+
+	@Override
+	public ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map) {
+		return myPageDao.petpayStatusList(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Point> pointStatusList(HashMap<String, Object> map) {
+		return myPageDao.pointStatusList(sqlSession, map);
+	}
+
 
 }

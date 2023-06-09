@@ -38,11 +38,46 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPetpayPoint.me")
 	public String myPetpayPoint(int mno, Model model) {
-		model.addAttribute("petpay", myPageService.myPetpay(mno));
-		model.addAttribute("point", myPageService.myPoint(mno));
+		// 전체금액, 총 n건, 날짜, 사용, 충전
 		
+		// 전체금액, 총 n건 int 타입으로 받아오기
+		model.addAttribute("petpayAmount", myPageService.selectMemberPetPay(mno));
+		model.addAttribute("pointAmount", myPageService.selectMemberPoint(mno));
 		
+		model.addAttribute("petpayCount", myPageService.selectPetPayCount(mno));
+		model.addAttribute("pointCount", myPageService.selectPointCount(mno));
+		
+		// 금액, 날짜, 사용M, 충전P ArrayList
+		model.addAttribute("petpayList", myPageService.myPetpayList(mno));
+		model.addAttribute("pointList", myPageService.myPointList(mno));
+
+
 		return "myPage/myPetpayPoint";
 	}
+	
+	
+	@RequestMapping("memberCouponList.me")
+	public String memberCouponListView() {
+		return "myPage/memberCouponList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

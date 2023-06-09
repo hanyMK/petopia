@@ -134,6 +134,11 @@ public class MemberController {
 			}
 			return null;
 		}
+		/**
+		 * 이메일 찾기 요청시 화면 변경 값 전달하는 메소드
+		 * @param mv
+		 * @return
+		 */
 		
 		@GetMapping("findEmail")
 		public ModelAndView findEmailView(ModelAndView mv) {
@@ -156,11 +161,16 @@ public class MemberController {
 			
 		}
 		
-		
+		/**
+		 * 비밀번호 변경 화면으로 전환하는 메소드
+		 * @return
+		 */
 		@GetMapping("resetPwd")
 		public String resetPwd() {
 			return "member/resetPwd";
 		}
+		
+		
 		
 
 

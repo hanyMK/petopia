@@ -3,6 +3,7 @@ package com.kh.petopia.board.model.service;
 import java.util.ArrayList;
 
 import com.kh.petopia.board.model.vo.Board;
+import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
 
 public interface BoardService {
@@ -70,10 +71,10 @@ public interface BoardService {
 	// ------------------------------------------
 	  
 	// 댓글작성 (insert)
-	//int insertReply(Reply r);
+	int insertReply(Reply r);
 	   
 	// 댓글조회 (select)
-	//ArrayList<Reply> selectReply(int boardNo);
+	ArrayList<Reply> selectReply(int boardNo);
 	
 	// 댓글수정 (update)
 	//int updateReply(int replyNo);

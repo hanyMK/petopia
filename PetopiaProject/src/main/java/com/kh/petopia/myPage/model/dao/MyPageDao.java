@@ -1,14 +1,17 @@
 package com.kh.petopia.myPage.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
-import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
@@ -57,12 +60,56 @@ public class MyPageDao {
 	public int selectMemberPoint(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMemberPoint", memberNo);
 	}
-
-	public ArrayList<Petpay> myPetpay(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.myPetpay", memberNo);
+	
+	public int selectMemberPetPay(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberPetPay", memberNo);
 	}
 
-	public ArrayList<Point> myPoint(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.myPoint", memberNo);
+	public int selectPetPayCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPetPayCount", memberNo);
 	}
+
+	public int selectPointCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectPointCount", memberNo);
+	}
+
+	public ArrayList<Petpay> myPetpayList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myPetpayList", memberNo);
+	}
+
+	public ArrayList<Point> myPointList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myPointList", memberNo);
+	}
+	
+	public int couponListCount(SqlSessionTemplate sqlSession){
+		return sqlSession.selectOne("myPageMapper.couponListCount");
+	}
+	
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		
+		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
+										null,
+										new RowBounds(
+												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
+														pi.getBoardLimit()
+														));
+	}
+	
+	public int paymentPsrfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
+		return 0;
+	}
+	public int paymentPerfomanceToProduct(SqlSessionTemplate sqlSession, int memberNo) {
+		return 0;
+	}
+
+	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
+	}
+
+	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);
+	}
+	
+	
 }
