@@ -120,8 +120,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int paymentPsrfomanceToReservation(int memberNo) {
-		return myPageDao.paymentPsrfomanceToReservation(sqlSession, memberNo);
+	public int paymentPerfomanceToReservation(int memberNo) {
+		return myPageDao.paymentPerfomanceToReservation(sqlSession, memberNo);
 	}
 
 

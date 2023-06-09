@@ -1,12 +1,12 @@
 package com.kh.petopia.myPage.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -67,25 +67,23 @@ public class AjaxMyPageController {
 	//마이페이지 쿠폰 조회
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
 	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") int currentPage, int memberNo) {
-		System.out.println(memberNo);
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
 		
 		ArrayList<Coupon> cList = myPageService.memberCouponList(pi);
 		System.out.println(cList);
 		//전월 실적 조회
-		//int memberPaymentPerfomanceToProduct = 
+		HashMap<String, Object> map = new HashMap<>();		
+		int result = myPageService.paymentPerfomanceToProduct(memberNo) +  myPageService.paymentPerfomanceToReservation(memberNo);
+		if(!cList.isEmpty() && result != 0) {
+			map.put("cList", cList);
+			map.put("result", result);
+			map.put("pi", pi);
+		}
 		
-		return !cList.isEmpty()? new Gson().toJson(cList): "fail";
+		//System.out.println(map.get("cList") +"  /  "+ map.get("result"));
 		
-		
-		
-		
-		
-		
-		
-		
-		
+		return  new Gson().toJson(map);
 		
 		
 	}
