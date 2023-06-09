@@ -51,7 +51,6 @@ public class MyPageController {
 		model.addAttribute("petpayList", myPageService.myPetpayList(mno));
 		model.addAttribute("pointList", myPageService.myPointList(mno));
 
-
 		return "myPage/myPetpayPoint";
 	}
 	
