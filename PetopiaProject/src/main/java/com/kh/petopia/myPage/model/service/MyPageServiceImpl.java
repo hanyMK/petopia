@@ -1,6 +1,7 @@
 package com.kh.petopia.myPage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,16 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int paymentPerfomanceToReservation(int memberNo) {
 		return myPageDao.paymentPerfomanceToReservation(sqlSession, memberNo);
+	}
+
+	@Override
+	public ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map) {
+		return myPageDao.petpayStatusList(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Point> pointStatusList(HashMap<String, Object> map) {
+		return myPageDao.pointStatusList(sqlSession, map);
 	}
 
 

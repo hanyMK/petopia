@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.petopia.common.model.vo.Attachment;
@@ -22,12 +23,17 @@ public class AjaxProductController {
 	@ResponseBody
 	@RequestMapping(value="productAjax.pd", produces="application/json; charset=UTF-8")
 	public String selectProductList() {
-		
 		ArrayList<Product> list = productService.selectProductList();
-		
-		System.out.println(list);
-		
 		return new Gson().toJson(list);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="productDetailNavi.pd", produces="application/json; charset=UTF-8")
+	public String productSelectDetail(String bno) {
+		System.out.println(bno);
+		Product product = productService.productSelectDetailPage(Integer.parseInt(bno));
+		return new Gson().toJson(product);
+	}
+	
 	
 }

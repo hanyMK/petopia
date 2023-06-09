@@ -74,6 +74,11 @@
 		width: 200px;
 	}
 	
+	#pointList{
+		display: none;
+	}
+	
+	
 	
 </style>
 </head>
@@ -104,9 +109,8 @@
 						</div>
 						<div id="pay_point_middle">
 							<div class="pay_point_middle_1">
-								<button type="button" data-toggle="modal" data-target="#deleteForm">충전하기</button>
-							</div>
-							<div class="pay_point_middle_1">
+								<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
+								<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button>
 							</div>
 						</div><br>
 						<div id="pay_point_bottom">
@@ -117,23 +121,48 @@
 				</div>
 				<div id="main_center_right_bottom">	
 					<div id="main_center_right_bottom_1">
-						펫페이 내역, 포인트 내역
+						<button onclick="petpayBtn();">펫페이 내역</button>
+						<button onclick="pointBtn();">포인트 내역</button>
 					</div>
-					<div id="main_center_right_bottom_2">
-					
-						<button class="petpayStatus" onclick="selectCategory('ALL');">전체</button>
-						<button onclick="selectCategory('PLUS');">충전</button>
-						<button onclick="selectCategory('MINUS');">사용</button>
+					<div id="petpayList" align="center">
+						<div id="petpayList_1">
+							<button class="petpayStatus" onclick="petpayStatusBtn('ALL');">전체</button>
+							<button class="petpayStatus" onclick="petpayStatusBtn('PLUS');">충전</button>
+							<button class="petpayStatus" onclick="petpayStatusBtn('MINUS');">사용</button>
+						</div>
+						<div id="petpayList_2">
+							총 n건	기간
+						</div>
+						<div id="petpayList_3">
+							<c:forEach var="pp" items="${ petpayList }" >
+								<div id="myList">
+									${pp.petpayDate}
+									${pp.account}
+									${pp.petpayAmount}
+									${pp.petpayStatus}
+								</div><br>
+				            </c:forEach>
+						</div>	
 					</div>
-					<div id="main_center_right_bottom_2">
-							전체, 충전 사용
-					</div>
-					<div id="main_center_right_bottom_3">
-						총 n건	기간
-					</div>
-					<div id="main_center_right_bottom_4">
-						5.21 	강아지개껌		+12000원
-					</div>			
+					<div id="pointList" align="center">
+						<div id="pointList_1">
+							<button class="pointStatus" onclick="pointStatusBtn('ALL');">전체</button>
+							<button class="pointStatus" onclick="pointStatusBtn('PLUS');">충전</button>
+							<button class="pointStatus" onclick="pointStatusBtn('MINUS');">사용</button>
+						</div>
+						<div id="pointList_2">
+							총 n건	기간
+						</div>
+						<div id="pointList_3">
+							<c:forEach var="p" items="${ pointList }" >
+								<div id="myList">
+									${p.pointDate}
+									${p.pointStatus }
+									${p.pointAmount}
+								</div><br>
+				            </c:forEach>
+						</div>
+					</div>		
 				</div>
 			</div>
 		</div>
@@ -144,7 +173,7 @@
 	</div>
 	
 	<!-- 쿠폰발급시 보여질 Modal -->
-    <div class="modal fade" id="deleteForm">
+    <div class="modal fade" id="chargePetpay">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
 
@@ -160,7 +189,7 @@
                     	<h5>펫페이 충전</h5>
     					<h6>1천원 단위로 충전이 가능합니다.</h6><br>
     					
-			             <input type="number" name="petpayAmount" id="petpayAmount" max="1000000">  원
+			             <input type="number" name="petpayAmount" id="petpayAmount" max="1000000" required>  원
 			             
 			             
 			             <div id="alertPetpay"></div>
@@ -168,10 +197,10 @@
 			            	
 			             <br>
 			             <div>
-				             <a class="btn btn-light" id="plus1man">1만</a>
-				             <a class="btn btn-light" id="plus3man">3만</a>
-				             <a class="btn btn-light" id="plus5man">5만</a>
-				             <a class="btn btn-light" id="plus10man">10만</a>
+				             <a class="btn btn-light" onclick="plusPay(1);">1만</a>
+				             <a class="btn btn-light" onclick="plusPay(3);">3만</a>
+				             <a class="btn btn-light" onclick="plusPay(5);">5만</a>
+				             <a class="btn btn-light" onclick="plusPay(10);">10만</a>
 			             </div>
 			             
 			             <br>
@@ -185,7 +214,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
-                        <button id="insertCoupon"  type="submit" class="btn btn-danger">충전하기</button>
+                        <button id="insertPetpay"  type="submit" class="btn btn-danger" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
                         <button type="reset" class="btn btn-danger">초기화</button>
                     </div>
                 </form>
@@ -194,78 +223,153 @@
     </div>
     
     <script>
-    	// 1만원 충전
-    	$(function () {
-    		$('#plus1man').on('click', function() {
-    			var input = $('#petpayAmount').val();
-    			input = Number(input) + 10000;
-    			$('#petpayAmount').val(input);
-    		});
-    	});
+    
+    function plusPay(plus) {
     	
-    	// 3만원 충전
-    	$(function () {
-    		$('#plus3man').on('click', function() {
-    			var input = $('#petpayAmount').val();
-    			input = Number(input) + 30000;
-    			$('#petpayAmount').val(input);
-    		});
-    	});
+    	console.log(plus);
     	
-    	// 5만원 충전
-    	$(function () {
-    		$('#plus5man').on('click', function() {
-    			var input = $('#petpayAmount').val();
-    			input = Number(input) + 50000;
-    			$('#petpayAmount').val(input);
-    		});
-    	});
+    	var input = $('#petpayAmount').val();
     	
-    	// 10만원 충전
-    	$(function () {
-    		$('#plus10man').on('click', function() {
-    			var input = $('#petpayAmount').val();
-    			input = Number(input) + 100000;
-    			$('#petpayAmount').val(input);
-    		});
-    	});
+    	if(plus == 1) {
+			input = 10000;
+    	} else if(plus == 3) {
+    		input = 30000;
+    	} else if(plus == 5) {
+    		input = 50000;
+    	} else if(plus == 10) {
+    		input = 100000;
+    	}
     	
-    	// 1천원 단위로 충전 가능
-    	$(function () {
-    		$('#petpayAmount').on('change', function() {
-    			var input = $(this).val();
-    			
-    			// 최대 가능 금액 백만원이 넘어가는 경우
-    			if(input > 1000000) {
-    				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
-    				
-    			} else {
-    				$('#overPetpay').remove();
-    			}
-    			
-    			// 천원 단위로 입력을 안했을 경우
-    			if(input != Math.floor(input/1000) * 1000) {
-    				$('#alertPetpay').html('<small>1천원 단위로 충전이 가능합니다.</small>');
-    				input = Math.floor(input/1000) * 1000;
-    				
-    				// 천원 단위로 입력도 안하고 백만원 초과 시
-    				if(input > 1000000) {
-        				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
-        				
-        			} else {
-        				$('#overPetpay').remove();
-        			}
-    			}
-    			
-    			$('#petpayAmount').val(input);
-    			
-    		});
-    	});
+    	$('#petpayAmount').val(input);
+    	
+    }
+    	 
+   	// 1만원 단위로 충전 가능, 백만원 이상 충전 못함
+   	$(function () {
+   		$('#petpayAmount').on('change', function() {
+   			var input = $(this).val();
+   			
+   			// 최대 가능 금액 백만원이 넘어가는 경우
+   			if(input > 1000000) {
+   				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+   				
+   			} else {
+   				$('#overPetpay').html('');
+   			}
+   			
+   			// 만원 단위로 입력을 안했을 경우
+   			if(input != Math.floor(input/10000) * 10000) {
+   				$('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
+   				input = Math.floor(input/10000) * 10000;
+   				                        
+   				// 만원 단위로 입력도 안하고 백만원 초과 시
+   				if(input > 1000000) {
+       				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+       				
+       			} else {
+       				$('#overPetpay').remove();
+       			}
+   			} else {
+   				$('#alertPetpay').html('');
+   			}
+   			
+   			$('#petpayAmount').val(input);
+   			
+   		});
+   	});
     </script>
     
-    <!-- 조회 카테고리 -->
+    <!-- 펫페이내역, 포인트내역 버튼 -->
     <script>
+    
+    var petpayList = $("#petpayList");
+    var pointList = $("#pointList");
+    
+    function petpayBtn () {
+    	petpayStatusBtn();
+        if(petpayList.css("display") === 'none' ) {
+        	petpayList.css("display", 'block'); 
+        	pointList.css("display", 'none');  
+        }
+    }
+    
+    function pointBtn () {
+    	petpayStatusBtn();
+        if(pointList.css("display") === 'none' ) {
+        	pointList.css("display", 'block'); 
+        	petpayList.css("display", 'none'); 
+        }
+    }
+    
+    </script>
+    
+    <!-- 전체, 충전, 사용 카테고리 -->
+    <script>
+    // 펫페이
+    
+    function petpayStatusBtn(status) {
     	
+    	console.log(status);
+    	
+    	$.ajax({
+    		url : 'petpayStatusList.me', 
+    		data : { 
+    				status : status,
+    				mno : ${ loginMember.memberNo }
+    			},
+    		success : function(list) {
+    			let value = "";
+    			for(let i in list) {
+    				console.log(list);
+    				value += '<div id="myList">'							
+    					   + list[i].petpayDate
+    					   + list[i].account
+    					   + list[i].petpayAmount
+    					   + list[i].petpayStatus
+    					   + '</div><br>';
+    				};
+    			$('#petpayList_3').html(value);
+    			
+    		},
+    		error : function() {
+    			console.log('AJAX 조회 실팽이');
+    		}
+    	});
+	}
+    
+    // 포인트
+     function pointStatusBtn(status) {
+    	
+    	console.log(status);
+    	
+    	$.ajax({
+    		url : 'pointStatusList.me', 
+    		data : { 
+    				status : status,
+    				mno : ${ loginMember.memberNo }
+    			},
+    		success : function(list) {
+    			let value = "";
+    			for(let i in list) {
+    				console.log(list);
+    				value += '<div id="myList">'							
+    					   + list[i].pointDate
+    					   + list[i].pointAmount
+    					   + list[i].pointStatus
+    					   + '</div><br>';
+    				};
+    			$('#pointList_3').html(value);
+    			
+    		},
+    		error : function() {
+    			console.log('AJAX 조회 실팽이');
+    		}
+    	});
+	}
+    </script>
+    
+    <script>
+    
     
     </script>
 

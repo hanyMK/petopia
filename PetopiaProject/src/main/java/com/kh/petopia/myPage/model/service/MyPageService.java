@@ -1,6 +1,7 @@
 package com.kh.petopia.myPage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
@@ -65,6 +66,10 @@ public interface MyPageService {
 	int paymentPerfomanceToProduct(int memberNo);
 	//예약결제 실적
 	int paymentPerfomanceToReservation(int memberNo);
+
+	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
+
+	ArrayList<Point> pointStatusList(HashMap<String, Object> map);
 
 	
 

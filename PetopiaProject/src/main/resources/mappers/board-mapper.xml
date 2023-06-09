@@ -133,7 +133,7 @@
 	 	  FROM 
 	 	       BOARD B
 	      JOIN
-	           MEMBER USING(MEMBER_NO)
+	           MEMBER M USING(MEMBER_NO)
 	 LEFT JOIN
 	      	   ATTACHMENT ON(BOARD_NO = REF_NO)
 	     WHERE

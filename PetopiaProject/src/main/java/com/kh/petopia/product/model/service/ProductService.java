@@ -13,7 +13,6 @@ public interface ProductService {
 	// 메인 카테고리 상품 조회
 	ArrayList<Product> selectProductList();
 	
-	ArrayList<Attachment> selectProductImg();
 //	SQL => 해결
 //	if(Category.equals('전체')) {
 //		where category = '전체'
@@ -31,6 +30,8 @@ public interface ProductService {
 			
 	// 상품 상세 조회 (select)
 	Product productSelectDetail(int productNo);
+	
+	Product productSelectDetailPage(int productNo);
 	
 	// 상품 문의 조회 (select) board
 	ArrayList<Ask> selectAskList(int productNo);
@@ -56,6 +57,8 @@ public interface ProductService {
 //			);
 	
 	// 상품 문의 삭제 (update)
+	
+	//ArrayList<Product> selectProductDetailNaviList();
 	
 	// ---------- 관리자 기능 --------------------
 	
