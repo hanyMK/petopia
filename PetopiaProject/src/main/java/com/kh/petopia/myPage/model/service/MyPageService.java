@@ -61,7 +61,10 @@ public interface MyPageService {
 	ArrayList<Coupon> memberCouponList(PageInfo pi);
 
 	//회원의 지난달 실적 조회
-	
+	//상품 실적
+	int paymentPerfomanceToProduct(int memberNo);
+	//예약결제 실적
+	int paymentPsrfomanceToReservation(int memberNo);
 
 	
 

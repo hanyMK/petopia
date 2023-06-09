@@ -114,5 +114,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.memberCouponList(sqlSession, pi);
 	}
 
+	@Override
+	public int paymentPerfomanceToProduct(int memberNo) {
+		return myPageDao.paymentPerfomanceToProduct(sqlSession, memberNo);
+	}
+
+	@Override
+	public int paymentPsrfomanceToReservation(int memberNo) {
+		return myPageDao.paymentPsrfomanceToReservation(sqlSession, memberNo);
+	}
+
 
 }
