@@ -95,5 +95,12 @@ public class MyPageDao {
 														));
 	}
 	
+	public int paymentPsrfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
+		return 0;
+	}
+	public int paymentPerfomanceToProduct(SqlSessionTemplate sqlSession, int memberNo) {
+		return 0;
+	}
+	
 	
 }
