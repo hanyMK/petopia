@@ -134,7 +134,44 @@
 		        START_DATE DESC
 	</select>
 	
-
+	<select id="salesCheck" resultType="_int">
+	 <![CDATA[
+    SELECT SUM(PRODUCT_PRICE) 
+    FROM (
+      SELECT
+        AMOUNT * PRODUCT_PRICE PRODUCT_PRICE1,
+        CASE
+          WHEN PR.COUPON_NO != 0 AND C.COUPON_TYPE = 1
+            THEN AMOUNT * PRODUCT_PRICE - POINT - C.DISCOUNT
+          WHEN PR.COUPON_NO != 0 AND C.COUPON_TYPE = 2
+            THEN AMOUNT * PRODUCT_PRICE * ((100 - C.DISCOUNT) / 100) - POINT
+          ELSE AMOUNT * PRODUCT_PRICE - POINT
+        END PRODUCT_PRICE,
+        PR.RECEIPT_NO,
+        PR.MEMBER_NO,
+        RECEIPT_DATE,
+        NVL(PR.COUPON_NO, 0) COUPON_NO,
+        NVL(POINT, 0) POINT,
+        SHIPPING_NO
+      FROM
+        PRODUCT_BRIDGE PB
+        JOIN (
+          SELECT
+            RECEIPT_NO,
+            MEMBER_NO,
+            RECEIPT_DATE,
+            NVL(COUPON_NO, 0) COUPON_NO,
+            NVL(POINT, 0) POINT,
+            SHIPPING_NO
+          FROM
+            PRODUCT_RECEIPT
+        ) PR ON (pb.receipt_no = PR.receipt_no)
+        JOIN PRODUCT P ON (P.PRODUCT_NO = PB.PRODUCT_NO)
+        LEFT JOIN COUPON C ON (C.COUPON_NO = PR.COUPON_NO)
+      AND RECEIPT_DATE BETWEEN TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))
+    )
+  ]]>
+	</select>
 	
 	
 	

@@ -58,8 +58,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ArrayList<Coupon> cList(PageInfo pi) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int salesCheck() {
+		return adminDao.salesCheck(sqlSession);
 	}
 
 

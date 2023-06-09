@@ -50,6 +50,10 @@ public class AdminDao {
 												null,
 												new RowBounds(offset, pi.getBoardLimit()));
 	}
+
+	public int salesCheck(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.salesCheck");
+	}
 	
 	
 }
