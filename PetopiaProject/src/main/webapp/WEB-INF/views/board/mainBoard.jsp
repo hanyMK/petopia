@@ -110,27 +110,30 @@
 
         <div id="pagingArea">
             <ul class="pagination">
+
+            	<!-- 
 				<c:choose>
-                        <c:when test="${pi.currentPage eq 1}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="javascript:selectList('${category}', ${pi.currentPage - 1});">Previous</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                    
-                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                        <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${p});">${p}</a></li>                    
-                    </c:forEach>
-                    
-                    <c:choose>
-                        <c:when test="${pi.currentPage eq pi.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>                    	
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${pi.currentPage + 1});">Next</a></li>
-                        </c:otherwise>
-                    </c:choose>
+                    <c:when test="${ cPage eq 1}">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" onclick="pre();">Previous</a></li>
+                    </c:otherwise>
+                </c:choose>
+                
+                <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                    <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${p});">${p}</a></li>                    
+                </c:forEach>
+                
+                <c:choose>
+                    <c:when test="${pi.currentPage eq pi.maxPage}">
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>                    	
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${pi.currentPage + 1});">Next</a></li>
+                    </c:otherwise>
+                </c:choose>
+                -->	
             </ul>
         </div>
 
@@ -163,29 +166,40 @@
 	let cPage = ${pi.currentPage};
 	
 	$(function(){ // 자바스크립트/제이쿼리 onload함수		
-		selectList(category, cPage);
+		selectList(cPage);
 	
 		$('#boardList > tbody').on('click', 'tr',(function(){
 			location.href = 'detail.bo?bno=' + $(this).children('#bno').val();
 		}))
 	})
 
-	function selectCategory(type) {
-	       selectList(type, 1);
+	function selectCategory(category) {
+	       location.href = 'board.bo?category=' + category;
 	    }
 	
-	function selectList(category, cPage) {
+	function selectList(cPage) {
 	    console.log(category);
+	    
 		$.ajax({
             url: 'list.bo',
             data: {
-            		category: category,
+            		category: '${category}',
             		currentPage : cPage
             		},
             success: result => {
                 let value = '';
                 let list = result.list;
-                
+                let pi = result.pi;
+                let paging = '';
+				//let category = '${category}';
+					
+				let cPage = pi.currentPage;
+				let startPage = pi.startPage;
+				let endPage = pi.endPage;
+				let prev = cPage - 1;
+                let next = cPage + 1;
+				let max = pi.maxPage;
+				
                 for (let i in list) {
                     value += '<tr>'
                     	+ '<input id="bno" type=hidden name="boardNo" value="' + list[i].boardNo + '">'
@@ -198,6 +212,28 @@
                         + '</tr>'
                 }
                 $('#boardList tbody').html(value);
+                
+                if(cPage == 1){
+                	paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
+                } else {
+                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + prev + ');">&lt;-</a></li>';
+                }
+                
+                for(let i = startPage; i <= endPage; i++){
+                	if(i != cPage){
+						paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	} else {
+                		paging += '<li class="page-item"><a class="page-link" style="background-color:pink;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	}
+				}
+                
+                if(cPage == max){
+                	paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
+                } else {
+                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + next + ');">-&gt;</a></li>';
+                }
+                
+                $('.pagination').html(paging);
             }
         })
     }

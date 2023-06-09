@@ -1,6 +1,7 @@
 package com.kh.petopia.admin.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,25 @@ public class AdminController {
 	
 	@RequestMapping("memberList.ad")
 	public String memberList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-		PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 10 , 5);
-		model.addAttribute("pi",pi);
+		//PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 10 , 5);
+		// model.addAttribute("pi",pi);
 		return "admin/adminMemberList"; 
 	}
 	
-
+	@RequestMapping("adminSales.ad")
+	public String adminSales(Model model) {
+		Date now = new Date();
+		int month = now.getMonth()+1;
+		
+		int store = adminService.salesCheck();
+		System.out.println(store);
+		model.addAttribute("month", month);
+		model.addAttribute("store",store);
+		return "admin/adminSales";
+	}
 	
+
+
 	
 	
 	

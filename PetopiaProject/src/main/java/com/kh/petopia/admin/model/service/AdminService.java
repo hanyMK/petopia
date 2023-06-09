@@ -3,6 +3,7 @@ package com.kh.petopia.admin.model.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Member;
@@ -28,12 +29,17 @@ public interface AdminService {
 	ArrayList<Coupon> cList(PageInfo pi);
 
 	
+	
 
 
 	//페이지 카운트
 	int adminCouponListCount();
 	ArrayList<Coupon> adminCouponList(PageInfo pi);
-	
+
+
+
+	// 매출 조회
+	int salesCheck();
 	
 	
 }
