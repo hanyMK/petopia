@@ -86,33 +86,10 @@
 		  <tbody>
 		  </tbody>
 		</table>
-			
-			<div id="pagination">
-            <%-- 
-            <ul class="pagination">
-				-- <c:choose>
-                        <c:when test="${pi.currentPage eq 1}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="javascript:selectList(${pi.currentPage - 1});">Previous</a></li>
-                        </c:otherwise>
-                    </c:choose> -
-                    
-                     <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                        <li class="page-item"><a class="page-link" href="javascript:selectList( ${p});">${p}</a></li>                    
-                    </c:forEach> 
-                    
-                    <c:choose>
-                        <c:when test="${pi.currentPage eq pi.endPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>                    	
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="javascript:selectList( ${pi.currentPage + 1});">Next</a></li>
-                        </c:otherwise>
-                    </c:choose>
-            </ul>
-             --%>
+		 <div id="pagingArea">
+			<ul class="pagination">
+			</ul>
+            
 		</div>
     
 	<script>
@@ -133,6 +110,15 @@
 				pi = result.pi;
 				let value = '';
 				let list = result.list;
+				
+				let paging = '';
+				let cPage = pi.currentPage;
+				let startPage = pi.startPage;
+				let endPage = pi.endPage;
+				let prev = cPage - 1;
+                let next = cPage + 1;
+				let max = pi.maxPage;
+				
 				let statusColor = "black";	
 					for(let i in list){
 						
@@ -152,23 +138,30 @@
 	                        + '</tr>'
 	                        
 					}
+				
 					$('.memberList-table tbody').html(value);
 					
-					/* 
-					let pagination = "";
-					
-					if(pi.currentPage == 1){
-						pagination += " <li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li> "                
-					} else{
-						pagination += "<li class='page-item'><a class='page-link' href='javascript:selectList(pi.currentPage - 1});'>Previous</a></li>"
+					if(cPage == 1){
+	                	paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
+	                } else {
+	                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + prev + ');">&lt;-</a></li>';
+	                }
+	                
+	                for(let i = startPage; i <= endPage; i++){
+	                	if(i != cPage){
+							paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+	                	} else {
+	                		paging += '<li class="page-item"><a class="page-link" style="background-color:#007BFF; color:white;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+	                	}
 					}
-                    
-					for(var p = pi.startPage; p <= pi.endPage; p++){
-					 pagination += "<li class='page-item'><a class='page-link' href='javascript:selectList(p);''>p</a></li>"                    
-                    } 
- 					*/
-					
-					$('#pagination').html(pagination);
+	                
+	                if(cPage == max){
+	                	paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
+	                } else {
+	                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + next + ');">-&gt;</a></li>';
+	                }
+	                
+	                $('.pagination').html(paging);
 					
 					
 					$('.memberList-table tbody tr').hover(
@@ -203,10 +196,7 @@
 	<script>
 
 	
-	$(() => {
-		
-		
-		
+	
 		$('#memberSearchBtn').click(() =>{
 			
 			var searchType = $('select[name="searchType"]').val();
@@ -228,33 +218,83 @@
 			$.ajax({
 				url : 'ajaxMemberSearch.ad',
 				data: {
-					currentPage : cPage,
 					searchType: searchType, 
 					keyword: keyword 
 			         
 				},
 				success : function(result){
-				console.log(result);
-				let value = '';
-				let list = result.list;
-				
-					for(let i in list){
-						value += '<tr>'
-							+ '<td>' + list[i].memberNo + '</td>'
-	                        + '<td>' + list[i].memberName + '</td>'
-	                        + '<td>' + list[i].phone + '</td>'
-	                        + '<td>' + list[i].address + '</td>'
-	                        + '<td>' + list[i].enrollDate + '</td>'
-	                        + '<td>' + list[i].status + '</td>'
-	                        + '</tr>'
-					}
-					$('.memberList-table tbody').html(value);
+					pi = result.pi;
+					let value = '';
+					let list = result.list;
+					
+					let paging = '';
+					let cPage = pi.currentPage;
+					let startPage = pi.startPage;
+					let endPage = pi.endPage;
+					let prev = cPage - 1;
+	                let next = cPage + 1;
+					let max = pi.maxPage;
+					
+					let statusColor = "black";	
+						for(let i in list){
+							
+							if (list[i].status === '블랙') {
+						      statusColor = 'red';
+					    	} else if(list[i].status === '탈퇴'){
+					    	  statusColor = 'lightGray';
+					    	}
+									
+							value += '<tr>'
+								+ '<td>' + list[i].memberNo + '</td>'
+		                        + '<td>' + list[i].memberName + '</td>'
+		                        + '<td>' + list[i].phone + '</td>'
+		                        + '<td>' + list[i].address + '</td>'
+		                        + '<td>' + list[i].enrollDate + '</td>'
+		                        + '<td style="color: ' + statusColor + ';">' + list[i].status + '</td>'
+		                        + '</tr>'
+		                        
+						}
+					
+						$('.memberList-table tbody').html(value);
+						
+						if(cPage == 1){
+		                	paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
+		                } else {
+		                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + prev + ');">&lt;-</a></li>';
+		                }
+		                
+		                for(let i = startPage; i <= endPage; i++){
+		                	if(i != cPage){
+								paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+		                	} else {
+		                		paging += '<li class="page-item"><a class="page-link" style="background-color:#007BFF; color:white;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+		                	}
+						}
+		                
+		                if(cPage == max){
+		                	paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
+		                } else {
+		                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + next + ');">-&gt;</a></li>';
+		                }
+		                
+		                $('.pagination').html(paging);
+						
+						
+						$('.memberList-table tbody tr').hover(
+						        function() {
+						        	$(this).find('td').css('background-color', 'LightSkyBlue');
+						        },
+						        function() {
+						        	$(this).find('td').css('background-color', '');
+						        }
+						      );
+						
 				 }
 			})
 		
 	
 		})
-	})	
+	
 		
 	
     
