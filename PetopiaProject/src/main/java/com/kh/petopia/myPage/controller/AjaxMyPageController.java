@@ -74,7 +74,6 @@ public class AjaxMyPageController {
 		ArrayList<Coupon> cList = myPageService.memberCouponList(pi);
 		System.out.println(cList);
 		//전월 실적 조회
-		int memberPaymentPerfomanceToProduct = 
 		
 		return !cList.isEmpty()? new Gson().toJson(cList): "fail";
 		

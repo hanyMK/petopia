@@ -117,16 +117,14 @@
 				</div>
 				<div id="main_center_right_bottom">	
 					<div id="main_center_right_bottom_1">
-						펫페이 내역, 포인트 내역
+						<button onclick="peypayList();">펫페이 내역</button>
+						<button onclick="pointList();">포인트 내역</button>
 					</div>
 					<div id="main_center_right_bottom_2">
 					
 						<button class="petpayStatus" onclick="selectCategory('ALL');">전체</button>
 						<button onclick="selectCategory('PLUS');">충전</button>
 						<button onclick="selectCategory('MINUS');">사용</button>
-					</div>
-					<div id="main_center_right_bottom_2">
-							전체, 충전 사용
 					</div>
 					<div id="main_center_right_bottom_3">
 						총 n건	기간
@@ -243,12 +241,12 @@
     				$('#overPetpay').remove();
     			}
     			
-    			// 천원 단위로 입력을 안했을 경우
-    			if(input != Math.floor(input/1000) * 1000) {
-    				$('#alertPetpay').html('<small>1천원 단위로 충전이 가능합니다.</small>');
-    				input = Math.floor(input/1000) * 1000;
+    			// 만원 단위로 입력을 안했을 경우
+    			if(input != Math.floor(input/10000) * 10000) {
+    				$('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
+    				input = Math.floor(input/10000) * 10000;
     				
-    				// 천원 단위로 입력도 안하고 백만원 초과 시
+    				// 만원 단위로 입력도 안하고 백만원 초과 시
     				if(input > 1000000) {
         				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
         				
