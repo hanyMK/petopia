@@ -23,7 +23,7 @@
 	.myCouponList{
 		border: 1px solid black;
 		border-radius: 20px;
-		height: 100px;
+		height: 130px;
 		width: 400px;
 		margin: 20px;
 		margin-left: 50px;
@@ -51,15 +51,7 @@
 				<div id="main_center_right_top">
 				</div>
 				<div id="main_center_right_bottom">
-				
-						<div class="myCouponList">
-						회원 쿠폰 <br>
-					
-						</div>
-						<div class="myCouponList">
-							안녕<br>
-							
-							</div>           				
+			
 				</div>
 			</div>
 		</div>
@@ -70,27 +62,70 @@
 	</div>
 	
 	<script>
-		(() => {
-
-			console.log(${sesseionScopt.loginMember.memberNo});
+	
+		var cpage = 1;
+		var value = '';
+		$(document).ready(() =>{ // 
+			couponList(cpage);
+		
+		})
+		
+		function couponList(){
+			
 			$.ajax({
 				url : 'couponList.me',
 				type : 'post',
 				data :{
-					memberNo: ${sesseionScopt.loginMember.memberNo}
+					memberNo: 22,
+					cpage: 1
 				},
-				seccess: result => {
-					console.log(result)
+				success: result => {
 
+					var cList = result.cList;
+					var perfomance = result.result;
+					var pi = result.pi;
+					console.log(cList);
+					for(var i in cList){
+					
+						
+						value +=' <div class="myCouponList">' 
+								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
+								if(perfomance > 100000){
+									
+								}
+								+ cList[i].couponName +'<br>';
+								if(cList[i].couponType == 1){
+									value += + cList[i].discount +'원<br>';
+								}else{
+									value += cList[i].discount +'%<br>';
+								}
+								
+								if(cList[i].maxPrice == 0){
+									value += '최소 사용 금액 : ' + cList[i].minPrice +'원<br>'
+											+ cList[i].startDate +' ~ '
+											+ cList[i].endDate +'<br>'
+											+ '</div>';
+								}else{
+									value +=
+											'최대 할인 금액 : ' + cList[i].maxPrice +'원<br>'
+											+ '최소 사용 금액 :  ' + cList[i].minPrice +'원<br>'
+											+ cList[i].startDate +' ~ '
+											+ cList[i].endDate +'<br>'
+											+ '</div>';
+								}
+					}
+					$('#main_center_right_bottom').html(value);
+					
 				},
 				error : () => {
-					console.log(result);
-				};
+					console.log('실패');
+				}
 			});
+		}
 
 
 
-		})
+		
 	</script>
 
    

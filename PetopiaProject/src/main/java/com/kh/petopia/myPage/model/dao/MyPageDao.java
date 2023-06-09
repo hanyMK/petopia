@@ -1,6 +1,7 @@
 package com.kh.petopia.myPage.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -95,11 +96,19 @@ public class MyPageDao {
 														));
 	}
 	
-	public int paymentPsrfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
-		return 0;
+	public int paymentPerfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToReservation", memberNo);
 	}
 	public int paymentPerfomanceToProduct(SqlSessionTemplate sqlSession, int memberNo) {
-		return 0;
+		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToProduct", memberNo);
+	}
+
+	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
+	}
+
+	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);
 	}
 	
 	

@@ -22,6 +22,7 @@ import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.common.template.Pagination;
+import com.kh.petopia.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -36,6 +37,7 @@ public class BoardController {
 		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
 		model.addAttribute("category", category);
 		model.addAttribute("pi", pi);
+		System.out.println(category);
 		
 		return "board/mainBoard";
 	}
@@ -45,6 +47,7 @@ public class BoardController {
 	public String selectBoardList(int currentPage, String category) {
 		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
 		ArrayList<Board> list = boardService.selectBoard(category, pi);
+		
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("pi", pi);
 		hashMap.put("list", list);
@@ -152,7 +155,11 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="replyInsert.bo", produces="application/json; charset=UTF-8")
-	public String ajaxInsertReply(Reply r) {
+	public String ajaxInsertReply(Reply r, HttpSession session) {
+	
+		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+		r.setMemberNo(memNo);
+		
 		return new Gson().toJson(boardService.insertReply(r));
 	}
 	

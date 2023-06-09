@@ -86,21 +86,22 @@
 		  <tbody>
 		  </tbody>
 		</table>
-	
-	<div id="pagingArea">
-            <ul id="pagination" class="pagination">
-				<c:choose>
+			
+			<div id="pagination">
+            <%-- 
+            <ul class="pagination">
+				-- <c:choose>
                         <c:when test="${pi.currentPage eq 1}">
                             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
                         </c:when>
                         <c:otherwise>
                             <li class="page-item"><a class="page-link" href="javascript:selectList(${pi.currentPage - 1});">Previous</a></li>
                         </c:otherwise>
-                    </c:choose>
+                    </c:choose> -
                     
-                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                     <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
                         <li class="page-item"><a class="page-link" href="javascript:selectList( ${p});">${p}</a></li>                    
-                    </c:forEach>
+                    </c:forEach> 
                     
                     <c:choose>
                         <c:when test="${pi.currentPage eq pi.endPage}">
@@ -111,22 +112,14 @@
                         </c:otherwise>
                     </c:choose>
             </ul>
-        </div>	
-        <script>
-        	let value = '';
-        
-        	if(result.pi.currentPage == 1){
-        		value += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>'
-        	}
-        
-        </script>
-		
+             --%>
+		</div>
+    
 	<script>
-		var cPage = ${pi.currentPage};
-		var pagingAreaCode = $('#pagingArea').html();
+
 		var pi = "";
 		$(function(){
-			selectList(cPage);
+			selectList(1);
 		})
 
 		function selectList(cPage){
@@ -158,13 +151,26 @@
 	                        + '<td style="color: ' + statusColor + ';">' + list[i].status + '</td>'
 	                        + '</tr>'
 	                        
-	                      
-	                        
-	                      
 					}
 					$('.memberList-table tbody').html(value);
 					
-				
+					/* 
+					let pagination = "";
+					
+					if(pi.currentPage == 1){
+						pagination += " <li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li> "                
+					} else{
+						pagination += "<li class='page-item'><a class='page-link' href='javascript:selectList(pi.currentPage - 1});'>Previous</a></li>"
+					}
+                    
+					for(var p = pi.startPage; p <= pi.endPage; p++){
+					 pagination += "<li class='page-item'><a class='page-link' href='javascript:selectList(p);''>p</a></li>"                    
+                    } 
+ 					*/
+					
+					$('#pagination').html(pagination);
+					
+					
 					$('.memberList-table tbody tr').hover(
 					        function() {
 					        	$(this).find('td').css('background-color', 'LightSkyBlue');
@@ -173,9 +179,7 @@
 					        	$(this).find('td').css('background-color', '');
 					        }
 					      );
-					if(pi.currentPage === 2){
-						$('#pagingArea').html(pagingAreaCode);
-					}
+					
 					
 					
 				 }
@@ -201,7 +205,6 @@
 	
 	$(() => {
 		
-		var cPage = ${pi.currentPage};
 		
 		
 		$('#memberSearchBtn').click(() =>{

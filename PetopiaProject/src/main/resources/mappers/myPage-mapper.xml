@@ -71,6 +71,7 @@
 		<result column="PETPAY_DATE" property="petpayDate"/>
 		<result column="PETPAY_STATUS" 	 property="petpayStatus"/>
 		<result column="MEMBER_NO"  property="memberNo"/>
+		<result column="ACCOUNT"  property="account"/>
 	</resultMap>
 	
 	<resultMap type="point" id="pointResultSet">
@@ -84,7 +85,7 @@
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
 		       board_title,
-		       b$oard_content,
+		       board_content,
 		       create_date,
 		       category
 		  from 
@@ -276,40 +277,164 @@
 	</select>
 	
 	<select id="myPetpayList" parameterType="_int" resultMap="petpayResultSet">
-		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT)
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
 		  FROM PETPAY
 		  JOIN MEMBER USING(MEMBER_NO)
 		 WHERE MEMBER_NO = #{memberNo}
+	   	 ORDER BY PETPAY_DATE ASC
 	</select>
 	
 	<select id="myPointList" parameterType="_int" resultMap="pointResultSet">
 		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
 		  FROM POINT
 		 WHERE MEMBER_NO = #{memberNo}
+		  ORDER BY POINT_DATE ASC
 	</select>
 	
 	<!-- 회원이 발급 가능한 쿠폰 리스트 조회 -->
 	<!-- 페이징 처리를 위한 쿠폰 리스트 조히 -->
 	<select id="couponListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM COUPON;
+		FROM COUPON
+		WHERE SYSDATE BETWEEN START_DATE AND END_DATE
 	</select>
 	
 	<!-- 쿠폰 리스트 -->
 	<select id="memberCouponList" resultMap="couponResultSet">
 		SELECT 
-				MEMBER_COUPON.COUPON_NO,
-				COUPON.COUPON_NAME,
-				COUPON.COUPON_TYPE,
-				COUPON.DISCOUNT,
-				COUPON.START_DATE,
-				COUPON.END_DATE,
-				COUPON.MAX_PRICE,
-				COUPON.MIN_PRICE 
+				COUPON_NO,
+				COUPON_NAME,
+				COUPON_TYPE,
+				DISCOUNT,
+				TO_CHAR(START_DATE, 'YYYY-MM-DD') START_DATE,
+				TO_CHAR(END_DATE, 'YYYY-MM-DD') END_DATE,
+				NVL(MAX_PRICE, 0) MAX_PRICE,
+				NVL(MIN_PRICE, 0) MIN_PRICE
 		 FROM 
 				COUPON       
-		  AND 
+		 WHERE 
 				SYSDATE BETWEEN START_DATE AND END_DATE
 	</select>
+	
+	<!-- 회원 예약 결제 실적 조회 -->
+	<select id="paymentPsrfomanceToReservation">
+		
+	</select>
+	
+	<!-- 회원 상품 결제 실적 조회 -->
+	<select id="paymentPerfomanceToProduct" resultType="_int">
+		SELECT SUM(PRODUCT_PRICE) 
+ 			 FROM(
+               		SELECT
+				            
+				            AMOUNT* PRODUCT_PRICE PRODUCT_PRICE1,
+				                CASE 
+				                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+				                THEN AMOUNT* PRODUCT_PRICE - POINT - C.DISCOUNT
+				                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+				                THEN AMOUNT* PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+				                ELSE  AMOUNT* PRODUCT_PRICE- POINT
+				                END PRODUCT_PRICE ,
+				                PR.RECEIPT_NO,
+				                PR.MEMBER_NO,
+				                RECEIPT_DATE,
+				                NVL(PR.COUPON_NO,0) COUPON_NO,
+				                NVL(POINT,0) POINT,
+				                SHIPPING_NO
+				          FROM 
+				                PRODUCT_BRIDGE PB JOIN 
+				                ( SELECT
+				                            RECEIPT_NO,
+				                            MEMBER_NO,
+				                            RECEIPT_DATE,
+				                            NVL(COUPON_NO,0) COUPON_NO,
+				                            NVL(POINT,0) POINT,
+				                            SHIPPING_NO
+				                  FROM PRODUCT_RECEIPT ) PR ON(pb.receipt_no  = PR.receipt_no)
+				                JOIN PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
+				                LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO
+				    )
+        WHERE 
+                RECEIPT_DATE BETWEEN 
+                TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))) 
+         AND 
+         		 MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="paymentPerfomanceToReservation" resultType="_int">
+		SELECT SUM(RESULT) 
+		  FROM (
+	            SELECT 
+	                    MEMBER_NO,
+	                    RR.RESERVATION_NO,
+	                    RESERVATION_FEE,
+	                    
+	                    CASE 
+	                            WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+	                            THEN RESERVATION_FEE - C.DISCOUNT - POINT 
+	                            WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+	                            THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
+	                            ELSE  RESERVATION_FEE - POINT
+	                            END RESULT ,
+	                            RR.POINT,
+	                            RR.COUPON_NO
+	              FROM
+	                    RESERVATION R 
+	              JOIN (
+	                    SELECT
+	                            RESERVATION_NO,
+	                            RECEIPT_DATE,
+	                            NVL(COUPON_NO,0) COUPON_NO,
+	                            NVL(POINT,0) POINT
+	                    FROM 
+	                            RESERVATION_RECEIPT
+	                    WHERE 
+	                            RECEIPT_STATUS='Y') RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
+			  LEFT JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
+			  WHERE
+			          MEMBER_NO =  #{memberNo}
+			    AND 
+			     	 TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
+						AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)))))
+	
+	<select id="petpayStatusList" parameterType="hashmap" resultMap="petpayResultSet">
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
+		  FROM PETPAY
+		  JOIN MEMBER USING(MEMBER_NO)
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+	   	  	<when test="status == 'PLUS'">
+	   	  		AND PETPAY_STATUS = 'P'
+	   	  		ORDER BY PETPAY_DATE DESC
+	   	  	</when>
+	   	  	<when test="status == 'MINUS'">
+	   	  		AND PETPAY_STATUS = 'M'
+	   	  		ORDER BY PETPAY_DATE DESC
+	   	  	</when>
+	   	  	<otherwise>
+	   	  	   ORDER BY PETPAY_DATE DESC
+	   	  	</otherwise>
+	   	 </choose>
+	</select>
+	
+	<select id="pointStatusList" parameterType="hashmap" resultMap="pointResultSet">
+		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+	   	  	<when test="status == 'PLUS'">
+	   	  		AND POINT_STATUS = 'P'
+	   	  		ORDER BY POINT_DATE DESC
+	   	  	</when>
+	   	  	<when test="status == 'MINUS'">
+	   	  		AND POINT_STATUS = 'M'
+	   	  		ORDER BY POINT_DATE DESC
+	   	  	</when>
+	   	  	<otherwise>
+	   	  	   ORDER BY POINT_DATE DESC
+	   	  	</otherwise>
+	   	 </choose>
+	</select>
+	
 
 </mapper>

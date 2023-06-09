@@ -7,9 +7,9 @@
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .content {
@@ -81,8 +81,8 @@
             <button class="category" onclick="selectCategory('BOAST');">자랑하기</button>
         </div>
         <div class="dropdown" style="float:right;">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                최신순
+            <button type="button" id="filterBtn" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                	최신순
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">조회수</a>
@@ -110,27 +110,7 @@
 
         <div id="pagingArea">
             <ul class="pagination">
-				<c:choose>
-                        <c:when test="${pi.currentPage eq 1}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>                		
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="javascript:selectList('${category}', ${pi.currentPage - 1});">Previous</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                    
-                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                        <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${p});">${p}</a></li>                    
-                    </c:forEach>
-                    
-                    <c:choose>
-                        <c:when test="${pi.currentPage eq pi.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>                    	
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="javascript:selectList( '${category}', ${pi.currentPage + 1});">Next</a></li>
-                        </c:otherwise>
-                    </c:choose>
+
             </ul>
         </div>
 
@@ -161,31 +141,57 @@
 <script>
 	let category = "${category}";
 	let cPage = ${pi.currentPage};
+	let filter = '';
 	
 	$(function(){ // 자바스크립트/제이쿼리 onload함수		
-		selectList(category, cPage);
+		selectList(cPage);
 	
 		$('#boardList > tbody').on('click', 'tr',(function(){
 			location.href = 'detail.bo?bno=' + $(this).children('#bno').val();
 		}))
 	})
+	
+	$('.dropdown-item').on('click', $(this), function(){
+		let text = $('#filterBtn').text();
+		$('#filterBtn').text($(this).text());
+		$(this).text(text);
+		
+		if($('#filterBtn').text() == '조회수'){
+			console.log('조회수');
+		} else if($('#filterBtn').text() == '댓글수'){
+			console.log('댓글수');
+		} else {
+			console.log('최신순');
+		}
+	})
 
-	function selectCategory(type) {
-	       selectList(type, 1);
+	function selectCategory(category) {
+	       location.href = 'board.bo?category=' + category;
 	    }
 	
-	function selectList(category, cPage) {
+	function selectList(cPage) {
 	    console.log(category);
+	    
 		$.ajax({
             url: 'list.bo',
             data: {
-            		category: category,
+            		category: '${category}',
             		currentPage : cPage
             		},
             success: result => {
                 let value = '';
                 let list = result.list;
-                
+                let pi = result.pi;
+                let paging = '';
+				//let category = '${category}';
+					
+				let cPage = pi.currentPage;
+				let startPage = pi.startPage;
+				let endPage = pi.endPage;
+				let prev = cPage - 1;
+                let next = cPage + 1;
+				let max = pi.maxPage;
+				
                 for (let i in list) {
                     value += '<tr>'
                     	+ '<input id="bno" type=hidden name="boardNo" value="' + list[i].boardNo + '">'
@@ -198,6 +204,28 @@
                         + '</tr>'
                 }
                 $('#boardList tbody').html(value);
+                
+                if(cPage == 1){
+                	paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
+                } else {
+                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + prev + ');">&lt;-</a></li>';
+                }
+                
+                for(let i = startPage; i <= endPage; i++){
+                	if(i != cPage){
+						paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	} else {
+                		paging += '<li class="page-item"><a class="page-link" style="background-color:pink;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	}
+				}
+                
+                if(cPage == max){
+                	paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
+                } else {
+                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + next + ');">-&gt;</a></li>';
+                }
+                
+                $('.pagination').html(paging);
             }
         })
     }

@@ -70,11 +70,8 @@ public class ProductController {
 	
 	@RequestMapping(value="detail.pd")
 	public ModelAndView productSelectDetail(String bno, ModelAndView mv) {
-		
-		System.out.println(bno);
-		
 		mv.addObject("p",productService.productSelectDetail(Integer.parseInt(bno))).setViewName("product/productDetailEnrollForm");
-		
+		mv.addObject("bno", bno);
 		return mv;
 	}
 	
