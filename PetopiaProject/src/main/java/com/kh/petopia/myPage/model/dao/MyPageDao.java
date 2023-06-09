@@ -96,11 +96,11 @@ public class MyPageDao {
 														));
 	}
 	
-	public int paymentPsrfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
-		return 0;
+	public int paymentPerfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToReservation", memberNo);
 	}
 	public int paymentPerfomanceToProduct(SqlSessionTemplate sqlSession, int memberNo) {
-		return 0;
+		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToProduct", memberNo);
 	}
 
 	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
