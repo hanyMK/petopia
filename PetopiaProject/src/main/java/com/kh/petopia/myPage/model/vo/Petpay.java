@@ -11,4 +11,5 @@ public class Petpay {
 	private String petpayStatus;//PETPAY_STATUS	CHAR(3 BYTE)
 	private int memberNo;//MEMBER_NO	NUMBER
 
+	private String account;
 }
