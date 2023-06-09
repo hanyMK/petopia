@@ -18,7 +18,9 @@ public class MyFileRename {
 		
 		String currentTime = new SimpleDateFormat("yyyyMMddHHss").format(new Date());
 		
-		int randomNum = (int)Math.random() *90000*10000;
+		int randomNum = (int)(Math.random()*90000*10000);
+		
+		System.out.println(randomNum);
 		
 		String ext = originName.substring(originName.lastIndexOf("."));
 		
@@ -34,8 +36,6 @@ public class MyFileRename {
 		
 		return changeName;
 	}
-	
-	
 	
 	
 

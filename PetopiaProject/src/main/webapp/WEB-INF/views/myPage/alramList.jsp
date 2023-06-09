@@ -16,7 +16,7 @@
 		#alram_area_bottom{
 			height:90%;
 		}
-		#myAlramList{
+		#myList{
 			border: 1px solid black;
 			height: 100px;
 			width: 250px;
@@ -41,7 +41,7 @@
 		<!-- 메인페이지 알람아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
 			<c:forEach var="l" items="${ list }" >
-				<div id="myAlramList">
+				<div id="myList">
 					${l.columnAll} <br>
 					${l.dateAll} <br>
 					${l.category} <br>
@@ -69,7 +69,7 @@
 					// columnAll이 null이면 댓글 조회 
 					if(list[i].columnAll == null) {
 					
-					value += '<div id="myAlramList">'							
+					value += '<div id="myList">'							
 						   + list[i].columnAll + '<br>'
 						   + list[i].dateAll + '<br>'
 						   + list[i].category + '<br>'
@@ -116,7 +116,7 @@
 				let value = "";
 				for(let i in list) {
 					if(list[i].shippingStatus == '배송중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '주문하신 상품이 '
 							   + list[i].shippingStatus
 							   + '입니다. </div><br>';
@@ -153,7 +153,7 @@
 				let value = "";
 				for(let i in list) {
 					console.log(list);
-					value += '<div id="myAlramList">'							
+					value += '<div id="myList">'							
 						   + list[i].columnAll + '<br>'
 						   + list[i].dateAll + '<br>'
 						   + list[i].category + '<br>'
@@ -185,7 +185,7 @@
 				for(let i in list) {
 					if(list[i].qnaYN != '') {
 						if(list[i].columnAll == 'Y') {
-							value += '<div id="myAlramList">'
+							value += '<div id="myList">'
 								   + '답변이 완료되었습니다.'
 								   + '</div><br>';
 						} else {

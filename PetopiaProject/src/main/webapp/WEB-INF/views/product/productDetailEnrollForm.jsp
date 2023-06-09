@@ -39,6 +39,20 @@
         width: 100%;
         height: 100%;
     }
+    #product_detail_page_div{
+        width: 800px;
+        height: auto;
+        margin: auto;
+    }
+    #product_detail_page_img{
+        width: 100%;
+        height: auto;
+    }
+    #product_navibar{
+        width: 1200px;
+        height: 50px;
+        margin: auto;
+    }
 </style>
 </head>
 <body>
@@ -58,14 +72,59 @@
                 <hr>
                 <br>
                 <div style="font-size: 30px;">${ p.productPrice }</div>
+                
                 사이즈 <br> 수량
                 <button>BUY NOW</button>
                 <button>CART</button>
             </div>
         </div>
+        <hr>
     </div>
+    <div id="product_navibar">
+        <br>
+        <button id="detail_info" onclick="selectProductDetailList();">상품상세</button>
+        <button>리뷰(리뷰수)</button>
+        <button>상품문의</button>
+        <button id="delivery_info">배송/교환반품 안내</button>
+        <hr>
+    </div>
+    <br>
+    <br>
+    <div id="product_detail_page_div">
 
+    </div>
     <jsp:include page="../common/footer.jsp"/>
 
+    <script>
+        $(function(){
+            selectProductDetailList();
+        })
+
+        function selectProductDetailList(){
+            $.ajax({
+                url : 'productDetailNavi.pd',
+                data : {
+                    bno : ${bno}
+                },
+                success : function(product){
+                    
+                    var value = '';
+                    
+                    value += '<img id="product_detail_page_img" src="'+ (product.filePath + product.changeName) + '">'
+
+                    $('#product_detail_page_div').html(value);
+                },
+                error : function(){
+                    
+                }
+            });
+        }
+
+        $('#delivery_info').click(function(){
+            var value = '';
+            value += '<img id="product_detail_page_img" src="resources/images/deliveyInfo.jpg">'
+            $('#product_detail_page_div').html(value);
+        })
+    </script>
 </body>
 </html>

@@ -144,31 +144,6 @@
     		selectReplyList();
     	})
     
-    	function addReply(){
-    		
-    		if($('#content').val().trim() != ''){
-    			$.ajax({
-    				url : 'replyInsert.bo',
-    				data : {
-    					boardNo : ${b.boardNo},
-    					memberNo : ${loginMember.memberNo},
-    					replyContent : $('#content').val(),
-    					nickname : '${loginMember.nickname}'
-    				},
-    				success : result => {
-    					selectReplyList();
-    					$('#content').val('');
-    				},
-    				error : () => {
-    					console.log('ajax통신 실패');
-    				}
-    				
-    			});
-    		} else {
-    			alertify.alert('댓글 작성시 빈공백은 작성이 불가능 합니다.');
-    		}
-    		
-    	}
     	
     	function selectReplyList(){
     		$.ajax({
@@ -195,6 +170,30 @@
     		})
     	}
     	
+    	function addReply(){
+    		
+    		if($('#content').val().trim() != ''){
+    			$.ajax({
+    				url : 'replyInsert.bo',
+    				data : {
+    					boardNo : ${b.boardNo},
+    					replyContent : $('#content').val(),
+    					nickname : '${loginMember.nickname}'
+    				},
+    				success : result => {
+    					selectReplyList();
+    					$('#content').val('');
+    				},
+    				error : () => {
+    					console.log('ajax통신 실패');
+    				}
+    				
+    			});
+    		} else {
+    			alertify.alert('댓글 작성시 빈공백은 작성이 불가능 합니다.');
+    		}
+    		
+    	}
     </script>
     
 </body>

@@ -11,5 +11,4 @@ public class Point {
 	private String pointDate; //POINT_DATE	DATE
 	private String pointStatus; //POINT_STATUS	CHAR(3 BYTE)
 	private int memberNo; //MEMBER_NO	NUMBER
-
 }

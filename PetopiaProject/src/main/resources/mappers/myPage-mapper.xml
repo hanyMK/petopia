@@ -71,6 +71,7 @@
 		<result column="PETPAY_DATE" property="petpayDate"/>
 		<result column="PETPAY_STATUS" 	 property="petpayStatus"/>
 		<result column="MEMBER_NO"  property="memberNo"/>
+		<result column="ACCOUNT"  property="account"/>
 	</resultMap>
 	
 	<resultMap type="point" id="pointResultSet">
@@ -84,7 +85,7 @@
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
 		       board_title,
-		       b$oard_content,
+		       board_content,
 		       create_date,
 		       category
 		  from 
@@ -276,32 +277,18 @@
 	</select>
 	
 	<select id="myPetpayList" parameterType="_int" resultMap="petpayResultSet">
-		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT)
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
 		  FROM PETPAY
 		  JOIN MEMBER USING(MEMBER_NO)
 		 WHERE MEMBER_NO = #{memberNo}
-		 <choose>
-		 	<when test="petpayStatus.equals('M')">
-		 		AND PETPAY_STATUS = 'M'
-		 	</when>
-		 	<otherwise>
-		 		AND PETPAY_STATUS = 'P'
-		 	</otherwise>
-		 </choose>
+	   	 ORDER BY PETPAY_DATE ASC
 	</select>
 	
 	<select id="myPointList" parameterType="_int" resultMap="pointResultSet">
 		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
 		  FROM POINT
 		 WHERE MEMBER_NO = #{memberNo}
-		 <choose>
-		 	<when test="pointStatus.equals('M')">
-		 		AND PETPAY_STATUS = 'M'
-		 	</when>
-		 	<otherwise>
-		 		AND PETPAY_STATUS = 'P'
-		 	</otherwise>
-		 </choose>
+		  ORDER BY POINT_DATE ASC
 	</select>
 	
 	<!-- 회원이 발급 가능한 쿠폰 리스트 조회 -->
@@ -327,5 +314,45 @@
 		  AND 
 				SYSDATE BETWEEN START_DATE AND END_DATE
 	</select>
+	
+	<select id="petpayStatusList" parameterType="hashmap" resultMap="petpayResultSet">
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
+		  FROM PETPAY
+		  JOIN MEMBER USING(MEMBER_NO)
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+	   	  	<when test="status == 'PLUS'">
+	   	  		AND PETPAY_STATUS = 'P'
+	   	  		ORDER BY PETPAY_DATE ASC
+	   	  	</when>
+	   	  	<when test="status == 'MINUS'">
+	   	  		AND PETPAY_STATUS = 'M'
+	   	  		ORDER BY PETPAY_DATE ASC
+	   	  	</when>
+	   	  	<otherwise>
+	   	  	   ORDER BY PETPAY_DATE ASC
+	   	  	</otherwise>
+	   	 </choose>
+	</select>
+	
+	<select id="pointStatusList" parameterType="hashmap" resultMap="pointResultSet">
+		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+	   	  	<when test="status == 'PLUS'">
+	   	  		AND POINT_STATUS = 'P'
+	   	  		ORDER BY POINT_DATE ASC
+	   	  	</when>
+	   	  	<when test="status == 'MINUS'">
+	   	  		AND POINT_STATUS = 'M'
+	   	  		ORDER BY POINT_DATE ASC
+	   	  	</when>
+	   	  	<otherwise>
+	   	  	   ORDER BY POINT_DATE ASC
+	   	  	</otherwise>
+	   	 </choose>
+	</select>
+	
 
 </mapper>
