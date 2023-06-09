@@ -9,5 +9,7 @@ public class Employee {
 	int petStore;			// PET_STORE	NUMBER
 	String employeeName;	// EMPLOYEE_NAME	VARCHAR2(30 BYTE)
 	String employeeInfo;	// EMPLOYEE_INFO	VARCHAR2(1000 BYTE)
+	
+	String closedDay;		// CLOSED_DAY	VARCHAR2(20 BYTE)
 
 }
