@@ -174,7 +174,6 @@
 	})
 
 	function selectCategory(category) {
-	       // selectList(category, 1);
 	       location.href = 'board.bo?category=' + category;
 	    }
 	
@@ -221,7 +220,11 @@
                 }
                 
                 for(let i = startPage; i <= endPage; i++){
-					paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	if(i != cPage){
+						paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	} else {
+                		paging += '<li class="page-item"><a class="page-link" style="background-color:pink;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+                	}
 				}
                 
                 if(cPage == max){
