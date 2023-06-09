@@ -46,6 +46,9 @@
         width: 300px;
         height: 300px;
     }
+    .size_checkbox{
+        display: none;
+    }
 </style>
 <title>상품 등록</title>
 </head>
@@ -57,17 +60,17 @@
         <div id="area_in">
             <form action="insert.pd" method="post" enctype="multipart/form-data">
                 <br>
-                카테고리 <select name="category">
+                카테고리 <select name="category" id="product_category">
                         <option>애견용품</option>
                         <option>애견식품</option>
                         <option>애견의류</option>
                         </select> <br><br>
                 제목    <input type="text" name="productTitle" id="input_title"> <br><br>
                 가격    <input type="number" name="productPrice" id="input_price"> <br><br>
-                <input type="checkbox" name="noSize"> 선택안함<br>
-                <input type="checkbox" name="sSize"> S<br>
-                <input type="checkbox" name="mSize"> M<br>
-                <input type="checkbox" name="lSiez"> L<br>
+                <input type="checkbox" name="noSize" class="size_checkbox"> <span class="size_checkbox">선택안함</span><br>
+                <input type="checkbox" name="sSize" class="size_checkbox"> <span class="size_checkbox">S</span><br>
+                <input type="checkbox" name="mSize" class="size_checkbox"> <span class="size_checkbox">M</span><br>
+                <input type="checkbox" name="lSiez" class="size_checkbox"> <span class="size_checkbox">L</span><br>
                 <br>
                 <br>
                 썸네일 사진 넣기 <input type="file" name="thumbnail" onchange="thumbnailReadURL(this)">
@@ -116,6 +119,16 @@
         }
     </script>
 
+    <script>
+        $('#product_category').change(function(){
+            if($(this).val() == '애견의류'){
+                $('.size_checkbox').css('display','inline-block');
+            } else {
+                $('.size_checkbox').css('display','none');
+            }
+        })
+
+    </script>
 
     <jsp:include page="../common/footer.jsp"/>
 	
