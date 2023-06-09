@@ -323,14 +323,14 @@
 		 <choose>
 	   	  	<when test="status == 'PLUS'">
 	   	  		AND PETPAY_STATUS = 'P'
-	   	  		ORDER BY PETPAY_DATE ASC
+	   	  		ORDER BY PETPAY_DATE DESC
 	   	  	</when>
 	   	  	<when test="status == 'MINUS'">
 	   	  		AND PETPAY_STATUS = 'M'
-	   	  		ORDER BY PETPAY_DATE ASC
+	   	  		ORDER BY PETPAY_DATE DESC
 	   	  	</when>
 	   	  	<otherwise>
-	   	  	   ORDER BY PETPAY_DATE ASC
+	   	  	   ORDER BY PETPAY_DATE DESC
 	   	  	</otherwise>
 	   	 </choose>
 	</select>
@@ -342,14 +342,14 @@
 		 <choose>
 	   	  	<when test="status == 'PLUS'">
 	   	  		AND POINT_STATUS = 'P'
-	   	  		ORDER BY POINT_DATE ASC
+	   	  		ORDER BY POINT_DATE DESC
 	   	  	</when>
 	   	  	<when test="status == 'MINUS'">
 	   	  		AND POINT_STATUS = 'M'
-	   	  		ORDER BY POINT_DATE ASC
+	   	  		ORDER BY POINT_DATE DESC
 	   	  	</when>
 	   	  	<otherwise>
-	   	  	   ORDER BY POINT_DATE ASC
+	   	  	   ORDER BY POINT_DATE DESC
 	   	  	</otherwise>
 	   	 </choose>
 	</select>
