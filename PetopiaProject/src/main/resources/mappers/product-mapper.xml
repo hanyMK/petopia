@@ -51,9 +51,6 @@
             by 
                product_date desc
 	</select>
-	<select id="selectProductImg" resultMap="attResultSet">
-		select * from attachment where file_category = 1 and file_status = 'Y'
-	</select>
 	
 	<!-- 상품 상세 insert문 -->
 	<insert id="insertProduct" parameterType="product">
@@ -146,5 +143,28 @@
 		       file_category = 1 
 		   and 
 		       file_level = 0
+	</select>
+	
+	<select id="selectDetailPage" parameterType="_int" resultMap="productResultSet">
+		select 
+		       product_title, 
+			   product_price, 
+			   product_date, 
+			   category_name,
+			   origin_name,
+			   change_name,
+			   file_path
+		  from 
+		       product 
+	 left join 
+	           attachment on(product_no = ref_no)
+		 where 
+		       product_status = 'Y' 
+		   and 
+		       product_no = #{bno} 
+		   and 
+		       file_category = 1 
+		   and 
+		       file_level = 1
 	</select>
 </mapper>

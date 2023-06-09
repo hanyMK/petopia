@@ -1,6 +1,7 @@
 package com.kh.petopia.myPage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
@@ -57,10 +58,18 @@ public interface MyPageService {
 	
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
 	//listCount
-	int CouponListCount();
+	int couponListCount();
 	ArrayList<Coupon> memberCouponList(PageInfo pi);
 
-	
+	//회원의 지난달 실적 조회
+	//상품 실적
+	int paymentPerfomanceToProduct(int memberNo);
+	//예약결제 실적
+	int paymentPsrfomanceToReservation(int memberNo);
+
+	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
+
+	ArrayList<Point> pointStatusList(HashMap<String, Object> map);
 
 	
 

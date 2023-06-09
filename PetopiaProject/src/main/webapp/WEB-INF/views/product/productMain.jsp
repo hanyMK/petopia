@@ -77,6 +77,10 @@
 		height: 90%;
 		margin: 15px;
 	}
+	.product_1:hover{
+		cursor: pointer;
+		filter:hue-rotate(180deg);
+	}
 	.product_1_1{
 		box-sizing: border-box;
 		width: 100%;
@@ -191,6 +195,7 @@
 					var value = '';
 					
 					for(let i in list){
+						console.log(list[i].filePath + list[i].changeName)
 
 						value += '<div class="product">'
 							   + 	'<div class="product_1">'
@@ -216,14 +221,10 @@
 	</script>
 
 	<script>
-
-	</script>
-
-	<script>
 		$('#product_create_btn').click(function(){
 			location.href='productManagement.pd';
 		});
-		$('#product_content').on('click', '.product_1_1' , (function(){
+		$('#product_content').on('click', '.product_1' , (function(){
 		 	location.href='detail.pd?bno=' + $(this).find('.bno').html();
 		}));
 	</script>

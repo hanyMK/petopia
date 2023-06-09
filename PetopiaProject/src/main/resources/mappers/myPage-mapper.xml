@@ -65,6 +65,23 @@
 		<result column="MIN_PRICE"   property="minPrice"/>
 	</resultMap>
 	
+	<resultMap type="petpay" id="petpayResultSet">
+		<result column="PETPAY_NO"   property="petpayNo"/>
+		<result column="PETPAY_AMOUNT" property="petpayAmount"/>
+		<result column="PETPAY_DATE" property="petpayDate"/>
+		<result column="PETPAY_STATUS" 	 property="petpayStatus"/>
+		<result column="MEMBER_NO"  property="memberNo"/>
+		<result column="ACCOUNT"  property="account"/>
+	</resultMap>
+	
+	<resultMap type="point" id="pointResultSet">
+		<result column="POINT_NO"   property="pointNo"/>
+		<result column="POINT_AMOUNT" property="pointAmount"/>
+		<result column="POINT_DATE" property="pointDate"/>
+		<result column="POINT_STATUS" 	 property="pointStatus"/>
+		<result column="MEMBER_NO"  property="memberNo"/>
+	</resultMap>
+	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
 		       board_title,
@@ -241,28 +258,101 @@
 	<!-- 예약결제 페이지에서 필요한 회원 쿠폰 및 적릭금 정보  SELECT문 끝 -->
 	
 	<!-- 마이페이지 펫페이, 포인트  -->
-	<select id="selectMemberPetpay" parameterType="_int" resultType="_int">
+	<select id="selectMemberPetPay" parameterType="_int" resultType="_int">
 		SELECT NVL(SUM(PETPAY_AMOUNT),0)
 		FROM PETPAY
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 	<select id="selectPetPayCount" parameterType="_int" resultType="_int">
-	
+		SELECT COUNT(PETPAY_NO)
+		  FROM PETPAY
+		 WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 	<select id="selectPointCount" parameterType="_int" resultType="_int">
-	
+		SELECT COUNT(POINT_NO)
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
-	<select id="myPetpayList" parameterType="_int" >
-	
+	<select id="myPetpayList" parameterType="_int" resultMap="petpayResultSet">
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
+		  FROM PETPAY
+		  JOIN MEMBER USING(MEMBER_NO)
+		 WHERE MEMBER_NO = #{memberNo}
+	   	 ORDER BY PETPAY_DATE ASC
 	</select>
 	
-	<select id="myPointList" parameterType="_int" >
-	
+	<select id="myPointList" parameterType="_int" resultMap="pointResultSet">
+		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
+		  ORDER BY POINT_DATE ASC
 	</select>
-
+	
+	<!-- 회원이 발급 가능한 쿠폰 리스트 조회 -->
+	<!-- 페이징 처리를 위한 쿠폰 리스트 조히 -->
+	<select id="couponListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM COUPON;
+	</select>
+	
+	<!-- 쿠폰 리스트 -->
+	<select id="memberCouponList" resultMap="couponResultSet">
+		SELECT 
+				MEMBER_COUPON.COUPON_NO,
+				COUPON.COUPON_NAME,
+				COUPON.COUPON_TYPE,
+				COUPON.DISCOUNT,
+				COUPON.START_DATE,
+				COUPON.END_DATE,
+				COUPON.MAX_PRICE,
+				COUPON.MIN_PRICE 
+		 FROM 
+				COUPON       
+		  AND 
+				SYSDATE BETWEEN START_DATE AND END_DATE
+	</select>
+	
+	<select id="petpayStatusList" parameterType="hashmap" resultMap="petpayResultSet">
+		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
+		  FROM PETPAY
+		  JOIN MEMBER USING(MEMBER_NO)
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+	   	  	<when test="status == 'PLUS'">
+	   	  		AND PETPAY_STATUS = 'P'
+	   	  		ORDER BY PETPAY_DATE ASC
+	   	  	</when>
+	   	  	<when test="status == 'MINUS'">
+	   	  		AND PETPAY_STATUS = 'M'
+	   	  		ORDER BY PETPAY_DATE ASC
+	   	  	</when>
+	   	  	<otherwise>
+	   	  	   ORDER BY PETPAY_DATE ASC
+	   	  	</otherwise>
+	   	 </choose>
+	</select>
+	
+	<select id="pointStatusList" parameterType="hashmap" resultMap="pointResultSet">
+		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
+		  FROM POINT
+		 WHERE MEMBER_NO = #{memberNo}
+		 <choose>
+	   	  	<when test="status == 'PLUS'">
+	   	  		AND POINT_STATUS = 'P'
+	   	  		ORDER BY POINT_DATE ASC
+	   	  	</when>
+	   	  	<when test="status == 'MINUS'">
+	   	  		AND POINT_STATUS = 'M'
+	   	  		ORDER BY POINT_DATE ASC
+	   	  	</when>
+	   	  	<otherwise>
+	   	  	   ORDER BY POINT_DATE ASC
+	   	  	</otherwise>
+	   	 </choose>
+	</select>
 	
 
 </mapper>
