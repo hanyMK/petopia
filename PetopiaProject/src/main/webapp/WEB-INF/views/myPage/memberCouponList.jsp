@@ -70,6 +70,31 @@
 		
 		})
 		
+		$(() => {
+			
+			$('#main_center_right_bottom').on('click', '.myCouponList' ,e =>{
+				var couponNo = $(e.target).find('.couponNo').val();
+				console.log(couponNo);
+				$.ajax({
+					url : 'insertCoupon.me',
+					type : 'post',
+					data : {
+						'memberNo' : ${loginMember.memberNo},
+						'couponNo' : couponNo
+					},
+					success: result =>{
+						console.log(result);
+					},
+					error : () =>{
+						console.log('실패');
+					}
+
+
+				})
+				
+			})
+		})
+		
 		function couponList(){
 			
 			$.ajax({
@@ -89,10 +114,7 @@
 					
 						
 						value +=' <div class="myCouponList">' 
-								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
-								if(perfomance > 100000){
-									
-								}
+								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">'
 								+ cList[i].couponName +'<br>';
 								if(cList[i].couponType == 1){
 									value += + cList[i].discount +'원<br>';

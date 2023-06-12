@@ -99,6 +99,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<Petpay> myPetpayList(int memberNo) {
 		return myPageDao.myPetpayList(sqlSession,memberNo);
 	}
+	
+	@Override
+	public String getMemberRating(int mno) {
+		return myPageDao.getMemberRating(sqlSession, mno);
+	}
+
 
 	@Override
 	public ArrayList<Point> myPointList(int memberNo) {
@@ -111,19 +117,10 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi) {
-		return myPageDao.memberCouponList(sqlSession, pi);
+	public ArrayList<Coupon> memberCouponList(PageInfo pi, String rating) {
+		return myPageDao.memberCouponList(sqlSession, pi, rating);
 	}
 
-	@Override
-	public int paymentPerfomanceToProduct(int memberNo) {
-		return myPageDao.paymentPerfomanceToProduct(sqlSession, memberNo);
-	}
-
-	@Override
-	public int paymentPerfomanceToReservation(int memberNo) {
-		return myPageDao.paymentPerfomanceToReservation(sqlSession, memberNo);
-	}
 
 	@Override
 	public ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map) {
@@ -135,5 +132,16 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.pointStatusList(sqlSession, map);
 	}
 
+	@Override
+	public int insertChargePetpay(Petpay p) {
+		return myPageDao.insertChargePetpay(sqlSession, p);
+	}
+
+	@Override
+	public int insertWithdrawPetpay(Petpay p) {
+		return myPageDao.insertWithdrawPetpay(sqlSession, p);
+	}
+
+	
 
 }

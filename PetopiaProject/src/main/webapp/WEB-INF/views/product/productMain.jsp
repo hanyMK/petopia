@@ -79,7 +79,7 @@
 	}
 	.product_1:hover{
 		cursor: pointer;
-		filter:hue-rotate(180deg);
+		filter: opacity(0.9);
 	}
 	.product_1_1{
 		box-sizing: border-box;
@@ -95,7 +95,6 @@
 		width: 100%;
 		height: 100%;
 	}
-
 
 </style>
 </head>
@@ -137,9 +136,9 @@
 
 	<div id="product_select_category_div">
 		<button>전체</button>
-		<button>애견용품</button>
-		<button>애견식품</button>
-		<button>애견의류</button>
+		<button id="goods">애견용품</button>
+		<button id="food">애견식품</button>
+		<button id="clothes">애견의류</button>
 
 		<input type="text"><button>검색</button>
 	</div>
@@ -183,11 +182,11 @@
 	</script>
 
 	<script>
-		$(function(){
-			selectProductList();
+		$(function(){ // 화면에 오자마자 실행되는 함수 selectProductList()메소드 호출
+			selectProductList(); // AJAX List를 뜨워주는 메소드
 		})
 
-		function selectProductList(){
+		function selectProductList(){ // AJAX List
 			$.ajax({
 				url : 'productAjax.pd',
 				success : function(list){
@@ -227,6 +226,15 @@
 		$('#product_content').on('click', '.product_1' , (function(){
 		 	location.href='detail.pd?bno=' + $(this).find('.bno').html();
 		}));
+	</script>
+
+	<script>
+		$('#goods').click(function(){
+			$.ajax({
+				url : '.pd',
+				data : $(this).text()
+			});
+		});
 	</script>
 </body>
 </html>
