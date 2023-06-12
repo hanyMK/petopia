@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
@@ -148,6 +149,10 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.insertWithdrawPetpay(sqlSession, p);
 	}
 
+	@Override
+	public ArrayList<AllOrders> myReviewList(int memberNo) {
+		return myPageDao.myReviewList(sqlSession,memberNo);
+	}
 
 
 	

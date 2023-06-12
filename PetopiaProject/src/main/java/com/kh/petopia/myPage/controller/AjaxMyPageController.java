@@ -61,13 +61,6 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReplyList(mno));
 	}
 	
-	// 펫페이 금액 추가
-	@RequestMapping(value="plus1man.me", produces="application/json; charset=UTF-8")
-	public String plus1man(String amount) {
-		System.out.println(amount);
-		return new Gson().toJson(amount + 10000);
-	}
-	
 	//마이페이지 쿠폰 조회
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
 	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") int currentPage, int memberNo,

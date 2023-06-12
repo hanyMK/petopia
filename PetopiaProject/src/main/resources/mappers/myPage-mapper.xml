@@ -83,6 +83,15 @@
 		<result column="MEMBER_NO"  property="memberNo"/>
 	</resultMap>
 	
+	<resultMap type="allOrders" id="allOrdersResultMap">
+		<result column="PRODUCT_PRICE"   property="productFinalPrice"/>
+		<result column="AMOUNT" property="amount"/>
+		<result column="PRODUCT_TITLE" property="productTitle"/>
+		<result column="MEMBER_NO"  property="memberNo"/>
+		<result column="RECEIPT_DATE"  property="receiptDate"/>
+		<result column="SHIPPING_STATUS"  property="shippingStatus"/>
+	</resultMap>
+	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
 		select
 		       board_title,
@@ -526,7 +535,7 @@
 	</insert>
 	
 	<!-- 펫페이 인출 -->
-	<insert id="insertWithdrawPetpay" parameterType="Petpay">
+	<insert id="insertWithdrawPetpay" parameterType="_int">
 	INSERT
 	  INTO PETPAY
 	       (
@@ -545,6 +554,39 @@
 	       )
 	
 	</insert>
+	
+	<select id="myReviewList" parameterType="_int" resultMap="allOrdersResultMap">
+	SELECT
+	       MEMBER_NO,
+	       CASE 
+	       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+	       THEN AMOUNT * PRODUCT_PRICE - POINT - C.DISCOUNT
+	       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+	       THEN AMOUNT * PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+	       ELSE  AMOUNT * PRODUCT_PRICE - POINT
+	       END PRODUCT_PRICE,
+	       PB.AMOUNT,
+	       P.PRODUCT_TITLE,
+	       S.SHIPPING_STATUS,
+	       RECEIPT_DATE
+	  FROM
+	       PRODUCT_BRIDGE PB
+	  JOIN 
+	       VIEW_PRODUCT_RECEIPT PR ON(pb.receipt_no  = PR.receipt_no)
+	  JOIN 
+	       SHIPPING S ON(S.SHIPPING_NO = PR.SHIPPING_NO)
+	  JOIN 
+	       PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
+	  LEFT 
+	       JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+	  WHERE 
+	       MEMBER_NO = #{memberNo}
+	    AND
+	       S.SHIPPING_STATUS='배송완료'
+	    AND
+	      RECEIPT_DATE BETWEEN TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))
+	</select>
+	
 	
 
 </mapper>

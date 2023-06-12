@@ -101,6 +101,12 @@ public class MyPageController {
 		}
 	}
 	
+	@RequestMapping("myReview.me")
+	public String myReviewList(int mno, Model model) {
+		model.addAttribute("list", myPageService.myReviewList(mno));
+		return "myPage/myReviewList";
+	}
+	
 //	
 //	
 //	//마이페이지 쿠폰 조회

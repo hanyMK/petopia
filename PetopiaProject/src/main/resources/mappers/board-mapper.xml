@@ -11,23 +11,29 @@
 		  FROM
 		  	   BOARD B
 		  JOIN
-		  	   MEMBER USING(MEMBER_NO)
+		  	   MEMBER M USING(MEMBER_NO)
 		<choose>
 			<when test="category.equals('CLUB')">
 				WHERE
 				      CATEGORY = 'CLUB'
 			      AND
 	   	   			  B.STATUS = 'Y'
+	   	  	      AND
+	   	  	      	  M.STATUS = 'Y'	   	   			  
 			</when>
 			<when test="category.equals('BOAST')">
 				WHERE
 					  CATEGORY = 'BOAST'
 				  AND
 		   	   		  B.STATUS = 'Y'
+	   	  	      AND
+	   	  	      	  M.STATUS = 'Y'		   	   		  
 			</when>
 			<otherwise>
 				WHERE
 		   	   		  B.STATUS = 'Y'
+	   	  	      AND
+	   	  	      	  M.STATUS = 'Y'		   	   		  
 			</otherwise>
 		</choose>
 		<choose>
@@ -71,16 +77,22 @@
    	  			  B.CATEGORY = 'CLUB'
    	  		  AND 
    	  	    	  B.STATUS = 'Y'
+   	  	      AND
+   	  	      	  M.STATUS = 'Y'
    	  	</when>
    	  	<when test="category.equals('BOAST')">
    	  		WHERE
    	  			  B.CATEGORY = 'BOAST'
    	  		  AND 
    	  	    	  B.STATUS = 'Y'
+   	  	      AND
+   	  	      	  M.STATUS = 'Y'
    	  	</when>
    	  	<otherwise>
    	  	   WHERE
    	  	   	     B.STATUS = 'Y'
+	  	   	 AND
+ 	  	     	 M.STATUS = 'Y'
    	  	</otherwise>
    	  </choose>
  	  <choose>
