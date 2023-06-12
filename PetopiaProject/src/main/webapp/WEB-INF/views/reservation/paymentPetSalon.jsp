@@ -80,15 +80,18 @@
 							var point = '${point}';
 							var btnText = $('button[id=useAll]').text();
 							
-							if(btnText = '모두 사용'){
+							if( btnText = '모두 사용'){
 								
-								$('input[name=point]').attr('value',point); // 8000포인트가 입력됨
+								console.log('얌');
+								
+								$('input[name=point]').attr('value',point); 
+								
 								$('#left-point').text('보유 적립금: ' + 0 +'p');
 								$('button[id=useAll]').text('사용 안 함');
 								
 							}
 							
-							if(btnText = '사용 안 함' ){
+							if( btnText = '사용 안 함' ){
 								
 								$('input[name=point]').attr('value',0);
 								$('#left-point').text('보유 적립금: ' + point +'p');

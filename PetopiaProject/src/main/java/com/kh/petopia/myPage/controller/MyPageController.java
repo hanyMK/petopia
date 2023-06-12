@@ -1,13 +1,13 @@
 package com.kh.petopia.myPage.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.MyPage;
 
 @Controller
 public class MyPageController {
@@ -18,6 +18,8 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage(int mno) {
+		MyPage myPage = new MyPage();
+		myPage.setRating(myPageService.getMemberRating(mno));
 		return "myPage/myPage";
 	}
 	
@@ -60,7 +62,41 @@ public class MyPageController {
 		return "myPage/memberCouponList";
 	}
 	
+//	
+//	
+//	//마이페이지 쿠폰 조회
+//	@RequestMapping("memberCouponList.me")
+//	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") 
+//											int currentPage, 
+//											int memberNo,
+//											ModelAndView mv) {
+//		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
+//		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
+//		
+//		ArrayList<Coupon> cList = myPageService.memberCouponList(pi);
+//		//System.out.println(cList);
+//		//전월 실적 조회
+////		HashMap<String, Object> map = new HashMap<>();		
+//	int result = myPageService.paymentPerfomanceToProduct(memberNo) +  myPageService.paymentPerfomanceToReservation(memberNo);
+////		if(!cList.isEmpty() && result != 0) {
+////			map.put("cList", cList);
+////			map.put("result", result);
+////			map.put("pi", pi);
+////		}
+//		mv.addObject("cList", cList)
+//		.addObject("pi", pi)
+//		.addObject("result", result)
+//		.setViewName("myPage/memberCouponList");
+//		System.out.println(map.get("cList") +"  /  "+ map.get("result"));
+//		
+//		return  new Gson().toJson(map);
+//		
+//
+//		
+//	}
+//	
 	
+
 	
 	
 	

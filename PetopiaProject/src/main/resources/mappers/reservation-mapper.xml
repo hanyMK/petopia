@@ -10,6 +10,7 @@
 		<result column="PET_STORE" property="petStore"/>
 		<result column="EMPLOYEE_NAME" property="employeeName"/>
 		<result column="EMPLOYEE_INFO" property="employeeInfo"/>
+		<result column="CLOSED_DAY" property="closedDay"/>
 	</resultMap>
 
 	<select id="selectEmployeeList" parameterType="_int" resultMap="employeeResulSet">
@@ -17,7 +18,8 @@
 				EMPLOYEE_NO,
 				PET_STORE,
 				EMPLOYEE_NAME,
-				EMPLOYEE_INFO
+				EMPLOYEE_INFO,
+				CLOSED_DAY
 		FROM EMPLOYEE
 		WHERE PET_STORE = #{psno}
 	

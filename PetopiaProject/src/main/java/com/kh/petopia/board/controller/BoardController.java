@@ -44,9 +44,14 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="list.bo", produces="application/json; charset=UTF-8")
-	public String selectBoardList(int currentPage, String category) {
+	public String selectBoardList(int currentPage, String category, String filter) {
+		HashMap<String, String> type = new HashMap<>();
+		type.put("category", category);
+		type.put("filter", filter);
+		
 		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
-		ArrayList<Board> list = boardService.selectBoard(category, pi);
+		ArrayList<Board> list = boardService.selectBoard(type, pi);
+		System.out.println(filter);
 		
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("pi", pi);
