@@ -72,25 +72,30 @@
 		
 		$(() => {
 			
-			$('#main_center_right_bottom').on('click', '.myCouponList' ,e =>{
+			$('#main_center_right_bottom').on('click', '.myCouponList' , e =>{
 				var couponNo = $(e.target).find('.couponNo').val();
-				console.log(couponNo);
-				$.ajax({
-					url : 'insertCoupon.me',
-					type : 'post',
-					data : {
-						'memberNo' : ${loginMember.memberNo},
-						'couponNo' : couponNo
-					},
-					success: result =>{
-						console.log(result);
-					},
-					error : () =>{
-						console.log('실패');
-					}
+				if( $(e.target).children().eq(1).text() == '발급 완료 된 쿠폰 입니다.'){
+					alert('이미 발급된 쿠폰입니다.');
+				}else{
 
-
-				})
+					console.log(couponNo);
+					$.ajax({
+						url : 'insertCoupon.me',
+						type : 'post',
+						data : {
+							'memberNo' : 22,
+							'couponNo' : couponNo
+						},
+						success: result =>{
+							console.log(result);
+						},
+						error : () =>{
+							console.log('실패');
+						}
+						
+						
+					})
+				}
 				
 			})
 		})
@@ -114,7 +119,12 @@
 					
 						
 						value +=' <div class="myCouponList">' 
-								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">'
+								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
+								if(cList[i].memberNo != 0){
+									value += '<mark><b>발급 완료 된 쿠폰 입니다.</mark></b><br>'
+										
+								}
+								
 								+ cList[i].couponName +'<br>';
 								if(cList[i].couponType == 1){
 									value += + cList[i].discount +'원<br>';
@@ -132,9 +142,11 @@
 											'최대 할인 금액 : ' + cList[i].maxPrice +'원<br>'
 											+ '최소 사용 금액 :  ' + cList[i].minPrice +'원<br>'
 											+ cList[i].startDate +' ~ '
-											+ cList[i].endDate +'<br>'
+											+ cList[i].endDate + '<br>'
 											+ '</div>';
+											
 								}
+							
 					}
 					$('#main_center_right_bottom').html(value);
 					
