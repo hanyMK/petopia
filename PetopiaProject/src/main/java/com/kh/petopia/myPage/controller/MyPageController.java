@@ -18,17 +18,8 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage(int mno) {
-		Member reting = new Member();
-		int rating = myPageService.selectmemberRating(mno);
-		//String result =
-		//boolean myPage = ( rating <1000000 )? myPage.setRating("VIP") : (1000000 <= rating) ||(500000 < rating) ? myPage.setRating("GOLD") : myPage.setRating("SILVER");	
-		if(1000000 > rating) {
-			reting.setRating("VIP"); 
-		}else if((1000000 <= rating) ||(500000 < rating)) {
-			reting.setRating("GOLD"); 
-		}else {
-			reting.setRating("SILVER");	
-		}
+		MyPage myPage = new MyPage();
+		myPage.setRating(myPageService.getMemberRating(mno));
 		return "myPage/myPage";
 	}
 	

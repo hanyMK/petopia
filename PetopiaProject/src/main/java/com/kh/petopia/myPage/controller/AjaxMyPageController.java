@@ -74,10 +74,8 @@ public class AjaxMyPageController {
 										HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
-		String rating = ((Member)session.getAttribute("loginMember")).getRating();
-		
-		
-		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, rating);
+
+		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, myPageService.getMemberRating(memberNo));
 		System.out.println(cList);
 		//전월 실적 조회
 		HashMap<String, Object> map = new HashMap<>();

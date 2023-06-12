@@ -89,12 +89,7 @@
 					
 						
 						value +=' <div class="myCouponList">' 
-								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
-								if(perfomance > 100000){
-									+ cList[i].couponName +'<br>';
-								}else if(perfomance > 100000 ){
-									
-								}
+								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">'
 								+ cList[i].couponName +'<br>';
 								if(cList[i].couponType == 1){
 									value += + cList[i].discount +'원<br>';

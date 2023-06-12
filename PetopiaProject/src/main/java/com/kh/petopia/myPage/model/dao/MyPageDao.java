@@ -81,16 +81,15 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myPointList", memberNo);
 	}
 	
-	public int selectmemberRating(SqlSessionTemplate sqlSession, int mno) {
-		return sqlSession.selectOne("myPageMapper.myPointList", mno);
+	public String getMemberRating(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("myPageMapper.getMemberRating", mno);
 	}
 	
 	public int couponListCount(SqlSessionTemplate sqlSession){
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, int rating){
-		
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, String rating){
 		
 		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
 										rating,
