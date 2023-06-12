@@ -1,6 +1,7 @@
 package com.kh.petopia.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
@@ -11,7 +12,7 @@ public interface BoardService {
 	
 	// 게시글 조회 (select)
 	// 게시글 카테고리 조회 (select)
-	ArrayList<Board> selectBoard(String category, PageInfo pi);
+	ArrayList<Board> selectBoard(HashMap type, PageInfo pi);
 	
 	
 	//if(Category.equals('전체')) {
