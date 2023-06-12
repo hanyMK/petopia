@@ -99,6 +99,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<Petpay> myPetpayList(int memberNo) {
 		return myPageDao.myPetpayList(sqlSession,memberNo);
 	}
+	
+	@Override
+	public int memberRating() {
+		return 0;
+	}
+
 
 	@Override
 	public ArrayList<Point> myPointList(int memberNo) {
@@ -135,5 +141,6 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.pointStatusList(sqlSession, map);
 	}
 
+	
 
 }

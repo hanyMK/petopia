@@ -291,6 +291,7 @@
 		  ORDER BY POINT_DATE ASC
 	</select>
 	
+	<!--  -->
 	<!-- 회원이 발급 가능한 쿠폰 리스트 조회 -->
 	<!-- 페이징 처리를 위한 쿠폰 리스트 조히 -->
 	<select id="couponListCount" resultType="_int">
