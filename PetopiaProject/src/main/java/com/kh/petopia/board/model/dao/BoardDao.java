@@ -1,6 +1,7 @@
 package com.kh.petopia.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,14 +21,14 @@ public class BoardDao {
 	
 	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession, 
 										PageInfo pi, 
-										String category){
+										HashMap type){
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("boardMapper.selectBoard", category, rowBounds);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectBoard", type, rowBounds);
 	}
 	
 	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {

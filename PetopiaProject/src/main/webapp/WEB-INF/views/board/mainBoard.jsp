@@ -115,7 +115,7 @@
         </div>
 
         <br clear="both"><br>
-		<!-- 
+
         <form id="searchForm" onsubmit="event.preventDefault(); selectList();" align="center">
             <div class="select">
                 <select class="custom-select" name="condition">
@@ -129,7 +129,7 @@
             </div>
             <button type="submit" class="searchBtn btn btn-secondary">검색</button>
         </form>
-         -->
+
         <br><br>
     </div>
     <br><br>
@@ -141,7 +141,7 @@
 <script>
 	let category = "${category}";
 	let cPage = ${pi.currentPage};
-	let filter = '';
+	let filter = 'DATE';
 	
 	$(function(){ // 자바스크립트/제이쿼리 onload함수		
 		selectList(cPage);
@@ -157,11 +157,14 @@
 		$(this).text(text);
 		
 		if($('#filterBtn').text() == '조회수'){
-			console.log('조회수');
+			filter = 'COUNT';
+			selectList(1);
 		} else if($('#filterBtn').text() == '댓글수'){
-			console.log('댓글수');
+			filter = 'REPLY';
+			selectList(1);
 		} else {
-			console.log('최신순');
+			filter = 'DATE';
+			selectList(1);
 		}
 	})
 
@@ -175,7 +178,8 @@
 		$.ajax({
             url: 'list.bo',
             data: {
-            		category: '${category}',
+            		category : '${category}',
+            		filter : filter,
             		currentPage : cPage
             		},
             success: result => {
@@ -183,7 +187,6 @@
                 let list = result.list;
                 let pi = result.pi;
                 let paging = '';
-				//let category = '${category}';
 					
 				let cPage = pi.currentPage;
 				let startPage = pi.startPage;
