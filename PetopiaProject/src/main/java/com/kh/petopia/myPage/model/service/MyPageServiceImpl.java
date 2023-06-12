@@ -117,19 +117,10 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi) {
-		return myPageDao.memberCouponList(sqlSession, pi);
+	public ArrayList<Coupon> memberCouponList(PageInfo pi, String rating) {
+		return myPageDao.memberCouponList(sqlSession, pi, rating);
 	}
 
-	@Override
-	public int paymentPerfomanceToProduct(int memberNo) {
-		return myPageDao.paymentPerfomanceToProduct(sqlSession, memberNo);
-	}
-
-	@Override
-	public int paymentPerfomanceToReservation(int memberNo) {
-		return myPageDao.paymentPerfomanceToReservation(sqlSession, memberNo);
-	}
 
 	@Override
 	public ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map) {

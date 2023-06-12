@@ -93,7 +93,7 @@
 								if(perfomance > 100000){
 									+ cList[i].couponName +'<br>';
 								}else if(perfomance > 100000 ){
-									if
+									
 								}
 								+ cList[i].couponName +'<br>';
 								if(cList[i].couponType == 1){

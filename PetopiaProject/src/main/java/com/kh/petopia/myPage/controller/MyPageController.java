@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.MyPage;
 
@@ -17,16 +18,16 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage(int mno) {
-		MyPage myPage = new MyPage();
+		Member reting = new Member();
 		int rating = myPageService.selectmemberRating(mno);
 		//String result =
 		//boolean myPage = ( rating <1000000 )? myPage.setRating("VIP") : (1000000 <= rating) ||(500000 < rating) ? myPage.setRating("GOLD") : myPage.setRating("SILVER");	
 		if(1000000 > rating) {
-			myPage.setRating("VIP"); 
+			reting.setRating("VIP"); 
 		}else if((1000000 <= rating) ||(500000 < rating)) {
-			 myPage.setRating("GOLD"); 
+			reting.setRating("GOLD"); 
 		}else {
-			myPage.setRating("SILVER");	
+			reting.setRating("SILVER");	
 		}
 		return "myPage/myPage";
 	}

@@ -63,13 +63,8 @@ public interface MyPageService {
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
 	//listCount
 	int couponListCount();
-	ArrayList<Coupon> memberCouponList(PageInfo pi);
+	ArrayList<Coupon> memberCouponList(PageInfo pi, String rating);
 
-	//회원의 지난달 실적 조회
-	//상품 실적
-	int paymentPerfomanceToProduct(int memberNo);
-	//예약결제 실적
-	int paymentPerfomanceToReservation(int memberNo);
 
 	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
 

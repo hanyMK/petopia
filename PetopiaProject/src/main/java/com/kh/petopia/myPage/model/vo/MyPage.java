@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class MyPage {
-	private String rating;
+	//private String rating;
 
 }

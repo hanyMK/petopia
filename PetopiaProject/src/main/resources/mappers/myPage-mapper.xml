@@ -358,66 +358,15 @@
 	</select>
 	
 	<!-- 쿠폰 리스트 -->
-	<select id="memberCouponList" resultMap="couponResultSet">
-		SELECT 
-				COUPON_NO,
-				COUPON_NAME,
-				COUPON_TYPE,
-				DISCOUNT,
-				TO_CHAR(START_DATE, 'YYYY-MM-DD') START_DATE,
-				TO_CHAR(END_DATE, 'YYYY-MM-DD') END_DATE,
-				NVL(MAX_PRICE, 0) MAX_PRICE,
-				NVL(MIN_PRICE, 0) MIN_PRICE
-		 FROM 
-				COUPON       
-		 WHERE 
-				SYSDATE BETWEEN START_DATE AND END_DATE
+	<select id="memberCouponList" resultMap="couponResultSet" parameterType="string">
+		SELECT *
+		  FROM VIEW_MEMBER_RATING
+		 WHERE 'VIP' = 'VIP'
+		   AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+		         COUPON_NAME NOT LIKE '%'||'GOLD'||'%' );
 	</select>
 	
-	<!-- 회원 예약 결제 실적 조회 -->
-	<select id="paymentPsrfomanceToReservation">
-		
-	</select>
 	
-	<!-- 회원 상품 결제 실적 조회 -->
-	<select id="paymentPerfomanceToProduct" resultType="_int">
-		SELECT SUM(PRODUCT_PRICE) 
- 			 FROM(
-               		SELECT
-				            
-				            AMOUNT* PRODUCT_PRICE PRODUCT_PRICE1,
-				                CASE 
-				                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
-				                THEN AMOUNT* PRODUCT_PRICE - POINT - C.DISCOUNT
-				                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
-				                THEN AMOUNT* PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
-				                ELSE  AMOUNT* PRODUCT_PRICE- POINT
-				                END PRODUCT_PRICE ,
-				                PR.RECEIPT_NO,
-				                PR.MEMBER_NO,
-				                RECEIPT_DATE,
-				                NVL(PR.COUPON_NO,0) COUPON_NO,
-				                NVL(POINT,0) POINT,
-				                SHIPPING_NO
-				          FROM 
-				                PRODUCT_BRIDGE PB JOIN 
-				                ( SELECT
-				                            RECEIPT_NO,
-				                            MEMBER_NO,
-				                            RECEIPT_DATE,
-				                            NVL(COUPON_NO,0) COUPON_NO,
-				                            NVL(POINT,0) POINT,
-				                            SHIPPING_NO
-				                  FROM PRODUCT_RECEIPT ) PR ON(pb.receipt_no  = PR.receipt_no)
-				                JOIN PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
-				                LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO
-				    )
-        WHERE 
-                RECEIPT_DATE BETWEEN 
-                TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))) 
-         AND 
-         		 MEMBER_NO = #{memberNo}
-	</select>
 	
 	<select id="paymentPerfomanceToReservation" resultType="_int">
 		SELECT SUM(RESULT) 
