@@ -38,15 +38,16 @@ public class AjaxAdminController {
 	
 	
 	@RequestMapping(value="ajaxMemberSearch.ad", produces="application/json; charset=UTF-8")
-	public String memberSearch(String searchType, String keyword,@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+	public String memberSearch(String searchType, String keyword,@RequestParam(value="cPage", defaultValue="1") int currentPage) {
+
 		Map<String, Object> params = new HashMap<>();
 		params.put("searchType", searchType);
 		params.put("keyword", keyword);
 		PageInfo pi = Pagination.getPageInfo(adminService.memberSearchCount(params), currentPage, 10, 5);
+		params.put("pi", pi);
 		HashMap<String, Object>  result = new HashMap();
 		result.put("pi", pi);
-		result.put("list",adminService.memberSearch(params, pi));
-		model.addAttribute("pi", pi);
+		result.put("list",adminService.memberSearch(params));
 		return new Gson().toJson(result);
 	}
 	
