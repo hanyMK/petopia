@@ -23,12 +23,21 @@
 	.myCouponList{
 		border: 1px solid black;
 		border-radius: 20px;
-		height: 160px;
+		height: 180px;
 		width: 400px;
 		margin: 20px;
 		margin-left: 50px;
 		text-align: center;
 		float: left;
+	}
+	#main_center_right_bottom_1 {
+		height:10%;
+		text-align:center;
+	}
+	#main_center_right_bottom_1  a {
+		text-decoration: none;
+		color: black;
+
 	}
 	
 
@@ -49,9 +58,14 @@
 			
 			<div id="main_center_right">
 				<div id="main_center_right_top">
+					<div id="main_center_right_bottom_1">
+						<button> <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
+						<button onclick="();">사용 가능 쿠폰</button>
+						<button onclick="pointBtn();">사용완료/ 기간만료</button>
+					</div>
 				</div>
 				<div id="main_center_right_bottom">
-			
+					
 				</div>
 			</div>
 		</div>
@@ -77,6 +91,7 @@
 				if($(e.target).children().eq(2).text() == '발급 완료 된 쿠폰 입니다.'){
 					console.log($(e.target).children().eq(2).text());
 					alert('이미 발급된 쿠폰입니다.');
+					location.href = 'memberCouponList.me';
 				}else{
 
 					console.log(couponNo);
@@ -124,11 +139,11 @@
 						value +=' <div class="myCouponList">' 
 								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
 								if(cList[i].memberNo != 0){
-									value += '<br><mark><b>발급 완료 된 쿠폰 입니다.</mark></b><br>'
+									value += '<br><mark><b>발급 완료 된 쿠폰 입니다.</mark></b><br>';
 										
 								}
 								
-								+ cList[i].couponName +'<br>';
+								value += cList[i].couponName +'<br>';
 								if(cList[i].couponType == 1){
 									value += + cList[i].discount +'원<br>';
 								}else{
