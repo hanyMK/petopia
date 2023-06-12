@@ -12,6 +12,7 @@ import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
@@ -90,10 +91,10 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, String rating){
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, Member member){
 		
 		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
-										rating,
+										member,
 										new RowBounds(
 												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
 														pi.getBoardLimit()
@@ -104,6 +105,10 @@ public class MyPageDao {
 
 	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
+	}
+	
+	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
+		return sqlSession.insert("myPageMapper.insertCouponToMember", coupon);
 	}
 
 	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {

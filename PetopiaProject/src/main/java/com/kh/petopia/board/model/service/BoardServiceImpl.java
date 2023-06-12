@@ -22,8 +22,8 @@ public class BoardServiceImpl implements BoardService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int countBoard(String category) {
-		return boardDao.countBoard(sqlSession, category);
+	public int countBoard(HashMap type) {
+		return boardDao.countBoard(sqlSession, type);
 	}
 
 	@Override
