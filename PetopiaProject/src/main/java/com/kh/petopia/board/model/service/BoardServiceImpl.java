@@ -1,6 +1,7 @@
 package com.kh.petopia.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board> selectBoard(String category, PageInfo pi) {
-		return boardDao.selectBoard(sqlSession, pi, category);
+	public ArrayList<Board> selectBoard(HashMap type, PageInfo pi) {
+		return boardDao.selectBoard(sqlSession, pi, type);
 	}
 
 	@Override
