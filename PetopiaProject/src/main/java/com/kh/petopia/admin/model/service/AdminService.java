@@ -20,7 +20,7 @@ public interface AdminService {
 	int memberSearchCount(Map params);
 
 	// 맴버 검색 + 페이징처리
-	ArrayList memberSearch(Map params, PageInfo pi);
+	ArrayList memberSearch(Map params);
 	
 	//관리자 쿠폰 발급
 	int insertCoupon(Coupon c);

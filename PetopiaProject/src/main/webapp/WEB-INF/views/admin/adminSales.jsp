@@ -27,7 +27,7 @@
 			</div>
 			<div id="main_center_right" align="center";>
 				   <br><br>
-					${month}월의 매출!
+					  ${month}월의 매출!
 					
 				<div style="width: 60%; height:150px;"> 
 					<!--차트가 그려질 부분-->
@@ -37,7 +37,10 @@
 			</div>
 		</div>
 		<div id="main_right">
-		  
+
+			<h1>
+			이쪽은 공백
+			</h1>
 		</div>
 		
 	</div>

@@ -11,7 +11,7 @@
 <style>
 
 	.memberList-table {
-	  width: 50%;
+	  width: 85%;
 	  border-collapse: collapse;
 	  margin-top: 100px;
 	  text-align: center;
@@ -57,41 +57,18 @@
 	  margin-bottom: 30px;
 	}
 	
-	#outer{
+	.search{
 	 text-align: center;
+	 margin-bottom: 20px;
+	 padding-bottom: 20px;	
 	}
+
+
+
 
  </style>
  
 </head>
-<body>
-	
-	
-	<jsp:include page="../common/header.jsp"/>
-	
-	<div id="outer"> 
-	<h1> 회원 목록 </h1>
-	
-		<table class="memberList-table">
-		  <thead>
-			  <tr>
-			    <th>회원번호</th>
-			    <th>이름</th>
-			    <th>전화번호</th>
-			    <th>주소</th>
-			    <th>가입일</th>
-			    <th>상태</th>
-			  </tr>
-		  </thead>
-		  <tbody>
-		  </tbody>
-		</table>
-		 <div id="pagingArea">
-			<ul class="pagination">
-			</ul>
-            
-		</div>
-    
 	<script>
 
 		var pi = "";
@@ -127,7 +104,8 @@
 				    	} else if(list[i].status === '탈퇴'){
 				    	  statusColor = 'lightGray';
 				    	}
-								
+						
+						
 						value += '<tr>'
 							+ '<td>' + list[i].memberNo + '</td>'
 	                        + '<td>' + list[i].memberName + '</td>'
@@ -178,26 +156,9 @@
 				 }
 			})
 		}
-		
 	
-	</script>
-		
 
-		<div class="search">
-				  <input type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword">
-				  <select name="searchType">
-				    <option value="memberName" >이름</option>
-				    <option value="memberNo">회원번호</option>
-				    <option value="status">상태</option>
-				  </select>
-				  <button type="button" id="memberSearchBtn" class="search-btn">검색</button>
-		</div>
-	
-	<script>
-
-	
-	
-		$('#memberSearchBtn').click(() =>{
+		function searchMember(cPage) {
 			
 			var searchType = $('select[name="searchType"]').val();
 		    var keyword = $('#keyword').val();
@@ -219,7 +180,8 @@
 				url : 'ajaxMemberSearch.ad',
 				data: {
 					searchType: searchType, 
-					keyword: keyword 
+					keyword: keyword,
+					cPage : cPage
 			         
 				},
 				success : function(result){
@@ -243,6 +205,8 @@
 					    	} else if(list[i].status === '탈퇴'){
 					    	  statusColor = 'lightGray';
 					    	}
+							
+								
 									
 							value += '<tr>'
 								+ '<td>' + list[i].memberNo + '</td>'
@@ -252,7 +216,8 @@
 		                        + '<td>' + list[i].enrollDate + '</td>'
 		                        + '<td style="color: ' + statusColor + ';">' + list[i].status + '</td>'
 		                        + '</tr>'
-		                        
+		                    
+		                    
 						}
 					
 						$('.memberList-table tbody').html(value);
@@ -260,21 +225,21 @@
 						if(cPage == 1){
 		                	paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
 		                } else {
-		                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + prev + ');">&lt;-</a></li>';
+		                	paging += '<li class="page-item"><a class="page-link" href="javascript:searchMember(' + prev + ');">&lt;-</a></li>';
 		                }
 		                
 		                for(let i = startPage; i <= endPage; i++){
 		                	if(i != cPage){
-								paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+								paging += '<li class="page-item"><a class="page-link" href="javascript:searchMember(' + i + ');">' + i + '</a></li>';
 		                	} else {
-		                		paging += '<li class="page-item"><a class="page-link" style="background-color:#007BFF; color:white;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+		                		paging += '<li class="page-item"><a class="page-link" style="background-color:#007BFF; color:white;" href="javascript:searchMember(' + i + ');">' + i + '</a></li>';
 		                	}
 						}
 		                
 		                if(cPage == max){
 		                	paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
 		                } else {
-		                	paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + next + ');">-&gt;</a></li>';
+		                	paging += '<li class="page-item"><a class="page-link" href="javascript:searchMember(' + next + ');">-&gt;</a></li>';
 		                }
 		                
 		                $('.pagination').html(paging);
@@ -293,15 +258,66 @@
 			})
 		
 	
-		})
+		}
 	
+	</script>
+<body>
+	
+	
+	<jsp:include page="../common/header.jsp"/>
+	
+	
+	 <div id="main">
+		<div id="main_left">
 		
-	
-    
-	
-	
+		</div>
+		<div id="main_center" style="height:auto">
+			<div id="main_center_left">
+				<jsp:include page="adminNavi.jsp" />
+			</div>
+			
+			<div id="main_center_right" align="center" style="height:auto">
+				<br><br>
+				<h1> 회원 목록 </h1>
+			
+				<table class="memberList-table">
+				  <thead>
+					  <tr>
+					    <th>회원번호</th>
+					    <th>이름</th>
+					    <th>전화번호</th>
+					    <th>주소</th>
+					    <th>가입일</th>
+					    <th>상태</th>
+					  </tr>
+				  </thead>
+				  <tbody>
+				  </tbody>
+				</table>
+				 <div id="pagingArea">
+					<ul class="pagination">
+					</ul>
+					</div>
+				<div class="search">
+							<input type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword">
+							<select name="searchType">
+							<option value="memberName" >이름</option>
+							<option value="memberNo">회원번호</option>
+							<option value="status">상태</option>
+							</select>
+							<button type="button" id="memberSearchBtn" class="search-btn" onclick="searchMember();">검색</button>
+				</div>
+			</div>
+			
+		</div>
+		<div id="main_right">
 
-	</script>	
+				<h1>
+				이쪽은 공백
+				</h1>
+		</div>
+	
+	
 	
 	</div>
 	
