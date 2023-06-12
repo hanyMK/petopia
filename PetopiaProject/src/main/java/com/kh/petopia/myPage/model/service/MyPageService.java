@@ -65,7 +65,7 @@ public interface MyPageService {
 	//상품 실적
 	int paymentPerfomanceToProduct(int memberNo);
 	//예약결제 실적
-	int paymentPsrfomanceToReservation(int memberNo);
+	int paymentPerfomanceToReservation(int memberNo);
 
 	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
 
