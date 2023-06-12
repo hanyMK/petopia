@@ -133,6 +133,16 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.pointStatusList(sqlSession, map);
 	}
 
+	@Override
+	public int insertChargePetpay(Petpay p) {
+		return myPageDao.insertChargePetpay(sqlSession, p);
+	}
+
+	@Override
+	public int insertWithdrawPetpay(Petpay p) {
+		return myPageDao.insertWithdrawPetpay(sqlSession, p);
+	}
+
 	
 
 }

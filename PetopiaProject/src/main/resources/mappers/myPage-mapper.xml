@@ -282,14 +282,14 @@
 		  FROM PETPAY
 		  JOIN MEMBER USING(MEMBER_NO)
 		 WHERE MEMBER_NO = #{memberNo}
-	   	 ORDER BY PETPAY_DATE ASC
+	   	 ORDER BY PETPAY_DATE DESC
 	</select>
 	
 	<select id="myPointList" parameterType="_int" resultMap="pointResultSet">
 		SELECT POINT_DATE, POINT_STATUS, POINT_AMOUNT
 		  FROM POINT
 		 WHERE MEMBER_NO = #{memberNo}
-		  ORDER BY POINT_DATE ASC
+		  ORDER BY POINT_DATE DESC
 	</select>
 	
 	<!-- 회원 등급 조회 -->
@@ -499,4 +499,47 @@
 	   	 </choose>
 	</select>
 	
+	<!-- 펫페이 충전 -->
+	<insert id="insertChargePetpay" parameterType="Petpay">
+	INSERT
+	  INTO PETPAY
+	       (
+	       PETPAY_NO,
+	       PETPAY_AMOUNT,
+	       PETPAY_DATE,
+	       PETPAY_STATUS,
+	       MEMBER_NO      
+	       )
+	VALUES (
+	       SEQ_PETPAY_NO.NEXTVAL,
+	       #{petpayAmount},
+	       SYSDATE,
+	       'P',
+	       #{memberNo}
+	       )
+	
+	</insert>
+	
+	<!-- 펫페이 인출 -->
+	<insert id="insertWithdrawPetpay" parameterType="Petpay">
+	INSERT
+	  INTO PETPAY
+	       (
+	       PETPAY_NO,
+	       PETPAY_AMOUNT,
+	       PETPAY_DATE,
+	       PETPAY_STATUS,
+	       MEMBER_NO      
+	       )
+	VALUES (
+	       SEQ_PETPAY_NO.NEXTVAL,
+	       -#{petpayAmount},
+	       SYSDATE,
+	       'M',
+	       #{memberNo}
+	       )
+	
+	</insert>
+	
+
 </mapper>
