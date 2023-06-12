@@ -11,6 +11,7 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 import com.kh.petopia.myPage.model.vo.Alram;
@@ -117,8 +118,13 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi, String rating) {
-		return myPageDao.memberCouponList(sqlSession, pi, rating);
+	public ArrayList<Coupon> memberCouponList(PageInfo pi,  Member member) {
+		return myPageDao.memberCouponList(sqlSession, pi, member);
+	}
+	
+	@Override
+	public int insertCouponToMember(Coupon coupon) {
+		return myPageDao.insertCouponToMember(sqlSession, coupon);
 	}
 
 
@@ -141,6 +147,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public int insertWithdrawPetpay(Petpay p) {
 		return myPageDao.insertWithdrawPetpay(sqlSession, p);
 	}
+
+
 
 	
 

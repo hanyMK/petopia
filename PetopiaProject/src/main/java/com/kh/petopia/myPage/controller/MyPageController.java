@@ -24,9 +24,9 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage(int mno) {
-		MyPage myPage = new MyPage();
+		//MyPage myPage = new MyPage();
 		//회원 등급 조회
-		myPage.setRating(myPageService.getMemberRating(mno));
+		//myPage.setRating(myPageService.getMemberRating(mno));
 		
 		return "myPage/myPage";
 	}

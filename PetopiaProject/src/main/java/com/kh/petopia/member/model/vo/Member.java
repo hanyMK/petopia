@@ -20,6 +20,8 @@ public class Member {
 	private String enrollDate;
 	private Date modifyDate;
 	private String status;
+	
+	private String rating;
 
 	
 

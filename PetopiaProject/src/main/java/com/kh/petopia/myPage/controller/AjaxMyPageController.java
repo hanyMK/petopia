@@ -74,8 +74,10 @@ public class AjaxMyPageController {
 										HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
-
-		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, myPageService.getMemberRating(memberNo));
+		Member member = (Member)session.getAttribute("loginMember");
+		member.setRating(myPageService.getMemberRating(memberNo));
+		System.out.println(member);
+		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, member);
 		System.out.println(cList);
 		//전월 실적 조회
 		HashMap<String, Object> map = new HashMap<>();
@@ -93,7 +95,11 @@ public class AjaxMyPageController {
 	
 	@RequestMapping("insertCoupon.me")
 	public String insertCouponToMember(int memberNo, int couponNo) {
-		return null;
+		Coupon coupon = new Coupon();
+		coupon.setMemberNo(memberNo);
+		coupon.setCouponNo(couponNo);
+		return (myPageService.insertCouponToMember(coupon) > 0)? "YES" : "NO"; 
+		
 		
 	}
 	
