@@ -55,17 +55,16 @@ public interface MyPageService {
 	
 	ArrayList<Point> myPointList(int mno);
 	
+	//회원 등급 조회(총 결제 누적 금액 조회 후 앞단에서 등급 주기)
+	//100만원 이상(>=) vip, 100만원 <gold <=50만원 / 50 <silver
+	String getMemberRating(int mno);
+	
 	
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
 	//listCount
 	int couponListCount();
-	ArrayList<Coupon> memberCouponList(PageInfo pi);
+	ArrayList<Coupon> memberCouponList(PageInfo pi, String rating);
 
-	//회원의 지난달 실적 조회
-	//상품 실적
-	int paymentPerfomanceToProduct(int memberNo);
-	//예약결제 실적
-	int paymentPerfomanceToReservation(int memberNo);
 
 	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
 

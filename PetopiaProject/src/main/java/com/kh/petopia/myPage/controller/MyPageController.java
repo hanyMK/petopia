@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.MyPage;
 
 @Controller
 public class MyPageController {
@@ -21,6 +24,10 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage(int mno) {
+		MyPage myPage = new MyPage();
+		//회원 등급 조회
+		myPage.setRating(myPageService.getMemberRating(mno));
+		
 		return "myPage/myPage";
 	}
 	
@@ -127,6 +134,8 @@ public class MyPageController {
 //		
 //	}
 //	
+	
+
 	
 	
 	

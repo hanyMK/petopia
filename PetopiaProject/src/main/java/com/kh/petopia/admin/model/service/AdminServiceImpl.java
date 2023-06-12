@@ -52,8 +52,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public ArrayList memberSearch(Map params,PageInfo pi) {
-		return adminDao.memberSearch(sqlSession, params, pi);
+	public ArrayList memberSearch(Map params) {
+		return adminDao.memberSearch(sqlSession, params);
 	}
 
 	@Override

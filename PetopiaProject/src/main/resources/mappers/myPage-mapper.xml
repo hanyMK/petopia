@@ -291,6 +291,122 @@
 		  ORDER BY POINT_DATE DESC
 	</select>
 	
+	<!-- 회원 등급 조회 -->
+	<select id="getMemberRating" resultType="string" parameterType="_int">
+		SELECT 
+		        CASE 
+		        WHEN 1000000 >
+		        (SELECT SUM(RESULT)
+		           FROM (
+		                 SELECT 
+		                        MEMBER_NO,
+		                        RR.RESERVATION_NO,
+		                        RESERVATION_FEE,
+		                        
+		                        CASE 
+		                                WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		                                THEN RESERVATION_FEE - C.DISCOUNT - POINT 
+		                                WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		                                THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
+		                                ELSE  RESERVATION_FEE - POINT
+		                                END RESULT ,
+		                                RR.POINT,
+		                                RR.COUPON_NO
+		                  FROM
+		                        RESERVATION R 
+		                  JOIN (
+		                        VIEW_RESERVATION_RECEIPT) RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
+		                  LEFT JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
+		                 WHERE
+		                     TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
+		                    AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))))
+		                    AND MEMBER_NO = #{mno}))
+		                +
+		        (SELECT SUM(PRODUCT_PRICE) 
+		          FROM(
+		                SELECT
+		                                MEMBER_NO,
+		                                AMOUNT* PRODUCT_PRICE PRODUCT_PRICE1,
+		                        CASE 
+		                        WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		                        THEN AMOUNT* PRODUCT_PRICE - POINT - C.DISCOUNT
+		                        WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		                        THEN AMOUNT* PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+		                        ELSE  AMOUNT* PRODUCT_PRICE- POINT
+		                        END PRODUCT_PRICE ,
+		                        PR.RECEIPT_NO
+		                  FROM 
+		                        PRODUCT_BRIDGE PB
+		                        JOIN (
+		                           VIEW_PRODUCT_RECEIPT
+		                        ) PR ON(pb.receipt_no  = PR.receipt_no)
+		                        JOIN PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
+		                        LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+		                WHERE 
+		                        MEMBER_NO = #{mno}
+		                AND
+		                        RECEIPT_DATE BETWEEN 
+		                        TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))
+		                        )) 
+		            THEN 'VIP'
+		            WHEN 
+		        ((SELECT SUM(RESULT)
+		           FROM (
+		                 SELECT 
+		                        MEMBER_NO,
+		                        RR.RESERVATION_NO,
+		                        RESERVATION_FEE,
+		                        
+		                        CASE 
+		                                WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		                                THEN RESERVATION_FEE - C.DISCOUNT - POINT 
+		                                WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		                                THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
+		                                ELSE  RESERVATION_FEE - POINT
+		                                END RESULT ,
+		                                RR.POINT,
+		                                RR.COUPON_NO
+		                  FROM
+		                        RESERVATION R 
+		                  JOIN (
+		                        VIEW_RESERVATION_RECEIPT) RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
+		                  LEFT JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
+		                 WHERE
+		                     TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
+		                    AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))))
+		                    AND MEMBER_NO = #{mno}))
+		                +
+		        (SELECT SUM(PRODUCT_PRICE) 
+		          FROM(
+		                SELECT
+		                                MEMBER_NO,
+		                                AMOUNT* PRODUCT_PRICE PRODUCT_PRICE1,
+		                        CASE 
+		                        WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		                        THEN AMOUNT* PRODUCT_PRICE - POINT - C.DISCOUNT
+		                        WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		                        THEN AMOUNT* PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+		                        ELSE  AMOUNT* PRODUCT_PRICE- POINT
+		                        END PRODUCT_PRICE ,
+		                        PR.RECEIPT_NO
+		                  FROM 
+		                        PRODUCT_BRIDGE PB
+		                        JOIN (
+		                           VIEW_PRODUCT_RECEIPT
+		                        ) PR ON(pb.receipt_no  = PR.receipt_no)
+		                        JOIN PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
+		                        LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+		                WHERE 
+		                        MEMBER_NO =#{mno}
+		                AND
+		                        RECEIPT_DATE BETWEEN 
+		                        TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))
+		                        ))) BETWEEN 1000000 AND 500000
+		            THEN 'GOLD'
+		            ELSE 'SLIVER'
+		            END RATING
+		 FROM DUAL
+	</select>
 	<!-- 회원이 발급 가능한 쿠폰 리스트 조회 -->
 	<!-- 페이징 처리를 위한 쿠폰 리스트 조히 -->
 	<select id="couponListCount" resultType="_int">
@@ -300,103 +416,30 @@
 	</select>
 	
 	<!-- 쿠폰 리스트 -->
-	<select id="memberCouponList" resultMap="couponResultSet">
-		SELECT 
-				COUPON_NO,
-				COUPON_NAME,
-				COUPON_TYPE,
-				DISCOUNT,
-				TO_CHAR(START_DATE, 'YYYY-MM-DD') START_DATE,
-				TO_CHAR(END_DATE, 'YYYY-MM-DD') END_DATE,
-				NVL(MAX_PRICE, 0) MAX_PRICE,
-				NVL(MIN_PRICE, 0) MIN_PRICE
-		 FROM 
-				COUPON       
-		 WHERE 
-				SYSDATE BETWEEN START_DATE AND END_DATE
+	<select id="memberCouponList" resultMap="couponResultSet" parameterType="string">
+		SELECT *
+		  FROM VIEW_MEMBER_RATING
+		<choose>
+			<when test="rating == 'VIP'">
+				WHERE 'VIP' = 'VIP'
+		 		 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+		       		  COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
+			</when>
+			<when test="rating == 'GOLD'">
+				WHERE 'GOLD' = 'GOLD'
+	   			 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+	         			COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+			</when>
+			<otherwise>
+				WHERE 'SILVER' = 'SILVER'
+   				  AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
+        			   COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+			</otherwise>
+		</choose>
+		 
 	</select>
 	
-	<!-- 회원 예약 결제 실적 조회 -->
-	<select id="paymentPsrfomanceToReservation">
-		
-	</select>
 	
-	<!-- 회원 상품 결제 실적 조회 -->
-	<select id="paymentPerfomanceToProduct" resultType="_int">
-		SELECT SUM(PRODUCT_PRICE) 
- 			 FROM(
-               		SELECT
-				            
-				            AMOUNT* PRODUCT_PRICE PRODUCT_PRICE1,
-				                CASE 
-				                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
-				                THEN AMOUNT* PRODUCT_PRICE - POINT - C.DISCOUNT
-				                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
-				                THEN AMOUNT* PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
-				                ELSE  AMOUNT* PRODUCT_PRICE- POINT
-				                END PRODUCT_PRICE ,
-				                PR.RECEIPT_NO,
-				                PR.MEMBER_NO,
-				                RECEIPT_DATE,
-				                NVL(PR.COUPON_NO,0) COUPON_NO,
-				                NVL(POINT,0) POINT,
-				                SHIPPING_NO
-				          FROM 
-				                PRODUCT_BRIDGE PB JOIN 
-				                ( SELECT
-				                            RECEIPT_NO,
-				                            MEMBER_NO,
-				                            RECEIPT_DATE,
-				                            NVL(COUPON_NO,0) COUPON_NO,
-				                            NVL(POINT,0) POINT,
-				                            SHIPPING_NO
-				                  FROM PRODUCT_RECEIPT ) PR ON(pb.receipt_no  = PR.receipt_no)
-				                JOIN PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
-				                LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO
-				    )
-        WHERE 
-                RECEIPT_DATE BETWEEN 
-                TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))) 
-         AND 
-         		 MEMBER_NO = #{memberNo}
-	</select>
-	
-	<select id="paymentPerfomanceToReservation" resultType="_int">
-		SELECT SUM(RESULT) 
-		  FROM (
-	            SELECT 
-	                    MEMBER_NO,
-	                    RR.RESERVATION_NO,
-	                    RESERVATION_FEE,
-	                    
-	                    CASE 
-	                            WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
-	                            THEN RESERVATION_FEE - C.DISCOUNT - POINT 
-	                            WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
-	                            THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
-	                            ELSE  RESERVATION_FEE - POINT
-	                            END RESULT ,
-	                            RR.POINT,
-	                            RR.COUPON_NO
-	              FROM
-	                    RESERVATION R 
-	              JOIN (
-	                    SELECT
-	                            RESERVATION_NO,
-	                            RECEIPT_DATE,
-	                            NVL(COUPON_NO,0) COUPON_NO,
-	                            NVL(POINT,0) POINT
-	                    FROM 
-	                            RESERVATION_RECEIPT
-	                    WHERE 
-	                            RECEIPT_STATUS='Y') RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
-			  LEFT JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
-			  WHERE
-			          MEMBER_NO =  #{memberNo}
-			    AND 
-			     	 TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
-						AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)))))
-	</select>
 	
 	<!-- 펫페이, 포인트 -->
 	<select id="petpayStatusList" parameterType="hashmap" resultMap="petpayResultSet">

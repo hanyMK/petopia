@@ -72,7 +72,7 @@
 	 		  rownum between 1 and 5
 	</select>
 	 -->
-	 <select id="selectBoard" resultType="board" parameterType="string">
+	 <select id="selectBoard" resultType="board" parameterType="hashmap">
 	 	SELECT
 	  			BOARD_NO boardNo
 			   ,BOARD_TITLE boardTitle
@@ -106,9 +106,23 @@
    	  	   	     B.STATUS = 'Y'
    	  	</otherwise>
    	  </choose>
-   	 ORDER
-   	 	BY
-   	 	   B.BOARD_NO DESC
+   	  <choose>
+   	  	<when test="filter.equals('COUNT')">
+	   	 ORDER
+	   	 	BY
+	   	 	   B.BOARD_COUNT DESC   	  	
+   	  	</when>
+   	  	<when test="filter.equals('REPLY')">
+	   	 ORDER
+	   	 	BY
+	   	 	   REPLYCOUNT DESC   	  	
+   	  	</when>
+	   	<otherwise>
+	   	 ORDER
+	   	 	BY
+	   	 	   B.CREATE_DATE DESC
+	   	</otherwise>
+   	  </choose>
 	 </select>
 	 
 	 <update id="increaseCount" parameterType="_int">

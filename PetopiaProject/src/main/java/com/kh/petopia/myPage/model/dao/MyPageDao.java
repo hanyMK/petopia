@@ -81,27 +81,25 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myPointList", memberNo);
 	}
 	
+	public String getMemberRating(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("myPageMapper.getMemberRating", mno);
+	}
+	
 	public int couponListCount(SqlSessionTemplate sqlSession){
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi){
-		
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, String rating){
 		
 		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
-										null,
+										rating,
 										new RowBounds(
 												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
 														pi.getBoardLimit()
 														));
 	}
 	
-	public int paymentPerfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToReservation", memberNo);
-	}
-	public int paymentPerfomanceToProduct(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToProduct", memberNo);
-	}
+
 
 	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
