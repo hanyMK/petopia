@@ -52,7 +52,7 @@ public interface BoardService {
 	
 	// 게시글 카테고리 수 조회 (select)
 	// 게시글 리스트 수 조회 (select)
-	int  countBoard(String category);
+	int  countBoard(HashMap type);
 	//  from board
 	// where stauts = 'Y'
 	//if(category)

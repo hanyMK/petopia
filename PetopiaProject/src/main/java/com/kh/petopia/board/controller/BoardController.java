@@ -33,25 +33,40 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("board.bo")
-	public String mainBoard(String category, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
+	public String mainBoard(String category, String keyword, String condition, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		if(keyword == null) {
+			keyword = "";
+		}
+		if(condition == null) {
+			condition = "";
+		}
+		
+		HashMap<String, String> type = new HashMap<>();
+		type.put("category", category);
+		type.put("keyword", keyword);
+		type.put("condition", condition);
+		
+		
+		
+		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(type), currentPage, 5 , 10);
 		model.addAttribute("category", category);
 		model.addAttribute("pi", pi);
-		System.out.println(category);
-		
 		return "board/mainBoard";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="list.bo", produces="application/json; charset=UTF-8")
-	public String selectBoardList(int currentPage, String category, String filter) {
+	public String selectBoardList(int currentPage, String category, String filter, String condition, String keyword) {
+		
 		HashMap<String, String> type = new HashMap<>();
 		type.put("category", category);
 		type.put("filter", filter);
+		type.put("condition", condition);
+		type.put("keyword", keyword);
 		
-		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(category), currentPage, 5 , 10);
+		
+		PageInfo pi = Pagination.getPageInfo(boardService.countBoard(type), currentPage, 5 , 10);
 		ArrayList<Board> list = boardService.selectBoard(type, pi);
-		System.out.println(filter);
 		
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("pi", pi);
