@@ -1,20 +1,12 @@
 package com.kh.petopia.myPage.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.kh.petopia.admin.model.vo.Coupon;
-import com.kh.petopia.common.model.vo.PageInfo;
-import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.MyPage;
 
 @Controller
 public class MyPageController {
@@ -25,6 +17,17 @@ public class MyPageController {
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
 	public String myPage(int mno) {
+		MyPage myPage = new MyPage();
+		int rating = myPageService.selectmemberRating(mno);
+		//String result =
+		//boolean myPage = ( rating <1000000 )? myPage.setRating("VIP") : (1000000 <= rating) ||(500000 < rating) ? myPage.setRating("GOLD") : myPage.setRating("SILVER");	
+		if(1000000 > rating) {
+			myPage.setRating("VIP"); 
+		}else if((1000000 <= rating) ||(500000 < rating)) {
+			 myPage.setRating("GOLD"); 
+		}else {
+			myPage.setRating("SILVER");	
+		}
 		return "myPage/myPage";
 	}
 	
@@ -100,6 +103,8 @@ public class MyPageController {
 //		
 //	}
 //	
+	
+
 	
 	
 	

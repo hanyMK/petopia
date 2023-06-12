@@ -57,7 +57,7 @@ public interface MyPageService {
 	
 	//회원 등급 조회(총 결제 누적 금액 조회 후 앞단에서 등급 주기)
 	//100만원 이상(>=) vip, 100만원 <gold <=50만원 / 50 <silver
-	int memberRating();
+	int selectmemberRating(int mno);
 	
 	
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
