@@ -121,6 +121,11 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<Coupon> memberCouponList(PageInfo pi,  Member member) {
 		return myPageDao.memberCouponList(sqlSession, pi, member);
 	}
+	
+	@Override
+	public int insertCouponToMember(Coupon coupon) {
+		return myPageDao.insertCouponToMember(sqlSession, coupon);
+	}
 
 
 	@Override
@@ -142,6 +147,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public int insertWithdrawPetpay(Petpay p) {
 		return myPageDao.insertWithdrawPetpay(sqlSession, p);
 	}
+
+
 
 	
 

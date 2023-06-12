@@ -424,8 +424,8 @@
 		        COUPON_NAME,
 		        COUPON_TYPE,
 		        DISCOUNT,
-		        SUBSTR(START_DATE,1,10) START_DATE,
-		        SUBSTR(END_DATE,1,10) END_DATE,
+				SUBSTR(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 1, 10) START_DATE,
+				SUBSTR(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 1, 10) END_DATE,
 		        MAX_PRICE,
 		        MIN_PRICE
 		  FROM 
@@ -456,6 +456,11 @@
   		AND MEMBER_COUPON_STATUS = 'Y'
 		 
 	</select>
+	<insert id="insertCouponToMember" parameterType="coupon">
+		INSERT INTO MEMBER_COUPON
+		(MEMBER_NO,COUPON_NO)
+		VALUES(#{memberNo}, #{couponNo})
+	</insert>
 	
 	
 	

@@ -95,7 +95,11 @@ public class AjaxMyPageController {
 	
 	@RequestMapping("insertCoupon.me")
 	public String insertCouponToMember(int memberNo, int couponNo) {
-		return null;
+		Coupon coupon = new Coupon();
+		coupon.setMemberNo(memberNo);
+		coupon.setCouponNo(couponNo);
+		return (myPageService.insertCouponToMember(coupon) > 0)? "YES" : "NO"; 
+		
 		
 	}
 	
