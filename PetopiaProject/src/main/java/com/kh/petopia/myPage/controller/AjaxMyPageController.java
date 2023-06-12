@@ -91,6 +91,12 @@ public class AjaxMyPageController {
 		
 	}
 	
+	@RequestMapping("insertCoupon.me")
+	public String insertCouponToMember(int memberNo, int couponNo) {
+		return null;
+		
+	}
+	
 	
 	
 	

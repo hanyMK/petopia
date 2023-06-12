@@ -70,6 +70,31 @@
 		
 		})
 		
+		$(() => {
+			
+			$('#main_center_right_bottom').on('click', '.myCouponList' ,e =>{
+				var couponNo = $(e.target).find('.couponNo').val();
+				console.log(couponNo);
+				$.ajax({
+					url : 'insertCoupon.me',
+					type : 'post',
+					data : {
+						'memberNo' : ${loginMember.memberNo},
+						'couponNo' : couponNo
+					},
+					success: result =>{
+						console.log(result);
+					},
+					error : () =>{
+						console.log('실패');
+					}
+
+
+				})
+				
+			})
+		})
+		
 		function couponList(){
 			
 			$.ajax({
