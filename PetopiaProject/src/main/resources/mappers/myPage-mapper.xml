@@ -396,7 +396,9 @@
 			    AND 
 			     	 TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
 						AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)))))
+	</select>
 	
+	<!-- 펫페이, 포인트 -->
 	<select id="petpayStatusList" parameterType="hashmap" resultMap="petpayResultSet">
 		SELECT PETPAY_DATE, PETPAY_STATUS , PETPAY_AMOUNT, CONCAT(BANK, ACCOUNT) AS ACCOUNT
 		  FROM PETPAY
