@@ -71,6 +71,10 @@ public interface MyPageService {
 
 	ArrayList<Point> pointStatusList(HashMap<String, Object> map);
 
+	int insertChargePetpay(Petpay p);
+
+	int insertWithdrawPetpay(Petpay p);
+
 	
 
 }

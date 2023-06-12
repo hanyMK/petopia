@@ -1,20 +1,16 @@
 package com.kh.petopia.myPage.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.kh.petopia.admin.model.vo.Coupon;
-import com.kh.petopia.common.model.vo.PageInfo;
-import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.Petpay;
 
 @Controller
 public class MyPageController {
@@ -65,6 +61,37 @@ public class MyPageController {
 	@RequestMapping("memberCouponList.me")
 	public String memberCouponListView() {
 		return "myPage/memberCouponList";
+	}
+	
+	// 마이페이지 펫페이 충전
+	@RequestMapping("insertChargePetpay.me")
+	public String insertChargePetpay(int memberNo, int petpayAmount, HttpSession session, Model model) {
+		Petpay p = new Petpay();
+		p.setMemberNo(memberNo);
+		p.setPetpayAmount(petpayAmount);
+		
+		if(myPageService.insertChargePetpay(p) > 0) {
+			session.setAttribute("alertMsg", "펫페이 충전 완료!");
+			return "redirect:myPetpayPoint.me?mno=" + memberNo;
+		} else {
+			model.addAttribute("errorMsg", "펫페이 충전 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("insertWithdrawPetpay.me")
+	public String insertWithdrawPetpay(int memberNo, int petpayAmount, HttpSession session, Model model) {
+		Petpay p = new Petpay();
+		p.setMemberNo(memberNo);
+		p.setPetpayAmount(petpayAmount);
+		
+		if(myPageService.insertWithdrawPetpay(p) > 0) {
+			session.setAttribute("alertMsg", "펫페이 인출 완료!");
+			return "redirect:myPetpayPoint.me?mno=" + memberNo;
+		} else {
+			model.addAttribute("errorMsg", "펫페이 충전 실패");
+			return "common/errorPage";
+		}
 	}
 	
 //	

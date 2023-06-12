@@ -110,6 +110,14 @@ public class MyPageDao {
 	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);
 	}
+
+	public int insertChargePetpay(SqlSessionTemplate sqlSession, Petpay p) {
+		return sqlSession.insert("myPageMapper.insertChargePetpay", p);
+	}
+	
+	public int insertWithdrawPetpay(SqlSessionTemplate sqlSession, Petpay p) {
+		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
+	}
 	
 	
 }
