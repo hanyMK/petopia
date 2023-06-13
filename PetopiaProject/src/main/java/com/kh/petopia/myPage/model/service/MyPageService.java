@@ -82,11 +82,10 @@ public interface MyPageService {
 
 	int insertWithdrawPetpay(Petpay p);
 
-	ArrayList<AllOrders> myReviewList(int mno);
+	ArrayList<AllReviews> myReviewList(int mno);
 	
 	//주문 내역 페이징 처리를 위한 countList
 	int orderListCount(int memberNo);
-	ArrayList<AllReviews> myReviewList(int mno);
 
 	
 
