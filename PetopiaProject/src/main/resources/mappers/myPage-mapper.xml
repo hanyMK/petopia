@@ -666,6 +666,15 @@
 	    BY RECEIPT_DATE DESC
 	</select>
 	
+	<select id="orderListCount" resultType="_int" parameterType="_int">
+		SELECT
+		        COUNT(*)
+	      FROM
+	            PRODUCT_RECEIPT
+	     WHERE 
+		        MEMBER_NO = #{memberNo}
+	</select>
+	
 	
 
 </mapper>

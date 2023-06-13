@@ -133,5 +133,9 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
 	}
 	
+	public int orderListCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.orderListCountr", memberNo);
+	}
+	
 	
 }

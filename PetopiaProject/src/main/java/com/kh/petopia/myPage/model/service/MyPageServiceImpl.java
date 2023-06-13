@@ -159,6 +159,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.myReviewList(sqlSession,memberNo);
 	}
 
+	@Override
+	public int orderListCount(int memberNo) {
+		return myPageDao.orderListCount(sqlSession,memberNo );
+	}
+
 
 
 
