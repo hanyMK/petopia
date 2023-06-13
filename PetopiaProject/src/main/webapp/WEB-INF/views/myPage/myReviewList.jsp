@@ -57,6 +57,7 @@
 								<!-- 상품리뷰인 경우 -->
 								<c:choose>
 									<c:when test="${ not empty r.shippingStatus }">
+										<small style="color:green;">상품</small>
 										상품 : ${ r.title }<br>
 										결제금액 : ${ r.finalPrice } 수량 : ${ r.details }<br>
 										배송상태 : ${ r.shippingStatus }<br>
@@ -64,6 +65,7 @@
 										<a href="insertProductReview.me"><h6>리뷰 작성하기</h6></a>
 									</c:when>
 									<c:otherwise>
+										<small style="color:orange;">예약</small>
 										예약 : ${ r.title }<br>
 										예약금액 : ${ r.finalPrice } 선생님 : ${ r.details }<br>
 										<!-- 호텔, 훈련 예약인 경우 checkInOut -->
@@ -75,6 +77,7 @@
 												예약일자 : ${ r.receiptDate }<br>
 											</c:otherwise>
 										</c:choose>
+										결제일자 : ${ r.receiptDate }<br>
 										<a href="insertReservationReview.me"><h6>리뷰 작성하기</h6></a>
 									</c:otherwise>
 								</c:choose>

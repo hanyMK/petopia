@@ -2,6 +2,9 @@ package com.kh.petopia.myPage.model.vo;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class AllReviews {
 	
 	private int memberNo;
