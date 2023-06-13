@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
-import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
+import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
@@ -128,7 +128,8 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
 	}
 
-	public ArrayList<AllOrders> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
+	public ArrayList<AllReviews> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
+		System.out.println("웨않되?");
 		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
 	}
 	
