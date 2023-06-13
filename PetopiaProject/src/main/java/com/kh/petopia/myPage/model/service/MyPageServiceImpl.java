@@ -164,6 +164,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.orderListCount(sqlSession,memberNo );
 	}
 
+	@Override
+	public ArrayList<ProductReceipt> selectOrderList(int memberNo, PageInfo pi) {
+		return myPageDao.selectOrderList(sqlSession, memberNo,pi);
+	}
+
 
 
 

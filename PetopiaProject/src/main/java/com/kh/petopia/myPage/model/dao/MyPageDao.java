@@ -136,5 +136,11 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.orderListCountr", memberNo);
 	}
 	
+	public ArrayList<ProductReceipt> selectOrderList(SqlSessionTemplate sqlSession, int memberNo, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1)/pi.getBoardLimit() * pi.getBoardLimit();
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectOrderList",
+												 memberNo,
+												 new RowBounds(offset, pi.getBoardLimit()));
+	}
 	
 }
