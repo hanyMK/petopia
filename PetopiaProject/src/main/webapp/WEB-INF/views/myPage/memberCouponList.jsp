@@ -23,12 +23,21 @@
 	.myCouponList{
 		border: 1px solid black;
 		border-radius: 20px;
-		height: 130px;
+		height: 180px;
 		width: 400px;
 		margin: 20px;
 		margin-left: 50px;
 		text-align: center;
 		float: left;
+	}
+	#main_center_right_bottom_1 {
+		height:10%;
+		text-align:center;
+	}
+	#main_center_right_bottom_1  a {
+		text-decoration: none;
+		color: black;
+
 	}
 	
 
@@ -49,9 +58,14 @@
 			
 			<div id="main_center_right">
 				<div id="main_center_right_top">
+					<div id="main_center_right_bottom_1">
+						<button> <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
+						<button onclick="();">사용 가능 쿠폰</button>
+						<button onclick="pointBtn();">사용완료/ 기간만료</button>
+					</div>
 				</div>
 				<div id="main_center_right_bottom">
-			
+					
 				</div>
 			</div>
 		</div>
@@ -68,6 +82,40 @@
 		$(document).ready(() =>{ // 
 			couponList(cpage);
 		
+		})
+		
+		$(() => {
+			
+			$('#main_center_right_bottom').on('click', '.myCouponList' , e =>{
+				var couponNo = $(e.target).find('.couponNo').val();
+				if($(e.target).children().eq(2).text() == '발급 완료 된 쿠폰 입니다.'){
+					console.log($(e.target).children().eq(2).text());
+					alert('이미 발급된 쿠폰입니다.');
+					location.href = 'memberCouponList.me';
+				}else{
+
+					console.log(couponNo);
+					$.ajax({
+						url : 'insertCoupon.me',
+						type : 'post',
+						data : {
+							'memberNo' : 22,
+							couponNo : couponNo
+						},
+						success: result =>{
+							console.log(result);
+							result == 'YES' ? alert('쿠폰이 발급되었습니다.'):alert('발급 실패.');
+							location.href = 'memberCouponList.me';
+						},
+						error : () =>{
+							console.log('실패');
+						}
+						
+						
+					})
+				}
+				
+			})
 		})
 		
 		function couponList(){
@@ -90,10 +138,12 @@
 						
 						value +=' <div class="myCouponList">' 
 								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
-								if(perfomance > 100000){
-									
+								if(cList[i].memberNo != 0){
+									value += '<br><mark><b>발급 완료 된 쿠폰 입니다.</mark></b><br>';
+										
 								}
-								+ cList[i].couponName +'<br>';
+								
+								value += cList[i].couponName +'<br>';
 								if(cList[i].couponType == 1){
 									value += + cList[i].discount +'원<br>';
 								}else{
@@ -110,9 +160,11 @@
 											'최대 할인 금액 : ' + cList[i].maxPrice +'원<br>'
 											+ '최소 사용 금액 :  ' + cList[i].minPrice +'원<br>'
 											+ cList[i].startDate +' ~ '
-											+ cList[i].endDate +'<br>'
+											+ cList[i].endDate + '<br>'
 											+ '</div>';
+											
 								}
+							
 					}
 					$('#main_center_right_bottom').html(value);
 					

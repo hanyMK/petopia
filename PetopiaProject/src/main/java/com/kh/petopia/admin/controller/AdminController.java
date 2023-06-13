@@ -28,8 +28,6 @@ public class AdminController {
 	
 	@RequestMapping("memberList.ad")
 	public String memberList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-		//PageInfo pi = Pagination.getPageInfo(adminService.memberListCount(), currentPage, 10 , 5);
-		// model.addAttribute("pi",pi);
 		return "admin/adminMemberList"; 
 	}
 	
@@ -39,7 +37,6 @@ public class AdminController {
 		int month = now.getMonth()+1;
 		
 		int store = adminService.salesCheck();
-		System.out.println(store);
 		model.addAttribute("month", month);
 		model.addAttribute("store",store);
 		return "admin/adminSales";

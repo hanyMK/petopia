@@ -15,5 +15,7 @@ public class Coupon {
 	private String endDate; //END_DATE	DATE
 	private int maxPrice; //MAX_PRICE	NUMBER
 	private int minPrice; //MIN_PRICE	NUMBER
+	
+	private int memberNo;
 
 }

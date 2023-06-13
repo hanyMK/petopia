@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
@@ -81,34 +83,48 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myPointList", memberNo);
 	}
 	
+	public String getMemberRating(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("myPageMapper.getMemberRating", mno);
+	}
+	
 	public int couponListCount(SqlSessionTemplate sqlSession){
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi){
-		
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, Member member){
 		
 		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
-										null,
+										member,
 										new RowBounds(
 												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
 														pi.getBoardLimit()
 														));
 	}
 	
-	public int paymentPerfomanceToReservation(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToReservation", memberNo);
-	}
-	public int paymentPerfomanceToProduct(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.paymentPerfomanceToProduct", memberNo);
-	}
+
 
 	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
 	}
+	
+	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
+		return sqlSession.insert("myPageMapper.insertCouponToMember", coupon);
+	}
 
 	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);
+	}
+
+	public int insertChargePetpay(SqlSessionTemplate sqlSession, Petpay p) {
+		return sqlSession.insert("myPageMapper.insertChargePetpay", p);
+	}
+	
+	public int insertWithdrawPetpay(SqlSessionTemplate sqlSession, Petpay p) {
+		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
+	}
+
+	public ArrayList<AllOrders> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
 	}
 	
 	

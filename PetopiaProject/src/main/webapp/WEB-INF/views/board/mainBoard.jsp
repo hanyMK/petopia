@@ -116,7 +116,7 @@
 
         <br clear="both"><br>
 
-        <form id="searchForm" onsubmit="event.preventDefault(); selectList();" align="center">
+        <div id="searchForm" align="center">
             <div class="select">
                 <select class="custom-select" name="condition">
                     <option value="writer">작성자</option>
@@ -125,10 +125,10 @@
                 </select>
             </div>
             <div class="text">
-                <input type="text" class="form-control" name="keyword">
+                <input type="text" class="form-control" name="keyword" id="key">
             </div>
-            <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-        </form>
+            <button onclick="selectList(1);" class="searchBtn btn btn-secondary">검색</button>
+        </div>
 
         <br><br>
     </div>
@@ -142,6 +142,12 @@
 	let category = "${category}";
 	let cPage = ${pi.currentPage};
 	let filter = 'DATE';
+	let condition = $('select[name=condition]').val();
+	let keyword = $('#key').val();
+	
+	$("select[name=condition]").change(function(){
+		  condition = $('select[name=condition]').val();
+	});
 	
 	$(function(){ // 자바스크립트/제이쿼리 onload함수		
 		selectList(cPage);
@@ -173,14 +179,19 @@
 	    }
 	
 	function selectList(cPage) {
+		let keyword = $('#key').val();
 	    console.log(category);
-	    
+		console.log(condition);
+		console.log(keyword);
+		
 		$.ajax({
             url: 'list.bo',
             data: {
             		category : '${category}',
             		filter : filter,
-            		currentPage : cPage
+            		currentPage : cPage,
+            		keyword : keyword,
+            		condition : condition,
             		},
             success: result => {
                 let value = '';

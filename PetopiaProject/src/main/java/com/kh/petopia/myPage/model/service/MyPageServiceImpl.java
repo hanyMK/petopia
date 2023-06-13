@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
+import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
 import com.kh.petopia.myPage.model.vo.Alram;
@@ -99,6 +101,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<Petpay> myPetpayList(int memberNo) {
 		return myPageDao.myPetpayList(sqlSession,memberNo);
 	}
+	
+	@Override
+	public String getMemberRating(int mno) {
+		return myPageDao.getMemberRating(sqlSession, mno);
+	}
+
 
 	@Override
 	public ArrayList<Point> myPointList(int memberNo) {
@@ -111,19 +119,15 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi) {
-		return myPageDao.memberCouponList(sqlSession, pi);
+	public ArrayList<Coupon> memberCouponList(PageInfo pi,  Member member) {
+		return myPageDao.memberCouponList(sqlSession, pi, member);
+	}
+	
+	@Override
+	public int insertCouponToMember(Coupon coupon) {
+		return myPageDao.insertCouponToMember(sqlSession, coupon);
 	}
 
-	@Override
-	public int paymentPerfomanceToProduct(int memberNo) {
-		return myPageDao.paymentPerfomanceToProduct(sqlSession, memberNo);
-	}
-
-	@Override
-	public int paymentPerfomanceToReservation(int memberNo) {
-		return myPageDao.paymentPerfomanceToReservation(sqlSession, memberNo);
-	}
 
 	@Override
 	public ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map) {
@@ -135,5 +139,22 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.pointStatusList(sqlSession, map);
 	}
 
+	@Override
+	public int insertChargePetpay(Petpay p) {
+		return myPageDao.insertChargePetpay(sqlSession, p);
+	}
+
+	@Override
+	public int insertWithdrawPetpay(Petpay p) {
+		return myPageDao.insertWithdrawPetpay(sqlSession, p);
+	}
+
+	@Override
+	public ArrayList<AllOrders> myReviewList(int memberNo) {
+		return myPageDao.myReviewList(sqlSession,memberNo);
+	}
+
+
+	
 
 }
