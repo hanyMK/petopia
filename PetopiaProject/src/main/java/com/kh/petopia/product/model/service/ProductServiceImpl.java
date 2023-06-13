@@ -2,7 +2,6 @@ package com.kh.petopia.product.model.service;
 
 import java.util.ArrayList;
 
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,8 @@ public class ProductServiceImpl implements ProductService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public ArrayList<Product> selectProductList() {
-		return productDao.selectProductList(sqlSession);
+	public ArrayList<Product> selectProductList(String category) {
+		return productDao.selectProductList(sqlSession, category);
 	}
 
 	@Override
@@ -45,17 +44,30 @@ public class ProductServiceImpl implements ProductService {
 		int result1 = productDao.insertProduct(sqlSession, p);
 		int result2 = productDao.insertThumbnailProduct(sqlSession, atmtThumbnail);
 		int result3 = productDao.insertDetailProduct(sqlSession, atmtDetail);
+		int result4 = 0;
 		
-		System.out.println(p);
-		System.out.println(atmtThumbnail);
-		System.out.println(atmtDetail);
-		
-		if(result1 * result2 * result3 > 0) {
-			return result1 * result2 * result3;
+		if(p.getNoSize() == null) {
+			if(result1 * result2 * result3 > 0) {
+				result4 = productDao.insertProductSize(sqlSession, p);
+				if(result1 * result2 * result3 * result4 > 0) {
+					return result1 * result2 * result3 * result4;
+				} else {
+					sqlSession.rollback();
+					return result1 * result2 * result3 * result4;
+				}
+			} else {
+				sqlSession.rollback();
+				return result1 * result2 * result3;
+			}
 		} else {
-			sqlSession.rollback();
-			return result1 * result2 * result3;
+			if(result1 * result2 * result3 > 0) {
+				return result1 * result2 * result3;
+			} else {
+				sqlSession.rollback();
+				return result1 * result2 * result3;
+			}
 		}
+		
 	}
 	
 	@Override

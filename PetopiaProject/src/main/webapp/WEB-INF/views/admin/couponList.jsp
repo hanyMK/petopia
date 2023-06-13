@@ -80,7 +80,6 @@
 				<table class="coupon-list-table" align="center">
                     <thead>
                         <tr>
-                         
 							<th width="240px" align="center">쿠폰 타입</th>
                             <th width="240px" align="center">할인율(액)</th>
                             <th width="500px" align="center">쿠폰이름</th>

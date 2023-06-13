@@ -64,6 +64,7 @@
 		<result column="MAX_PRICE"   property="maxPrice"/>
 		<result column="MIN_PRICE"   property="minPrice"/>
 		<result column="MEMBER_NO"   property="memberNo"/>
+		<result column="MEMBER_COUPON_STATUS"  property="memberCouponStatus"/>
 	</resultMap>
 	
 	<resultMap type="petpay" id="petpayResultSet">
@@ -467,6 +468,35 @@
   		AND MEMBER_COUPON_STATUS = 'Y'
 		 
 	</select>
+	<!-- 사용상태에 따른  쿠폰리스트 -->
+	<select id="selectAvailableCoupon" resultMap="couponResultSet" parameterType="_int">
+		SELECT 
+		        C.COUPON_NO,
+		        COUPON_NAME,
+		        COUPON_TYPE,
+		        DISCOUNT,
+				SUBSTR(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 1, 10) START_DATE,
+				SUBSTR(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 1, 10) END_DATE,
+		        MAX_PRICE,
+		        MIN_PRICE,
+				CASE WHEN (MEMBER_COUPON_STATUS = 'U')
+				     THEN '사용완료'
+				     WHEN  (MEMBER_COUPON_STATUS = 'Y')
+				     THEN '사용가능'
+				     WHEN ( TO_CHAR(END_DATE) > TO_CHAR(SYSDATE))
+				     THEN '기간 만료'
+				     END AS MEMBER_COUPON_STATUS
+		  FROM
+		        COUPON C
+		  JOIN 
+		        MEMBER_COUPON  MC ON (C.COUPON_NO = MC.COUPON_NO )
+		 WHERE 
+		        MEMBER_NO = #{ memberNo}
+		  ORDER
+		  	 BY  END_DATE DESC
+		  	 	
+	</select>
+	
 	<insert id="insertCouponToMember" parameterType="coupon">
 		INSERT INTO MEMBER_COUPON
 		(MEMBER_NO,COUPON_NO)

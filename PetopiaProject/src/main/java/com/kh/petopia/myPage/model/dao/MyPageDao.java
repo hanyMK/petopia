@@ -101,15 +101,20 @@ public class MyPageDao {
 														));
 	}
 	
+	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
+		return sqlSession.insert("myPageMapper.insertCouponToMember", coupon);
+	}
+
+	public ArrayList<Coupon> selectAvailableCoupon(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectAvailableCoupon", memberNo);
+	}
+	
 
 
 	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
 	}
 	
-	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
-		return sqlSession.insert("myPageMapper.insertCouponToMember", coupon);
-	}
 
 	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);

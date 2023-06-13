@@ -11,13 +11,15 @@ import com.kh.petopia.product.model.vo.Product;
 @Repository
 public class ProductDao {
 	
-	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession){
-		return (ArrayList)sqlSession.selectList("productMapper.selectProductList");
+	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession, String category){
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductList", category);
 	}
-	
 	// OverLoading( 상품정보 insert )
 	public int insertProduct(SqlSessionTemplate sqlSession, Product p) {
 		return sqlSession.insert("productMapper.insertProduct", p);
+	}
+	public int insertProductSize(SqlSessionTemplate sqlSession, Product p) {
+		return sqlSession.insert("productMapper.insertProductSize", p);
 	}
 	
 	public int insertThumbnailProduct(SqlSessionTemplate sqlSession, Attachment atmtThumbnail) {

@@ -97,6 +97,14 @@ public class AjaxMyPageController {
 	}
 	
 	
+	@RequestMapping(value="availableCoupon.me", produces="application/json; charset=UTF-8")
+	public String selectAvailableCoupon(int memberNo) {
+		ArrayList<Coupon> list = myPageService.selectAvailableCoupon(memberNo);
+		System.out.println(list);
+		
+		return new Gson().toJson(list);
+	}
+	
 	
 	
 	
