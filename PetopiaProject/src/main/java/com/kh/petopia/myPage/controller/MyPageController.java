@@ -32,8 +32,8 @@ public class MyPageController {
 	
 	// 마이페이지 게시글 조회
 	@RequestMapping("myBoard.me")
-	public String myBoardList(int mno, Model model) {
-		model.addAttribute("list", myPageService.myBoardList(mno));
+	public String myBoardList() {
+		//model.addAttribute("list", myPageService.myBoardList(mno));
 		return "myPage/myBoardList";
 	}
 	
