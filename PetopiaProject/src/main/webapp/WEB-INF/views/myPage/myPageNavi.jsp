@@ -62,7 +62,7 @@
         <ul class="myPage_navi_category">
         	<li><a href=""><h5><b>주문/결제</b></h5></a></li>
         	<li><a href=""><h6>예약조회</h6></a></li>
-        	<li><a href=""><h6>주문/배송 조회</h6></a></li>
+        	<li><a href="orderList.me?cpage=1"><h6>주문/배송 조회</h6></a></li>
         	<li><a href="myPetpayPoint.me?mno=${ loginMember.memberNo }"><h6>펫페이/포인트 조회</h6></a></li>
         </ul>
         <ul class="myPage_navi_category">

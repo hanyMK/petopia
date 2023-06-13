@@ -167,9 +167,9 @@
 											+ cList[i].endDate + '<br>'
 											+ '</div>';
 											
-										}
+								}
 										
-						
+						}
 					}
 						$('#main_center_right_bottom').html(value);
 					
@@ -198,11 +198,11 @@
 										+'<tr>'
 											+'<th width="500px" align="center">쿠폰이름</th>'
 											+'<th width="240px" align="center">할인율(액)</th>'
-											+'<th width="340px" align="center">시작일</th>'
-											+'<th width="340px" align="center">종료일 </th>'
+											+'<th width="340px" align="center">사용시작일</th>'
+											+'<th width="340px" align="center">사용종료일 </th>'
 											+'<th width="440px" align="center">최대할인금액 </th>'
 											+'<th width="440px" align="center">최소사용금액  </th>'
-											+'<th width="240px" align="center">사용가능 여부 </th>'
+											+'<th width="500px" align="center">사용가능 여부 </th>'
 										+'</tr>'
 									+'</thead>'
 									+'<tbody>'
@@ -243,9 +243,16 @@
 													;
 													
 										}
-							value += '<td>' + cList[i].memberCouponStatus + '</td>'
-									+'</tr>'
-									;
+										if(cList[i].memberCouponStatus == '사용가능'){
+											value += '<td><mark>' + cList[i].memberCouponStatus + '</mark></td>'
+													+'</tr>'
+													;
+										}else{
+											value += '<td>' + cList[i].memberCouponStatus + '</td>'
+													+'</tr>'
+													;
+										}
+							
 								}
 							}//for문 끝
 					value +='</tbody>'
@@ -259,12 +266,6 @@
 				}
 			})
 		}
-		//사용완료
-		function usedCoupon(){
-			
-		}
-
-
 
 		
 	</script>
