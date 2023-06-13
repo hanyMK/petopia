@@ -41,16 +41,12 @@ public class ProductController {
 	public String productInsert(String category, 
 			                    Product p, 
 			                    Attachment atmt, 
-			                    MultipartFile thumbnail,
-			                    MultipartFile detail,
+			                    MultipartFile thumbnail, 
+			                    MultipartFile detail, 
 			                    HttpSession session) {
 		
-		p.setCategoryName(category);
-		
-		System.out.println(category);
 		System.out.println(p);
-		System.out.println(thumbnail);
-		System.out.println(detail);
+		p.setCategoryName(category);
 		
 		Attachment atmtThumbnail = new Attachment();
 		Attachment atmtDetail = new Attachment();

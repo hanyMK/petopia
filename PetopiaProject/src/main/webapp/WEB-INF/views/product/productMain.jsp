@@ -135,7 +135,7 @@
 	</div>
 
 	<div id="product_select_category_div">
-		<button>전체</button>
+		<button id="all">전체</button>
 		<button id="goods">애견용품</button>
 		<button id="food">애견식품</button>
 		<button id="clothes">애견의류</button>
@@ -182,6 +182,9 @@
 	</script>
 
 	<script>
+
+		let category = 'all';
+
 		$(function(){ // 화면에 오자마자 실행되는 함수 selectProductList()메소드 호출
 			selectProductList(); // AJAX List를 뜨워주는 메소드
 		})
@@ -189,6 +192,9 @@
 		function selectProductList(){ // AJAX List
 			$.ajax({
 				url : 'productAjax.pd',
+				data : {
+					category : category
+				},
 				success : function(list){
 					
 					var value = '';
@@ -229,12 +235,22 @@
 	</script>
 
 	<script>
+		$('#all').click(function(){
+			category = 'all';
+			selectProductList();
+		})
 		$('#goods').click(function(){
-			$.ajax({
-				url : '.pd',
-				data : $(this).text()
-			});
-		});
+			category = 'goods';
+			selectProductList();
+		})
+		$('#food').click(function(){
+			category = 'food';
+			selectProductList();
+		})
+		$('#clothes').click(function(){
+			category = 'clothes';
+			selectProductList();
+		})
 	</script>
 </body>
 </html>

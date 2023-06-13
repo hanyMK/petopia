@@ -46,9 +46,6 @@
         width: 300px;
         height: 300px;
     }
-    .size_checkbox{
-        display: none;
-    }
 </style>
 <title>상품 등록</title>
 </head>
@@ -67,10 +64,11 @@
                         </select> <br><br>
                 제목    <input type="text" name="productTitle" id="input_title"> <br><br>
                 가격    <input type="number" name="productPrice" id="input_price"> <br><br>
-                <input type="checkbox" name="noSize" class="size_checkbox"> <span class="size_checkbox">선택안함</span><br>
-                <input type="checkbox" name="sSize" class="size_checkbox"> <span class="size_checkbox">S</span><br>
-                <input type="checkbox" name="mSize" class="size_checkbox"> <span class="size_checkbox">M</span><br>
-                <input type="checkbox" name="lSiez" class="size_checkbox"> <span class="size_checkbox">L</span><br>
+                사이즈 <input type="text" disabled> <br><br>
+                <input type="hidden">
+                <button type="button" name="smallSize" id="smallSize">S</button>
+                <button type="button" name="mediumSize" id="mediumSize">M</button>
+                <button type="button" name="largeSize" id="largeSize">L</button>
                 <br>
                 <br>
                 썸네일 사진 넣기 <input type="file" name="thumbnail" onchange="thumbnailReadURL(this)">
@@ -120,14 +118,9 @@
     </script>
 
     <script>
-        $('#product_category').change(function(){
-            if($(this).val() == '애견의류'){
-                $('.size_checkbox').css('display','inline-block');
-            } else {
-                $('.size_checkbox').css('display','none');
-            }
+        $('#smallSize').click(function(){
+            
         })
-
     </script>
 
     <jsp:include page="../common/footer.jsp"/>
