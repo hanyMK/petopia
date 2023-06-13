@@ -33,11 +33,11 @@
 	#main_center_right_bottom_1 {
 		height:10%;
 		text-align:center;
+		border: none;
 	}
 	#main_center_right_bottom_1  a {
 		text-decoration: none;
 		color: black;
-
 	}
 	
 
@@ -60,8 +60,8 @@
 				<div id="main_center_right_top">
 					<div id="main_center_right_bottom_1">
 						<button> <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
-						<button onclick="();">사용 가능 쿠폰</button>
-						<button onclick="pointBtn();">사용완료/ 기간만료</button>
+						<button onclick="availableCoupon();">사용 가능 쿠폰</button>
+						<button onclick="usedCoupon();">사용완료/ 기간만료</button>
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
@@ -99,7 +99,7 @@
 						url : 'insertCoupon.me',
 						type : 'post',
 						data : {
-							'memberNo' : 22,
+							'memberNo' : ${ sessionScope.loginMember.memebrNo},
 							couponNo : couponNo
 						},
 						success: result =>{
@@ -124,7 +124,7 @@
 				url : 'couponList.me',
 				type : 'post',
 				data :{
-					memberNo: 22,
+					memberNo: ${ sessionScope.loginMember.memebrNo},
 					cpage: 1
 				},
 				success: result => {
@@ -143,7 +143,7 @@
 										
 								}
 								
-								value += cList[i].couponName +'<br>';
+								value += '<b>' + cList[i].couponName +'</b><br>';
 								if(cList[i].couponType == 1){
 									value += + cList[i].discount +'원<br>';
 								}else{
@@ -173,6 +173,28 @@
 					console.log('실패');
 				}
 			});
+			
+			
+			//이미 발급 완료된 쿠폰
+			function availableCoupon(){
+				$.ajax({
+					url: 'availableCoupon.me',
+					type: 'get',
+					data: {
+						memberNo: ${ sessionScope.loginMember.memebrNo}
+					},
+					success: result => {
+						console.log(result);
+					},
+					error: () =>{
+						console.log('실패');
+					}
+				})
+			}
+			//사용완료
+			function usedCoupon(){
+				
+			}
 		}
 
 

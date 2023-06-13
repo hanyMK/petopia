@@ -97,6 +97,14 @@ public class AjaxMyPageController {
 	}
 	
 	
+	@RequestMapping("availableCoupon.me")
+	public String selectAvailableCoupon(int memberNo) {
+		ArrayList<Coupon> list = myPageService.selectAvailableCoupon(memberNo);
+		System.out.println(list);
+		
+		return null;
+	}
+	
 	
 	
 	

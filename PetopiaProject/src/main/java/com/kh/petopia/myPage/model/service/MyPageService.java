@@ -70,7 +70,9 @@ public interface MyPageService {
 	//회원 쿠폰 발급
 	//만약 이미 발급 받은 쿠폰인 경우 목록에 표시 및 선택 불가능
 	int insertCouponToMember(Coupon coupon);
-
+	
+	//사용완료, 사용가능, 사용기간 만료 쿠폰 리스트 조회
+	ArrayList<Coupon> selectAvailableCoupon(int memberNo);
 
 	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
 
