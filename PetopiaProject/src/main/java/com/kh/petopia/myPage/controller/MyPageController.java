@@ -1,19 +1,18 @@
 package com.kh.petopia.myPage.controller;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.petopia.myPage.model.service.MyPageService;
-import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
-import com.kh.petopia.myPage.model.vo.MyPage;
+import com.kh.petopia.myPage.model.vo.Petpay;
 
 @Controller
 public class MyPageController {
@@ -107,39 +106,17 @@ public class MyPageController {
 		return "myPage/myReviewList";
 	}
 	
-//	
-//	
-//	//마이페이지 쿠폰 조회
-//	@RequestMapping("memberCouponList.me")
-//	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") 
-//											int currentPage, 
-//											int memberNo,
-//											ModelAndView mv) {
-//		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
-//		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
-//		
-//		ArrayList<Coupon> cList = myPageService.memberCouponList(pi);
-//		//System.out.println(cList);
-//		//전월 실적 조회
-////		HashMap<String, Object> map = new HashMap<>();		
-//	int result = myPageService.paymentPerfomanceToProduct(memberNo) +  myPageService.paymentPerfomanceToReservation(memberNo);
-////		if(!cList.isEmpty() && result != 0) {
-////			map.put("cList", cList);
-////			map.put("result", result);
-////			map.put("pi", pi);
-////		}
-//		mv.addObject("cList", cList)
-//		.addObject("pi", pi)
-//		.addObject("result", result)
-//		.setViewName("myPage/memberCouponList");
-//		System.out.println(map.get("cList") +"  /  "+ map.get("result"));
-//		
-//		return  new Gson().toJson(map);
-//		
-//
-//		
-//	}
-//	
+	@RequestMapping("orderList.me")
+	public ModelAndView selectOrderList(int currentPage,
+										ModelAndView mv,
+										HttpSession session) {
+		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
+		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
+		
+		
+		
+		return mv;
+	}
 	
 
 	

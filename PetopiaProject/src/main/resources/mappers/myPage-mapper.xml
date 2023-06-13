@@ -617,6 +617,15 @@
 	      RECEIPT_DATE BETWEEN TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))
 	</select>
 	
+	<select id="orderListCount" resultType="_int" parameterType="_int">
+		SELECT
+		        COUNT(*)
+	      FROM
+	            PRODUCT_RECEIPT
+	     WHERE 
+		        MEMBER_NO = #{memberNo}
+	</select>
+	
 	
 
 </mapper>
