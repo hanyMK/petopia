@@ -28,7 +28,7 @@
 		<typeAlias type="com.kh.petopia.product.model.vo.ProductReceipt" alias="productReceipt"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Point" alias="point"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Petpay" alias="petpay"/>
-		<typeAlias type="com.kh.petopia.common.model.vo.AllOrders" alias="allOrders"/>
+		<typeAlias type="com.kh.petopia.myPage.model.vo.AllReviews" alias="allReviews"/>
 
 	</typeAliases>
 	

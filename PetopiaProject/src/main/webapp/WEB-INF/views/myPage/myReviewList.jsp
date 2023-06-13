@@ -51,13 +51,35 @@
 				</div>
 				<div id="main_center_right_bottom">
 					<c:forEach items="${ list }" var="r">
-						<div id="myReviewList">
-							상품 : ${ r.productTitle }<br>
-							결제금액 : ${ r.productFinalPrice } 수량 : ${ r.amount }<br>
-							배송상태 : ${ r.shippingStatus }<br>
-							결제일자 : ${ r.receiptDate }<br>
-							<a href=""><h6>리뷰 작성하기</h6></a>
-						</div><br>
+						<!-- reviewNo = 0 이면 리뷰 작성 전 -->
+						<c:if test="${ r.reviewNo eq 0 }">
+							<div id="myReviewList">
+								<!-- 상품리뷰인 경우 -->
+								<c:choose>
+									<c:when test="${ not empty r.shippingStatus }">
+										상품 : ${ r.title }<br>
+										결제금액 : ${ r.finalPrice } 수량 : ${ r.details }<br>
+										배송상태 : ${ r.shippingStatus }<br>
+										결제일자 : ${ r.receiptDate }<br>
+										<a href="insertProductReview.me"><h6>리뷰 작성하기</h6></a>
+									</c:when>
+									<c:otherwise>
+										예약 : ${ r.title }<br>
+										예약금액 : ${ r.finalPrice } 선생님 : ${ r.details }<br>
+										<!-- 호텔, 훈련 예약인 경우 checkInOut -->
+										<c:choose>
+											<c:when test="${ not empty r.checkInOut }">
+												예약일자 : ${ r.checkInOut }<br>
+											</c:when>
+											<c:otherwise>
+												예약일자 : ${ r.receiptDate }<br>
+											</c:otherwise>
+										</c:choose>
+										<a href="insertReservationReview.me"><h6>리뷰 작성하기</h6></a>
+									</c:otherwise>
+								</c:choose>
+							</div><br>
+						</c:if>
 		            </c:forEach>					
 				</div>
 			</div>

@@ -6,10 +6,10 @@ import java.util.HashMap;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
-import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
+import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
@@ -80,7 +80,7 @@ public interface MyPageService {
 
 	int insertWithdrawPetpay(Petpay p);
 
-	ArrayList<AllOrders> myReviewList(int mno);
+	ArrayList<AllReviews> myReviewList(int mno);
 
 	
 

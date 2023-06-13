@@ -1,0 +1,24 @@
+package com.kh.petopia.myPage.model.vo;
+
+import java.sql.Date;
+
+public class AllReviews {
+	
+	private int memberNo;
+	private int finalPrice;
+	private String checkInOut;
+	private String details;
+	private String title;
+	private String shippingStatus;
+	private Date receiptDate;
+	private int reviewNo;
+
+//	MEMBER_NO
+//	FINAL_PRICE
+//	CHECK_IN_OUT
+//	DETAILS
+//	TITLE
+//	SHIPPING_STATUS
+//	RECEIPT_DATE
+//	REVIEW_NO
+}

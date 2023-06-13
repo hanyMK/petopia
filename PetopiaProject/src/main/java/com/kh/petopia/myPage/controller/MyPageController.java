@@ -103,9 +103,12 @@ public class MyPageController {
 	
 	@RequestMapping("myReview.me")
 	public String myReviewList(int mno, Model model) {
+		System.out.println(mno);
 		model.addAttribute("list", myPageService.myReviewList(mno));
+		System.out.println(myPageService.myReviewList(mno));
 		return "myPage/myReviewList";
 	}
+	
 	
 //	
 //	
