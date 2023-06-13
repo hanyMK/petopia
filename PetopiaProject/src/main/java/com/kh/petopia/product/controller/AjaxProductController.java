@@ -22,8 +22,8 @@ public class AjaxProductController {
 	
 	@ResponseBody
 	@RequestMapping(value="productAjax.pd", produces="application/json; charset=UTF-8")
-	public String selectProductList() {
-		ArrayList<Product> list = productService.selectProductList();
+	public String selectProductList(String category) {
+		ArrayList<Product> list = productService.selectProductList(category);
 		return new Gson().toJson(list);
 	}
 	

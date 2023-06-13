@@ -11,7 +11,7 @@ public interface ProductService {
 
 	// 메인 상품 조회 (select)
 	// 메인 카테고리 상품 조회
-	ArrayList<Product> selectProductList();
+	ArrayList<Product> selectProductList(String category);
 	
 //	SQL => 해결
 //	if(Category.equals('전체')) {

@@ -46,7 +46,21 @@
 		 where 
 		       file_category = 1 
 		   and 
-		       file_level = 0 
+		       file_level = 0
+		  <choose>
+		  	<when test="category.equals('clothes')">
+		  		and category_name = '애견의류'
+		  	</when>
+		  	<when test="category.equals('goods')">
+		  		and category_name = '애견용품'
+		  	</when>
+		  	<when test="category.equals('food')">
+		  		and category_name = '애견식품'
+		  	</when>
+		  	<otherwise>
+		  		
+		  	</otherwise>
+		  </choose>
          order 
             by 
                product_date desc
@@ -70,6 +84,23 @@
 		               #{productPrice},
 		               #{categoryName}
 		               )
+	</insert>
+	
+	<insert id="insertProductSize" parameterType="product">
+		insert all 
+			<if test="smallSize">
+				into product_size (product_no, product_size, extra_money) 
+				values(SEQ_PRODUCT_NO.CURRVAL, 'S', 0)
+			</if>
+			<if test="mediumSize">
+				into product_size (product_no, product_size, extra_money) 
+				values(SEQ_PRODUCT_NO.CURRVAL, 'M', 2000)
+			</if>
+			<if test="largeSize">
+				into product_size (product_no, product_size, extra_money) 
+				values(SEQ_PRODUCT_NO.CURRVAL, 'L', 4000)
+			</if>
+		select * from dual
 	</insert>
 	<!-- 상품 이미지 insert문 -->
 	<insert id="insertThumbnailImgProduct" parameterType="att">
