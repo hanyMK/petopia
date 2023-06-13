@@ -104,7 +104,6 @@ public class MyPageController {
 	public String myReviewList(int mno, Model model) {
 		System.out.println(mno);
 		model.addAttribute("list", myPageService.myReviewList(mno));
-		System.out.println(myPageService.myReviewList(mno));
 		return "myPage/myReviewList";
 	}
 	
@@ -114,9 +113,6 @@ public class MyPageController {
 										HttpSession session) {
 		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
 		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-		
-		
-		
 		return mv;
 	}
 	

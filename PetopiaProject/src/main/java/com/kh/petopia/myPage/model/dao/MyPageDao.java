@@ -129,7 +129,6 @@ public class MyPageDao {
 	}
 
 	public ArrayList<AllReviews> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
-		System.out.println("웨않되?");
 		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
 	}
 	
