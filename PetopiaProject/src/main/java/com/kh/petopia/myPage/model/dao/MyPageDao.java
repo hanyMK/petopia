@@ -106,7 +106,7 @@ public class MyPageDao {
 	}
 
 	public ArrayList<Coupon> selectAvailableCoupon(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.insertCouponToMember", memberNo);
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectAvailableCoupon", memberNo);
 	}
 	
 

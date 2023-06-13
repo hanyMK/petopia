@@ -17,5 +17,6 @@ public class Coupon {
 	private int minPrice; //MIN_PRICE	NUMBER
 	
 	private int memberNo;
+	private String memberCouponStatus;//MEMBER_COUPON_STATUS
 
 }

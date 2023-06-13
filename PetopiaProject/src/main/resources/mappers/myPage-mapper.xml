@@ -64,6 +64,7 @@
 		<result column="MAX_PRICE"   property="maxPrice"/>
 		<result column="MIN_PRICE"   property="minPrice"/>
 		<result column="MEMBER_NO"   property="memberNo"/>
+		<result column="MEMBER_COUPON_STATUS"  property="memberCouponStatus"/>
 	</resultMap>
 	
 	<resultMap type="petpay" id="petpayResultSet">
@@ -466,7 +467,7 @@
 		 
 	</select>
 	<!-- 사용상태에 따른  쿠폰리스트 -->
-	<select id="">
+	<select id="selectAvailableCoupon" resultMap="couponResultSet" parameterType="_int">
 		SELECT 
 		        C.COUPON_NO,
 		        COUPON_NAME,
