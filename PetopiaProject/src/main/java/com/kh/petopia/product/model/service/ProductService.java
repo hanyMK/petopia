@@ -6,6 +6,7 @@ import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 public interface ProductService {
 
@@ -32,6 +33,8 @@ public interface ProductService {
 	Product productSelectDetail(int productNo);
 	
 	Product productSelectDetailPage(int productNo);
+	
+	ArrayList<Product> productSelectSize(int productNo);
 	
 	// 상품 문의 조회 (select) board
 	ArrayList<Ask> selectAskList(int productNo);
@@ -100,11 +103,14 @@ public interface ProductService {
 	
 	// 장바구니 (insert)(delete)(select)
 	// 로그인 유무 / 비로그인시 장바구니 클릭시 로그인 모달띄우기 로그인 O DB에 저장 시키기
-		int insertCart(int productNo);
+		
+		int insertCart(Cart cart);
 		
 		int deleteCart(int productNo);
 		
 		ArrayList<Cart> selectCart(int memberNo);
+		
+//		ArrayList<Product> selectProductInfo(int productNo);
 		
 	// 상품 결제 (insert)
 		

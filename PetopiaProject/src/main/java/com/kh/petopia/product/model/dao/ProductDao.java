@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
 
 @Repository
@@ -37,4 +38,13 @@ public class ProductDao {
 	public Product productSelectDetailPage(SqlSessionTemplate sqlSession, int bno) {
 		return sqlSession.selectOne("productMapper.selectDetailPage", bno);
 	}
+	
+	public ArrayList<Product> productSelectSize(SqlSessionTemplate sqlSession, int bno) {
+		return (ArrayList)sqlSession.selectList("productMapper.productSelectSize", bno);
+	}
+	// 장바구니 > memNo >
+	public int insertCart(SqlSessionTemplate sqlSession, Cart cart) {
+		return sqlSession.insert("productMapper.insertCart", cart);
+	}
+	
 }

@@ -18,6 +18,7 @@ import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @RestController
 @Controller
@@ -100,9 +101,9 @@ public class AjaxMyPageController {
 	@RequestMapping(value="availableCoupon.me", produces="application/json; charset=UTF-8")
 	public String selectAvailableCoupon(int memberNo) {
 		ArrayList<Coupon> list = myPageService.selectAvailableCoupon(memberNo);
-		System.out.println(list);
+		//System.out.println(list);
 		
-		return new Gson().toJson(list);
+		return !list.isEmpty()?  new Gson().toJson(list): null;
 	}
 	
 	
@@ -150,6 +151,22 @@ public class AjaxMyPageController {
 	public String myReviewList(int mno) {
 		return new Gson().toJson(myPageService.myReviewList(mno));
 	}
+	/**
+	 * 회원 주문 배송 내역 조회 매소드
+	 * @param memberNo : where 조건절에 입려력할 회원 번호
+	 * @param currentPage : 페이징 처리를 위한 현재 페이지
+	 * @return
+	 */
+	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
+	public String selectOrderList(int memberNo, 
+								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
+		
+		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
+		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
+		
+		return !list.isEmpty()? new Gson().toJson(list):"NO";
+	}
+	
 	
 	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
 	public String myReviewEndList(int mno) {

@@ -51,7 +51,13 @@
 	</resultMap>
 	
 	<resultMap id="productReceiptResultSet" type="productReceipt">
-		<result column="shipping_status"	property="shippingStatus" />
+		<result column="SIPPING_STATUS"	property="shippingStatus" />
+		<result column="RECEIPT_NO"	property="receiptNo" />
+		<result column="MEMBER_NO"	property="MEMBER_NO" />
+		<result column="COUPON_NO"	property="couponNo" />
+		<result column="POINT"	property="point" />
+		<result column="SHIPPING_NO"	property="shippingNo" />
+		<result column="PRODUCT_TITLE"	property="productTitle" />
 	</resultMap>
 	
 	<resultMap type="coupon" id="couponResultSet">
@@ -674,7 +680,34 @@
 	     WHERE 
 		        MEMBER_NO = #{memberNo}
 	</select>
-	
+	<select id="selectOrderList" resultMap="productReceiptResultSet" parameterType="_int">
+		SELECT
+		       MEMBER_NO,
+		       CASE 
+		       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		       THEN AMOUNT * PRODUCT_PRICE - POINT - C.DISCOUNT
+		       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		       THEN AMOUNT * PRODUCT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+		       ELSE  AMOUNT * PRODUCT_PRICE - POINT
+		       END PRODUCT_PRICE,
+		       P.PRODUCT_TITLE,
+		       S.SHIPPING_STATUS
+		  FROM
+		       PRODUCT_BRIDGE PB
+		  JOIN 
+		       VIEW_PRODUCT_RECEIPT PR ON(pb.receipt_no  = PR.receipt_no)
+		  JOIN 
+		       SHIPPING S ON(S.SHIPPING_NO = PR.SHIPPING_NO)
+		  JOIN 
+		       PRODUCT P ON(P.PRODUCT_NO = PB.PRODUCT_NO)
+		  LEFT 
+		       JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+		  WHERE 
+		       MEMBER_NO = #{memberNo}
+		  ORDER 
+	         BY
+		      RECEIPT_DATE DESC
+	</select>
 	
 
 </mapper>

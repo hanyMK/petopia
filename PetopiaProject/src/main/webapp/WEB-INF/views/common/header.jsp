@@ -134,7 +134,8 @@
         #main{
 		box-sizing: border-box;
 		width: 100%;
-		height: 1000px;
+		/* height: 1000px; */
+		height : 1500px;
 		margin: auto;
 		}
 	
@@ -201,7 +202,10 @@
 			text-align: center;
 			font-size: 12px;
 		}
-			
+		#cartIcon{
+			height: 30px;
+			width: 30px;
+		}
 		
     </style>
 
@@ -359,6 +363,8 @@
         }
         
     }
+ 	
+ 	
     </script>
 </body>
 </html>
