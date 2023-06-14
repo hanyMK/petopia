@@ -273,9 +273,6 @@
 	                  <div id="alram_box" > 					               
 						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
-	                  <div>
-	                  	<a href="productCart.pd"><img id="cartIcon" src="resources/images/iconCart.png"	></a>
-	                  </div>
                   </c:otherwise>
                </c:choose>
                
@@ -364,8 +361,6 @@
         }
         
     }
- 	
- 	
     </script>
 </body>
 </html>
