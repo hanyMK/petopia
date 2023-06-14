@@ -202,7 +202,10 @@
 			text-align: center;
 			font-size: 12px;
 		}
-			
+		#cartIcon{
+			height: 30px;
+			width: 30px;
+		}
 		
     </style>
 
@@ -271,7 +274,7 @@
 						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
 	                  <div>
-	                  	<a onclick="cartPage();" id="cartBtn"><img src="resources/images/cartIcon.jpg.png"></a>
+	                  	<a href="productCart.pd"><img id="cartIcon" src="resources/images/iconCart.png"	></a>
 	                  </div>
                   </c:otherwise>
                </c:choose>
@@ -362,13 +365,6 @@
         
     }
  	
- 	// 장바구니 버튼
- 	function cartPage(){
- 		$('#cartBtn').click(function(){
- 			location.href="productCart.pd";
- 		})
- 		
- 	}
  	
     </script>
 </body>
