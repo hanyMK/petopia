@@ -161,24 +161,24 @@
 			}
 			
 		/* 헤더 알람 / 페이 */
-		#alram_box, #pay_box {
+		#alram_box, #pay_box{
 			display: none;
 			vertical-align: bottom;
 			position: absolute;
 			z-index: 2;
 		}
 		
-		#alramIcon, #payIcon {
+		#alramIcon, #payIcon, #cartIcon{
 			background-color:transparent;
 			border:0px;
 			padding-right:15px;
 		}
 		
-		#alramIcon:hover, #payIcon:hover {
+		#alramIcon:hover, #payIcon:hover, #cartIcon:hover {
 			cursor: pointer;
 		}
 		
-		#alramIframe, #payIframe {
+		#alramIframe, #payIframe{
 			width:300px;
 			height:500px;
 			background-color:white;
@@ -258,6 +258,7 @@
                       <!-- 로그인 전 -->
                       <button class="fa-regular fa-credit-card fa-2x" id="payIcon"></button>
                       <button class="fa-regular fa-bell fa-2x" id="alramIcon"></button>
+                      <button class="fa-solid fa-cart-shopping"></button>
                   </c:when>
                   <c:otherwise>
                   	  <!-- 알림, 페이 아이콘-->
@@ -269,6 +270,7 @@
 	                  <div id="alram_box" > 					               
 						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
+	                  <button class="fa-solid fa-cart-shopping" id="cartIcon"></button>
                   </c:otherwise>
                </c:choose>
                

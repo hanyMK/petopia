@@ -65,6 +65,7 @@
 	$(document).ready(function(){
 		myBoardList();
 	})
+	
 	function myBoardList() {
 		
 		$.ajax({
@@ -85,7 +86,7 @@
 				
 			},
 			error : function() {
-				console.log('AJAX 댓글 조회 실팽이');
+				console.log('AJAX 조회 실팽이');
 			}
 		});
 		
@@ -111,7 +112,7 @@
 				
 			},
 			error : function() {
-				console.log('AJAX 댓글 조회 실팽이');
+				console.log('AJAX 조회 실팽이');
 			}
 		});
 		
