@@ -50,14 +50,7 @@
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
-					<c:forEach items="${ list }" var="b">
-						<div id="myBoardList">
-							${ b.category }<br>
-							${ b.boardTitle }<br>
-							${ b.boardContent }<br>
-							${ b.createDate }<br>
-						</div><br>
-		            </c:forEach>					
+							
 				</div>
 			</div>
 		</div>
@@ -68,6 +61,10 @@
 	</div>
 	
 	<script>
+	
+	$(document).ready(function(){
+		myBoardList();
+	})
 	function myBoardList() {
 		
 		$.ajax({

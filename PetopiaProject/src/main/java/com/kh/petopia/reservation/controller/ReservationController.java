@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
@@ -35,6 +37,7 @@ public class ReservationController {
 		// 1. 해당 미용실의 미용사 리스트를 조회해서 뿌려주기 
 		// 참고로 미용실번호는 고정임 3번
 		int psno = 3;
+		
 		ArrayList<Employee> eList = reservationService.selectEmployeeList(psno);
 		System.out.println(eList);
 		
@@ -53,6 +56,25 @@ public class ReservationController {
 		
 		return mv;
 	}
+	
+	// 사용자가 선택한 미용사의 예약 현황 조회 메소드
+	@ResponseBody
+	@RequestMapping(value="selectEmployeeReservation.ps", produces="application/json; charset=UTF-8")
+	public String ajaxSelectEmployeeReservation(Reservation r, HttpSession session) {
+		
+		System.out.println("사용자가 선택한 미용사 번호 : " + r.getEmployeeNo());
+		System.out.println("사용자가 입력한 예약 일자" + r.getCheckIn());
+		
+		
+		System.out.println(reservationService.selectEmployeeReservation(r));
+		
+		
+		return new Gson().toJson(reservationService.selectEmployeeReservation(r));
+	}
+	
+	
+	
+	
 	
 	// 애견 미용 예약 step-2
 	@RequestMapping("payment.ps")
@@ -116,6 +138,7 @@ public class ReservationController {
 		
 		return mv;
 	}
+	
 
 
 	
