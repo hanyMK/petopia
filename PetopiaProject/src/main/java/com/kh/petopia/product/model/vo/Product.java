@@ -18,9 +18,10 @@ public class Product {
 	private String changeName;
 	private String filePath;
 	
+	private String productSize;
 	private String smallSize;
 	private String mediumSize;
 	private String largeSize;
-	private String noSize;
+	private int extraMoney;
 	
 }

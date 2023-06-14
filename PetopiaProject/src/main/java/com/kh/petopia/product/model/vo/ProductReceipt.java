@@ -16,5 +16,12 @@ public class ProductReceipt {
 	private String productTitle;
 	
 	private String shippingStatus; // 배송상태 .......
+	
+	private int receipNo; //RECEIPT_NO	NUMBER
+	private int productNo; //PRODUCT_NO	NUMBER
+	private int amount; //AMOUNT	NUMBER
+	private String productSize; // PRODUCT_SIZE	CHAR(1 BYTE)
+	private String status; //STATUS	CHAR(1 BYTE)
+	private int extraMoney; //추가금
 
 }
