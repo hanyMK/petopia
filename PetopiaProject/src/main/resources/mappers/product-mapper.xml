@@ -232,5 +232,16 @@ STATUS
 		       #{productSize})
 	</insert>
 	
+	<select id="selectCart" parameterType="_int" resultType="cart">
+		select 
+			   member_no, 
+	           product_no, 
+	           amount, 
+			   product_size 
+		  from 
+			   product_cart 
+	     where 
+	           member_no = #{memNo}
+	</select>
 	
 </mapper>
