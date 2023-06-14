@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.product.model.service.ProductService;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -109,7 +110,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="productCart.pd")
-	public String productSelectCart() {
+	public String productSelectCart(HttpSession session) {
+		Member user = (Member)session.getAttribute("loginMember");
+		
+		productService.selectCartList(user);
+		
 		return "product/productCartPage";
 	}
 	
