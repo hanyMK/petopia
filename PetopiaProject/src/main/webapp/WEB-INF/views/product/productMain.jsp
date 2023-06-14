@@ -99,7 +99,7 @@
 </style>
 </head>
 <body>
-
+	<span id="porttt">이동하기</span>
 	<jsp:include page="../common/header.jsp"/>
 	
 	<div id="content_1">
@@ -233,6 +233,12 @@
 		$('#product_content').on('click', '.product_1' , (function(){
 		 	location.href='detail.pd?bno=' + $(this).find('.bno').html();
 		}));
+	</script>
+
+	<script>
+		$('#porttt').click(function(){
+			location.href='productCart.pd';
+		})
 	</script>
 
 	<script>
