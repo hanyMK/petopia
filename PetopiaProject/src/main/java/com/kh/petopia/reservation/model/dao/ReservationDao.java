@@ -7,12 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.reservation.model.vo.Employee;
+import com.kh.petopia.reservation.model.vo.Reservation;
 
 @Repository
 public class ReservationDao {
 
 	public ArrayList<Employee> selectEmployeeList(SqlSessionTemplate sqlSession, int psno) {
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectEmployeeList", psno);
+	}
+
+	public ArrayList<String> selectEmployeeReservation(SqlSessionTemplate sqlSession, Reservation r) {
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectEmployeeReservation", r);
 	}
 
 }

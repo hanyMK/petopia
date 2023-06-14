@@ -12,6 +12,17 @@
 		<result column="EMPLOYEE_INFO" property="employeeInfo"/>
 		<result column="CLOSED_DAY" property="closedDay"/>
 	</resultMap>
+	
+	<resultMap type="reservation" id="reservationResultSet">
+		<result column="RESERVATION_NO" property="reservationNo"/>
+		<result column="PET_STORE" property="petStoreNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="CHECK_IN" property="checkIn"/>
+		<result column="CHECK_OUT" property="checkOut"/>
+		<result column="RESERVATION_TIME" property="reservationTime"/>
+		<result column="RESERVATION_FEE" property="reservationFee"/>
+		<result column="EMPLOYEE" property="employeeNo"/>
+	</resultMap>
 
 	<select id="selectEmployeeList" parameterType="_int" resultMap="employeeResulSet">
 		SELECT 
@@ -22,8 +33,15 @@
 				CLOSED_DAY
 		FROM EMPLOYEE
 		WHERE PET_STORE = #{psno}
-	
 	</select>
+	
+	<select id="selectEmployeeReservation" parameterType="reservation" resultType="string">
+		SELECT RESERVATION_TIME
+		FROM RESERVATION 
+		WHERE EMPLOYEE = #{employeeNo}
+		AND CHECK_IN = #{checkIn}
+	</select>
+	
 	
 
 

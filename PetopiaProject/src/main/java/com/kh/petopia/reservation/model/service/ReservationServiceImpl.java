@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.petopia.reservation.model.dao.ReservationDao;
 import com.kh.petopia.reservation.model.vo.Employee;
+import com.kh.petopia.reservation.model.vo.Reservation;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -21,5 +22,10 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ArrayList<Employee> selectEmployeeList(int psno) {
 		return reservationDao.selectEmployeeList(sqlSession,psno);
+	}
+
+	@Override
+	public ArrayList<String> selectEmployeeReservation(Reservation r) {
+		return reservationDao.selectEmployeeReservation(sqlSession,r);
 	}
 }

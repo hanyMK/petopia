@@ -134,7 +134,8 @@
         #main{
 		box-sizing: border-box;
 		width: 100%;
-		height: 1000px;
+		/* height: 1000px; */
+		height : 1500px;
 		margin: auto;
 		}
 	
