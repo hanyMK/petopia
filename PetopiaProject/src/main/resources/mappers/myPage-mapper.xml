@@ -53,7 +53,7 @@
 	<resultMap id="productReceiptResultSet" type="productReceipt">
 		<result column="SIPPING_STATUS"	property="shippingStatus" />
 		<result column="RECEIPT_NO"	property="receiptNo" />
-		<result column="MEMBER_NO"	property="MEMBER_NO" />
+		<result column="MEMBER_NO"	property="memberNo" />
 		<result column="COUPON_NO"	property="couponNo" />
 		<result column="POINT"	property="point" />
 		<result column="SHIPPING_NO"	property="shippingNo" />

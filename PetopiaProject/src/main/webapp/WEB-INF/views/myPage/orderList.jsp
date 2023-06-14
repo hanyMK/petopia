@@ -58,8 +58,9 @@
 	</div>
 	
 	<script>
+		var cpage = 1;
 		$(document).ready(() =>{
-			selectOrderList(cpage)
+			selectOrderList(cpage);
 		})
 		
 		function selectOrderList(cpage){
