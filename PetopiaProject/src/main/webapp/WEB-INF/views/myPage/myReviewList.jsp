@@ -45,45 +45,12 @@
 			<div id="main_center_right">
 				<div id="main_center_right_top">
 					<div algin="center">
-						<a href="#" onclick="myReviewWriteList();"><h6>작성 가능한 리뷰</h6></a>
-						<a href="#" onclick="myReviewList();"><h6>작성한 리뷰</h6></a>
+						<a href="#" onclick="myReviewList();"><h6>작성 가능한 리뷰</h6></a>
+						<a href="#" onclick="myReviewEndList();"><h6>작성한 리뷰</h6></a>
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
-					<c:forEach items="${ list }" var="r">
-						<!-- reviewNo = 0 이면 리뷰 작성 전 -->
-						<c:if test="${ r.reviewNo eq 0 }">
-							<div id="myReviewList">
-								<!-- 상품리뷰인 경우 -->
-								<c:choose>
-									<c:when test="${ not empty r.shippingStatus }">
-										<small style="color:green;">상품</small>
-										상품 : ${ r.title }<br>
-										결제금액 : ${ r.finalPrice } 수량 : ${ r.details }<br>
-										배송상태 : ${ r.shippingStatus }<br>
-										결제일자 : ${ r.receiptDate }<br>
-										<a href="insertProductReview.me"><h6>리뷰 작성하기</h6></a>
-									</c:when>
-									<c:otherwise>
-										<small style="color:orange;">예약</small>
-										예약 : ${ r.title }<br>
-										예약금액 : ${ r.finalPrice } 선생님 : ${ r.details }<br>
-										<!-- 호텔, 훈련 예약인 경우 checkInOut -->
-										<c:choose>
-											<c:when test="${ not empty r.checkInOut }">
-												예약일자 : ${ r.checkInOut }<br>
-											</c:when>
-											<c:otherwise>
-												예약일자 : ${ r.receiptDate }<br>
-											</c:otherwise>
-										</c:choose>
-										결제일자 : ${ r.receiptDate }<br>
-										<a href="insertReservationReview.me"><h6>리뷰 작성하기</h6></a>
-									</c:otherwise>
-								</c:choose>
-							</div><br>
-						</c:if>
-		            </c:forEach>					
+										
 				</div>
 			</div>
 		</div>
@@ -93,8 +60,113 @@
 		
 	</div>
 	
+	<script>
+	$(document).ready(function(){
+		myReviewList();
+	})
 	
-
+	function myReviewList() {
+		
+		$.ajax({
+			url : 'ajaxMyReviewList.me', 
+			type : 'post',
+			data : { mno : ${ loginMember.memberNo } },
+			success : function(list) {
+				let value = "";
+				console.log(list);
+				for(let i in list) {
+					if(list[i].reviewNo == 0) {
+						value += '<div id="myReviewList">';
+						
+						if(list[i].shippingStatus == '배송완료') {
+							// 배송상태가 있으면 상품 리뷰 조회
+							value += '<small style="color:green;">상품</small>'
+								   + '상품 : ' + list[i].title + '<br>'
+								   + '결제금액 : ' + list[i].finalPrice + '  수량 : ' + list[i].details  + '<br>'
+								   + '배송상태 : ' + list[i].shippingStatus + '<br>'
+								   + '결제일자 : ' + list[i].receiptDate + '<br>'
+								   + '<a href="insertProductReview.me"><h6>리뷰 작성하기</h6></a>';
+						} else {
+							// 배송상태가 없으면 예약 리뷰 조회
+							value += '<small style="color:orange;">예약</small>'
+								   + '예약 : ' + list[i].title + '<br>'
+								   + '예약금액 : ' + list[i].finalPrice + '  선생님 : ' + list[i].details  + '<br>';
+								   
+								   if( list[i].checkInOut != null) {
+									   <!-- 호텔, 훈련 예약인 경우 checkInOut -->
+									   value += '예약일자 : ' + list[i].checkInOut + '<br>'
+									          + '결제일자 : ' + list[i].receiptDate + '<br>';
+								   } else {
+									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
+								   }
+							value += '<a href="insertReservationReview.me"><h6>리뷰 작성하기</h6></a>';
+						   
+						}
+						value += '</div><br>';
+					}
+				};
+				
+				$('#main_center_right_bottom').html(value);
+				
+			},
+			error : function() {
+				console.log('AJAX 조회 실팽이');
+			}
+		});
+		
+	};
+	
+function myReviewEndList() {
+		
+		$.ajax({
+			url : 'myReviewEndList.me', 
+			type : 'post',
+			data : { mno : ${ loginMember.memberNo } },
+			success : function(list) {
+				let value = "";
+				console.log(list);
+				for(let i in list) {
+					if(list[i].reviewNo != 0) {
+						value += '<div id="myReviewList">';
+						
+						if(list[i].shippingStatus == '배송완료') {
+							// 배송상태가 있으면 상품 리뷰 조회
+							value += '<small style="color:green;">상품</small>'
+								   + '상품 : ' + list[i].title + '<br>'
+								   + '결제금액 : ' + list[i].finalPrice + '  수량 : ' + list[i].details  + '<br>'
+								   + '배송상태 : ' + list[i].shippingStatus + '<br>'
+								   + '결제일자 : ' + list[i].receiptDate + '<br>'
+						} else {
+							// 배송상태가 없으면 예약 리뷰 조회
+							value += '<small style="color:orange;">예약</small>'
+								   + '예약 : ' + list[i].title + '<br>'
+								   + '예약금액 : ' + list[i].finalPrice + '  선생님 : ' + list[i].details  + '<br>';
+								   
+								   if( list[i].checkInOut != null) {
+									   <!-- 호텔, 훈련 예약인 경우 checkInOut -->
+									   value += '예약일자 : ' + list[i].checkInOut + '<br>'
+									          + '결제일자 : ' + list[i].receiptDate + '<br>';
+								   } else {
+									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
+								   }
+						   
+						}
+						value += '</div><br>';
+					}
+				};
+				
+				$('#main_center_right_bottom').html(value);
+				
+			},
+			error : function() {
+				console.log('AJAX 조회 실팽이');
+			}
+		});
+		
+	};
+	
+	
+	</script>
    
     <jsp:include page="../common/footer.jsp" />
 

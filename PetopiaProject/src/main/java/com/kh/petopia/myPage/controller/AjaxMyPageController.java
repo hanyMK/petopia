@@ -145,6 +145,12 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.pointStatusList(map));
 	}
 	
+	// 리뷰 조회
+	// 작성 가능한 리뷰 조회
+	@RequestMapping(value="ajaxMyReviewList.me", produces="application/json; charset=UTF-8")
+	public String myReviewList(int mno) {
+		return new Gson().toJson(myPageService.myReviewList(mno));
+	}
 	/**
 	 * 회원 주문 배송 내역 조회 매소드
 	 * @param memberNo : where 조건절에 입려력할 회원 번호
@@ -162,8 +168,10 @@ public class AjaxMyPageController {
 	}
 	
 	
-	
-	
+	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
+	public String myReviewEndList(int mno) {
+		return new Gson().toJson(myPageService.myReviewList(mno));
+	}
 	
 	
 	

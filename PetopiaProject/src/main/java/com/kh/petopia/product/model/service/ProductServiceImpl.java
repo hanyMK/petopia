@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
@@ -68,7 +69,6 @@ public class ProductServiceImpl implements ProductService {
 				return result1 * result2 * result3;
 			}
 		}
-		
 	}
 	
 	@Override
@@ -80,6 +80,11 @@ public class ProductServiceImpl implements ProductService {
 //	public ArrayList<Product> selectProductInfo(int productNo) {
 //		return productDao.selectProductInfo(sqlSession, productNo);
 //	}
+	
+	@Override
+	public ArrayList<Cart> selectCartList(int memNo) {
+		return productDao.selectCartList(sqlSession, memNo);
+	}
 	
 	@Override
 	public int insertCart(Cart cart) {
@@ -134,6 +139,8 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 

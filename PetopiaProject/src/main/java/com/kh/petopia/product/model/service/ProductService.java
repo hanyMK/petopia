@@ -3,10 +3,10 @@ package com.kh.petopia.product.model.service;
 import java.util.ArrayList;
 
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
-import com.kh.petopia.product.model.vo.ProductReceipt;
 
 public interface ProductService {
 
@@ -107,6 +107,8 @@ public interface ProductService {
 		int insertCart(Cart cart);
 		
 		int deleteCart(int productNo);
+		
+		ArrayList<Cart> selectCartList(int memNo);
 		
 		ArrayList<Cart> selectCart(int memberNo);
 		

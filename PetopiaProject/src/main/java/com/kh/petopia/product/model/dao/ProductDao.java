@@ -47,4 +47,15 @@ public class ProductDao {
 		return sqlSession.insert("productMapper.insertCart", cart);
 	}
 	
+	public ArrayList<Cart> selectCartList(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectCart", memNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

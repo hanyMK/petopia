@@ -100,13 +100,34 @@ public class MyPageController {
 		}
 	}
 	
+	// 리뷰 조회 페이지
 	@RequestMapping("myReview.me")
-	public String myReviewList(int mno, Model model) {
-		System.out.println(mno);
-		model.addAttribute("list", myPageService.myReviewList(mno));
+	public String myReviewList() {
+		//System.out.println(mno);
+		//model.addAttribute("list", myPageService.myReviewList(mno));
 		return "myPage/myReviewList";
 	}
 	
+	// 상품 리뷰 작성 페이지
+	@RequestMapping("insertProductReview.me")
+	public String insertProductReview() {
+		return "myPage/myReviewInsert";
+	}
+	
+	// 예약 리뷰 작성 페이지
+	@RequestMapping("insertReservationReview.me")
+	public String insertReservationReview() {
+		return "myPage/myReviewInsert";
+	}
+	
+	@RequestMapping("orderList.me")
+	public ModelAndView selectOrderList(int currentPage,
+										ModelAndView mv,
+										HttpSession session) {
+		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
+		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
+		return mv;
+	}
 //	@RequestMapping("orderList.me")
 //	public String selectOrderList(int currentPage,
 //			

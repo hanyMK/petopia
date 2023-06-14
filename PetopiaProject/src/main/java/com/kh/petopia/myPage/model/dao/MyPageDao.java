@@ -133,7 +133,7 @@ public class MyPageDao {
 	}
 	
 	public int orderListCount(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.orderListCountr", memberNo);
+		return sqlSession.selectOne("myPageMapper.orderListCount", memberNo);
 	}
 	
 	public ArrayList<ProductReceipt> selectOrderList(SqlSessionTemplate sqlSession, int memberNo, PageInfo pi){
