@@ -101,7 +101,7 @@
 <body>
 
 	<jsp:include page="../common/header.jsp"/>
-
+	
 	<div id="content_1">
 		<!-- Slider main container -->
 		<div class="swiper">
@@ -211,6 +211,7 @@
 							   + 		'<div class="product_1_2">'
 							   +       '<div>'+ list[i].productTitle +'</div>'
 							   +       '<div>가격 : '+ list[i].productPrice +'</div>'
+							   +        '<div>카테고리 : ' + list[i].categoryName + '</div>'
 							   + 		'</div>'
 							   + 	'</div>'
 							   + '</div>';

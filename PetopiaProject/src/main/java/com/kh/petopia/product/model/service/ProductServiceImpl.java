@@ -12,6 +12,7 @@ import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -46,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 		int result3 = productDao.insertDetailProduct(sqlSession, atmtDetail);
 		int result4 = 0;
 		
-		if(p.getNoSize() == null) {
+		if(!p.getSmallSize().equals("") || !p.getMediumSize().equals("") || !p.getLargeSize().equals("")) {
 			if(result1 * result2 * result3 > 0) {
 				result4 = productDao.insertProductSize(sqlSession, p);
 				if(result1 * result2 * result3 * result4 > 0) {
@@ -71,10 +72,24 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public ArrayList<Product> productSelectSize(int productNo) {
+		return productDao.productSelectSize(sqlSession, productNo);
+	}
+	
+//	@Override
+//	public ArrayList<Product> selectProductInfo(int productNo) {
+//		return productDao.selectProductInfo(sqlSession, productNo);
+//	}
+	
+	@Override
+	public int insertCart(Cart cart) {
+		return productDao.insertCart(sqlSession, cart);
+	}
+	
+	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
 		return null;
 	}
-
 
 	@Override
 	public ArrayList<Ask> selectAskList(int productNo) {
@@ -106,11 +121,7 @@ public class ProductServiceImpl implements ProductService {
 		return 0;
 	}
 
-	@Override
-	public int insertCart(int productNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public int deleteCart(int productNo) {
@@ -123,6 +134,12 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+
+
 
 
 
