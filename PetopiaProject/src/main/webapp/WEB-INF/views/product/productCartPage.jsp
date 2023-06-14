@@ -47,7 +47,7 @@
     <div class="content">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
-            <h2>게시판</h2>
+            <h2>장바구니</h2>
             <br>
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
             <a class="btn btn-secondary" style="float:right;" href="">글쓰기</a>
@@ -66,7 +66,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>5</td>
+                        <td><img src="https://img.freepik.com/premium-photo/cute-smile-curios-white-pomeranian-puppy-happiness-friend-lapdog-with-brown-color-background_9693-2466.jpg"></td>
                         <td>마지막 공지사항제목</td>
                         <td>admin</td>
                         <td>10</td>
@@ -105,38 +105,29 @@
                         <td>2022-12-25</td>
                         <td>★</td>
                     </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>첫번째 공지사항제목</td>
+                        <td>admin</td>
+                        <td>45</td>
+                        <td>2022-12-25</td>
+                        <td>★</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>첫번째 공지사항제목</td>
+                        <td>admin</td>
+                        <td>45</td>
+                        <td>2022-12-25</td>
+                        <td>★</td>
+                    </tr>
                 </tbody>
             </table>
             <br>
-​
-            <div id="pagingArea">
-                <ul class="pagination">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </div>
-​
-            <br clear="both"><br>
-​
-            <form id="searchForm" action="" method="get" align="center">
-                <div class="select">
-                    <select class="custom-select" name="condition">
-                        <option value="writer">작성자</option>
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                    </select>
-                </div>
-                <div class="text">
-                    <input type="text" class="form-control" name="keyword">
-                </div>
-                <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-            </form>
-            <br><br>
+            <div>총 상품 긍액 : 10000원</div>
+
+            <button>계속 쇼핑하기</button>
+            <button>구매하기</button>
         </div>
         <br><br>
 ​
