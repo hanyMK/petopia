@@ -6,70 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>여기는 애견 미용실 예약 페이지</title>
-	
+	<link rel="stylesheet" type="text/css" href="resources/css/reservation/reservationCalendar.css">
+</head>
 <style>
 	 
 	/* 달력에 필요한 스타일 */
-	td {
-	      width: 50px;
-	      height: 50px;
-	  }
 
-	.Calendar {
-	    text-align: center;
-	}
-	
-	.Calendar>thead>tr:first-child>td {
-	    font-family: 'Questrial', sans-serif;
-	    font-size: 1.1em;
-	    font-weight: bold;
-	}
-	
-	.Calendar>thead>tr:last-child>td {
-	    font-family: 'Questrial', sans-serif;
-	    font-weight: 600;     
-	}
-	
-	.Calendar>tbody>tr>td>p {
-	    font-family: 'Montserrat', sans-serif;
-	    height: 45px;
-	    width: 45px;
-	    border-radius: 45px;
-	    transition-duration: .2s;
-	    line-height: 45px;
-	    margin: 2.5px;
-	    display: block;
-	    text-align: center;
-	}        
-	
-	.pastDay, .closedDay {
-	    color: lightgray;
-	}
-	
-	.today {
-	    color: blue;
-	    font-weight: 600;
-	    cursor: pointer;
-	}
-	
-	.futureDay {
-	    background-color: #FFFFFF;
-	    cursor: pointer;
-	}
-	.futureDay:hover{
-	    background:#eee;
-	}
-
-	.futureDay.choiceDay,
-	.today.choiceDay {
-	    background: orange;
-	    color: #fff;
-	    font-weight: 600;
-	    cursor: pointer;
-	}
-		  
 		  
 	/*내가 추가한 스타일 */
+	
 	#employee-list {
 		border : 1px solid black;
 	}
@@ -82,7 +27,8 @@
 		margin-bottom : 20px;
 	}
 	
-	#reservation-calendar{
+	/*숨겨져 있다가 사용자가 미용사를 선택하면 나타남 */
+	#reservation-calendar, #payment-form{
 		display:none;
 	}
 	
@@ -94,7 +40,22 @@
 		border: 1px solid black;
 	}
 	
+	#reservation-time td{
+		border: 1px solid black;
+		width : 100px;
+		height : 50px;
+		cursor : pointer;
+	}
 	
+	#reservation-time td:hover:not(.booked){
+		color : red;
+	}
+	
+	/* 예약이 되어있는 시간대는 선택할 수 없도록 스타일을 부여*/
+	.booked {
+		cursor : none;
+		color : black;
+	}
 
 		  
 </style>
@@ -287,7 +248,6 @@
 			            $('#selectedDate').text(calYear + '-' + calMonth +'-' + calDay);
 			            
 			            selectReservation(eno);
-			            
 			        }
 			
 			        // 이전달 버튼 클릭
@@ -317,30 +277,54 @@
 				
 				<!-- 입력한 예약 정보  -->
 				<form action="payment.ps" method="get">
-				
-					* 예약일자  <br>
-					<div>
-						<strong><h id="selectedDate"></span></strong>
-					</div>
-				
-					<br>
-				
-					* 시간  
-					<table id="time">
-						<tbody>
-						</tbody>
-					</table>						
+					<div id="payment-form">
+					
+						* 예약일자  
+						<div>
+							<strong id="selectedDate"></strong>
+						</div>
+					
+						<br>
+					
+						* 시간  
+						<div>
+							<table id="reservation-time">
+								<tbody>
+									<tr>
+										<td id="10"><a href=#>10:00</a></td>
+										<td id="11"><a href=#>11:00</a></td>
+									</tr>
+									<tr>
+										<td id="12"><a href=#>12:00</a></td>
+										<td id="13"><a href=#>13:00</a></td>
+										<td id="14"><a href=#>14:00</a></td>
+									</tr>
+									<tr>
+										<td id="15"><a href=#>15:00</a></td>
+										<td id="16"><a href=#>16:00</a></td>
+										<td id="17"><a href=#>17:00</a></td>
+									</tr>
+									<tr>
+										<td id="18"><a href=#>18:00</a></td>
+										<td id="19"><a href=#>19:00</a></td>
+									</tr>
+								</tbody>
+							</table>					
+						</div>
 						
-									
+						<div align="center">
+							<button>예약하기</button>
+						</div>
+					
+					</div>
 				</form>
-				
-				
-		
 				
 				<!-- 사용자가 선택한 미용사의 예약 현황을 조회해오는 ajax  -->
 				<script>
 				
 					function selectReservation(eno){
+						
+						$('#payment-form').css('display','block');
 						
 						$.ajax({
 							url :'selectEmployeeReservation.ps',
@@ -350,20 +334,48 @@
 							},
 							success : function(result){
 								
-								console.log(result);
+								//선택한 날짜에 
+								// 예약 현황이 있을 수도 있고 없을 수도 있음
 								
-								// 사용자의 예약현황 시간 조회해왔어
+								// 사용자가 처음에 시간을 선택해서 예약현황에 따라 
+								// 요소가 수정되었는데 다시 시간을 선택한 경우 
+								// 데이터를 조회해온 후 이전 값은 초기화하고 새로 뿌려줘야함 
 								
-								// 내가하고싶은 거는 조회된 예약시간은 
-								// 버튼이 비활성화되도록 
+								// 예약이라는 표시랑 효과 없애고 다시 처음으로 초기화 .. 
+								for(let i=10; i<20; i++){
+									$('#'+i).text(i+':00');
+									$('#'+i).removeClass('booked');
+								}
 								
-								for(let r=0; r<result.length; r++){
-									console.log(result[r]);
+								if(result.length != 0){
+									// 예약이 있으면 
+									console.log('예약있음');
+									
+									// console.log(result[j].substr(0,2) + '랑 ' +i+'랑비교');
+									// 미용사의 예약 정보와 화면에 출력되는 시간 버튼을 비교하여
+									// 예약된 시간은 비활성화 시키기위함
+									for(let i=10; i<20; i++){
+										for(let j=0; j<result.length; j++){
+											if( result[j].substr(0,2) == i ){
+												// console.log(i+'시는 예약이 되어이씀');
+												$('#'+i > a).removeAttr('href');
+												$('#'+i).attr('class','booked')
+												break;
+											}
+										}
+									}
+									
 								}
 								
 								
 								
 								
+								
+								// 만약에 클래스명이 지정되어있으면 다시 초기화
+								// $('#'+i).attr('class','');
+								
+								
+								console.log($('#1').text());
 								
 								/*
 								for(let i=0; i<result.length; i++){
@@ -378,21 +390,17 @@
 						
 					}
 					
-
 				</script>
+				<%-- ajax 끝 --%>
 
-				<div align="center">
-					<button>예약하기</button>
-				</div>
 				
 			</div>
 			<%-- 미용 예약 콘텐츠 끝 --%>
 				
 		</div>
+		<%-- main_center 끝 --%>
 		
 		<div id="main_right"></div>
-		
-		<br><br>
 		
 	</div>
 	
