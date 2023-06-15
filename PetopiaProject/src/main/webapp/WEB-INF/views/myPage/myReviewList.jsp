@@ -85,7 +85,7 @@
 								   + '결제금액 : ' + list[i].finalPrice + '  수량 : ' + list[i].details  + '<br>'
 								   + '배송상태 : ' + list[i].shippingStatus + '<br>'
 								   + '결제일자 : ' + list[i].receiptDate + '<br>'
-								   + '<a href="insertProductReview.me"><h6>리뷰 작성하기</h6></a>';
+								   + '<a href="insertProductReview.me?mno=${ loginMember.memberNo }"><h6>리뷰 작성하기</h6></a>';
 						} else {
 							// 배송상태가 없으면 예약 리뷰 조회
 							value += '<small style="color:orange;">예약</small>'
@@ -99,7 +99,7 @@
 								   } else {
 									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
 								   }
-							value += '<a href="insertReservationReview.me"><h6>리뷰 작성하기</h6></a>';
+							value += '<a href="insertReservationReview.me?mno=${ loginMember.memberNo }"><h6>리뷰 작성하기</h6></a>';
 						   
 						}
 						value += '</div><br>';
