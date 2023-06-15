@@ -110,56 +110,99 @@ public class MyPageController {
 	
 	// 상품 리뷰 작성 페이지
 	@RequestMapping("insertProductReview.me")
-	public String insertProductReview() {
+	public String insertProductReview(int mno, Model model) {
+		model.addAttribute("list", myPageService.myReviewList(mno));
 		return "myPage/myReviewInsert";
 	}
 	
 	// 예약 리뷰 작성 페이지
 	@RequestMapping("insertReservationReview.me")
-	public String insertReservationReview() {
+	public String insertReservationReview(int mno, Model model) {
+		model.addAttribute("list", myPageService.myReviewList(mno));
 		return "myPage/myReviewInsert";
 	}
 	
-//	@RequestMapping("orderList.me")
-//	public ModelAndView selectOrderList(int currentPage,
-//										ModelAndView mv,
-//										HttpSession session) {
-//		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
-//		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-//		return mv;
-//	}
-//	@RequestMapping("orderList.me")
-//	public String selectOrderList(int currentPage,
-//			
-//										ModelAndView mv,
-//										HttpSession session) {
-//		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
-//		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-//		return "myPage/orderList";
-//	}
-	
 
+
+
+	
+//------------------------------------------------------------------------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("orderList.me")
-	public String orderListView() {
+	public String selectOrderList() {
 		return "myPage/orderList";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

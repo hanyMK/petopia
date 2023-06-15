@@ -59,6 +59,7 @@
 	
 	<script>
 		var cpage = 1;
+		var value='';
 		$(document).ready(() =>{
 			selectOrderList(cpage);
 		})
@@ -72,6 +73,22 @@
 				},
 				success : list =>{
 					console.log(list);
+					for(var i in list) {
+						console.log(list);
+						value += '<div id="myOrderList">'	
+							   +'<div>' 
+							   + '<img scr="'+ list[i].filePath + '">'
+							   +'</div>' 
+							   +'<div>' 
+							   + '상품명 : ' + list[i].productTitle + '<br>'
+							   + '결제 금액 : ' + list[i].resultPrice + '<br>'
+							  
+							   +'</div>' 
+							   +'<div>' 
+							   +'</div>' 
+							   + '</div><br>';
+					};
+					$('#main_center_right_bottom').html(value);
 				},
 				error: () =>{
 					console.log('실패');

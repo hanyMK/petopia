@@ -86,7 +86,7 @@ public class AjaxMyPageController {
 		
 		
 	}
-	
+	// 쿠폰발급
 	@RequestMapping("insertCoupon.me")
 	public String insertCouponToMember(int memberNo, int couponNo) {
 		Coupon coupon = new Coupon();
@@ -97,7 +97,7 @@ public class AjaxMyPageController {
 		
 	}
 	
-	
+	//회원등급에 따른 사용가능 쿠폰 조회
 	@RequestMapping(value="availableCoupon.me", produces="application/json; charset=UTF-8")
 	public String selectAvailableCoupon(int memberNo) {
 		ArrayList<Coupon> list = myPageService.selectAvailableCoupon(memberNo);
@@ -151,12 +151,8 @@ public class AjaxMyPageController {
 	public String myReviewList(int mno) {
 		return new Gson().toJson(myPageService.myReviewList(mno));
 	}
-	/**
-	 * 회원 주문 배송 내역 조회 매소드
-	 * @param memberNo : where 조건절에 입려력할 회원 번호
-	 * @param currentPage : 페이징 처리를 위한 현재 페이지
-	 * @return
-	 */
+	
+	 // 회원 주문 배송 내역 조회 매소드
 	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
 	public String selectOrderList(int memberNo, 
 								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
