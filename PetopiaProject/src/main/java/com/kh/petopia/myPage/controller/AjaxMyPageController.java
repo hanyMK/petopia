@@ -152,6 +152,11 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReviewList(mno));
 	}
 	
+	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
+	public String myReviewEndList(int mno) {
+		return new Gson().toJson(myPageService.myReviewList(mno));
+	}
+	
 	 // 회원 주문 배송 내역 조회 매소드
 	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
 	public String selectOrderList(int memberNo, 
@@ -164,10 +169,7 @@ public class AjaxMyPageController {
 	}
 	
 	
-	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
-	public String myReviewEndList(int mno) {
-		return new Gson().toJson(myPageService.myReviewList(mno));
-	}
+	
 	
 	
 	
