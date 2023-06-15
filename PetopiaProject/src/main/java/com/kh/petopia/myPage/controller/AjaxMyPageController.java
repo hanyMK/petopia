@@ -158,18 +158,7 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReviewList(mno));
 	}
 	
-	 // 회원 주문 배송 내역 조회 매소드
-	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
-	public String selectOrderList(int memberNo, 
-								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
-		
-		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
-		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
-		
-		return !list.isEmpty()? new Gson().toJson(list):"NO";
-	}
-	
-	
+
 	
 	
 	
