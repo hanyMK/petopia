@@ -28,7 +28,7 @@
 		<typeAlias type="com.kh.petopia.product.model.vo.ProductReceipt" alias="productReceipt"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Point" alias="point"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Petpay" alias="petpay"/>
-
+		<typeAlias type="com.kh.petopia.admin.model.vo.SelectShipping" alias="selectShipping"/>
 	</typeAliases>
 	
 	<mappers> <!-- resource="매퍼의 경로" -->

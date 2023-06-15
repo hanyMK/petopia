@@ -42,6 +42,11 @@ public class AdminController {
 		return "admin/adminSales";
 	}
 	
+	@RequestMapping("adminShipping.ad")
+	public String adminShipping() {
+		return "admin/adminShipping"; 
+	}
+	
 
 
 	

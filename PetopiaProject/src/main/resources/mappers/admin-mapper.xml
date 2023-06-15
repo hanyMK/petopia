@@ -32,6 +32,14 @@
 		<result column="MIN_PRICE"   property="minPrice"/>
 	</resultMap>
 	
+	<resultMap type="selectShipping" id="shippingResultSet">
+		<result column ="receipt_no" property="receiptNo" />
+		<result column ="member_name" property="memberName" />
+		<result column ="receipt_date" property="receiptDate" />
+		<result column ="amount" property="amount" />
+		<result column ="product_title" property="productTitle" />
+	</resultMap>
+	
 	<select id="memberListCount" resultType="_int">
 		select
 			   count(*)
@@ -172,6 +180,42 @@
     )
   ]]>
 	</select>
+	
+	<select id= "shippingListCount" resultType="_int">
+		SELECT
+		      COUNT(*)
+	 	  FROM
+		      MEMBER M
+		      INNER JOIN PRODUCT_RECEIPT PR ON M."MEMBER_NO" = PR."MEMBER_NO"
+		      INNER JOIN PRODUCT_BRIDGE PB ON PR."RECEIPT_NO" = PB."RECEIPT_NO"
+		      INNER JOIN "PRODUCT" P ON PB."PRODUCT_NO" = P."PRODUCT_NO"
+	</select>
+	
+	<select id= "shippingList" resultMap="shippingResultSet">
+		  SELECT
+			    PR."RECEIPT_NO",
+			    M."MEMBER_NAME",
+			    PR."RECEIPT_DATE",
+			    PB."AMOUNT",
+			    P."PRODUCT_TITLE",
+                SH."SHIPPING_STATUS"
+			FROM
+			    MEMBER M
+			    INNER JOIN PRODUCT_RECEIPT PR ON M."MEMBER_NO" = PR."MEMBER_NO"
+			    INNER JOIN PRODUCT_BRIDGE PB ON PR."RECEIPT_NO" = PB."RECEIPT_NO"
+			    INNER JOIN "PRODUCT" P ON PB."PRODUCT_NO" = P."PRODUCT_NO"
+                INNER JOIN SHIPPING SH ON PR."RECEIPT_NO" = SH."SHIPPING_NO"
+           WHERE
+                SH."SHIPPING_STATUS" = '상품준비중' 
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

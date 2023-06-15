@@ -56,6 +56,19 @@ public class AdminDao {
 	public int salesCheck(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.salesCheck");
 	}
+
+	public int shippingListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.shippingListCount");
+	}
+
+	public ArrayList shippingList(SqlSessionTemplate sqlSession) {
+		// System.out.println("여기는 dao" + (ArrayList) sqlSession.selectList("adminMapper.shippingList"));
+		return (ArrayList) sqlSession.selectList("adminMapper.shippingList");
+	}
+
+	public int totalPayment(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.totalPayment");
+	}
 	
 	
 }

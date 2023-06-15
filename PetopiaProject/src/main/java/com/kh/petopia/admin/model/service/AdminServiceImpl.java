@@ -66,6 +66,21 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.salesCheck(sqlSession);
 	}
 
+	@Override
+	public int shippingListCount() {
+		return adminDao.shippingListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList ShippingList() {
+		return adminDao.shippingList(sqlSession);
+	}
+
+	@Override
+	public int toalPayment() {
+		return adminDao.totalPayment(sqlSession);
+	}
+
 
 
 }
