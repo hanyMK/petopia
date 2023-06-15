@@ -356,7 +356,7 @@
                                         PR.RECEIPT_NO
                                 FROM VIEW_PRODUCT_RECEIPT PR
                                 LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
-                                JOIN(VIEW_RESULT_RICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
+                                JOIN(VIEW_RESULT_PRICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
                                 WHERE MEMBER_NO =  #{mno}
                                 AND RECEIPT_DATE BETWEEN TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE)))) > 1000000 
 		            THEN 'VIP'
@@ -401,7 +401,7 @@
                                     PR.RECEIPT_NO
                             FROM VIEW_PRODUCT_RECEIPT PR
                             LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
-                            JOIN(VIEW_RESULT_RICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
+                            JOIN(VIEW_RESULT_PRICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
                             WHERE MEMBER_NO = #{mno}
                             AND RECEIPT_DATE BETWEEN TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))))  BETWEEN 500000 AND  1000000
                         THEN 'GOLD'
@@ -665,7 +665,6 @@
 	</select>
 	<select id="selectOrderList" resultMap="productReceiptResultSet" parameterType="_int">
 	      SELECT
-	            
 	                MEMBER_NO,
 	                R.PRODUCT_TITLE,
 			        S.SHIPPING_STATUS,
@@ -680,7 +679,7 @@
 	                END RESULT_PRICE
 	        FROM VIEW_PRODUCT_RECEIPT PR
 	        LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
-	        JOIN(VIEW_RESULT_RICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
+	        JOIN(VIEW_RESULT_PRICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
 	       JOIN 
 		       SHIPPING S ON(S.SHIPPING_NO = PR.SHIPPING_NO)
 	       LEFT JOIN     
