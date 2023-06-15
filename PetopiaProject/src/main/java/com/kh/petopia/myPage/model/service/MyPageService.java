@@ -84,6 +84,23 @@ public interface MyPageService {
 
 	ArrayList<AllReviews> myReviewList(int mno);
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지
+	
 	//주문 내역 페이징 처리를 위한 countList
 	int orderListCount(int memberNo);
 	ArrayList<ProductReceipt> selectOrderList(int memberNo, PageInfo pi);

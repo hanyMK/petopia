@@ -158,7 +158,34 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<AllReviews> myReviewList(int memberNo) {
 		return myPageDao.myReviewList(sqlSession,memberNo);
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지 시작
 	@Override
 	public int orderListCount(int memberNo) {
 		return myPageDao.orderListCount(sqlSession,memberNo );
