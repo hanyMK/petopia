@@ -40,6 +40,12 @@ public interface AdminService {
 
 	// 매출 조회
 	int salesCheck();
+
+	int shippingListCount();
+
+	ArrayList ShippingList();
+
+	int toalPayment();
 	
 	
 }
