@@ -131,6 +131,14 @@ public class MyPageDao {
 	public int insertWithdrawPetpay(SqlSessionTemplate sqlSession, Petpay p) {
 		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
 	}
+	
+	public ArrayList<AllReviews> productReviewForm(SqlSessionTemplate sqlSession,AllReviews r) {
+		return sqlSession.selectOne("myPageMapper.productReviewForm", r);
+	}
+
+	public ArrayList<AllReviews> reservationReviewForm(SqlSessionTemplate sqlSession, AllReviews r) {
+		return sqlSession.selectOne("myPageMapper.reservationReviewForm", r);
+	}
 
 	
 	
@@ -181,5 +189,7 @@ public class MyPageDao {
 												 memberNo,
 												 new RowBounds(offset, pi.getBoardLimit()));
 	}
+
+	
 	
 }

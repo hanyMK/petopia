@@ -41,16 +41,19 @@
                 <table algin="center">
                 	<!-- 예약인지 상품인지 구별 -->
                     <tr>
-                    	<input type="hidden" name="mno" value="${loginMember.memberNo }">
+                    	<input type="hidden" name="memberNo" value="${loginMember.memberNo }">
+                    	<input type="hidden" name="productNo" value="${ list.productNo }">
+                    	<input type="hidden" name="reservationNo" value="${ list.reservationNo }">
                     	<th><label for="writer">상품 or 예약</label></th>
-                    	<td><input type="text" id="" class="form-control" value="" name="">
-                    		<input type="text" id="" class="form-control" value="" name="">
+                    	<td>
+                    		<input type="text" id="title" class="form-control" value="${ list.title }" name="title">
+                    		<input type="text" id="finalPrice" class="form-control" value="${ list.finalPrice }" name="finalPrice">
                     	</td>
                     	
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="${loginMember.nickname }" name="nickName"></td>
+                        <td><input type="text" id="writer" class="form-control" value="${ loginMember.nickname }" name="nickName"></td>
                     </tr>
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
@@ -79,6 +82,7 @@
     <jsp:include page="../common/footer.jsp" />
     
     <script>
+    
 	    function readURL(input){
 	        if(input.files && input.files[0]) {
 	            var reader = new FileReader();
