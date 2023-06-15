@@ -132,6 +132,43 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지 시작
 	public int orderListCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.orderListCount", memberNo);
 	}
