@@ -80,7 +80,7 @@
 			$.ajax({
 				url : 'ajaxMemberList.ad',
 				data: {
-						currentPage : cPage
+					currentPage : cPage
 				},
 				success : function(result){
 				
@@ -181,7 +181,7 @@
 				data: {
 					searchType: searchType, 
 					keyword: keyword,
-					cPage : cPage
+					currentPage : cPage
 			         
 				},
 				success : function(result){

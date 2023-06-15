@@ -210,12 +210,8 @@ public class MyPageController {
 	
 	
 	@RequestMapping("orderList.me")
-	public ModelAndView selectOrderList(int currentPage,
-										ModelAndView mv,
-										HttpSession session) {
-		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
-		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-		return mv;
+	public String selectOrderList() {
+		return "myPage/orderList";
 	}
 
 	

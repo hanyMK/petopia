@@ -62,7 +62,7 @@
         <ul class="myPage_navi_category">
         	<li><a href="memberList.ad"><h5><b>회원조회</b></h5></a></li>
         	<li><a href="adminSales.ad"><h6>매출관리</h6></a></li>
-        	<li><a href=""><h6>주문/배송 조회</h6></a></li>
+        	<li><a href="adminShipping.ad"><h6>주문/배송 조회</h6></a></li>
         	<li><a href=""><h6>펫페이/포인트 조회</h6></a></li>
         </ul>
         <ul class="myPage_navi_category">
