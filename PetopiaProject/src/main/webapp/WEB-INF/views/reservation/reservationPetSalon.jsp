@@ -6,14 +6,72 @@
 <head>
 <meta charset="UTF-8">
 <title>여기는 애견 미용실 예약 페이지</title>
-	<link rel="stylesheet" type="text/css" href="resources/css/reservation/reservationCalendar.css">
-</head>
+	<!-- <link rel="stylesheet" type="text/css" href="resources/css/reservation/reservationCalendar.css">  -->
 <style>
-	 
-	/* 달력에 필요한 스타일 */
 
+	/* 달력에 필요한 스타일 */
+	td {
+	      width: 50px;
+	      height: 50px;
+	  }
+
+	.Calendar {
+	    text-align: center;
+	}
+	
+	.Calendar>thead>tr:first-child>td {
+	    font-family: 'Questrial', sans-serif;
+	    font-size: 1.1em;
+	    font-weight: bold;
+	}
+	
+	.Calendar>thead>tr:last-child>td {
+	    font-family: 'Questrial', sans-serif;
+	    font-weight: 600;     
+	}
+	
+	.Calendar>tbody>tr>td>p {
+	    font-family: 'Montserrat', sans-serif;
+	    height: 45px;
+	    width: 45px;
+	    border-radius: 45px;
+	    transition-duration: .2s;
+	    line-height: 45px;
+	    margin: 2.5px;
+	    display: block;
+	    text-align: center;
+	}        
+	
+	.pastDay, .closedDay {
+	    color: lightgray;
+	}
+	
+	.today {
+	    color: blue;
+	    font-weight: 600;
+	    cursor: pointer;
+	}
+	
+	.futureDay {
+	    background-color: #FFFFFF;
+	    cursor: pointer;
+	}
+	.futureDay:hover{
+	    background:#eee;
+	}
+
+	.futureDay.choiceDay,
+	.today.choiceDay {
+	    background: orange;
+	    color: #fff;
+	    font-weight: 600;
+	    cursor: pointer;
+	}
 		  
 	/*내가 추가한 스타일 */
+	#employee, #reservation-calendar {
+		margin:auto;
+	}
 	
 	#employee-list {
 		border : 1px solid black;
@@ -23,38 +81,37 @@
 		border : 1px solid black;
 		width : 70%;
 		height : 100px;
-		margin:auto;
 		margin-bottom : 20px;
 	}
 	
 	/*숨겨져 있다가 사용자가 미용사를 선택하면 나타남 */
-	#reservation-calendar, #payment-form{
+	#reservation-calendar, #reservation-form{
 		display:none;
 	}
 	
-	#time{
-		border: 1px solid black;
-	}
-	
-	#time td{
-		border: 1px solid black;
-	}
-	
 	#reservation-time td{
-		border: 1px solid black;
+		text-align: center;
+		border: 1px solid gray;
 		width : 100px;
 		height : 50px;
-		cursor : pointer;
 	}
 	
 	#reservation-time td:hover:not(.booked){
-		color : red;
+		cursor : pointer;
+		font-weight : bold;
 	}
 	
-	/* 예약이 되어있는 시간대는 선택할 수 없도록 스타일을 부여*/
+	/* 예약이 되어있는 시간대는 선택할 수 없도록 스타일 적용 */
 	.booked {
-		cursor : none;
-		color : black;
+		text-decoration: line-through;
+	}
+	
+	/* 사용자가 선택한 버튼에 스타일 적용  */
+	
+	.selected-time{
+		background : orange;
+		color : white;
+		font-weight : bold;
 	}
 
 		  
@@ -84,11 +141,11 @@
 							<c:forEach var="e" items="${ requestScope.eList }">
 								<div id="employee">
 									<ul style="list-style:none;">
-										<li> 이름 : ${ e.employeeName } </li>
+										<li> 이름 : ${ e.employeeName }</li>
 										<li> 정보 : ${ e.employeeInfo } </li>
 										<li> 휴무일 : ${e.closedDay}</li>
 										<div align="right">
-											<button onclick="buildCalendar(${e.employeeNo},'${e.closedDay}');">예약</button>
+											<button onclick="buildCalendar(${e.employeeNo}, '${e.employeeName}' ,'${e.closedDay}');">예약</button>
 										</div>
 									</ul>
 								</div>
@@ -102,7 +159,12 @@
 				</div>
 				<!-- 미용사 리스트 조회 끝  -->
 				
-				<!-- 선택한 미용사에 따른 달력 출력 (미용사의 휴무일을 선택하지 못하도록 설정해야함) -->
+				<!-- 예약 정보 입력 시작  -->
+				<div id="resrvation-info">
+					
+				<h3 align="center"> 예약 정보 입력 </h3>
+				
+				<!-- 달력 시작 -->
 				<div id="reservation-calendar">
 					<table class="Calendar">
 			            <thead>
@@ -140,8 +202,10 @@
 			        today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
 			
 			        // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-			        function buildCalendar(eno,closedDay) {
+			        function buildCalendar(eno,eName,closedDay) {
 			        	
+			        	// 이전에 클릭한 예약정보가 사라지고 선택에 따라 다시 출력되도록하기위해 
+			        	$('#reservation-form').css('display','none');
 			        	$('#reservation-calendar').css('display','block');
 			        	
 			        	switch(closedDay){
@@ -191,11 +255,11 @@
 			                }
 			                else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
 			                    newDIV.className = "today";
-			                    newDIV.onclick = function () { choiceDate(this,eno); }
+			                    newDIV.onclick = function () { choiceDate(this,eno,eName); }
 			                }
 			                else {                                      // 미래인 경우
 			                    newDIV.className = "futureDay";
-			                    newDIV.onclick = function () { choiceDate(this,eno); }
+			                    newDIV.onclick = function () { choiceDate(this,eno,eName); }
 			                }
 			                
 			                
@@ -228,7 +292,7 @@
 			        }
 			
 			        // 날짜 선택
-			        function choiceDate(newDIV,eno) {
+			        function choiceDate(newDIV,eno,eName) {
 			            if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
 			                document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
 			            }
@@ -245,8 +309,10 @@
 			            console.log(calMonth.innerText);
 			            console.log(newDIV.innerText);	// 사용자가 선택한 일
 			            
+			            // 사용자가 날짜까지 선택하면 선택한 예약일자랑 선택한 미용사도 함께 출력해주도록 
 			            $('#selectedDate').text(calYear + '-' + calMonth +'-' + calDay);
-			            
+			            $('#selectedEmployee').text(eName);
+
 			            selectReservation(eno);
 			        }
 			
@@ -277,36 +343,48 @@
 				
 				<!-- 입력한 예약 정보  -->
 				<form action="payment.ps" method="get">
-					<div id="payment-form">
+					<div id="reservation-form">
 					
-						* 예약일자  
+						* 담당자	<!-- 사용자가 선택한 담당자 -->
 						<div>
-							<strong id="selectedDate"></strong>
-						</div>
-					
+							<strong id="selectedEmployee"></strong>
+							<input type="hidden" name="employeeNo" value="">
+						</div> 
+						
 						<br>
 					
-						* 시간  
+						* 예약일자  <!-- 사용자가 선택한 일자 -->
 						<div>
+							<strong id="selectedDate"></strong>
+							<input type="hidden" name="" value="">
+						</div>
+						
+						<br>
+					
+					
+						* 시간  <!-- 사용자가 선택한 시간 -->
+						<input type="hidden" name="" value="">
+						<div>
+							<strong id="selectedTime"></strong>
 							<table id="reservation-time">
 								<tbody>
 									<tr>
-										<td id="10"><a href=#>10:00</a></td>
-										<td id="11"><a href=#>11:00</a></td>
+										<td id="10">10:00</td>
+										<td id="11">11:00</td>
 									</tr>
 									<tr>
-										<td id="12"><a href=#>12:00</a></td>
-										<td id="13"><a href=#>13:00</a></td>
-										<td id="14"><a href=#>14:00</a></td>
+										<td id="12">12:00</td>	
+										<td id="13">13:00</td>
+										<td id="14">14:00</td>
 									</tr>
 									<tr>
-										<td id="15"><a href=#>15:00</a></td>
-										<td id="16"><a href=#>16:00</a></td>
-										<td id="17"><a href=#>17:00</a></td>
+										<td id="15">15:00</td>
+										<td id="16">16:00</td>
+										<td id="17">17:00</td>
 									</tr>
 									<tr>
-										<td id="18"><a href=#>18:00</a></td>
-										<td id="19"><a href=#>19:00</a></td>
+										<td id="18">18:00</td>
+										<td id="19">19:00</td>
 									</tr>
 								</tbody>
 							</table>					
@@ -319,12 +397,16 @@
 					</div>
 				</form>
 				
+				</div>
+				<!-- 예약 정보 div 끝 -->
+				
+
 				<!-- 사용자가 선택한 미용사의 예약 현황을 조회해오는 ajax  -->
 				<script>
 				
 					function selectReservation(eno){
 						
-						$('#payment-form').css('display','block');
+						$('#reservation-form').css('display','block');
 						
 						$.ajax({
 							url :'selectEmployeeReservation.ps',
@@ -345,6 +427,7 @@
 								for(let i=10; i<20; i++){
 									$('#'+i).text(i+':00');
 									$('#'+i).removeClass('booked');
+									$('#'+i).attr('class','time')
 								}
 								
 								if(result.length != 0){
@@ -358,7 +441,6 @@
 										for(let j=0; j<result.length; j++){
 											if( result[j].substr(0,2) == i ){
 												// console.log(i+'시는 예약이 되어이씀');
-												$('#'+i > a).removeAttr('href');
 												$('#'+i).attr('class','booked')
 												break;
 											}
@@ -392,6 +474,45 @@
 					
 				</script>
 				<%-- ajax 끝 --%>
+				
+								
+				<!-- 사용자가 시간 선택시   -->
+				<script>
+				
+					// 사용자가 시간을 클릭하면
+					// 클릭한 요소를 가져와야함! 
+					
+					// class=time인 요소에 클릭이벤트가 발생했을 때 호출되는 함수
+					// 함수에 발생한 target요소를가져와서 
+					// 사용자가 무슨 시간을 출력했는지를 얻어오면됨
+					
+					// 근데 동적으로 생긴 요소에는 이벤트가적용이안돼
+					
+					// 이 구문으로 사용하면 동적으로 생긴 요소에 이벤트가 적용됨
+					$(document).on("click",".time",function(e){
+						
+						console.log('시간눌렀어');
+						console.log($(e.target).text());
+						
+						// 사용자가 누른 시간대에 css 스타일 추가
+						$(e.target).removeClass('time');
+						$(e.target).attr('class','selected-time');
+						
+						// 선택한 시간 외에 다른 시간은 이제 선택할 수 없도록 설정 
+						// 
+						
+						$('#selectedTime').text('어쩌구');
+						
+						$('#selectedTime').text($(e.target).text());
+						
+					});
+					
+					$(document).on("click",".booked",function(e){
+						alert('예약할 수 없습니다. ')
+						console.log('너 누르면 안되는데 눌렀어');
+					});
+					
+				</script>
 
 				
 			</div>
