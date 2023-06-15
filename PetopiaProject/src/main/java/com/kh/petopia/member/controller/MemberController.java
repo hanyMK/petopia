@@ -1,30 +1,21 @@
 package com.kh.petopia.member.controller;
 
-import java.util.UUID;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.member.model.service.MemberService;
-import com.kh.petopia.member.model.vo.CertVO;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
+import com.kh.petopia.myPage.model.service.MyPageServiceImpl;
 
 @Controller
 public class MemberController {
@@ -57,8 +48,10 @@ public class MemberController {
 		public ModelAndView login(Member m, ModelAndView mv, HttpSession session ) {
 			
 			Member loginMember = memberService.loginMember(m);
+			//System.out.println(loginMember.getMemberNo());
 			
 			if(loginMember != null && bcyptPasswordEncoder.matches(m.getMemberPwd(), loginMember.getMemberPwd())){
+				//loginMember.setRating(new MyPageServiceImpl().getMemberRating(loginMember.getMemberNo()));
 				session.setAttribute("loginMember", loginMember);
 				mv.setViewName("redirect:/");
 			}else {

@@ -7,7 +7,9 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
+import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
@@ -63,12 +65,45 @@ public interface MyPageService {
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
 	//listCount
 	int couponListCount();
-	ArrayList<Coupon> memberCouponList(PageInfo pi, String rating);
-
+	ArrayList<Coupon> memberCouponList(PageInfo pi, Member member);
+	
+	//회원 쿠폰 발급
+	//만약 이미 발급 받은 쿠폰인 경우 목록에 표시 및 선택 불가능
+	int insertCouponToMember(Coupon coupon);
+	
+	//사용완료, 사용가능, 사용기간 만료 쿠폰 리스트 조회
+	ArrayList<Coupon> selectAvailableCoupon(int memberNo);
 
 	ArrayList<Petpay> petpayStatusList(HashMap<String, Object> map);
 
 	ArrayList<Point> pointStatusList(HashMap<String, Object> map);
+
+	int insertChargePetpay(Petpay p);
+
+	int insertWithdrawPetpay(Petpay p);
+
+	ArrayList<AllReviews> myReviewList(int mno);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지
+	
+	//주문 내역 페이징 처리를 위한 countList
+	int orderListCount(int memberNo);
+	ArrayList<ProductReceipt> selectOrderList(int memberNo, PageInfo pi);
 
 	
 

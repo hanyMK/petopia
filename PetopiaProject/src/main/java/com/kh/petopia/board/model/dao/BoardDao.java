@@ -14,8 +14,8 @@ import com.kh.petopia.common.model.vo.PageInfo;
 @Repository
 public class BoardDao {
 	
-	public int countBoard(SqlSessionTemplate sqlSession, String category) {
-		int num = sqlSession.selectOne("boardMapper.countBoard", category);
+	public int countBoard(SqlSessionTemplate sqlSession, HashMap type) {
+		int num = sqlSession.selectOne("boardMapper.countBoard", type);
 		return num;
 	}
 	
@@ -27,7 +27,6 @@ public class BoardDao {
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectBoard", type, rowBounds);
 	}
 	

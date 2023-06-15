@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +54,18 @@
         height: 50px;
         margin: auto;
     }
+    #inputCount{
+        width: 40px;
+        height: 25px;
+        text-align: center;
+        font-size: 20px;
+    }
+    #product_size_select{
+        width: 100px;
+        height: 30px;
+        text-align: center;
+        font-size: 20px;
+    }
 </style>
 </head>
 <body>
@@ -67,15 +80,31 @@
         </div>
         <div id="product_detail_div">
             <div id="product_detail">
+                <form action="buyPage.pd" method="get">
                 <div style="font-size: 20px;">${ p.categoryName }</div>
                 <div style="font-size: 40px;">${ p.productTitle }</div>
                 <hr>
                 <br>
+                <span>가격</span>
                 <div style="font-size: 30px;">${ p.productPrice }</div>
                 
-                사이즈 <br> 수량
-                <button>BUY NOW</button>
-                <button>CART</button>
+                    <input type="hidden" name="productNo" value="${ bno }">
+                    <c:if test="${p.categoryName eq '애견의류'}">
+                        사이즈 
+                        <select name="productSize" id="product_size_select">
+                            <c:forEach var="list" items="${ list }">
+                                <option value="${ list.productSize }">${ list.productSize }</option>
+                            </c:forEach>
+                        </select>
+                    </c:if>
+                        <br>
+                        <br>
+                        수량 <input type="number" name="amount" id="inputCount" value="1" max="10" min="1">
+                        <br>
+                        <br>
+                    <button type="submit">BUY NOW</button>
+                </form>
+                <button id="cartGo">CART</button>
             </div>
         </div>
         <hr>
@@ -124,6 +153,39 @@
             var value = '';
             value += '<img id="product_detail_page_img" src="resources/images/deliveyInfo.jpg">'
             $('#product_detail_page_div').html(value);
+        })
+    </script>
+
+    <script>
+        $('#inputCount').on('blur', function(){
+            if($('#inputCount').val() > 10){
+                alert('최대 구매 가능한 수량은 10개 입니다.');
+                $('#inputCount').val('1');
+            }
+            if($('#inputCount').val() <= 0){
+                alert('최소 구매 가능한 수량은 1개 입니다.');
+                $('#inputCount').val('1');
+            }
+        })
+    </script>
+
+    <script>
+        $('#cartGo').on('click', function(){
+            $.ajax({
+                url : 'insertCart.pd',
+                data : {
+                    memberNo : ${loginMember.memberNo},
+                    productNo : ${ bno },
+                    amount : $('#inputCount').val(),
+                    productSize : $('#product_size_select').val()
+                },
+                success : function(result){
+                    alert('장바구니에 추가하였습니다.');
+                },
+                error : function(){
+                    console.log('응안돼');
+                }
+            });
         })
     </script>
 </body>

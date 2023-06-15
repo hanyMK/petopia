@@ -5,73 +5,56 @@
   
 <mapper namespace="boardMapper">
 
-	<select id="countBoard" resultType="_int" parameterType="string">
+	<select id="countBoard" resultType="_int" parameterType="hashmap">
 		SELECT
-		       COUNT(*)
+		       NVL(COUNT(*), 0)
 		  FROM
-		  	   BOARD
+		  	   BOARD B
+		  JOIN
+		  	   MEMBER M USING(MEMBER_NO)
 		<choose>
 			<when test="category.equals('CLUB')">
 				WHERE
 				      CATEGORY = 'CLUB'
 			      AND
-	   	   			  STATUS = 'Y'
+	   	   			  B.STATUS = 'Y'
+	   	  	      AND
+	   	  	      	  M.STATUS = 'Y'	   	   			  
 			</when>
 			<when test="category.equals('BOAST')">
 				WHERE
 					  CATEGORY = 'BOAST'
 				  AND
-		   	   		  STATUS = 'Y'
+		   	   		  B.STATUS = 'Y'
+	   	  	      AND
+	   	  	      	  M.STATUS = 'Y'		   	   		  
 			</when>
 			<otherwise>
 				WHERE
-		   	   		  STATUS = 'Y'
+		   	   		  B.STATUS = 'Y'
+	   	  	      AND
+	   	  	      	  M.STATUS = 'Y'		   	   		  
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="condition.equals('writer') and(!keyword.equals(''))">
+				AND
+					NICKNAME LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="condition.equals('title') and(!keyword.equals(''))">
+				AND
+					BOARD_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="condition.equals('content') and(!keyword.equals(''))">
+				AND
+					BOARD_CONTENT LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				
 			</otherwise>
 		</choose>
 	</select>
-	<!-- 
-	<select id="selectBoard" resultType="board" parameterType="string">
-		
-		select *
-	 	  from (SELECT
-	 	  			   BOARD_NO boardNo
-					   ,BOARD_TITLE boardTitle
-					   ,M.NICKNAME nickName
-					   ,BOARD_COUNT boardCount
-					   ,(SELECT COUNT(*)
-		                       FROM REPLY R
-		                      WHERE R.BOARD_NO = B.BOARD_NO
-		                        AND B.STATUS = 'Y') AS "REPLYCOUNT"
-					   ,B.CREATE_DATE createDate
-			   	  FROM
-			   	  	   BOARD B
-		   	 	  JOIN
-			   	  	   MEMBER M USING(MEMBER_NO)
-			   	  <choose>
-			   	  	<when test="category.equals('CLUB')">
-			   	  		WHERE
-			   	  			  B.CATEGORY = 'CLUB'
-			   	  		  AND 
-			   	  	    	  B.STATUS = 'Y'
-			   	  	</when>
-			   	  	<when test="category.equals('BOAST')">
-			   	  		WHERE
-			   	  			  B.CATEGORY = 'BOAST'
-			   	  		  AND 
-			   	  	    	  B.STATUS = 'Y'
-			   	  	</when>
-			   	  	<otherwise>
-			   	  	   WHERE
-			   	  	   	     B.STATUS = 'Y'
-			   	  	</otherwise>
-			   	  </choose>
-			   	 ORDER
-			   	 	BY
-			   	 	   B.CREATE_DATE DESC)
-		where
-	 		  rownum between 1 and 5
-	</select>
-	 -->
+
 	 <select id="selectBoard" resultType="board" parameterType="hashmap">
 	 	SELECT
 	  			BOARD_NO boardNo
@@ -94,18 +77,41 @@
    	  			  B.CATEGORY = 'CLUB'
    	  		  AND 
    	  	    	  B.STATUS = 'Y'
+   	  	      AND
+   	  	      	  M.STATUS = 'Y'
    	  	</when>
    	  	<when test="category.equals('BOAST')">
    	  		WHERE
    	  			  B.CATEGORY = 'BOAST'
    	  		  AND 
    	  	    	  B.STATUS = 'Y'
+   	  	      AND
+   	  	      	  M.STATUS = 'Y'
    	  	</when>
    	  	<otherwise>
    	  	   WHERE
    	  	   	     B.STATUS = 'Y'
+	  	   	 AND
+ 	  	     	 M.STATUS = 'Y'
    	  	</otherwise>
    	  </choose>
+ 	  <choose>
+		<when test="condition.equals('writer') and(!keyword.equals(''))">
+			AND
+				M.NICKNAME LIKE '%' || #{keyword} || '%'
+		</when>
+		<when test="condition.equals('title') and(!keyword.equals(''))">
+			AND
+				BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		</when>
+		<when test="condition.equals('content') and(!keyword.equals(''))">
+			AND
+				BOARD_CONTENT LIKE '%' || #{keyword} || '%'
+		</when>
+		<otherwise>
+			
+		</otherwise>
+	  </choose>
    	  <choose>
    	  	<when test="filter.equals('COUNT')">
 	   	 ORDER

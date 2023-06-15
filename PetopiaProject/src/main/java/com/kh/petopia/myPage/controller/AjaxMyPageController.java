@@ -18,6 +18,7 @@ import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @RestController
 @Controller
@@ -61,21 +62,16 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReplyList(mno));
 	}
 	
-	// 펫페이 금액 추가
-	@RequestMapping(value="plus1man.me", produces="application/json; charset=UTF-8")
-	public String plus1man(String amount) {
-		System.out.println(amount);
-		return new Gson().toJson(amount + 10000);
-	}
-	
 	//마이페이지 쿠폰 조회
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
 	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") int currentPage, int memberNo,
 										HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
-
-		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, myPageService.getMemberRating(memberNo));
+		Member member = (Member)session.getAttribute("loginMember");
+		member.setRating(myPageService.getMemberRating(memberNo));
+		System.out.println(member);
+		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, member);
 		System.out.println(cList);
 		//전월 실적 조회
 		HashMap<String, Object> map = new HashMap<>();
@@ -90,7 +86,25 @@ public class AjaxMyPageController {
 		
 		
 	}
+	// 쿠폰발급
+	@RequestMapping("insertCoupon.me")
+	public String insertCouponToMember(int memberNo, int couponNo) {
+		Coupon coupon = new Coupon();
+		coupon.setMemberNo(memberNo);
+		coupon.setCouponNo(couponNo);
+		return (myPageService.insertCouponToMember(coupon) > 0)? "YES" : "NO"; 
+		
+		
+	}
 	
+	//회원등급에 따른 사용가능 쿠폰 조회
+	@RequestMapping(value="availableCoupon.me", produces="application/json; charset=UTF-8")
+	public String selectAvailableCoupon(int memberNo) {
+		ArrayList<Coupon> list = myPageService.selectAvailableCoupon(memberNo);
+		//System.out.println(list);
+		
+		return !list.isEmpty()?  new Gson().toJson(list): null;
+	}
 	
 	
 	
@@ -131,9 +145,29 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.pointStatusList(map));
 	}
 	
+	// 리뷰 조회
+	// 작성 가능한 리뷰 조회
+	@RequestMapping(value="ajaxMyReviewList.me", produces="application/json; charset=UTF-8")
+	public String myReviewList(int mno) {
+		return new Gson().toJson(myPageService.myReviewList(mno));
+	}
+	
+	 // 회원 주문 배송 내역 조회 매소드
+	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
+	public String selectOrderList(int memberNo, 
+								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
+		
+		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
+		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
+		
+		return !list.isEmpty()? new Gson().toJson(list):"NO";
+	}
 	
 	
-	
+	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
+	public String myReviewEndList(int mno) {
+		return new Gson().toJson(myPageService.myReviewList(mno));
+	}
 	
 	
 	

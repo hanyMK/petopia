@@ -18,7 +18,8 @@
 		<typeAlias type="com.kh.petopia.member.model.vo.Pet" alias="pet"/> 
 		<typeAlias type="com.kh.petopia.common.model.vo.Attachment" alias="att"/> 
 		<typeAlias type="com.kh.petopia.myPage.model.vo.MyPage" alias="myPage"/>
-		<typeAlias type="com.kh.petopia.product.model.vo.Product" alias="product"/> 
+		<typeAlias type="com.kh.petopia.product.model.vo.Product" alias="product"/>
+		<typeAlias type="com.kh.petopia.product.model.vo.Cart" alias="cart"/> 
 		<typeAlias type="com.kh.petopia.petStore.model.vo.PetStore" alias="petStore"/>
 		<typeAlias type="com.kh.petopia.petStore.model.vo.PetStoreReview" alias="petStoreReview"/>
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Reservation" alias="reservation"/>
@@ -29,6 +30,8 @@
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Point" alias="point"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Petpay" alias="petpay"/>
 		<typeAlias type="com.kh.petopia.admin.model.vo.SelectShipping" alias="selectShipping"/>
+		<typeAlias type="com.kh.petopia.myPage.model.vo.AllReviews" alias="allReviews"/>
+
 	</typeAliases>
 	
 	<mappers> <!-- resource="매퍼의 경로" -->

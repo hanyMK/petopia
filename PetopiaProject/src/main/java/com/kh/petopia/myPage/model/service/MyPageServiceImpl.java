@@ -11,8 +11,10 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.dao.MyPageDao;
+import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
@@ -117,8 +119,18 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi, String rating) {
-		return myPageDao.memberCouponList(sqlSession, pi, rating);
+	public ArrayList<Coupon> memberCouponList(PageInfo pi,  Member member) {
+		return myPageDao.memberCouponList(sqlSession, pi, member);
+	}
+	
+	@Override
+	public int insertCouponToMember(Coupon coupon) {
+		return myPageDao.insertCouponToMember(sqlSession, coupon);
+	}
+	
+	@Override
+	public ArrayList<Coupon> selectAvailableCoupon(int memberNo) {
+		return myPageDao.selectAvailableCoupon(sqlSession, memberNo);
 	}
 
 
@@ -131,6 +143,61 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<Point> pointStatusList(HashMap<String, Object> map) {
 		return myPageDao.pointStatusList(sqlSession, map);
 	}
+
+	@Override
+	public int insertChargePetpay(Petpay p) {
+		return myPageDao.insertChargePetpay(sqlSession, p);
+	}
+
+	@Override
+	public int insertWithdrawPetpay(Petpay p) {
+		return myPageDao.insertWithdrawPetpay(sqlSession, p);
+	}
+
+	@Override
+	public ArrayList<AllReviews> myReviewList(int memberNo) {
+		return myPageDao.myReviewList(sqlSession,memberNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지 시작
+	@Override
+	public int orderListCount(int memberNo) {
+		return myPageDao.orderListCount(sqlSession,memberNo );
+	}
+
+	@Override
+	public ArrayList<ProductReceipt> selectOrderList(int memberNo, PageInfo pi) {
+		return myPageDao.selectOrderList(sqlSession, memberNo,pi);
+	}
+
+
+
 
 	
 

@@ -46,7 +46,20 @@
         width: 300px;
         height: 300px;
     }
-    .size_checkbox{
+    .sizeInput{
+        text-align: center;
+        width: 20px;
+    }
+    #smallSize{
+        display: none;
+    }
+    #mediumSize{
+        display: none;
+    }
+    #largeSize{
+        display: none;
+    }
+    #spanSize{
         display: none;
     }
 </style>
@@ -67,10 +80,14 @@
                         </select> <br><br>
                 제목    <input type="text" name="productTitle" id="input_title"> <br><br>
                 가격    <input type="number" name="productPrice" id="input_price"> <br><br>
-                <input type="checkbox" name="noSize" class="size_checkbox"> <span class="size_checkbox">선택안함</span><br>
-                <input type="checkbox" name="sSize" class="size_checkbox"> <span class="size_checkbox">S</span><br>
-                <input type="checkbox" name="mSize" class="size_checkbox"> <span class="size_checkbox">M</span><br>
-                <input type="checkbox" name="lSiez" class="size_checkbox"> <span class="size_checkbox">L</span><br>
+                        <span id="spanSize">사이즈</span> 
+                        <input type="hidden" name="smallSize" id="sizeSmallInput" class="sizeInput" readonly> 
+                        <input type="hidden" name="mediumSize" id="sizeMediumInput" class="sizeInput" readonly>
+                        <input type="hidden" name="largeSize" id="sizeLargeInput" class="sizeInput" readonly>
+                        <br><br>
+                <button type="button" name="smallSize" id="smallSize">S</button>
+                <button type="button" name="mediumSize" id="mediumSize">M</button>
+                <button type="button" name="largeSize" id="largeSize">L</button>
                 <br>
                 <br>
                 썸네일 사진 넣기 <input type="file" name="thumbnail" onchange="thumbnailReadURL(this)">
@@ -89,7 +106,6 @@
                 <br>
                 <hr>
                 <input type="submit" value="상품등록">
-
             </form>
         </div>
     </div>
@@ -120,14 +136,55 @@
     </script>
 
     <script>
+
         $('#product_category').change(function(){
-            if($(this).val() == '애견의류'){
-                $('.size_checkbox').css('display','inline-block');
+            if( $('#product_category').val() == '애견의류'){
+            $('#smallSize').css('display','inline-block');
+            $('#mediumSize').css('display','inline-block');
+            $('#largeSize').css('display','inline-block');
+            $('#spanSize').css('display','inline-block');
             } else {
-                $('.size_checkbox').css('display','none');
+            $('#smallSize').css('display','none');
+            $('#mediumSize').css('display','none');
+            $('#largeSize').css('display','none');
+            $('#spanSize').css('display','none');
+            $('#sizeSmallInput').val('');
+            $('#sizeMediumInput').val('');
+            $('#sizeLargeInput').val('');
+            $('#sizeSmallInput').prop('type',"hidden");
+            $('#sizeMediumInput').prop('type',"hidden");
+            $('#sizeLargeInput').prop('type',"hidden");
             }
         })
+        
 
+        $('#smallSize').click(function(){
+            if($('#sizeSmallInput').val() == 'S'){
+                $('#sizeSmallInput').val('');
+                $('#sizeSmallInput').prop('type',"hidden");
+            } else {
+                $('#sizeSmallInput').val($(this).text());
+                $('#sizeSmallInput').prop('type',"text");
+            }
+        })
+        $('#mediumSize').click(function(){
+            if($('#sizeMediumInput').val() == 'M'){
+                $('#sizeMediumInput').val('');
+                $('#sizeMediumInput').prop('type',"hidden");
+            } else {
+                $('#sizeMediumInput').val($(this).text());
+                $('#sizeMediumInput').prop('type',"text");
+            }
+        })
+        $('#largeSize').click(function(){
+            if($('#sizeLargeInput').val() == 'L'){
+                $('#sizeLargeInput').val('');
+                $('#sizeLargeInput').prop('type',"hidden");
+            } else {
+                $('#sizeLargeInput').val($(this).text());
+                $('#sizeLargeInput').prop('type',"text");
+            }
+        })
     </script>
 
     <jsp:include page="../common/footer.jsp"/>

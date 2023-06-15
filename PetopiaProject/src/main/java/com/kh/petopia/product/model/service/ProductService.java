@@ -3,6 +3,7 @@ package com.kh.petopia.product.model.service;
 import java.util.ArrayList;
 
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -11,7 +12,7 @@ public interface ProductService {
 
 	// 메인 상품 조회 (select)
 	// 메인 카테고리 상품 조회
-	ArrayList<Product> selectProductList();
+	ArrayList<Product> selectProductList(String category);
 	
 //	SQL => 해결
 //	if(Category.equals('전체')) {
@@ -32,6 +33,8 @@ public interface ProductService {
 	Product productSelectDetail(int productNo);
 	
 	Product productSelectDetailPage(int productNo);
+	
+	ArrayList<Product> productSelectSize(int productNo);
 	
 	// 상품 문의 조회 (select) board
 	ArrayList<Ask> selectAskList(int productNo);
@@ -100,11 +103,16 @@ public interface ProductService {
 	
 	// 장바구니 (insert)(delete)(select)
 	// 로그인 유무 / 비로그인시 장바구니 클릭시 로그인 모달띄우기 로그인 O DB에 저장 시키기
-		int insertCart(int productNo);
+		
+		int insertCart(Cart cart);
 		
 		int deleteCart(int productNo);
 		
+		ArrayList<Cart> selectCartList(int memNo);
+		
 		ArrayList<Cart> selectCart(int memberNo);
+		
+//		ArrayList<Product> selectProductInfo(int productNo);
 		
 	// 상품 결제 (insert)
 		

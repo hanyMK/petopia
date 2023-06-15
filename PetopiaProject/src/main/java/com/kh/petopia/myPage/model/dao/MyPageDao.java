@@ -11,7 +11,9 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
 import com.kh.petopia.common.model.vo.PageInfo;
+import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
+import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Alram;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
@@ -89,14 +91,22 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, String rating){
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, Member member){
 		
 		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
-										rating,
+										member,
 										new RowBounds(
 												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
 														pi.getBoardLimit()
 														));
+	}
+	
+	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
+		return sqlSession.insert("myPageMapper.insertCouponToMember", coupon);
+	}
+
+	public ArrayList<Coupon> selectAvailableCoupon(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectAvailableCoupon", memberNo);
 	}
 	
 
@@ -104,10 +114,70 @@ public class MyPageDao {
 	public ArrayList<Petpay> petpayStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.petpayStatusList", map);
 	}
+	
 
 	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);
 	}
+
+	public int insertChargePetpay(SqlSessionTemplate sqlSession, Petpay p) {
+		return sqlSession.insert("myPageMapper.insertChargePetpay", p);
+	}
 	
+	public int insertWithdrawPetpay(SqlSessionTemplate sqlSession, Petpay p) {
+		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
+	}
+
+	public ArrayList<AllReviews> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지 시작
+	public int orderListCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.orderListCount", memberNo);
+	}
+	
+	public ArrayList<ProductReceipt> selectOrderList(SqlSessionTemplate sqlSession, int memberNo, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1)/pi.getBoardLimit() * pi.getBoardLimit();
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectOrderList",
+												 memberNo,
+												 new RowBounds(offset, pi.getBoardLimit()));
+	}
 	
 }

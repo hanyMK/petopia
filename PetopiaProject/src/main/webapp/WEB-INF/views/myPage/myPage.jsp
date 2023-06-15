@@ -22,7 +22,7 @@
 				<table id="main_center_right_1">
 					<tr>
 						<td>프로필이미지</td>
-						<td>vip 김말숙 님 안녕하세요</td>
+						<td>vip ${loginMember.memberName } 님 안녕하세요</td>
 						<td>펫페이 : 145000원</td>
 						<td>포인트 : 5000</td>
 					</tr>
