@@ -159,7 +159,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.myReviewList(sqlSession,memberNo);
 	}
 	
-	
+	@Override
+	public ArrayList<AllReviews> productReviewForm(AllReviews r) {
+		return myPageDao.productReviewForm(sqlSession,r);
+	}
+
+	@Override
+	public ArrayList<AllReviews> reservationReviewForm(AllReviews r) {
+		return myPageDao.reservationReviewForm(sqlSession,r);
+	}	
 	
 	
 	
@@ -195,6 +203,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<ProductReceipt> selectOrderList(int memberNo, PageInfo pi) {
 		return myPageDao.selectOrderList(sqlSession, memberNo,pi);
 	}
+
+
 
 
 

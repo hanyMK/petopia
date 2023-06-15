@@ -158,6 +158,9 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReviewList(mno));
 	}
 	
+
+	
+	
 	
 	
 	
@@ -240,10 +243,16 @@ public class AjaxMyPageController {
 		
 		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
+		ArrayList<ProductReceipt> receiptList = new ArrayList(); 
+		
 		HashMap<Integer, ProductReceipt> map = new HashMap<>();
-		for(ProductReceipt p : list) {
-			
-		}
+		//영슈증 번호가 같으면 타이틀을 하나의 문자열로 묶어서 보내기ㅣ
+		
+//		for(ProductReceipt p : list) {
+//			int receiptNo =  p.getReceiptNo();
+//			
+//			
+//		}
 		
 		return !list.isEmpty()? new Gson().toJson(list):"NO";
 	}
