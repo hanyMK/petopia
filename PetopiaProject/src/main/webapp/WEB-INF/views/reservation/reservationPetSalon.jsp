@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>여기는 애견 미용실 예약 페이지</title>
+<title>예약 페이지</title>
 	<!-- <link rel="stylesheet" type="text/css" href="resources/css/reservation/reservationCalendar.css">  -->
 <style>
 
@@ -309,9 +309,13 @@
 			            console.log(calMonth.innerText);
 			            console.log(newDIV.innerText);	// 사용자가 선택한 일
 			            
-			            // 사용자가 날짜까지 선택하면 선택한 예약일자랑 선택한 미용사도 함께 출력해주도록 
+			            // 사용자가 날짜까지 선택하면 
+			            // 예약일자, 미용사 화면에 출력해주고 동시에 input의 value값에 세팅
 			            $('#selectedDate').text(calYear + '-' + calMonth +'-' + calDay);
+			            $('input[name=checkIn]').attr('value', calYear + '-' + calMonth +'-' + calDay);
+			            
 			            $('#selectedEmployee').text(eName);
+			            $('input[name=employeeNo]').attr('value', eno);
 
 			            selectReservation(eno);
 			        }
@@ -348,7 +352,7 @@
 						* 담당자	<!-- 사용자가 선택한 담당자 -->
 						<div>
 							<strong id="selectedEmployee"></strong>
-							<input type="hidden" name="employeeNo" value="">
+							<input type="hidden" name=employeeNo value="">
 						</div> 
 						
 						<br>
@@ -356,14 +360,14 @@
 						* 예약일자  <!-- 사용자가 선택한 일자 -->
 						<div>
 							<strong id="selectedDate"></strong>
-							<input type="hidden" name="" value="">
+							<input type="hidden" name="checkIn" value="">
 						</div>
 						
 						<br>
 					
 					
 						* 시간  <!-- 사용자가 선택한 시간 -->
-						<input type="hidden" name="" value="">
+						<input type="hidden" name="reservationTime" value="">
 						<div>
 							<strong id="selectedTime"></strong>
 							<table id="reservation-time">
@@ -389,6 +393,8 @@
 								</tbody>
 							</table>					
 						</div>
+						
+						<br>
 						
 						<div align="center">
 							<button>예약하기</button>
@@ -504,6 +510,7 @@
 						$('#selectedTime').text('어쩌구');
 						
 						$('#selectedTime').text($(e.target).text());
+						$('input[name=reservationTime]').attr('value', $(e.target).text());
 						
 					});
 					
