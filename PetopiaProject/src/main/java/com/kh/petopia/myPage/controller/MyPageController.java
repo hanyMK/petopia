@@ -131,16 +131,6 @@ public class MyPageController {
 		return mv;
 	}
 	
-//	@RequestMapping("orderList.me")
-//	public String selectOrderList(int currentPage,
-//			
-//										ModelAndView mv,
-//										HttpSession session) {
-//		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
-//		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-//		return "myPage/orderList";
-//	}
-	
 	
 	
 	

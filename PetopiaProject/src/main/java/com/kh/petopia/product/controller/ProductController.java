@@ -112,8 +112,8 @@ public class ProductController {
 	@RequestMapping(value="productCart.pd")
 	public String productSelectCart(HttpSession session) {
 		Member user = (Member)session.getAttribute("loginMember");
-		
-		productService.selectCartList(user);
+		int memNo = user.getMemberNo();
+		productService.selectCartList(memNo);
 		
 		return "product/productCartPage";
 	}
