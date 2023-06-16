@@ -236,10 +236,6 @@
 
     <script>
 
-        $(function(){
-            $('#memo').val($('#selectMemo')[0][0].text);
-        })
-
         $('select').on('change',function(){
             if($('option:selected').text() == '직접입력'){
                 $('#memo').val('');

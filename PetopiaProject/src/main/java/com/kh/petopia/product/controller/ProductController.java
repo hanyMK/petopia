@@ -112,7 +112,6 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value="insertCart.pd", produces="application/json; charset=UTF-8")
 	public String insertCart(Cart cart) {
-		System.out.println(cart);
 		int num = productService.insertCart(cart);
 		return new Gson().toJson(num);
 	}
@@ -127,7 +126,7 @@ public class ProductController {
 		int result = 0;
 		for(int i = 0; i < list.size(); i++) {
 			
-			result += list.get(i).getCartPrice();
+			result += list.get(i).getCartPrice() + list.get(i).getExtraMoney();
 		}
 		
 		
