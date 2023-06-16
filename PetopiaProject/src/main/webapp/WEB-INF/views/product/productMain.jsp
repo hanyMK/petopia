@@ -100,7 +100,6 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	<a href="productCart.pd">ddd</a>
 	<div id="content_1">
 		<!-- Slider main container -->
 		<div class="swiper">

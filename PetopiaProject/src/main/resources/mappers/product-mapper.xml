@@ -225,23 +225,49 @@ STATUS
 		insert 
 		  into 
 		       product_cart 
+		       (
+		       member_no,
+		       product_no,
+		       amount,
+		       product_size,
+		       cart_no,
+		       cart_title,
+		       cart_price,
+		       extra_money
+		       )
 		values(
 		       #{memberNo},
 		       #{productNo},
 		       #{amount},
-		       #{productSize})
+		       <choose>
+			   		<when test="productSize == null">
+			   			' ',
+			   		</when>
+			   		<otherwise>
+				       #{productSize},
+			   		</otherwise>		       
+		       </choose>
+		       SEQ_CART_NO.NEXTVAL,
+		       #{cartTitle},
+		       #{cartPrice},
+		       #{extraMoney}
+		       ) 
 	</insert>
 	
 	<select id="selectCart" parameterType="_int" resultType="cart">
 		select 
-			   member_no, 
-	           product_no, 
-	           amount, 
-			   product_size 
+			   cart_no cartNo,
+			   member_no memberNo, 
+	           product_no productNo, 
+	           amount amount, 
+			   product_size productSize,
+			   cart_title cartTitle,
+			   (cart_price * amount) cartPrice,
+			   (extra_money * amount) extraMoney
 		  from 
 			   product_cart 
 	     where 
-	           member_no = #{memNo}
+	           member_no = #{memberNo}
 	</select>
 	
 </mapper>

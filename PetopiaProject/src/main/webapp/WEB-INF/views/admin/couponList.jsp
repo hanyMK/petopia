@@ -53,6 +53,11 @@
 		display: block;
 	}
 
+	#coupon_btn{
+		padding-left: 83%;
+		height: 30px;
+	}
+
 
  </style>
    
@@ -74,7 +79,7 @@
 		
 			<div id="main_center_right">
 				<h1 class="title"> 쿠폰 목록 </h1>
-				<div style="float: right;">
+				<div id="coupon_btn">
 					<button  type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">쿠폰 발급</button>
 				</div>
 				<table class="coupon-list-table" align="center">

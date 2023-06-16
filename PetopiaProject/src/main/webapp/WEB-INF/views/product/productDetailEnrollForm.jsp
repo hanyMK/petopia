@@ -93,7 +93,8 @@
                         사이즈 
                         <select name="productSize" id="product_size_select">
                             <c:forEach var="list" items="${ list }">
-                                <option value="${ list.productSize }">${ list.productSize }</option>
+                                <option value="${ list.productSize }">${ list.productSize } + ${list.extraMoney}</option>
+                                <option value="${list.extraMoney }" disabled hidden></option>
                             </c:forEach>
                         </select>
                     </c:if>
@@ -127,6 +128,8 @@
     <script>
         $(function(){
             selectProductDetailList();
+            $('option:selected').text();
+            console.log($('option:selected').next().val());
         })
 
         function selectProductDetailList(){
@@ -177,7 +180,10 @@
                     memberNo : ${loginMember.memberNo},
                     productNo : ${ bno },
                     amount : $('#inputCount').val(),
-                    productSize : $('#product_size_select').val()
+                    productSize : $('#product_size_select').val(),
+                    cartTitle : '${p.productTitle}',
+                    cartPrice : ${p.productPrice},
+                    extraMoney : $('option:selected').next().val()
                 },
                 success : function(result){
                     alert('장바구니에 추가하였습니다.');

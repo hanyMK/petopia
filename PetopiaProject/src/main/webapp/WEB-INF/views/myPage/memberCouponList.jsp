@@ -19,6 +19,7 @@
 	}
 	#main_center_right_bottom{
 		height:90%;
+		padding-left: 100px;
 	}
 	.myCouponList{
 		border: 1px solid black;

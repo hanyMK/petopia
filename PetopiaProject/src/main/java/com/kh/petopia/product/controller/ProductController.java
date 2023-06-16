@@ -52,7 +52,6 @@ public class ProductController {
 			                    MultipartFile detail, 
 			                    HttpSession session) {
 		
-		System.out.println(p);
 		p.setCategoryName(category);
 		
 		Attachment atmtThumbnail = new Attachment();
@@ -68,6 +67,8 @@ public class ProductController {
 		
 		productService.insertProduct(p, atmtThumbnail, atmtDetail);
 		
+		System.out.println("insert문임"+p);
+		
 		return "redirect:product.pd";
 	}
 	
@@ -76,7 +77,6 @@ public class ProductController {
 		mv.addObject("p",productService.productSelectDetail(Integer.parseInt(bno))).setViewName("product/productDetailEnrollForm");
 		mv.addObject("bno", bno);
 		ArrayList<Product> list = productService.productSelectSize(Integer.parseInt(bno));
-		System.out.println(list);
 		if(list.size() > 0) {
 			mv.addObject("list", list).setViewName("product/productDetailEnrollForm");
 		}
@@ -94,13 +94,20 @@ public class ProductController {
 		
 		Cart mem = (Cart)session.getAttribute("loginMember");
 		
-		System.out.println(mem);
-		
 //		ArrayList<Product> list = productService.productSelectSize(pno);
 //		productService.selectProductInfo(pno);
 		
 		return "";
 	}
+	
+	@RequestMapping("prdocutCartInfo.pd")
+	public ModelAndView productCartInfo(HttpSession session, ModelAndView mv) {
+		
+		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+		mv.addObject("list" ,productService.selectCartList(memNo)).setViewName("product/productBuyPage");
+		return mv;
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="insertCart.pd", produces="application/json; charset=UTF-8")
@@ -110,12 +117,23 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="productCart.pd")
-	public String productSelectCart(HttpSession session) {
+	public ModelAndView productSelectCart(HttpSession session, ModelAndView mv) {
 		Member user = (Member)session.getAttribute("loginMember");
 		int memNo = user.getMemberNo();
-		productService.selectCartList(memNo);
+		System.out.println(memNo);
 		
-		return "product/productCartPage";
+		ArrayList<Cart> list = productService.selectCartList(memNo);
+		int result = 0;
+		for(int i = 0; i < list.size(); i++) {
+			
+			result += list.get(i).getCartPrice() + list.get(i).getExtraMoney();
+		}
+		
+		
+		
+		mv.addObject("list", list).addObject("result", result).setViewName("product/productCartPage");
+		
+		return mv;
 	}
 	
 	

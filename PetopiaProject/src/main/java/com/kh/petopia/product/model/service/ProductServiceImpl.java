@@ -76,11 +76,6 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.productSelectSize(sqlSession, productNo);
 	}
 	
-//	@Override
-//	public ArrayList<Product> selectProductInfo(int productNo) {
-//		return productDao.selectProductInfo(sqlSession, productNo);
-//	}
-	
 	@Override
 	public ArrayList<Cart> selectCartList(int memNo) {
 		return productDao.selectCartList(sqlSession, memNo);
@@ -90,6 +85,11 @@ public class ProductServiceImpl implements ProductService {
 	public int insertCart(Cart cart) {
 		return productDao.insertCart(sqlSession, cart);
 	}
+	
+//	@Override
+//	public ArrayList<Product> selectProductInfo(int productNo) {
+//		return productDao.selectProductInfo(sqlSession, productNo);
+//	}
 	
 	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
@@ -139,6 +139,8 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 

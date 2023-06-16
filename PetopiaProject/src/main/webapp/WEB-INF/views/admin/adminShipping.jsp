@@ -42,19 +42,21 @@
 	<script>
 	
 		let receiptNo = [];
-		
+		var pi = "";
 		$(function(){ 
 			selectList(1);
 		})
+		
 		function selectList(cPage){
 			$.ajax({
+				
 				url : 'ajaxShippingList.ad',
 				data : {
 						currentPage : cPage
 				},
 				success : function(result){
 	
-			
+				console.log(result.pi);
 				pi = result.pi;
 				let value = '';
 				let list = result.list;
@@ -65,10 +67,13 @@
 				let startPage = pi.startPage;
 				let endPage = pi.endPage;
 				let prev = cPage - 1;
-	               let next = cPage + 1;
+	            let next = cPage + 1;
 				let max = pi.maxPage;	
-				
-				for(let i in list){
+				console.log(cPage);
+				console.log(result);
+				let stp = result.stp;
+				let edp = result.edp;
+				 for(var i = stp; i < edp; i++){
 					
 					value += '<tr>'
 						+ '<td><input type="checkbox" name="checkbox" class="checkbox"></td>'
@@ -78,11 +83,10 @@
 	                       + '<td>' + list[i].productTitle + '</td>'
 	                       + '<td>' + list[i].amount + '</td>'
 	                       + '<td>' + result.totalPaymet + '</td>'
-	
 	                       + '</tr>'
 	                       
 				   }
-				
+				 
 				
 				 $('.shippingList-table tbody').html(value);
 				
@@ -134,7 +138,7 @@
 					}
 				
 				
-				
+				console.log(receiptNo);
 				receiptNo= [];
 		}
 		
