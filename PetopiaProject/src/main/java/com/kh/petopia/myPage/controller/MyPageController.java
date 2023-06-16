@@ -111,12 +111,14 @@ public class MyPageController {
 	
 	// 상품 리뷰 작성 페이지
 	@RequestMapping("productReviewForm.me")
-	public String productReviewForm(int memberNo, int productNo, Model model) {
+	public String productReviewForm(int memberNo, int productNo, int receiptNo, Model model) {
 		System.out.println(productNo);
 		System.out.println(memberNo);
+		System.out.println(receiptNo);
 		AllReviews r = new AllReviews();
 		r.setProductNo(productNo);
 		r.setMemberNo(memberNo);
+		r.setReceiptNo(receiptNo);
 		System.out.println(myPageService.productReviewForm(r));
 		model.addAttribute("list", myPageService.productReviewForm(r));
 		return "myPage/myReviewInsert";

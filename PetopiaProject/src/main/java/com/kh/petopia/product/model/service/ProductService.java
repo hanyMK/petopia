@@ -2,8 +2,9 @@ package com.kh.petopia.product.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
-import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -112,6 +113,9 @@ public interface ProductService {
 		
 		ArrayList<Cart> selectCart(int memberNo);
 		
+		ArrayList<Coupon> selectCoupon(int memberNo);
+		
+		Point selectPoint(int memNo);
 	// 상품 결제 (insert)
 		
 	// ------------- 마이페이지 결제 취소 ---------------

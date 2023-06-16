@@ -106,5 +106,30 @@
         	location.href = "product.pd";
         }
     </script>
+
+    <script>
+
+        $(function(){
+            payInfo()
+        })
+
+        function payInfo(){
+            $.ajax({
+                url : 'payInfo.pd',
+                data : {
+                    result : ${result},
+                },
+                success : function(value){
+                    console.log(value);
+
+                },
+                error : function(){
+                    console.log('payInfo가 안됨');
+                }
+            
+            })
+        }
+
+    </script>
 </body>
 </html>

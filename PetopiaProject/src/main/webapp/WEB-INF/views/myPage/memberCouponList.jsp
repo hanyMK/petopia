@@ -150,7 +150,7 @@
 								
 								value += '<b>' + cList[i].couponName +'</b><br>';
 								if(cList[i].couponType == 1){
-									value += + cList[i].discount +'원<br>';
+									value += cList[i].discount +'원<br>';
 								}else{
 									value += cList[i].discount +'%<br>';
 								}
@@ -167,7 +167,6 @@
 											+ cList[i].startDate +' ~ '
 											+ cList[i].endDate + '<br>'
 											+ '</div>';
-											
 								}
 										
 						}
