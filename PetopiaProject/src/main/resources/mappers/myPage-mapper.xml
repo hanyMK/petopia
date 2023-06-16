@@ -709,6 +709,7 @@
 	     WHERE 
 		        MEMBER_NO = #{memberNo}
 	</select>
+	<!--  회원 주문 배송 내역 조회 -->
 	<select id="selectOrderList" resultMap="productReceiptResultSet" parameterType="_int">
 		SELECT 
 		        RECEIPT_NO, 
@@ -749,7 +750,21 @@
 		GROUP 
 		    BY
 		        RECEIPT_NO, MEMBER_NO, SHIPPING_STATUS, RESULT_PRICE
+		ORDER
+		   BY
+		   		RECEIPT_DATE DESC
 	</select>
 	
+	<!-- 회원 배송 상태 변경 update -->
+	<update id="updateShippingStatus" parameterType="_int">
+		UPDATE 
+		        SHIPPING
+		    SET 
+		        SHIPPING_STATUS = '배송완료'
+		  WHERE
+		        SHIPPING_NO = #{ receiptNo }
+		   		
+			
+	</update>
 
 </mapper>

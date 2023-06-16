@@ -260,8 +260,9 @@ public class AjaxMyPageController {
 	//구매확정 버튼 클릭시 상품 상태 변경 메소드
 	@PostMapping("updateShippingStatus.me")
 	public String updateShippingStatus(int receiptNo) {
+		System.out.println(receiptNo);
 		
-		return null;
+		return myPageService.updateShippingStatus(receiptNo) > 0?  "Secesse" :"Fail";
 	}
 	
 	
