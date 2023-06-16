@@ -211,7 +211,7 @@ public class MyPageController {
 	
 	@RequestMapping("orderList.me")
 	public String selectOrderList() {
-		return "myPage/orderList";
+		return "myPage/myOrderList";
 	}
 
 	
