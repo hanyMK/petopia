@@ -86,7 +86,7 @@ public class AjaxMyPageController {
 		
 		
 	}
-	
+	// 쿠폰발급
 	@RequestMapping("insertCoupon.me")
 	public String insertCouponToMember(int memberNo, int couponNo) {
 		Coupon coupon = new Coupon();
@@ -97,7 +97,7 @@ public class AjaxMyPageController {
 		
 	}
 	
-	
+	//회원등급에 따른 사용가능 쿠폰 조회
 	@RequestMapping(value="availableCoupon.me", produces="application/json; charset=UTF-8")
 	public String selectAvailableCoupon(int memberNo) {
 		ArrayList<Coupon> list = myPageService.selectAvailableCoupon(memberNo);
@@ -151,27 +151,118 @@ public class AjaxMyPageController {
 	public String myReviewList(int mno) {
 		return new Gson().toJson(myPageService.myReviewList(mno));
 	}
-	/**
-	 * 회원 주문 배송 내역 조회 매소드
-	 * @param memberNo : where 조건절에 입려력할 회원 번호
-	 * @param currentPage : 페이징 처리를 위한 현재 페이지
-	 * @return
-	 */
+	
+	 
+	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
+	public String myReviewEndList(int mno) {
+		return new Gson().toJson(myPageService.myReviewList(mno));
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---- 하은
+	// 회원 주문 배송 내역 조회 매소드
 	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
 	public String selectOrderList(int memberNo, 
 								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
 		
 		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
+		ArrayList<ProductReceipt> receiptList = new ArrayList(); 
+		
+		HashMap<Integer, ProductReceipt> map = new HashMap<>();
+		//영슈증 번호가 같으면 타이틀을 하나의 문자열로 묶어서 보내기ㅣ
+		
+//		for(ProductReceipt p : list) {
+//			int receiptNo =  p.getReceiptNo();
+//			
+//			
+//		}
 		
 		return !list.isEmpty()? new Gson().toJson(list):"NO";
 	}
 	
 	
-	@RequestMapping(value="myReviewEndList.me", produces="application/json; charset=UTF-8")
-	public String myReviewEndList(int mno) {
-		return new Gson().toJson(myPageService.myReviewList(mno));
-	}
+	
+	
+	
+	
+	
 	
 	
 	

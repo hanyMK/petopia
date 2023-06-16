@@ -36,30 +36,28 @@
         <div class="innerOuter">
             <h2>리뷰 작성하기</h2>
             <br>
-
-            <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
+            <form id="enrollForm" method="post" action="reviewInsert.me" enctype="multipart/form-data">
+            
                 <table algin="center">
+                	<!-- 예약인지 상품인지 구별 -->
                     <tr>
                     	<input type="hidden" name="memberNo" value="${loginMember.memberNo }">
-                        <th><label for="title">제목</label></th>
-                        <td><input type="text" id="title" class="form-control" name="boardTitle" required></td>
-                    </tr>
-                    <tr>
-                        <th><label for="category">카테고리</label></th>
-                        <td>
-	                        <select name="category">
-								<option value="CLUB" selected>소모임</option>	                        
-								<option value="BOAST">자랑하기</option>	                        
-	                        </select>
-                        </td>
+                    	<input type="hidden" name="productNo" value="${ list.productNo }">
+                    	<input type="hidden" name="reservationNo" value="${ list.reservationNo }">
+                    	<th><label for="writer">상품 or 예약</label></th>
+                    	<td>
+                    		<input type="text" id="title" class="form-control" value="${ list.title }" name="title">
+                    		<input type="text" id="finalPrice" class="form-control" value="${ list.finalPrice }" name="finalPrice">
+                    	</td>
+                    	
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="${loginMember.nickname }" name="nickName" readonly></td>
+                        <td><input type="text" id="writer" class="form-control" value="${ loginMember.nickname }" name="nickName"></td>
                     </tr>
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
-                        <img id="preview" width="100px" height="100px">
+                        
                         <td><input type="file" id="upfile" class="form-control-file border" name="upfile" onchange="readURL(this);"></td>
                     </tr>
                     <tr>
@@ -84,6 +82,7 @@
     <jsp:include page="../common/footer.jsp" />
     
     <script>
+    
 	    function readURL(input){
 	        if(input.files && input.files[0]) {
 	            var reader = new FileReader();

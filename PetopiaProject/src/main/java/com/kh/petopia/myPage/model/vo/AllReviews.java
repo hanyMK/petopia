@@ -15,6 +15,8 @@ public class AllReviews {
 	private String shippingStatus;
 	private Date receiptDate;
 	private int reviewNo;
+	private int productNo;
+	private int reservationNo;
 
 //	MEMBER_NO
 //	FINAL_PRICE

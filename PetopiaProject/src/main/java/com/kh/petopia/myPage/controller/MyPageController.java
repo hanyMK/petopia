@@ -12,6 +12,7 @@ import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Petpay;
 
 @Controller
@@ -109,57 +110,109 @@ public class MyPageController {
 	}
 	
 	// 상품 리뷰 작성 페이지
-	@RequestMapping("insertProductReview.me")
-	public String insertProductReview() {
+	@RequestMapping("productReviewForm.me")
+	public String productReviewForm(int memberNo, int productNo, Model model) {
+		System.out.println(productNo);
+		System.out.println(memberNo);
+		AllReviews r = new AllReviews();
+		r.setProductNo(productNo);
+		r.setMemberNo(memberNo);
+		System.out.println(myPageService.productReviewForm(r));
+		model.addAttribute("list", myPageService.productReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
 	
 	// 예약 리뷰 작성 페이지
-	@RequestMapping("insertReservationReview.me")
-	public String insertReservationReview() {
+	@RequestMapping("reservationReviewForm.me")
+	public String reservationReviewForm(int memberNo, int reservationNo, Model model) {
+		AllReviews r = new AllReviews();
+		r.setReservationNo(reservationNo);
+		r.setMemberNo(memberNo);
+		model.addAttribute("list", myPageService.reservationReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
 	
+
+
+
+	
+//------------------------------------------------------------------------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("orderList.me")
-	public ModelAndView selectOrderList(int currentPage,
-										ModelAndView mv,
-										HttpSession session) {
-		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
-		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-		return mv;
+	public String selectOrderList() {
+		return "myPage/orderList";
 	}
-//	@RequestMapping("orderList.me")
-//	public String selectOrderList(int currentPage,
-//			
-//										ModelAndView mv,
-//										HttpSession session) {
-//		int memberNo =((Member)session.getAttribute("loginMember")).getMemberNo();
-//		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo), currentPage, 10, 10);
-//		return "myPage/orderList";
-//	}
-	
 
-//	@RequestMapping("orderList.me")
-//	public String orderListView() {
-//		return "myPage/orderList";
-//	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

@@ -158,7 +158,42 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<AllReviews> myReviewList(int memberNo) {
 		return myPageDao.myReviewList(sqlSession,memberNo);
 	}
+	
+	@Override
+	public ArrayList<AllReviews> productReviewForm(AllReviews r) {
+		return myPageDao.productReviewForm(sqlSession,r);
+	}
 
+	@Override
+	public ArrayList<AllReviews> reservationReviewForm(AllReviews r) {
+		return myPageDao.reservationReviewForm(sqlSession,r);
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지 시작
 	@Override
 	public int orderListCount(int memberNo) {
 		return myPageDao.orderListCount(sqlSession,memberNo );
@@ -168,6 +203,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public ArrayList<ProductReceipt> selectOrderList(int memberNo, PageInfo pi) {
 		return myPageDao.selectOrderList(sqlSession, memberNo,pi);
 	}
+
+
 
 
 

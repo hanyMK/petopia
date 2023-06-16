@@ -119,6 +119,10 @@ public class MyPageDao {
 	public ArrayList<Point> pointStatusList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.pointStatusList", map);
 	}
+	
+	public ArrayList<AllReviews> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
+	}
 
 	public int insertChargePetpay(SqlSessionTemplate sqlSession, Petpay p) {
 		return sqlSession.insert("myPageMapper.insertChargePetpay", p);
@@ -127,11 +131,54 @@ public class MyPageDao {
 	public int insertWithdrawPetpay(SqlSessionTemplate sqlSession, Petpay p) {
 		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
 	}
-
-	public ArrayList<AllReviews> myReviewList(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.myReviewList", memberNo);
-	}
 	
+	public ArrayList<AllReviews> productReviewForm(SqlSessionTemplate sqlSession,AllReviews r) {
+		return sqlSession.selectOne("myPageMapper.productReviewForm", r);
+	}
+
+	public ArrayList<AllReviews> reservationReviewForm(SqlSessionTemplate sqlSession, AllReviews r) {
+		return sqlSession.selectOne("myPageMapper.reservationReviewForm", r);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 하은 마이페이지 시작
 	public int orderListCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.orderListCount", memberNo);
 	}
@@ -142,5 +189,7 @@ public class MyPageDao {
 												 memberNo,
 												 new RowBounds(offset, pi.getBoardLimit()));
 	}
+
+	
 	
 }

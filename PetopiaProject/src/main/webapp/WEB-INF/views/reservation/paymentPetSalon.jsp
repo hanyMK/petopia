@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>여기는 미용 결제 페이지</title>
+<title>미용 페이지</title>
 <style>
 	
 	#reservation-payment > div{
