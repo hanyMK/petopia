@@ -50,11 +50,10 @@ public class AjaxAdminController {
 	}
 
 	@RequestMapping(value = "ajaxShippingList.ad", produces = "application/json; charset=UTF-8")
-	public String ShippingList(@RequestParam(value = "cPage", defaultValue = "1") int currentPage) {
-
+	public String ShippingList(int currentPage) {
+		
 		ArrayList<SelectShipping> oList = adminService.ShippingList();
 		ArrayList<SelectShipping> nList = new ArrayList<>();
-			System.out.println(oList);
 
 	        // 중복된 receiptNo를 처리하기 위한 맵
 	        Map<Integer, SelectShipping> receiptNoMap = new HashMap<>();
@@ -98,10 +97,22 @@ public class AjaxAdminController {
 			// int totalPayment = adminService.toalPayment();
 			// sql문짜고 다시 작성 !!!!!!!!!!!!!!!!!
 			
+			
+			int stp = (currentPage-1)*10;
+			int edp = (currentPage*10);
+			
+			if(edp>nList.size()) {
+				edp = nList.size();
+			}
+			
+					
 			HashMap<String, Object> result = new HashMap();
 			
 			result.put("pi", pi);
 			result.put("list", nList);
+			result.put("stp",stp);
+			result.put("edp",edp);
+			
 			
 			return new Gson().toJson(result);
 
