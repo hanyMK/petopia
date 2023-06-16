@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,6 @@ import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
-import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @RestController
@@ -64,13 +64,15 @@ public class AjaxMyPageController {
 	
 	//마이페이지 쿠폰 조회
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
-	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") int currentPage, int memberNo,
+	public String selectMemberCouponList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+										int memberNo,
 										HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
 		Member member = (Member)session.getAttribute("loginMember");
 		member.setRating(myPageService.getMemberRating(memberNo));
 		System.out.println(member);
+		//String rating = myPageService.getMemberRating(memberNo);
 		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, member);
 		System.out.println(cList);
 		//전월 실적 조회
@@ -243,18 +245,23 @@ public class AjaxMyPageController {
 		
 		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
-		ArrayList<ProductReceipt> receiptList = new ArrayList(); 
+		HashMap<String, Object> receiptList = new HashMap<>(); 
+		System.out.println(list);
 		
-		HashMap<Integer, ProductReceipt> map = new HashMap<>();
-		//영슈증 번호가 같으면 타이틀을 하나의 문자열로 묶어서 보내기ㅣ
+		if(!list.isEmpty()) {
+			receiptList.put("pi", pi);
+			receiptList.put("list", list);
+		}
 		
-//		for(ProductReceipt p : list) {
-//			int receiptNo =  p.getReceiptNo();
-//			
-//			
-//		}
+		return  new Gson().toJson(receiptList);
+	}
+	
+	
+	//구매확정 버튼 클릭시 상품 상태 변경 메소드
+	@PostMapping("updateShippingStatus.me")
+	public String updateShippingStatus(int receiptNo) {
 		
-		return !list.isEmpty()? new Gson().toJson(list):"NO";
+		return null;
 	}
 	
 	

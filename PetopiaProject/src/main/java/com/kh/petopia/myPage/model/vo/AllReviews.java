@@ -8,22 +8,15 @@ import lombok.Data;
 public class AllReviews {
 	
 	private int memberNo;
-	private int finalPrice;
-	private String checkInOut;
-	private String details;
 	private String title;
-	private String shippingStatus;
+	private int receiptNo;
 	private Date receiptDate;
-	private int reviewNo;
-	private int productNo;
 	private int reservationNo;
+	private int reviewProductNo;
+	private int productNo;
+	private int reviewNo;
+	private String shippingStatus;
+	private String checkInOut;
+	private int finalPrice;
 
-//	MEMBER_NO
-//	FINAL_PRICE
-//	CHECK_IN_OUT
-//	DETAILS
-//	TITLE
-//	SHIPPING_STATUS
-//	RECEIPT_DATE
-//	REVIEW_NO
 }

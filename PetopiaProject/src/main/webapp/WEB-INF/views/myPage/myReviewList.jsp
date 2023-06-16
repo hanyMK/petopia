@@ -73,19 +73,20 @@
 			data : { mno : ${ loginMember.memberNo } },
 			success : function(list) {
 				let value = "";
-				console.log(list);
 				for(let i in list) {
 					if(list[i].reviewNo == 0) {
 						value += '<div id="myReviewList">';
 						if(list[i].shippingStatus == '배송완료') {
-							// 배송상태가 있으면 상품 리뷰 조회
+							if(list[i].productNo != list[i].reviewProductNo){
+							//&& (list[i].product_no != list[i].review_product_no)
+							// 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회
 							value += '<small style="color:green;">상품</small>'
 								   + '상품 : ' + list[i].title + '<br>'
-								   + '결제금액 : ' + list[i].finalPrice + '  수량 : ' + list[i].details  + '<br>'
-								   + '배송상태 : ' + list[i].shippingStatus + '<br>'
+								   + '결제금액 : ' + list[i].finalPrice + '<br>'
 								   + '결제일자 : ' + list[i].receiptDate + '<br>'
-								   + list[i].productNo + '<br>'
-								   + '<a href="productReviewForm.me?memberNo=' + ${ loginMember.memberNo } + '&productNo=' + list[i].productNo + '"><h6>리뷰 작성하기</h6></a>';
+								   + list[i].productNo + '---' + list[i].reviewProductNo + '----' + list[i].receiptNo + '<br>'
+								   + '<a href="productReviewForm.me?memberNo=' + ${ loginMember.memberNo } + '&productNo=' + list[i].productNo + '&receiptNo=' + list[i].receiptNo + '"><h6>리뷰 작성하기</h6></a>';
+							}
 						} else {
 							// 배송상태가 없으면 예약 리뷰 조회
 							value += '<small style="color:orange;">예약</small>'
@@ -124,18 +125,19 @@ function myReviewEndList() {
 			data : { mno : ${ loginMember.memberNo } },
 			success : function(list) {
 				let value = "";
-				console.log(list);
 				for(let i in list) {
 					if(list[i].reviewNo != 0) {
 						value += '<div id="myReviewList">';
 						
 						if(list[i].shippingStatus == '배송완료') {
+							if(list[i].productNo == list[i].reviewProductNo) {
 							// 배송상태가 있으면 상품 리뷰 조회
 							value += '<small style="color:green;">상품</small>'
 								   + '상품 : ' + list[i].title + '<br>'
-								   + '결제금액 : ' + list[i].finalPrice + '  수량 : ' + list[i].details  + '<br>'
+								   + '결제금액 : ' + list[i].finalPrice +'<br>'
 								   + '배송상태 : ' + list[i].shippingStatus + '<br>'
 								   + '결제일자 : ' + list[i].receiptDate + '<br>'
+							}
 						} else {
 							// 배송상태가 없으면 예약 리뷰 조회
 							value += '<small style="color:orange;">예약</small>'
