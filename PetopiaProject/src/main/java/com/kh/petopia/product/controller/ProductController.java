@@ -124,8 +124,6 @@ public class ProductController {
 		System.out.println(memNo);
 		
 		ArrayList<Cart> list = productService.selectCartList(memNo);
-		System.out.println(list.get(0).getProductSize());
-		System.out.println("잘됨" + list);
 		int result = 0;
 		for(int i = 0; i < list.size(); i++) {
 			

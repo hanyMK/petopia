@@ -63,15 +63,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="item" items="${list}">
-                        <tr>
-                            <td>${item.cartTitle}</td>
-                            <td>${item.amount}</td>
-                            <td>${item.productSize}</td>
-                            <td class="price">${item.cartPrice}</td>
-                            <td>${item.extraMoney}</td>
-                        </tr>
-                    </c:forEach>
+                <c:choose>
+                	<c:when test="${not empty list}">
+	                    <c:forEach var="item" items="${list}">
+	                        <tr>
+	                            <td>${item.cartTitle}</td>
+	                            <td>${item.amount}</td>
+	                            <td>${item.productSize}</td>
+	                            <td class="price">${item.cartPrice}</td>
+	                            <td>${item.extraMoney}</td>
+	                        </tr>
+	                    </c:forEach>
+                	</c:when>
+                	<c:otherwise>
+                		<tr>
+                			<td colspan="5" align="center">장바구니가 비어있습니다.</td>
+                		</tr>
+                	</c:otherwise>
+                </c:choose>
                 </tbody>
             </table>
             <br>

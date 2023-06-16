@@ -274,7 +274,7 @@
 	                  <div id="alram_box" > 					               
 						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
-	                  <button class="fa-solid fa-cart-shopping" id="cartIcon"></button>
+	                  <button class="fa-solid fa-cart-shopping" id="cartIcon" onclick="goCart();"></button>
                   </c:otherwise>
                </c:choose>
                
@@ -363,6 +363,10 @@
         }
         
     }
+ 	
+ 	function goCart(){
+ 		location.href = "productCart.pd";
+ 	}
     </script>
 </body>
 </html>
