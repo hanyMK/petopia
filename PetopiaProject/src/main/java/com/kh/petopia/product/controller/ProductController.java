@@ -12,9 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.service.ProductService;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -100,15 +102,6 @@ public class ProductController {
 		return "";
 	}
 	
-	@RequestMapping("prdocutCartInfo.pd")
-	public ModelAndView productCartInfo(HttpSession session, ModelAndView mv) {
-		
-		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-		mv.addObject("list" ,productService.selectCartList(memNo)).setViewName("product/productBuyPage");
-		return mv;
-	}
-	
-	
 	@ResponseBody
 	@RequestMapping(value="insertCart.pd", produces="application/json; charset=UTF-8")
 	public String insertCart(Cart cart) {
@@ -128,13 +121,40 @@ public class ProductController {
 			
 			result += list.get(i).getCartPrice() + list.get(i).getExtraMoney();
 		}
-		
-		
-		
 		mv.addObject("list", list).addObject("result", result).setViewName("product/productCartPage");
-		
 		return mv;
 	}
 	
+	@RequestMapping("prdocutCartInfo.pd")
+	public ModelAndView productCartInfo(HttpSession session, ModelAndView mv) {
+		
+		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+		Point point = productService.selectPoint(memNo);
+		if(point != null) {
+			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("point" , point).setViewName("product/productBuyPage");
+		} else {
+			mv.addObject("list" ,productService.selectCartList(memNo)).setViewName("product/productBuyPage");
+		}
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="payInfo.pd", produces="application/json; charset=UTF-8")
+	public String payInfo(int result) {
+		System.out.println(result);
+		return "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectCoupon.pd", produces="application/json; charset=UTF-8")
+	public String selectCoupon(int memNo) {
+		ArrayList<Coupon> list = productService.selectCoupon(memNo);
+		System.out.println("쿠폰" + list);
+		if(list.isEmpty()) {
+			return new Gson().toJson(" ");
+		} else {
+			return new Gson().toJson(list);
+		}
+	}
 	
 }

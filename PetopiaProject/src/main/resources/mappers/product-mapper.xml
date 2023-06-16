@@ -270,4 +270,38 @@ STATUS
 	           member_no = #{memberNo}
 	</select>
 	
+	<select id="selectCoupon" parameterType="_int" resultType="coupon">
+		 select 
+				coupon_no couponNo, 
+				coupon_name couponName, 
+				coupon_type couponType, 
+				discount discount, 
+				SUBSTR(TO_CHAR(START_DATE, 'YYYY-MM-DD'), 1, 10)  startDate,
+				SUBSTR(TO_CHAR(END_DATE, 'YYYY-MM-DD'), 1, 10)  endDate,
+				max_price maxPrice,
+				min_price minPrice
+		   from 
+		        coupon 
+	  left join 
+	            member_coupon using(coupon_no) 
+		   join 
+		        member using(member_no)
+		  where 
+		        member_no = #{memNo} and member_coupon_status = 'Y'
+	</select>
+	
+	<select id="selectPoint" parameterType="_int" resultType="point">
+		select
+				point_no pointNo,
+				point_amount pointAmount,
+				point_history pointHistory,
+				point_date poitnDate,
+				point_status pointStatus,
+				member_no memberNo
+		  from
+		  		point
+		 where
+		 		member_no = #{memNo}
+	</select>
+	
 </mapper>
