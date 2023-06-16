@@ -112,8 +112,6 @@ public interface ProductService {
 		
 		ArrayList<Cart> selectCart(int memberNo);
 		
-//		ArrayList<Product> selectProductInfo(int productNo);
-		
 	// 상품 결제 (insert)
 		
 	// ------------- 마이페이지 결제 취소 ---------------

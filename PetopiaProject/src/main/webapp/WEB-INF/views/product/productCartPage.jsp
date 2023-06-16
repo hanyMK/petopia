@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,91 +50,47 @@
         <div class="innerOuter" style="padding:5% 10%;">
             <h2>장바구니</h2>
             <br>
-            <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <a class="btn btn-secondary" style="float:right;" href="">글쓰기</a>
             <br>
             <br>
             <table id="boardList" class="table table-hover" align="center">
                 <thead>
                     <tr>
-                        <th>글번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>조회수</th>
-                        <th>작성일</th>
-                        <th>첨부파일</th>
+                        <th>상품명</th>
+                        <th>수량</th>
+                        <th>사이즈</th>
+                        <th>가격</th>
+                        <th>추가금</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><img src="https://img.freepik.com/premium-photo/cute-smile-curios-white-pomeranian-puppy-happiness-friend-lapdog-with-brown-color-background_9693-2466.jpg"></td>
-                        <td>마지막 공지사항제목</td>
-                        <td>admin</td>
-                        <td>10</td>
-                        <td>2023-02-10</td>
-                        <td>★</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>네번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>10</td>
-                        <td>2023-02-07</td>
-                        <td>★</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>세번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>10</td>
-                        <td>2023-02-03</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>두번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>100</td>
-                        <td>2023-02-01</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>첫번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>45</td>
-                        <td>2022-12-25</td>
-                        <td>★</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>첫번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>45</td>
-                        <td>2022-12-25</td>
-                        <td>★</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>첫번째 공지사항제목</td>
-                        <td>admin</td>
-                        <td>45</td>
-                        <td>2022-12-25</td>
-                        <td>★</td>
-                    </tr>
+                    <c:forEach var="item" items="${list}">
+                        <tr>
+                            <td>${item.cartTitle}</td>
+                            <td>${item.amount}</td>
+                            <td>${item.productSize}</td>
+                            <td class="price">${item.cartPrice}</td>
+                            <td>${item.extraMoney}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
             <br>
-            <div>총 상품 긍액 : 10000원</div>
+            <span>총 상품 긍액 : </span>
+            <span id="priceTotal">${result}</span>
 
             <button>계속 쇼핑하기</button>
-            <button>구매하기</button>
+
+            <button id="buy_btn">구매하기</button>
         </div>
         <br><br>
 ​
     </div>
-​
     <jsp:include page="../common/footer.jsp" />
-​
+
+    <script>
+        $('#buy_btn').click(function(){
+            location.href = 'prdocutCartInfo.pd';
+        })
+    </script>
 </body>
 </html>

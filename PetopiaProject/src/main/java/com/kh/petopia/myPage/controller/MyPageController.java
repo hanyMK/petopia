@@ -139,10 +139,10 @@ public class MyPageController {
 //	}
 	
 
-	@RequestMapping("orderList.me")
-	public String orderListView() {
-		return "myPage/orderList";
-	}
+//	@RequestMapping("orderList.me")
+//	public String orderListView() {
+//		return "myPage/orderList";
+//	}
 
 	
 	
