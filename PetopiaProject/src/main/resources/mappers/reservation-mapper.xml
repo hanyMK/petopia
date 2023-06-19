@@ -23,6 +23,13 @@
 		<result column="RESERVATION_FEE" property="reservationFee"/>
 		<result column="EMPLOYEE" property="employeeNo"/>
 	</resultMap>
+	
+	<select id="selectUsageFee" parameterType="_int" resultType="_int">
+		SELECT 
+				USAGE_FEE
+		FROM PET_STORE
+		WHERE PET_STORE_NO = #{psno}
+	</select>
 
 	<select id="selectEmployeeList" parameterType="_int" resultMap="employeeResulSet">
 		SELECT 

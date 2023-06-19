@@ -28,4 +28,9 @@ public class ReservationServiceImpl implements ReservationService {
 	public ArrayList<String> selectEmployeeReservation(Reservation r) {
 		return reservationDao.selectEmployeeReservation(sqlSession,r);
 	}
+
+	@Override
+	public int selectUsageFee(int psno) {
+		return reservationDao.selectUsageFee(sqlSession,psno);
+	}
 }
