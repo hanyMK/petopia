@@ -87,9 +87,10 @@
             <span>총 상품 긍액 : </span>
             <span id="priceTotal">${result}</span>
 
-            <button>계속 쇼핑하기</button>
-
-            <button id="buy_btn">구매하기</button>
+            <button onclick="goShopping();">계속 쇼핑하기</button>
+			<c:if test="${not empty list}">
+	            <button id="buy_btn">구매하기</button>
+			</c:if>
         </div>
         <br><br>
 ​
@@ -100,6 +101,35 @@
         $('#buy_btn').click(function(){
             location.href = 'prdocutCartInfo.pd';
         })
+        
+        function goShopping(){
+        	location.href = "product.pd";
+        }
+    </script>
+
+    <script>
+
+        $(function(){
+            payInfo()
+        })
+
+        function payInfo(){
+            $.ajax({
+                url : 'payInfo.pd',
+                data : {
+                    result : ${result},
+                },
+                success : function(value){
+                    console.log(value);
+
+                },
+                error : function(){
+                    console.log('payInfo가 안됨');
+                }
+            
+            })
+        }
+
     </script>
 </body>
 </html>

@@ -189,6 +189,10 @@ public class MyPageDao {
 												 memberNo,
 												 new RowBounds(offset, pi.getBoardLimit()));
 	}
+	
+	public int updateShippingStatus(SqlSessionTemplate sqlSession, int receiptNo) {
+		return sqlSession.update("myPageMapper.updateShippingStatus", receiptNo);
+	}
 
 	
 	

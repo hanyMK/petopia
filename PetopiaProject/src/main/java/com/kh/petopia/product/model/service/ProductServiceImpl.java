@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
-import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
-import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -92,6 +92,16 @@ public class ProductServiceImpl implements ProductService {
 //	}
 	
 	@Override
+	public ArrayList<Coupon> selectCoupon(int memberNo) {
+		return productDao.selectCoupon(sqlSession, memberNo);
+	}
+
+	@Override
+	public Point selectPoint(int memNo) {
+		return productDao.selectPoint(sqlSession, memNo);
+	}
+	
+	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
 		return null;
 	}
@@ -139,6 +149,9 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 
 
 

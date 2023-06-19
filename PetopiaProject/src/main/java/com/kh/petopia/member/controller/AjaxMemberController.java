@@ -21,7 +21,6 @@ import com.kh.petopia.member.model.vo.CertVO;
 import com.kh.petopia.member.model.vo.Member;
 
 @RestController
-@Controller
 public class AjaxMemberController {
 	
 	
