@@ -20,7 +20,6 @@ import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.Pagination;
 
 @RestController
-@Controller
 public class AjaxAdminController {
 
 	@Autowired

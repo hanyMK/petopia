@@ -49,6 +49,17 @@
         background: #888888;
         border-radius: 10px;
     }
+
+    #coupon_list{
+        border: 1px solid black;
+        width: 100%;
+        height: 300px;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+
     #detail_span{
         font-weight: bold;
         font-size: 20px;
@@ -123,6 +134,23 @@
         width: 408px;
         height: 30px;
         font-size: 20px;
+    }
+    #coupon_detail{
+        border: 1px solid black;
+    }
+    #coupon_detail:hover{
+        cursor: pointer;
+        background-color: rgb(246, 202, 255);
+    }
+    #coupon_modal_div{
+        color: white;
+        background-color: #1e2b67;
+    }
+    #coupon_modal_end{
+        background-color: #1e2b67;
+    }
+    #coupon_insert_input{
+        width: 400px;
     }
 </style>
 </head>
@@ -224,21 +252,61 @@
                     <input type="text" id="memo" placeholder="직접입력">
                 </div>
             </div>
+
+
             <div id="product_receipt_content_5">
                 <div id="product_receipt_detail_info5">
                     <span id="detail_span">쿠폰/포인트</span>
+                    <div>
+                        <div>쿠폰</div>
+                        <input type="text" id="coupon_insert_input"> <button data-toggle="modal" data-target="#couponModal">쿠폰등록</button>
+                        <div>포인트</div>
+                        <input type="text"> <button>사용</button>
+                        <br>
+                        <c:choose>
+                            <c:when test="${not empty point}">
+                                <span>보유 포인트 : </span>
+                            </c:when>
+                            <c:otherwise>
+                                <span>0</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
+            <div class="modal fade" id="couponModal">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <!-- Modal Header -->
+                    <div class="modal-header" id="coupon_modal_div">
+                    <h4 class="modal-title">쿠폰 정보</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    쿠폰 리스트 
+                    <button onclick="selectCoupon();">쿠폰 목록</button>
+                        <div id="coupon_list">
+                 
+                        </div>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer" id="coupon_modal_end">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="modal_close">닫기</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
         </div>
 
     <jsp:include page="../common/footer.jsp"/>
 
 
     <script>
-
-        $(function(){
-            $('#memo').val($('#selectMemo')[0][0].text);
-        })
 
         $('select').on('change',function(){
             if($('option:selected').text() == '직접입력'){
@@ -258,7 +326,64 @@
         // })
     </script>
 
+    <script>
+        $(function(){
+            insertCoupon();
+        })
 
+        function selectCoupon(){
+            $.ajax({
+                url : 'selectCoupon.pd',
+                data : {
+                    memNo : ${loginMember.memberNo}
+                },
+                success : function(list){
+                    console.log(list);
+                    let value = '';
+                    if(list != ' '){
+                        for(let i in list){
+                            value  += '<div id="coupon_detail" class="couponClass">'
+                               + '쿠폰 이름 : <span class="cName">'+ list[i].couponName +'</span> <br>'
+                               + '<span hidden class="cno">'+ list[i].couponNo +'</span>';
+                               if(list[i].couponType == 1){
+									value += '<span>'+ list[i].discount +'</span>원<br>';
+								}else{
+									value += '<span>'+ list[i].discount +'</span>%<br>';
+								}
+                              //+ '할인률 : '+ list[i].discount +' <br>'
+                              value += 
+                                '기간 : '+ list[i].startDate +'~'+ list[i].endDate +'<br>'
+                               + '50000원 이하부터 10000원 이상'
+                               + '</div>'
+                               + '<hr>'
+                        }
+                        $('#coupon_list').html(value);
+                        console.log('리스트있음 엘스구문');
+                    } else {
+                        value += '등록된 쿠폰이 없습니다.';
+                        $('#coupon_list').text(value);
+                        console.log('빈문자 엘스구문');
+                    }
+
+                },
+                error : function(){
+                    console.log('안됨');
+                }
+            })
+        }
+
+        function insertCoupon(){
+            $('#coupon_list').on('click', '.couponClass', function(){
+                $('#coupon_insert_input').val($(this).find('.cName').html());
+                $('#modal_close').click();
+            });
+        }
+
+        fuc
+
+
+
+    </script>
 
 </body>
 </html>

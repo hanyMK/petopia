@@ -2,10 +2,13 @@ package com.kh.petopia.product.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
 
@@ -51,9 +54,13 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectCart", memNo);
 	}
 	
+	public ArrayList<Coupon> selectCoupon(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectCoupon", memNo);
+	}
 	
-	
-	
+	public Point selectPoint(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("productMapper.selectPoint", memNo);
+	}
 	
 	
 	

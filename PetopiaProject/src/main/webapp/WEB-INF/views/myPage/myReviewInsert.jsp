@@ -43,7 +43,7 @@
                     <tr>
                     	<input type="hidden" name="memberNo" value="${loginMember.memberNo }">
                     	<input type="hidden" name="productNo" value="${ list.productNo }">
-                    	<input type="hidden" name="reservationNo" value="${ list.reservationNo }">
+                    	<input type="hidden" name="receiptNo" value="${ list.receiptNo }">
                     	<th><label for="writer">상품 or 예약</label></th>
                     	<td>
                     		<input type="text" id="title" class="form-control" value="${ list.title }" name="title">
