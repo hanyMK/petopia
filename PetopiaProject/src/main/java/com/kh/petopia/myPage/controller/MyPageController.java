@@ -149,9 +149,7 @@ public class MyPageController {
 		
 		System.out.println(r);
 		
-		System.out.println("1");
 		if(!upfile.getOriginalFilename().equals("")) {
-			System.out.println("2");
 			r.setOriginName(upfile.getOriginalFilename());
 			r.setChangeName(MyFileRename.saveFile(session, upfile));
 			r.setFilePath(filePath);

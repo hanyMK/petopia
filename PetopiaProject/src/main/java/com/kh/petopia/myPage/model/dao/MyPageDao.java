@@ -199,12 +199,10 @@ public class MyPageDao {
 	}
 
 	public int insertReview(SqlSessionTemplate sqlSession, AllReviews r) {
-		System.out.println("3");
 		return sqlSession.insert("myPageMapper.insertReview", r);
 	}
 
 	public int insertReview2(SqlSessionTemplate sqlSession, AllReviews r) {
-		System.out.println("4");
 		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 
