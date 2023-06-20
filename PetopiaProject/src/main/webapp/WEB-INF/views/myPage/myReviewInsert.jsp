@@ -63,37 +63,39 @@
              	<input type="hidden" name="receiptNo" value="${ review.receiptNo }">   
              	
             	<c:choose>
-             		<c:when test="${ review.productNo != 0 }">
+             		<c:when test="${ not empty review.productNo }">
              			<!-- 상품  리뷰 작성인 경우 -->
              			<input type="hidden" name="productNo" value="${ review.productNo }">
              			<label><b>상품 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
              		</c:when>
                 	<c:otherwise>
                 		<!-- 예약 리뷰 작성인 경우 -->
-                		<input type="hidden" name="reservationNo" value="${ review.reservationNo }">
                 		<label><b>예약 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
                 	</c:otherwise>
                 </c:choose>   	
              	
-                <table algin="center">
+                <table align="center">
                     <tr>
-                        <th><label>작성자</label></th>
-                        <td><input type="text" id="nickname" class="form-control" value="${ loginMember.nickname }" name="nickName" readonly></td>
+                        <th width="100px"><label>작성자</label></th>
+                        <td width="400px"><input type="text" id="nickname" class="form-control" value="${ loginMember.nickname }" name="nickName" readonly></td>
                     </tr>
-                    
-					<div class="star-rating space-x-4 mx-auto">
-						<input type="radio" id="5-stars" name="rating" value="5"/>
-						<label for="5-stars" class="star" id="star5" onclick="starBtn(5);">★</label>
-						<input type="radio" id="4-stars" name="rating" value="4"/>
-						<label for="4-stars" class="star" id="star4" onclick="starBtn(4);">★</label>
-						<input type="radio" id="3-stars" name="rating" value="3"/>
-						<label for="3-stars" class="star" id="star3" onclick="starBtn(3);">★</label>
-						<input type="radio" id="2-stars" name="rating" value="2"/>
-						<label for="2-stars" class="star" id="star2" onclick="starBtn(2);">★</label>
-						<input type="radio" id="1-star" name="rating" value="1" />
-						<label for="1-star" class="star" id="star1" onclick="starBtn(1);">★</label>
-					</div>
-					
+                    <tr>
+                    	<th><label>별점</label></th>
+                    	<td>
+							<div class="star-rating space-x-4 mx-auto">
+								<input type="radio" id="5-stars" name="rating" value="5"/>
+								<label for="5-stars" class="star" id="star5" onclick="starBtn(5);">★</label>
+								<input type="radio" id="4-stars" name="rating" value="4"/>
+								<label for="4-stars" class="star" id="star4" onclick="starBtn(4);">★</label>
+								<input type="radio" id="3-stars" name="rating" value="3"/>
+								<label for="3-stars" class="star" id="star3" onclick="starBtn(3);">★</label>
+								<input type="radio" id="2-stars" name="rating" value="2"/>
+								<label for="2-stars" class="star" id="star2" onclick="starBtn(2);">★</label>
+								<input type="radio" id="1-star" name="rating" value="1" />
+								<label for="1-star" class="star" id="star1" onclick="starBtn(1);">★</label>
+							</div>
+						</td>
+					</tr>
 				     <tr>
                         <th><label for="upfile">첨부파일</label></th>
                         <td><input type="file" id="upfile" class="form-control-file border" name="upfile" onchange="readURL(this);"></td>
@@ -119,7 +121,12 @@
     </div>
     
     <script>
-    console.log($('#memberNo').val());
+
+    console.log('${ review.productNo }');
+    
+    console.log('${ review.reservationNo }');
+    
+    console.log('${ review.receiptNo }');
     
     function starBtn(num) {
     	
