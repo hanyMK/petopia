@@ -8,10 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.kh.petopia.admin.model.service.AdminService;
@@ -19,6 +29,20 @@ import com.kh.petopia.admin.model.vo.SelectShipping;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.Pagination;
 
+
+
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 @RestController
 public class AjaxAdminController {
 
@@ -125,7 +149,33 @@ public class AjaxAdminController {
 	}
 	
 	
-	
+	  private static final String API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
+	    private static final String API_KEY = "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";
+
+	    @PostMapping(value = "/sendMessage", produces = MediaType.APPLICATION_JSON_VALUE)
+	    public String sendMessage(@RequestBody String message) {
+	        String response = getChatGptResponse(message);
+	        return "{\"response\": \"" + response + "\"}";
+	    }
+
+	    private String getChatGptResponse(String message) {
+	        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+	        requestBody.add("role", "system");
+	        requestBody.add("content", "You are a customer support agent");
+	        requestBody.add("role", "user");
+	        requestBody.add("content", message);
+
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_JSON);
+	        headers.set("Authorization", "Bearer " + API_KEY);
+
+	        RestTemplate restTemplate = new RestTemplate();
+	        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+	        ResponseEntity<String> responseEntity = restTemplate.exchange(API_ENDPOINT, HttpMethod.POST, requestEntity, String.class);
+	        String response = responseEntity.getBody();
+
+	        return response;
+	    }
 	
 	
 	

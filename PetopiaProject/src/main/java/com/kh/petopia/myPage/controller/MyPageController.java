@@ -127,7 +127,7 @@ public class MyPageController {
 	@RequestMapping("reservationReviewForm.me")
 	public String reservationReviewForm(AllReviews r, Model model) {
 		System.out.println("예약 : " +r);
-		model.addAttribute("list", myPageService.reservationReviewForm(r));
+		model.addAttribute("review", myPageService.reservationReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
 	
@@ -139,6 +139,7 @@ public class MyPageController {
 							   Model model ) {
 		
 		System.out.println("작성 : " + r);
+		System.out.println(upfile);
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			r.setOriginName(upfile.getOriginalFilename());
@@ -146,16 +147,27 @@ public class MyPageController {
 			r.setFilePath(filePath);
 		}
 		
-		if(myPageService.insertReview(r) > 0) {
-			session.setAttribute("alertMsg", "리뷰 등록 성공!!");
-			return "redirect:myReview.me";
+		if(r.getProductNo() != 0) {
+			// 상품 리뷰 작성
+			if(myPageService.insertProductReview(r) > 0) {
+				session.setAttribute("alertMsg", "리뷰 등록 성공!!");
+				return "redirect:myReview.me";
+			} else {
+				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+				return "common/errorPage";
+			}
 		} else {
-			model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
-			return "common/errorPage";
+			// 예약 리뷰 작성
+			if(myPageService.insertReservationReview(r) > 0) {
+				session.setAttribute("alertMsg", "리뷰 등록 성공!!");
+				return "redirect:myReview.me";
+			} else {
+				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+				return "common/errorPage";
+			}
 		}
 		
 	}
-	
 
 
 

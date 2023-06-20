@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
     #product_receipt_header{
         width: 1200px;
@@ -175,20 +176,103 @@
             
             <!-- Modal body -->
             <div class="modal-body">
-            받는분 이름 : <input type="text"> <br><br>
-            전화번호 : <input type="text"> <br><br>
-            주소 : <input type="text"> <br><br>
-            상세주소 : <input type="text"> <br><br>
+                <label for="phone"> &nbsp;* 전화번호 : </label>
+                <input type="tel" class="form-control" id="phone" placeholder="전화번호를 -를 포함해서 입력해주세요." name="phone" onchange="checkPhone();"> <br>
+                <span>&nbsp;* 받는분 성함 : </span> <input type="text" id="giveName"><br><br>
+                <div id="phonehidden" class="hidden"></div>
+
+                <label for="address"> &nbsp;* 주소 : </label><br>
+                <input type="text" id="postcode" name="address" placeholder="우편번호">
+                <input type="button" onclick="findPostcode()" value="주소 검색"><br>
+                 <input type="text" class="form-control" id="address" placeholder="주소" name="address"> 
+                <input type="text"  class="form-control" id="detailAddress" name="address" placeholder="상세주소" required><br>
             </div>
             
             <!-- Modal footer -->
             <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">수정하기</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="update_gift_info" onclick="updateAddress();">수정하기</button>
             </div>
             
         </div>
         </div>
     </div>
+
+    <script>
+
+        function regExpPhone(phone) { //전화번호
+            var regPhone = /^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})$/;
+            return regPhone.test(phone);
+        }
+
+        function updateAddress(){
+            var $phone = $('#phone').val();
+            if(regExpPhone($phone) == true){
+                $('#give_phone').text($('#phone').val());
+
+            } else {
+                alert('ex) 010-1234-1234  "-" 포함 11자리 숫자 ');
+                $('#phone').val('');
+            }
+            $('#give_name').text($('#giveName').val());
+            $('#give_address').text($('#address').val());
+            $('#give_detale_address').text($('#detailAddress').val());
+            
+        }
+    </script>
+
+    <script>
+	    function findPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+				    var roadAddr = data.roadAddress; // 도로명 주소 변수
+
+	                document.getElementById('postcode').value = data.zonecode;
+	                document.getElementById('address').value = roadAddr;
+	            }
+	        }).open();
+	    }
+	</script>
+
+
+
+        <!-- 펫페이 충전 시 보여질 Modal -->
+        <div class="modal fade" id="chargePetpay">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">펫페이 충전</h3>
+                        <button type="button" class="close" data-dismiss="modal" id="closePay">&times;</button>
+                    </div>
+                        <!-- <form action="insertPetpay.pd" method="post" id="sign-form"> -->
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                        <h5>펫페이 충전</h5>
+                    <h6>1천원 단위로 충전이 가능합니다.</h6><br>
+                        <input type="number" name="petpayAmount" id="petpayAmount" max="1000000" required>  원
+                        <input type="hidden" name="memberNo" id="memberNo" value="${ loginMember.memberNo }">
+                        <div id="alertPetpay"></div>
+                        <div id="overPetpay"></div>
+                        <br>
+                        <div>
+                            <a class="btn btn-light" onclick="plusPay(1);">1만</a>
+                            <a class="btn btn-light" onclick="plusPay(3);">3만</a>
+                            <a class="btn btn-light" onclick="plusPay(5);">5만</a>
+                            <a class="btn btn-light" onclick="plusPay(10);">10만</a>
+                        </div>
+                        <br>
+                        <h6>출금 계좌 : ${ loginMember.bank }은행  ${ loginMember.account }</h6>
+                        <br>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer" align="center">
+                            <button id="chargePetpayBtn" class="btn btn-danger" onclick="insertPetpay();">충전하기</button>
+                            <button class="btn btn-danger">초기화</button>
+                        </div>
+                    <!-- </form> -->
+                </div>
+            </div>
+        </div>
     
         <div id="product_receipt_header">
             결제하기
@@ -220,14 +304,14 @@
             <div id="product_receipt_content_3">
                 <div id="product_receipt_detail_info3">
                     <span id="detail_span">결제정보</span> <br>
-                    <span class="payment_title">상품가격 : </span> <span id="payment_info_1"></span><br>
+                    <span class="payment_title">상품가격 : </span> <span id="payment_info_1">${result}</span><br>
                     <span class="payment_title">쿠폰 사용 : </span> <span id="payment_info_2"></span><br>
                     <span class="payment_title">적립금 사용 : </span> <span id="payment_info_3"></span><br>
                     <span class="payment_title">총 결제 금액 : </span> <span id="payment_info_4"></span><br>
                     <br><hr><br>
-                    <h4>보유 펫페이 : 80,000 원</h4> <button>충전</button>
+                    <h4 id="payAmount"></h4> <button data-toggle="modal" data-target="#chargePetpay">충전</button>
                     <br>
-                    <button>결제하기</button>
+                    <button onclick="goPayment();">결제하기</button>
                 </div>
             </div>
             <div id="product_receipt_content_4">
@@ -235,10 +319,10 @@
                     <span id="detail_span">배송지</span>
                     <br>
                     <br>
-                    <div>받는분 이름 : ${loginMember.memberName}</div>
-                    <div>회원 이름 : ${loginMember.memberName}</div>
-                    <div>전화번호 : ${loginMember.phone}</div>
+                    <div id="give_name">받는분 이름 : ${loginMember.memberName}</div>
+                    <div id="give_phone">전화번호 : ${loginMember.phone}</div>
                     <div id="give_address">주소 : ${loginMember.address}</div>
+                    <div id="give_detale_address">상세주소 : ${loginMember.address}</div>
                     <br>
                     <!-- Button to Open the Modal -->
                     <button id="give_update" button type="button" data-toggle="modal" data-target="#myModal">배송지 수정하기</button>
@@ -264,9 +348,9 @@
                         <div>쿠폰</div>
                         <input type="text" id="coupon_insert_input"> <button data-toggle="modal" data-target="#couponModal">쿠폰등록</button>
                         <div hidden id="coupon_no"></div>
-                        <div hidden id="coupon_discount"></div>
+                        <div hidden id="coupon_discount">0</div>
                         <div>포인트</div>
-                        <input type="text" id="usePointInput"> 
+                        <input type="text" id="usePointInput" value="0"> 
                         <button onclick="usePotinBtn();">사용</button>
                         <button onclick="allUsePotinBtn();">모두사용</button>
                         <br>
@@ -332,6 +416,8 @@
     <script>
         $(function(){
             insertCoupon();
+            calculate();
+            selectPetpay();
         })
 
         function selectCoupon(){
@@ -377,10 +463,21 @@
 
         function insertCoupon(){
             $('#coupon_list').on('click', '.couponClass', function(){
-                $('#coupon_insert_input').val($(this).find('.cName').html());
-                $('#coupon_no').text($('#coupon_insert_input').val($(this).find('.cno').html()))
-                $('#coupon_discount').text($('#coupon_insert_input').val($(this).find('.discount').html()));
+
+                let discount = $(this).find('.discount').text();
+
+                $('#coupon_insert_input').val($(this).find('.cName').text());
+                $('#coupon_no').text($(this).find('.cno').text())
+                $('#coupon_discount').text($(this).find('.discount').text());
+
+                if(discount >= 0 && discount <= 100){
+                    $('#payment_info_2').text($(this).find('.discount').text() + '%');
+                } else {
+                    $('#payment_info_2').text($(this).find('.discount').text() + '원');
+                }
+
                 $('#modal_close').click();
+                calculate();
             });
         }
 
@@ -388,22 +485,27 @@
             $('#usePointInput').val(${point});
             $('#point_span').text('0');
             $('#payment_info_3').text($('#usePointInput').val());
+            calculate();
         }
 
         function usePotinBtn(){
 
             var num = $('#usePointInput').val();
-            var result = Math.floor(num/100) * 100;
+            var result = Math.round(num/100) * 100;
             
-            if(result > 0 && result < ${point}){
-                var point = ${point} - result;
-                $('#point_span').text(point);
-                $('#payment_info_3').text($('#usePointInput').val());
-            } else {
-                alert('보유 포인트보다 적거나 많습니다.');
-                $('#usePointInput').val('');
-                $('#payment_info_3').text('');
-            }
+                if(result >= 0 && result < ${point}){
+                    var point = ${point} - result;
+                    $('#point_span').text(point);
+                    $('#payment_info_3').text(result);
+                    $('#usePointInput').val(result);
+                    calculate();
+    
+                } else {
+                    alert('보유 포인트보다 적거나 많습니다.');
+                    $('#usePointInput').val('');
+                    $('#payment_info_3').text('');
+                }
+            
             $("#usePointInput").blur(function() {
                 if($(this).val() == '') {
                     $('#point_span').text(${point});
@@ -411,27 +513,160 @@
                 }
             });
         }
-    </script>
 
-    <script>
+        function calculate(){
+            $.ajax({
+                url : 'calculate.pd',
+                data : {
+                    total : ${result},
+                    coupon : $('#coupon_discount').text(),
+                    point : $('#usePointInput').val(),
+                },
+                success : function(value){
+                    $('#payment_info_4').text(value);
+                    console.log(value);
+                    console.log('됨');
+                },
+                error : function(){
+                    console.log('안됨');
+                }
+            })
+
+        }
 
         var couponDiscount = $('#coupon_discount').text();
         var pointValue = $('#point_span').text();
 
-        $.ajax({
-            url : '',
-            data : {
-                total : ${result},
-                coupon : couponDiscount,
-                point : pointValue,
-            },
-            success : function(){
+        // $.ajax({
+        //     url : 'insertPayment.pd',
+        //     data : {
+        //         total : ${result},
+        //         coupon : couponDiscount,
+        //         point : pointValue,
+        //     },
+        //     success : function(){
 
-            },
-            error : functioN(){
+        //     },
+        //     error : function(){
 
-            }
-        })
+        //     }
+        // })
+
+    function insertPetpay(){
+            $.ajax({
+                url : 'insertPetpay.pd',
+                data : {
+                    petpayAmount : $('#petpayAmount').val(),
+                    memberNo : $('#memberNo').val()
+                },
+                success : function(){
+                    alert('충전이 완료되었습니다.');
+                    $('#closePay').click();
+                    selectPetpay();
+                },
+                error : () => {
+                    console.log('안됨');
+                }
+            })
+
+        }
+
+        function selectPetpay(){
+            $.ajax({
+                url : 'selectPetpay.pd',
+                success : function(result){
+                    console.log(result);
+                    let value = '보유 펫페이 : ' + result + ' 원'
+                    $('#payAmount').text(value);
+                },
+                error : function(){
+                    console.log('안됨');
+                }
+            })
+        }
+
+
+
+    </script>
+
+<script>
+    function plusPay(plus) {
+    	
+    	console.log(plus);
+    	
+    	var input = $('#petpayAmount').val();
+    	
+    	if(plus == 1) {
+			input = 10000;
+    	} else if(plus == 3) {
+    		input = 30000;
+    	} else if(plus == 5) {
+    		input = 50000;
+    	} else if(plus == 10) {
+    		input = 100000;
+    	}
+    	
+    	$('#petpayAmount').val(input);
+    	
+    }
+    	
+   	// 1만원 단위로 충전 가능, 백만원 이상 충전 못함
+   	$(function () {
+   		
+   		$('#petpayAmount').on('change', function() {
+   			var input = $(this).val();
+   			
+   			// 최대 가능 금액 백만원이 넘어가는 경우
+   			if(input > 1000000) {
+   				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+   				$('#chargePetpayBtn').attr('disabled', true);
+   				
+   			} else {
+   				$('#overPetpay').html('');
+   				$('#chargePetpayBtn').attr('disabled', false);
+   			}
+   			
+   			// 만원 단위로 입력을 안했을 경우
+   			if(input != Math.floor(input/10000) * 10000) {
+   				$('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
+   				input = Math.floor(input/10000) * 10000;
+   				                       
+   				// 만원 단위로 입력도 안하고 백만원 초과 시
+   				if(input > 1000000) {
+       				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+       				$('#chargePetpayBtn').attr('disabled', true);
+       			} else {
+       				$('#overPetpay').remove();
+       				$('#chargePetpayBtn').attr('disabled', false);
+       			}
+   			} else {
+   				$('#alertPetpay').html('');
+   			}
+   			
+   			$('#petpayAmount').val(input);
+   			
+   		});
+   	});
+    </script>
+
+    <script>
+        function goPayment(){
+            $.ajax({
+                url : ,
+                data : {
+
+                },
+                success : function(){
+                    couponNo : ,
+                    point : ,
+                    
+                },
+                error : function(){
+
+                }
+            })
+            
+        }
     </script>
 
 </body>
