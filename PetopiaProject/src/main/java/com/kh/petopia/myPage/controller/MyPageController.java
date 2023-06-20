@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.petopia.common.model.vo.PageInfo;
-import com.kh.petopia.common.template.Pagination;
-import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Petpay;
@@ -18,6 +16,8 @@ import com.kh.petopia.myPage.model.vo.Petpay;
 @Controller
 public class MyPageController {
 
+	private String filePath = "resources/uploadFiles/";
+	
 	@Autowired
 	private MyPageService myPageService;
 	
@@ -120,7 +120,7 @@ public class MyPageController {
 		r.setMemberNo(memberNo);
 		r.setReceiptNo(receiptNo);
 		System.out.println(myPageService.productReviewForm(r));
-		model.addAttribute("list", myPageService.productReviewForm(r));
+		model.addAttribute("review", myPageService.productReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
 	
@@ -132,6 +132,33 @@ public class MyPageController {
 		r.setMemberNo(memberNo);
 		model.addAttribute("list", myPageService.reservationReviewForm(r));
 		return "myPage/myReviewInsert";
+	}
+	
+	// 리뷰 작성 insert
+	@RequestMapping("insertReview.me")
+	public String insertReview(AllReviews r,
+				               MultipartFile upfile,
+							   HttpSession session,
+							   Model model ) {
+		
+		System.out.println(r);
+		
+		System.out.println("1");
+		if(!upfile.getOriginalFilename().equals("")) {
+			System.out.println("2");
+			r.setOriginName(upfile.getOriginalFilename());
+			r.setChangeName(MyFileRename.saveFile(session, upfile));
+			r.setFilePath(filePath);
+		}
+		
+		if(myPageService.insertReview(r) > 0) {
+			session.setAttribute("alertMsg", "리뷰 등록 성공!!");
+			return "redirect:myReview.me";
+		} else {
+			model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+			return "common/errorPage";
+		}
+		
 	}
 	
 

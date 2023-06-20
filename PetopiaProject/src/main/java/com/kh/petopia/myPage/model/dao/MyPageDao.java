@@ -132,7 +132,7 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
 	}
 	
-	public ArrayList<AllReviews> productReviewForm(SqlSessionTemplate sqlSession,AllReviews r) {
+	public AllReviews productReviewForm(SqlSessionTemplate sqlSession,AllReviews r) {
 		return sqlSession.selectOne("myPageMapper.productReviewForm", r);
 	}
 
@@ -192,6 +192,16 @@ public class MyPageDao {
 	
 	public int updateShippingStatus(SqlSessionTemplate sqlSession, int receiptNo) {
 		return sqlSession.update("myPageMapper.updateShippingStatus", receiptNo);
+	}
+
+	public int insertReview(SqlSessionTemplate sqlSession, AllReviews r) {
+		System.out.println("3");
+		return sqlSession.insert("myPageMapper.insertReview", r);
+	}
+
+	public int insertReview2(SqlSessionTemplate sqlSession, AllReviews r) {
+		System.out.println("4");
+		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 
 	

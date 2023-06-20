@@ -19,4 +19,13 @@ public class AllReviews {
 	private String checkInOut;
 	private int finalPrice;
 
+	private String reviewContent;
+	private Date createDate;
+	private Date modifyDate;
+	private int rating;
+	
+	private String nickName;
+	private String originName;
+	private String changeName;
+	private String filePath;
 }
