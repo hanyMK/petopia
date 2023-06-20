@@ -59,20 +59,29 @@
             <h2>리뷰 작성하기</h2>
             <br>
             <form id="insertReview" method="post" action="insertReview.me" enctype="multipart/form-data">
-           	    <input type="hidden" name="memberNo"  value="${loginMember.memberNo }">
-             	<input type="hidden" name="productNo" value="${ productNo }">
-             	<input type="hidden" name="reservationNo" value="${ reservationNo }">
-             	<input type="hidden" name="receiptNo" value="${ receiptNo }">             	
-             	<c:choose>
-             		<c:when test="${ productNo != 0 }">
-             		<!-- 상품  리뷰 작성인 경우 -->
-		                <table algin="center">
-		                	<label><b>상품 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
-		                    <tr>
-		                        <th><label>작성자</label></th>
-		                        <td><input type="text" id="nickname" class="form-control" value="${ loginMember.nickname }" name="nickname" readonly></td>
-		                    </tr>
-		                    
+            	<input type="hidden" name="memberNo"  value="${loginMember.memberNo }">
+             	<input type="hidden" name="receiptNo" value="${ review.receiptNo }">   
+             	
+            	<c:choose>
+             		<c:when test="${ not empty review.productNo }">
+             			<!-- 상품  리뷰 작성인 경우 -->
+             			<input type="hidden" name="productNo" value="${ review.productNo }">
+             			<label><b>상품 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
+             		</c:when>
+                	<c:otherwise>
+                		<!-- 예약 리뷰 작성인 경우 -->
+                		<label><b>예약 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
+                	</c:otherwise>
+                </c:choose>   	
+             	
+                <table align="center">
+                    <tr>
+                        <th width="100px"><label>작성자</label></th>
+                        <td width="400px"><input type="text" id="nickname" class="form-control" value="${ loginMember.nickname }" name="nickName" readonly></td>
+                    </tr>
+                    <tr>
+                    	<th><label>별점</label></th>
+                    	<td>
 							<div class="star-rating space-x-4 mx-auto">
 								<input type="radio" id="5-stars" name="rating" value="5"/>
 								<label for="5-stars" class="star" id="star5" onclick="starBtn(5);">★</label>
@@ -85,48 +94,20 @@
 								<input type="radio" id="1-star" name="rating" value="1" />
 								<label for="1-star" class="star" id="star1" onclick="starBtn(1);">★</label>
 							</div>
-							
-						     <tr>
-		                        <th><label for="upfile">첨부파일</label></th>
-		                        <td><input type="file" id="upfile" class="form-control-file border" name="upfile" onchange="readURL(this);"></td>
-		                    </tr>
-		                    <tr>
-		                    </tr>
-		                    <tr>
-		                        <th><label for="content">내용</label></th>
-		                        <td><textarea id="content" class="form-control" rows="10" style="resize:none;" name="reviewContent" required></textarea></td>
-		                    </tr>
-		                </table>
-                	</c:when>
-                	<c:otherwise>
-                	<!-- 예약 리뷰 작성인 경우 -->
-                		 <table algin="center">
-						</div>	
-		                    <tr>
-		                    	<th><label for="writer">예약</label></th>
-		                    	<td>
-		                    		<input type="text" id="title" class="form-control" value="${ review.title }" name="title">
-		                    	</td>
-		                    	
-		                    </tr>
-		                    <tr>
-		                        <th><label for="writer">작성자</label></th>
-		                        <td><input type="text" id="nickname" class="form-control" value="${ loginMember.nickname }" name="nickName"></td>
-		                    </tr>
-		                    <tr>
-		                        <th><label for="upfile">첨부파일</label></th>
-		                        
-		                        <td><input type="file" id="upfile" class="form-control-file border" name="upfile" onchange="readURL(this);"></td>
-		                    </tr>
-		                    <tr>
-		                    </tr>
-		                    <tr>
-		                        <th><label for="content">내용</label></th>
-		                        <td><textarea id="content" class="form-control" rows="10" style="resize:none;" name="reviewContent" required></textarea></td>
-		                    </tr>
-		                </table>
-                	</c:otherwise>
-                </c:choose>
+						</td>
+					</tr>
+				     <tr>
+                        <th><label for="upfile">첨부파일</label></th>
+                        <td><input type="file" id="upfile" class="form-control-file border" name="upfile" onchange="readURL(this);"></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <th><label for="content">내용</label></th>
+                        <td><textarea id="content" class="form-control" rows="10" style="resize:none;" name="reviewContent" required></textarea></td>
+                    </tr>
+                </table>
+		                
                 <br>
 
                 <div align="center">
@@ -140,6 +121,12 @@
     </div>
     
     <script>
+
+    console.log('${ review.productNo }');
+    
+    console.log('${ review.reservationNo }');
+    
+    console.log('${ review.receiptNo }');
     
     function starBtn(num) {
     	

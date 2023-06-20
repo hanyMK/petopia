@@ -117,41 +117,30 @@ public class MyPageController {
 	
 	// 상품 리뷰 작성 페이지
 	@RequestMapping("productReviewForm.me")
-	public String productReviewForm(int memberNo, int productNo, int receiptNo, Model model) {
-		System.out.println(productNo);
-		System.out.println(memberNo);
-		System.out.println(receiptNo);
-		AllReviews r = new AllReviews();
-		r.setProductNo(productNo);
-		r.setMemberNo(memberNo);
-		r.setReceiptNo(receiptNo);
-		System.out.println(myPageService.productReviewForm(r));
+	public String productReviewForm(AllReviews r, Model model) {
+		System.out.println("상품 :  " + r);
 		model.addAttribute("review", myPageService.productReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
 	
 	// 예약 리뷰 작성 페이지
 	@RequestMapping("reservationReviewForm.me")
-	public String reservationReviewForm(int memberNo, int reservationNo, Model model) {
-		AllReviews r = new AllReviews();
-		r.setReservationNo(reservationNo);
-		r.setMemberNo(memberNo);
+	public String reservationReviewForm(AllReviews r, Model model) {
+		System.out.println("예약 : " +r);
 		model.addAttribute("list", myPageService.reservationReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
 	
-	// 리뷰 작성 insert
+	// 리뷰 작성 INSERT
 	@RequestMapping("insertReview.me")
 	public String insertReview(AllReviews r,
 				               MultipartFile upfile,
 							   HttpSession session,
 							   Model model ) {
 		
-		System.out.println(r);
+		System.out.println("작성 : " + r);
 		
-		System.out.println("1");
 		if(!upfile.getOriginalFilename().equals("")) {
-			System.out.println("2");
 			r.setOriginName(upfile.getOriginalFilename());
 			r.setChangeName(MyFileRename.saveFile(session, upfile));
 			r.setFilePath(filePath);
