@@ -47,6 +47,10 @@ public class AdminController {
 		return "admin/adminShipping"; 
 	}
 	
+	@RequestMapping("adminChat.ad")
+	public String adminChat() {
+		return "admin/adminChat";
+	}
 
 
 	
