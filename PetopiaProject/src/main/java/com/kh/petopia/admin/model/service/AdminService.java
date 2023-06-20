@@ -46,6 +46,8 @@ public interface AdminService {
 	ArrayList ShippingList();
 
 	int toalPayment();
+
+	void shippingRelease(int[] receiptNos);
 	
 	
 }

@@ -41,7 +41,7 @@
 </style>
 	<script>
 	
-		let receiptNo = [];
+		let receiptNos = [];
 		var pi = "";
 		$(function(){ 
 			selectList(1);
@@ -56,7 +56,7 @@
 				},
 				success : function(result){
 	
-				console.log(result.pi);
+				
 				pi = result.pi;
 				let value = '';
 				let list = result.list;
@@ -69,8 +69,6 @@
 				let prev = cPage - 1;
 	            let next = cPage + 1;
 				let max = pi.maxPage;	
-				console.log(cPage);
-				console.log(result);
 				let stp = result.stp;
 				let edp = result.edp;
 				 for(var i = stp; i < edp; i++){
@@ -82,7 +80,7 @@
 	                       + '<td>' + list[i].receiptDate + '</td>'
 	                       + '<td>' + list[i].productTitle + '</td>'
 	                       + '<td>' + list[i].amount + '</td>'
-	                       + '<td>' + result.totalPaymet + '</td>'
+	                       + '<td>&#8361;' +list[i].resultPrice + '</td>'
 	                       + '</tr>'
 	                       
 				   }
@@ -130,16 +128,28 @@
 		}
 	
 		var checkboxes = document.getElementsByName('checkbox');
+		
 		function release(){
 				for (var i = 0; i < checkboxes.length; i++) {
 					  if (checkboxes[i].checked) {
-						  receiptNo.push(checkboxes[i].parentNode.nextElementSibling.textContent);
+						  receiptNos.push(checkboxes[i].parentNode.nextElementSibling.textContent);
 					  }
 					}
 				
+				$.ajax({
 				
-				console.log(receiptNo);
-				receiptNo= [];
+				type : 'post',
+				url : 'ajaxShippingRelease.ad',
+				data : {
+						receiptNos : receiptNos
+				},
+				traditional: true,
+				success : function(){
+					selectList(1);
+				}
+			})
+				
+				receiptNos= [];
 		}
 		
 		

@@ -84,25 +84,35 @@
 			selectOrderList(cpage);
 
 			//구매확정 버튼 클릭시 배송상태가 배송완료로 변경
-			function shippingCompleted(receiptNo){
-				console.log(receiptNo);
+			$(document).on('click', '.myOrderList button', e =>{
+				console.log("하이");
+				console.log($(e.target).attr('class'));
+				console.log(e);
+				var receiptNo = $(e.target).attr('class');
 				$.ajax({
 					url: 'updateShippingStatus.me',
 					data : {
-
+						receiptNo : receiptNo
 					},
 					type : 'post',
 					success : result =>{
 						console.log(result);
+						$(e.target).remove();
+						selectOrderList(cpage);
 					},
 					error: () =>{
 						console.log('실퓨ㅐ');
 					}
-
 				})
-				
+			})
 
-			}
+			//배송상세 내역
+			$(document).on('click', '.myOrderList >.list', e =>{
+				var no = $(e.target).children('input[type=hidden]').val();
+				console.log(no);
+				location.href = 'detailOrderList.me?receiptNo=' +no;
+			})
+
 		})
 		
 		//구매내역 조회 ajax
@@ -130,16 +140,16 @@
 
 					for(var i in item) {
 						console.log(list);
-						value += '<div id="myOrderList">'	
-							   + 	'<input type="hidden" class="receiptNo" value="' + item[i].receiptNo + '">'
-								+ 	'<div style="font-weight: 900px;">' 
+						value += '<div class="myOrderList">'	
+								+ 	'<div class="list" style="font-weight: 900px;">' 
+								+ 	'<input type="hidden" name="receiptNo" value="' + item[i].receiptNo + '">'
 								+ 		'<b>상품명 : ' + item[i].productTitle + '</b><br>'
 								+ 		'<b>결제 금액 : ' + item[i].resultPrice + '</b><br>'
 								+	'</div>' ;
 								if(item[i].shippingStatus =='배송중'){
 									value += '<div>' 
 											+		item[i].shippingStatus +'<br>'
-											+ '<button onclick="shippingCompleted('+ item[i].receiptNo +');">구매확정</button>'
+											+ '<button class="'+ item[i].receiptNo +'">구매확정</button>'
 											+ '</div>' 
 											+ '</div><br>';
 								}else{

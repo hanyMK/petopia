@@ -53,7 +53,7 @@
             <h2>회원가입</h2>
             <br>
 
-            <form action="join.me" method="post" id="enroll-form" enctype="multipart/form-data">
+            <form action="join.member" method="post" id="enroll-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <img name="upfile" id="upfile" src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male4-256.png">
                    
@@ -301,7 +301,7 @@
             var $email = $('.innerOuter #memberEmail');
             if(regExpEmail($email.val()) == true){
                 $.ajax({
-                    url: 'emailCheck.me',
+                    url: 'emailCheck.member',
                     type: 'post',
                     data : {checkEmail : $email.val()},
                     success : result => {
@@ -335,7 +335,7 @@
             var $nickname = $('.innerOuter #nickname');
             if(regExpNickname($nickname.val()) ==true){
                 $.ajax({
-                    url: 'nicknameCheck.me',
+                    url: 'nicknameCheck.member',
                     type: 'post',
                     data : {nickname : $nickname.val()},
                     success : result => {

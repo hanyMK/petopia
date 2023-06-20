@@ -114,8 +114,6 @@ public interface ProductService {
 		ArrayList<Cart> selectCart(int memberNo);
 		
 		ArrayList<Coupon> selectCoupon(int memberNo);
-		
-		Point selectPoint(int memNo);
 	// 상품 결제 (insert)
 		
 	// ------------- 마이페이지 결제 취소 ---------------

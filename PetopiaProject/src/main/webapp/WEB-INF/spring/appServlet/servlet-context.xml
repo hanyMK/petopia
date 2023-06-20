@@ -23,19 +23,16 @@
 	
 	<context:component-scan base-package="com.kh.petopia" />
 	
-	<!-- interceptors( 맵핑으로 이동시 무조건 실행되어 거쳐가는 단계로 로그인 유무확인해주는 기능 )-->
+	<!-- interceptors( 맵핑으로 이동시 무조건 실행되어 거쳐가는 단계로 로그인 유무확인해주는 기능 )
+	-->
 	<interceptors>
 		<interceptor>
-			<mapping path="/myPage.me/"/>
-			<mapping path="/enrollForm.bo"/>
-			<beans:bean class="com.kh.petopia.common.Interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
+			<mapping path="/*.me"/>
+			<beans:bean class="com.kh.petopia.common.Interceptor.LoginInterceptor" id="LoginInterceptor" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/couponList.admin" />
-			<mapping path="/insertCoupon.ad" />
-			<mapping path="/admin.ad" />
-			<mapping path="/adminPage.ad" />
-			<beans:bean class="com.kh.petopia.common.Interceptor.AdminInterceptor"/>
+			<mapping path="/*.ad" />
+			<beans:bean class="com.kh.petopia.common.Interceptor.AdminInterceptor" id="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

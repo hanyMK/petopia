@@ -38,6 +38,7 @@
 		<result column ="receipt_date" property="receiptDate" />
 		<result column ="amount" property="amount" />
 		<result column ="product_title" property="productTitle" />
+		<result column ="result_price" property="resultPrice" />
 	</resultMap>
 	
 	<select id="memberListCount" resultType="_int">
@@ -192,23 +193,35 @@
 	</select>
 	
 	<select id= "shippingList" resultMap="shippingResultSet">
-		  SELECT
+		 SELECT
 			    PR."RECEIPT_NO",
 			    M."MEMBER_NAME",
 			    PR."RECEIPT_DATE",
 			    PB."AMOUNT",
 			    P."PRODUCT_TITLE",
-                SH."SHIPPING_STATUS"
+                SH."SHIPPING_STATUS",
+                R.RESULT_PRICE
 			FROM
 			    MEMBER M
 			    INNER JOIN PRODUCT_RECEIPT PR ON M."MEMBER_NO" = PR."MEMBER_NO"
 			    INNER JOIN PRODUCT_BRIDGE PB ON PR."RECEIPT_NO" = PB."RECEIPT_NO"
 			    INNER JOIN "PRODUCT" P ON PB."PRODUCT_NO" = P."PRODUCT_NO"
                 INNER JOIN SHIPPING SH ON PR."RECEIPT_NO" = SH."SHIPPING_NO"
+                LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+                JOIN VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PB.RECEIPT_NO)
            WHERE
-                SH."SHIPPING_STATUS" = '상품준비중' 
+                SH."SHIPPING_STATUS" = '상품준비중'
 	</select>
 	
+	<select id="shippingRelease" parameterType="_int">
+		UPDATE
+		 	   SHIPPING
+		   SET
+		       SHIPPING_STATUS = '배송중',
+		       SHIPPING_DATE = SYSDATE
+		 WHERE
+	           SHIPPING_NO = #{receiptNo}       
+	</select>
 	
 	
 	

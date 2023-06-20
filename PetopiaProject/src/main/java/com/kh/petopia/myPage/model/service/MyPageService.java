@@ -88,7 +88,7 @@ public interface MyPageService {
 
 	ArrayList<AllReviews> reservationReviewForm(AllReviews r);
 	
-	
+	int insertReview(AllReviews r);
 	
 	
 	
@@ -111,10 +111,8 @@ public interface MyPageService {
 	
 	//배송상태 변경 메소드
 	int updateShippingStatus(int receiptNo);
-
-	int insertReview(AllReviews r);
-
-
+	
+	ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo);
 	
 
 }

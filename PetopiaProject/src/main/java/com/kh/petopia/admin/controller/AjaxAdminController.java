@@ -1,6 +1,7 @@
 package com.kh.petopia.admin.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -116,4 +117,55 @@ public class AjaxAdminController {
 			return new Gson().toJson(result);
 
 		}
+	
+	@RequestMapping(value = "ajaxShippingRelease.ad")
+	public String ShippingRelease(int[] receiptNos) {
+		adminService.shippingRelease(receiptNos);
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
