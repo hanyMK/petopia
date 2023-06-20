@@ -21,7 +21,6 @@ import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @RestController
-@Controller
 public class AjaxMyPageController {
 	
 	@Autowired

@@ -132,12 +132,24 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertWithdrawPetpay", p);
 	}
 	
-	public ArrayList<AllReviews> productReviewForm(SqlSessionTemplate sqlSession,AllReviews r) {
+	public AllReviews productReviewForm(SqlSessionTemplate sqlSession,AllReviews r) {
 		return sqlSession.selectOne("myPageMapper.productReviewForm", r);
 	}
 
-	public ArrayList<AllReviews> reservationReviewForm(SqlSessionTemplate sqlSession, AllReviews r) {
+	public AllReviews reservationReviewForm(SqlSessionTemplate sqlSession, AllReviews r) {
 		return sqlSession.selectOne("myPageMapper.reservationReviewForm", r);
+	}
+	
+	public int insertProductReview(SqlSessionTemplate sqlSession, AllReviews r) {
+		return sqlSession.insert("myPageMapper.insertProductReview", r);
+	}
+	
+	public int insertReservationReview(SqlSessionTemplate sqlSession, AllReviews r) {
+		return sqlSession.insert("myPageMapper.insertReservationReview", r);
+	}
+
+	public int insertReview2(SqlSessionTemplate sqlSession, AllReviews r) {
+		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 
 	
@@ -197,6 +209,13 @@ public class MyPageDao {
 	public ArrayList<ProductReceipt> selectDetailOrderList(SqlSessionTemplate sqlSession, int receiptNo){
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectDetailOrderList", receiptNo);
 	}
+
+	// 현재 결제에서 필요한 쿠폰 개수
+	public int selectAvaMemberCouponCount(SqlSessionTemplate sqlSession,HashMap <String, Integer> map) {
+		return sqlSession.selectOne("myPageMapper.selectAvaMemberCouponCount",map);
+	}
+
+	
 
 	
 	
