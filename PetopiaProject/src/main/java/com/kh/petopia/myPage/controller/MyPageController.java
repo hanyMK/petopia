@@ -140,6 +140,7 @@ public class MyPageController {
 		
 		System.out.println("작성 : " + r);
 		System.out.println(upfile);
+		
 		if(!upfile.getOriginalFilename().equals("")) {
 			r.setOriginName(upfile.getOriginalFilename());
 			r.setChangeName(MyFileRename.saveFile(session, upfile));
@@ -148,7 +149,6 @@ public class MyPageController {
 		
 		if(r.getProductNo() != 0) {
 			// 상품 리뷰 작성
-			System.out.println("예약리뷰로  넘어와조라");
 			if(myPageService.insertProductReview(r) > 0) {
 				session.setAttribute("alertMsg", "리뷰 등록 성공!!");
 				return "redirect:myReview.me";
@@ -157,7 +157,6 @@ public class MyPageController {
 				return "common/errorPage";
 			}
 		} else {
-			System.out.println("예약리뷰로  넘어와조라");
 			// 예약 리뷰 작성
 			if(myPageService.insertReservationReview(r) > 0) {
 				session.setAttribute("alertMsg", "리뷰 등록 성공!!");
@@ -169,7 +168,6 @@ public class MyPageController {
 		}
 		
 	}
-	
 
 
 

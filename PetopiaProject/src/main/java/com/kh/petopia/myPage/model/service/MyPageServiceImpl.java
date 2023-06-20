@@ -171,11 +171,16 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public int insertProductReview(AllReviews r) {
-		int insert1 = myPageDao.insertProductReview(sqlSession,r);
 		
+		int insert1 = myPageDao.insertProductReview(sqlSession,r);
+		System.out.println(r.getChangeName());
+		System.out.println(r.getFilePath());
+		System.out.println(r.getOriginName());
 		if(insert1 > 0) {
 			if(r.getOriginName() != null) {
-				return myPageDao.insertReview2(sqlSession, r);
+				//System.out.println("왔낭. ... . ."); 
+				//System.out.println(myPageDao.insertProductReview2(sqlSession, r)); 1
+				return myPageDao.insertProductReview2(sqlSession, r);
 			} else {
 				return insert1;
 			}
@@ -191,7 +196,7 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		if(insert1 > 0) {
 			if(r.getOriginName() != null) {
-				return myPageDao.insertReview2(sqlSession, r);
+				return myPageDao.insertReservationReview2(sqlSession, r);
 			} else {
 				return insert1;
 			}

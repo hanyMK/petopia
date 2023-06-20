@@ -24,8 +24,8 @@
             background-color:white;
         }
 
-        #enrollForm>table {width:100%;}
-        #enrollForm>table * {margin:5px;}
+        #insertReview>table {width:100%;}
+        #insertReview>table * {margin:5px;}
         
         /*리뷰 별점*/
         .star-rating {
@@ -98,7 +98,7 @@
 					</tr>
 				     <tr>
                         <th><label for="upfile">첨부파일</label></th>
-                        <td><input type="file" id="upfile" class="form-control-file border" name="upfile" onchange="readURL(this);"></td>
+                        <td><input type="file" id="upfile" class="form-control-file border" name="upfile"></td>
                     </tr>
                     <tr>
                     </tr>

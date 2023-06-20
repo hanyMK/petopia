@@ -144,11 +144,15 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertProductReview", r);
 	}
 	
+	public int insertProductReview2(SqlSessionTemplate sqlSession, AllReviews r) {
+		return sqlSession.insert("myPageMapper.insertReview2", r);
+	}
+	
 	public int insertReservationReview(SqlSessionTemplate sqlSession, AllReviews r) {
 		return sqlSession.insert("myPageMapper.insertReservationReview", r);
 	}
 
-	public int insertReview2(SqlSessionTemplate sqlSession, AllReviews r) {
+	public int insertReservationReview2(SqlSessionTemplate sqlSession, AllReviews r) {
 		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 

@@ -770,7 +770,7 @@
 	      )
 	 </insert>
 	 
-	 <insert id="insertReview2" parameterType="allReviews">
+	 <insert id="insertProductReview2" parameterType="allReviews">
 	 INSERT
 	   INTO
 	       ATTACHMENT
