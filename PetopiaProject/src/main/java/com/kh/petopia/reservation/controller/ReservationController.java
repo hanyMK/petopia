@@ -30,10 +30,8 @@ public class ReservationController {
 
 	// 애견 미용 예약 step-1
 	@RequestMapping("reservation.ps")
-	public ModelAndView reservationPetSalon(int fee, ModelAndView mv, HttpSession session) {
+	public ModelAndView reservationPetSalon(ModelAndView mv, HttpSession session) {
 
-		System.out.println(fee);
-		
 		// 1. 해당 미용실의 미용사 리스트를 조회해서 뿌려주기 
 		// 참고로 미용실번호는 고정임 3번
 		int psno = 3;
@@ -48,7 +46,6 @@ public class ReservationController {
 		
 		// 3. 미용 예약의 기본 금액 조회 
 		
-		mv.addObject("reservationFee",fee);
 		mv.addObject("eList", eList);
 		mv.addObject("pet", pet);
 		
@@ -73,9 +70,6 @@ public class ReservationController {
 	}
 	
 	
-	
-	
-	
 	// 애견 미용 예약 step-2
 	@RequestMapping("payment.ps")
 	public ModelAndView paymentPetSalon(Reservation r, HttpSession session, ModelAndView mv) {
@@ -90,10 +84,11 @@ public class ReservationController {
 		
 		// 1. 선택한 미용사 / 예약 날짜 / 시간 
 		// => Reservation 객체에 들어있음
+		r.setReservationFee(reservationService.selectUsageFee(3));
 		
 		// 2. 예약하려는 사용자의 마이펫 정보 
 		Pet pet = myPageService.selectPet(memberNo);
-		
+
 		// 3. 예약자 및 연락처 => 로그인 세선에 저장되어있음
 		
 		// 4. 사용자가 가지고있는 쿠폰이랑 적립금 조회
@@ -107,6 +102,8 @@ public class ReservationController {
 		// 6. 결제 정보 출력
 		// 사용자의 입력에 따른 예약금액 
 		// 사용자가 선택한 쿠폰과 적립금에 따른 총 결제 금액 
+		
+		System.out.println(r);
 		
 		mv.addObject("r",r);						// 예약 정보
 		mv.addObject("pet",pet);					// 펫 정보

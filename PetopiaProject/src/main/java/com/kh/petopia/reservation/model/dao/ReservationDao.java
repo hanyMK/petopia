@@ -20,4 +20,8 @@ public class ReservationDao {
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectEmployeeReservation", r);
 	}
 
+	public int selectUsageFee(SqlSessionTemplate sqlSession, int psno) {
+		return sqlSession.selectOne("reservationMapper.selectUsageFee",psno);
+	}
+
 }

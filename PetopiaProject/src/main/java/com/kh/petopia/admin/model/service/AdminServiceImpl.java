@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.petopia.admin.model.dao.AdminDao;
 import com.kh.petopia.admin.model.vo.Coupon;
@@ -79,6 +80,14 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int toalPayment() {
 		return adminDao.totalPayment(sqlSession);
+	}
+
+	@Override
+	@Transactional
+	public void shippingRelease(int[] receiptNos) {
+		for(int i =0; i < receiptNos.length; i++) {
+			adminDao.shippingRelease(sqlSession, receiptNos[i]);
+		}
 	}
 
 
