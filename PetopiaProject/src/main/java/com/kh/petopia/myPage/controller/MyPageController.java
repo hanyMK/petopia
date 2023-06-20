@@ -239,10 +239,13 @@ public class MyPageController {
 	}
 	
 	//회원 배송, 주문 내역 디테일 조회
-	@GetMapping("detailOrderList.me")
+	@GetMapping("orderDetail.me")
 	public ModelAndView selectDetailOrderList(int receiptNo, ModelAndView mv) {
+
 		ArrayList<ProductReceipt> orderList = myPageService.selectDetailOrderList(receiptNo);
 		System.out.println(orderList);
+		mv.addObject("order", orderList)
+		.setViewName("myPage/myOrderDetail");
 		return mv;
 	}
 

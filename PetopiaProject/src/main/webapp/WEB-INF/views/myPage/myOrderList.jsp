@@ -92,7 +92,7 @@
 				$.ajax({
 					url: 'updateShippingStatus.me',
 					data : {
-						receiptNo : receiptNo
+						receiptNo : receiptNo,
 					},
 					type : 'post',
 					success : result =>{
@@ -108,9 +108,10 @@
 
 			//배송상세 내역
 			$(document).on('click', '.myOrderList >.list', e =>{
-				var no = $(e.target).children('input[type=hidden]').val();
-				console.log(no);
-				location.href = 'detailOrderList.me?receiptNo=' +no;
+				var rno = $(e.target).children('input[type=hidden]').val();
+			
+				console.log(rno ) ;
+				location.href = 'orderDetail.me?receiptNo=' +rno ;
 			})
 
 		})

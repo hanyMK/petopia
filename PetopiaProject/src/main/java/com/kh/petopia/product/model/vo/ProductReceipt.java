@@ -26,5 +26,12 @@ public class ProductReceipt {
 	private int extraMoney; //추가금
 	private String filePath; //파일 경로
 	
+	private int totalPrice;//최종금액
+	private int discount;//할인금액
+	private String couponType;//쿠폰 타입
+	
+	private String receiver;//RECEIVER,
+	private String shippingAdress;
+	
 
 }

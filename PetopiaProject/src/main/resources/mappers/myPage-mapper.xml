@@ -60,6 +60,11 @@
 		<result column="PRODUCT_TITLE"	property="productTitle" />
 		<result column="FILE_PATH"	property="filePath" />
 		<result column="RESULT_PRICE"	property="resultPrice" />
+		<result column="TOTAL_RRICE"	property="totalPrice" />
+		<result column="DISCOUNT"	property="discount" />
+		<result column="RECEIVER"	property="receiver" />
+		<result column="COUPON_TYPE"	property="couponType" />
+		<result column="SHIPPING_ADDRESS"	property="shippingAdress" />
 	</resultMap>
 	
 	<resultMap type="coupon" id="couponResultSet">
@@ -820,12 +825,12 @@
 		        LEFT JOIN     
 		                ATTACHMENT A ON (A.REF_NO = P.PRODUCT_NO)        
 			   WHERE 
-		                MEMBER_NO = #{memberNo}
-		       ORDER
-		  		  BY
-		   				RECEIPT_DATE DESC) 
+		                MEMBER_NO =  #{memberNo}
+		                ORDER
+				   BY
+				   		RECEIPT_DATE DESC) 
 		GROUP 
-		    BY
+		   BY
 		        RECEIPT_NO, MEMBER_NO, SHIPPING_STATUS, RESULT_PRICE
 
 	</select>
@@ -844,63 +849,43 @@
 	
 	<!-- 주문, 배송내역 상세조회 -->
 	<select id="selectDetailOrderList" parameterType="_int" resultMap="productReceiptResultSet">
-        SELECT        
-                PR.MEMBER_NO,
-                PR.RECEIPT_NO,
-                PR.RECEIPT_DATE,
-                RR.PRODUCT_TITLE,
-		        S.SHIPPING_STATUS,
-                SHIPPING_ADDRESS,
-                PHONE,
-                SHIPPING_MESSAGE,
-                RR.RESULT_PRICE,
-                POINT,
-                C.DISCOUNT,
-                (FILE_PATH || '/' || CHANGE_NAME) FILE_PATH,
-                CASE 
-                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
-                THEN R.RESULT_PRICE - POINT - C.DISCOUNT
-                WHEN C.COUPON_NO !=0 AND C.COUPON_TYPE = 2
-                THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
-                ELSE  R.RESULT_PRICE - POINT
-                END RESULT_PRICE
-        FROM 
-                (SELECT     PR.MEMBER_NO,
-                            RECEIPT_NO,
-                            RECEIPT_DATE,
-                            COUPON_NO,
-                            POINT,
-                            PHONE,
-                            CASE 
-                            WHEN PR.SHIPPING_NO = SA.SHIPPING_ADDRESS_NO 
-                            THEN SHIPPING_ADDRESS
-                            END SHIPPING_ADDRESS
-                 FROM 
-                        VIEW_PRODUCT_RECEIPT PR
-                 JOIN 
-                        SHIPPING_ADDRESS SA ON (PR.MEMBER_NO = SA.MEMBER_NO)
-                 WHERE 
-                        PR.RECEIPT_NO = #{ receiptNo }) PR 
-        LEFT JOIN 
-                COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
-        JOIN
-                VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
-        JOIN
-                VIEW_RECEIPT_PRICE RR ON (RR.RECEIPT_NO = PR.RECEIPT_NO)
-        JOIN 
-                SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
-        
-         JOIN     
-                ATTACHMENT A ON (A.REF_NO = RR.PRODUCT_NO)  
-                
-	   WHERE 
-                 PR.RECEIPT_NO = #{ receiptNo }
-         AND 
-                 FILE_LEVEL = 0
-         AND 
-                FILE_STATUS = 'Y'
-         AND   
-                SHIPPING_ADDRESS IS NOT NULL
+		SELECT  	DISTINCT
+	                PR.MEMBER_NO,
+	                RP.PRODUCT_TITLE ,
+			        SHIPPING_STATUS,
+	                PR.RECEIPT_NO,
+	                RP.RESULT_PRICE,
+	                SHIPPING_ADDRESS,
+	                RECEIVER,
+	                PHONE,
+	                SHIPPING_MESSAGE,
+	                POINT,
+	                C.COUPON_TYPE,
+	                C.DISCOUNT DISCOUNT,
+	                CASE 
+	                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+	                THEN R.RESULT_PRICE - POINT - C.DISCOUNT
+	                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+	                THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+	                ELSE  R.RESULT_PRICE - POINT
+	                END TOTAL_RRICE
+	        FROM 
+	                VIEW_PRODUCT_RECEIPT PR
+	        JOIN 
+	                PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+	        JOIN
+	                VIEW_RECEIPT_PRICE RP ON(RP.RECEIPT_NO = PB.RECEIPT_NO)
+	        LEFT JOIN 
+	                COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+	        JOIN
+	                VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PB.RECEIPT_NO)
+	        JOIN 
+	                SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+	        JOIN     
+	                ATTACHMENT A ON (A.REF_NO = RP.PRODUCT_NO)        
+		   WHERE 
+	                PR.RECEIPT_NO =   #{ receiptNo }
+
 	</select>
 
 </mapper>

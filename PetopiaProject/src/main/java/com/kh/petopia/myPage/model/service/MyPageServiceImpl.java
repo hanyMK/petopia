@@ -225,8 +225,8 @@ public class MyPageServiceImpl implements MyPageService {
 
 	
 	@Override
-	public ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo) {
-		return myPageDao.selectDetailOrderList(sqlSession, receiptNo );
+	public ArrayList<ProductReceipt> selectDetailOrderList( int receiptNo) {
+		return myPageDao.selectDetailOrderList(sqlSession,  receiptNo );
 	}
 
 	// 현재 결제에서 사용 가능한 쿠폰 개수 조회 

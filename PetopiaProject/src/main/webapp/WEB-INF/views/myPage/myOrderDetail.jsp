@@ -156,7 +156,83 @@
 </head>
 <body>
     
-    <jsp:include page="../common/header.jsp"/>
+    <jsp:include page="../common/header.jsp" />
+
+    <div id="main">
+		<div id="main_left">
+		
+		</div>
+		<div id="main_center">
+			<div id="main_center_left">
+				<jsp:include page="myPageNavi.jsp" />
+			</div>
+			<div id="main_center_right">
+				<div id="main_center_right_top">
+					<h2>배송주문 목록 조회</h2>
+				</div>
+				<div id="main_center_right_bottom">
+					<div id="orderList">
+                        <div id="product_receipt_content">
+                            <div id="product_receipt_content_1">
+                                <div id="product_receipt_detail_info">
+                                    <span id="detail_span">주문 상품 정보</span>
+                                    <hr>
+                                    <div id="tableContainer">
+                                        <span id="detail_span">결제정보</span>
+                                        <c:forEach var="item" items="${order}">
+                                            <h4>상품명: ${item.productTitle}</h4>
+                                            <h4>결제 가격 :${item.resultPrice} </h4>
+                                            <hr>
+                                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${not empty order[0].couponType and order[0].couponType eq 1}">
+                                                <h4>쿠폰 할인 : ${order[0].discount} 원</h4>
+                                            </c:when>
+                                            <c:when test="${ order[0].couponType eq 2}">
+                                                <h4>쿠폰 할인 :${order[0].discount} %</h4>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <h4>쿠폰 할인금액 : ${order[0].discount} 원</h4>
+                                            </c:otherwise>
+                                        </c:choose>
+                                            <h4>적립금 사용금액 : ${order[0].point} 원</h4>
+                                            <h4>총 결제 금액 : ${order[0].totalPrice}원 </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                            <div id="product_receipt_content_4">
+                                <div id="product_receipt_detail_info4">
+                                    <span id="detail_span">배송지</span>
+                                    <br>
+                                    <br>
+                                    <div>받는분 이름 : ${order[0].receiver}</div>
+                                    <div>회원 이름 : ${loginMember.memberName}</div>
+                                    <div>전화번호 : ${order[0].phone}</div>
+                                    <div id="give_address">주소 : ${order[0].shippingAdress}</div>
+                                  
+                                    <hr>
+                                    
+                                    <br>
+
+                                </div>
+                            </div>
+                
+                
+                        </div>
+					</div>
+						
+				</div>
+			</div>
+			
+		</div>
+		<div id="main_right">
+			
+		</div>
+		
+	</div>
+	
 
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
@@ -186,9 +262,7 @@
         </div>
     </div>
     
-        <div id="product_receipt_header">
-            결제하기
-        </div>
+        
         <div id="product_receipt_content">
             <div id="product_receipt_content_1">
                 <div id="product_receipt_detail_info">
@@ -254,53 +328,6 @@
             </div>
 
 
-            <div id="product_receipt_content_5">
-                <div id="product_receipt_detail_info5">
-                    <span id="detail_span">쿠폰/포인트</span>
-                    <div>
-                        <div>쿠폰</div>
-                        <input type="text" id="coupon_insert_input"> <button data-toggle="modal" data-target="#couponModal">쿠폰등록</button>
-                        <div>포인트</div>
-                        <input type="text"> <button>사용</button>
-                        <br>
-                        <c:choose>
-                            <c:when test="${not empty point}">
-                                <span>보유 포인트 : </span>
-                            </c:when>
-                            <c:otherwise>
-                                <span>0</span>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="couponModal">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                
-                    <!-- Modal Header -->
-                    <div class="modal-header" id="coupon_modal_div">
-                    <h4 class="modal-title">쿠폰 정보</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                    쿠폰 리스트 
-                    <button onclick="selectCoupon();">쿠폰 목록</button>
-                        <div id="coupon_list">
-                 
-                        </div>
-                    </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer" id="coupon_modal_end">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="modal_close">닫기</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-
         </div>
 
     <jsp:include page="../common/footer.jsp"/>
@@ -308,78 +335,7 @@
 
     <script>
 
-        $('select').on('change',function(){
-            if($('option:selected').text() == '직접입력'){
-                $('#memo').val('');
-            } else {
-                $('#memo').val($('option:selected').text());
-            }
-        })
-
       
-
-        // $('#selectMemo').on('change', function(){
-        //     for(var i = 0; i < ('#selectMemo')[0].length; i++){
-        //         $('#memo').val($(this[i]).text());
-        //         console.dir($('#selectMemo')[0][0].text);
-        //     }
-        // })
-    </script>
-
-    <script>
-        $(function(){
-            insertCoupon();
-        })
-
-        function selectCoupon(){
-            $.ajax({
-                url : 'selectCoupon.pd',
-                data : {
-                    memNo : ${loginMember.memberNo}
-                },
-                success : function(list){
-                    console.log(list);
-                    let value = '';
-                    if(list != ' '){
-                        for(let i in list){
-                            value  += '<div id="coupon_detail" class="couponClass">'
-                               + '쿠폰 이름 : <span class="cName">'+ list[i].couponName +'</span> <br>'
-                               + '<span hidden class="cno">'+ list[i].couponNo +'</span>';
-                               if(list[i].couponType == 1){
-									value += '<span>'+ list[i].discount +'</span>원<br>';
-								}else{
-									value += '<span>'+ list[i].discount +'</span>%<br>';
-								}
-                              //+ '할인률 : '+ list[i].discount +' <br>'
-                              value += 
-                                '기간 : '+ list[i].startDate +'~'+ list[i].endDate +'<br>'
-                               + '50000원 이하부터 10000원 이상'
-                               + '</div>'
-                               + '<hr>'
-                        }
-                        $('#coupon_list').html(value);
-                        console.log('리스트있음 엘스구문');
-                    } else {
-                        value += '등록된 쿠폰이 없습니다.';
-                        $('#coupon_list').text(value);
-                        console.log('빈문자 엘스구문');
-                    }
-
-                },
-                error : function(){
-                    console.log('안됨');
-                }
-            })
-        }
-
-        function insertCoupon(){
-            $('#coupon_list').on('click', '.couponClass', function(){
-                $('#coupon_insert_input').val($(this).find('.cName').html());
-                $('#modal_close').click();
-            });
-        }
-
-        fuc
 
 
 
