@@ -89,9 +89,11 @@ public interface MyPageService {
 	
 	AllReviews productReviewForm(AllReviews r);
 
-	ArrayList<AllReviews> reservationReviewForm(AllReviews r);
+	AllReviews reservationReviewForm(AllReviews r);
 	
-	int insertReview(AllReviews r);
+	int insertProductReview(AllReviews r);
+	
+	int insertReservationReview(AllReviews r);
 	
 	
 	

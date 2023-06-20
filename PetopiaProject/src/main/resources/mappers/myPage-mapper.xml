@@ -707,7 +707,7 @@
            PR.RECEIPT_NO = #{receiptNo}
 	</select>
 	
-	<select id="reservationReviewForm" parameterType="allReviews" resultMap="allReviewsResultMap">
+	<select id="reservationReviewForm" parameterType="allReviews" resultType="allReviews" resultMap="allReviewsResultMap">
 	SELECT
 	        CASE 
 	        WHEN PET_STORE = 1 THEN '호텔'
@@ -716,7 +716,7 @@
 	        WHEN PET_STORE = 4 THEN '훈련'
 	        END  TITLE,
 	        RECEIPT_DATE,
-            RR.RESERVATION_NO
+            RR.RESERVATION_NO AS RECEIPT_NO
 	  FROM
 	        RESERVATION R 
       JOIN 
@@ -724,10 +724,10 @@
 	 WHERE
 	        MEMBER_NO = #{memberNo}
        AND
-            RR.RESERVATION_NO = #{reservationNo}
+            RR.RESERVATION_NO = #{receiptNo}
 	</select>
 	
-	<insert id="insertReview" parameterType="allReviews">
+	<insert id="insertProductReview" parameterType="allReviews">
 	INSERT 
 	  INTO PRODUCT_REVIEW
 	      (
@@ -747,6 +747,27 @@
            SYSDATE,
            #{rating}
            )
+	 </insert>
+	 
+	<insert id="insertReservationReview" parameterType="allReviews">
+	INSERT
+	  INTO
+	      PET_STORE_REVIEW
+	      (
+	      REVIEW_NO,
+	      RESERVATION_NO,
+	      REVIEW_CONTENT,
+	      CREATE_DATE,
+	      RATING
+	      )
+	VALUES
+	      (
+	      SEQ_PSRNO.NEXTVAL,
+	      #{receiptNo}, 
+	      #{reviewContent},
+	      SYSDATE,
+	      #{rating}     
+	      )
 	 </insert>
 	 
 	 <insert id="insertReview2" parameterType="allReviews">

@@ -121,13 +121,6 @@
     </div>
     
     <script>
-
-    console.log('${ review.productNo }');
-    
-    console.log('${ review.reservationNo }');
-    
-    console.log('${ review.receiptNo }');
-    
     function starBtn(num) {
     	
     	if(num == 1) {

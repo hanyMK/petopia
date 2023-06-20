@@ -165,12 +165,29 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<AllReviews> reservationReviewForm(AllReviews r) {
+	public AllReviews reservationReviewForm(AllReviews r) {
 		return myPageDao.reservationReviewForm(sqlSession,r);
 	}	
 	
-	public int insertReview(AllReviews r) {
-		int insert1 = myPageDao.insertReview(sqlSession,r);
+	@Override
+	public int insertProductReview(AllReviews r) {
+		int insert1 = myPageDao.insertProductReview(sqlSession,r);
+		
+		if(insert1 > 0) {
+			if(r.getOriginName() != null) {
+				return myPageDao.insertReview2(sqlSession, r);
+			} else {
+				return insert1;
+			}
+		} else {
+			return insert1;
+		}
+		
+	}
+	
+	@Override
+	public int insertReservationReview(AllReviews r) {
+		int insert1 = myPageDao.insertReservationReview(sqlSession,r);
 		
 		if(insert1 > 0) {
 			if(r.getOriginName() != null) {
