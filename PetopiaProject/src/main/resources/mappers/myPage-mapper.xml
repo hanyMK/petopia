@@ -862,5 +862,66 @@
 		   		
 			
 	</update>
+	
+	<!-- 주문, 배송내역 상세조회 -->
+	<select id="selectDetailOrderList" parameterType="_int" resultMap="productReceiptResultSet">
+        SELECT        
+                PR.MEMBER_NO,
+                PR.RECEIPT_NO,
+                PR.RECEIPT_DATE,
+                RR.PRODUCT_TITLE,
+		        S.SHIPPING_STATUS,
+                SHIPPING_ADDRESS,
+                PHONE,
+                SHIPPING_MESSAGE,
+                RR.RESULT_PRICE,
+                POINT,
+                C.DISCOUNT,
+                (FILE_PATH || '/' || CHANGE_NAME) FILE_PATH,
+                CASE 
+                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+                THEN R.RESULT_PRICE - POINT - C.DISCOUNT
+                WHEN C.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+                THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+                ELSE  R.RESULT_PRICE - POINT
+                END RESULT_PRICE
+        FROM 
+                (SELECT     PR.MEMBER_NO,
+                            RECEIPT_NO,
+                            RECEIPT_DATE,
+                            COUPON_NO,
+                            POINT,
+                            PHONE,
+                            CASE 
+                            WHEN PR.SHIPPING_NO = SA.SHIPPING_ADDRESS_NO 
+                            THEN SHIPPING_ADDRESS
+                            END SHIPPING_ADDRESS
+                 FROM 
+                        VIEW_PRODUCT_RECEIPT PR
+                 JOIN 
+                        SHIPPING_ADDRESS SA ON (PR.MEMBER_NO = SA.MEMBER_NO)
+                 WHERE 
+                        PR.RECEIPT_NO = #{ receiptNo }) PR 
+        LEFT JOIN 
+                COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+        JOIN
+                VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
+        JOIN
+                VIEW_RECEIPT_PRICE RR ON (RR.RECEIPT_NO = PR.RECEIPT_NO)
+        JOIN 
+                SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+        
+         JOIN     
+                ATTACHMENT A ON (A.REF_NO = RR.PRODUCT_NO)  
+                
+	   WHERE 
+                 PR.RECEIPT_NO = #{ receiptNo }
+         AND 
+                 FILE_LEVEL = 0
+         AND 
+                FILE_STATUS = 'Y'
+         AND   
+                SHIPPING_ADDRESS IS NOT NULL
+	</select>
 
 </mapper>
