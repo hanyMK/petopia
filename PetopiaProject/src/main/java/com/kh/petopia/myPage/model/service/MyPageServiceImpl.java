@@ -209,6 +209,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.updateShippingStatus(sqlSession, receiptNo);
 	}
 
+	@Override
+	public ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo) {
+		return myPageDao.selectDetailOrderList(sqlSession, receiptNo );
+	}
+
 
 
 

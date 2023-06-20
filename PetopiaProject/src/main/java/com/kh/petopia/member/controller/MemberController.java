@@ -44,7 +44,7 @@ public class MemberController {
 		 * @return
 		 */
 		
-		@RequestMapping("login.me")
+		@RequestMapping("login.member")
 		public ModelAndView login(Member m, ModelAndView mv, HttpSession session ) {
 			
 			Member loginMember = memberService.loginMember(m);
@@ -61,7 +61,7 @@ public class MemberController {
 			return mv;
 		}
 		
-		@RequestMapping("logout.me" )
+		@RequestMapping("logout.member" )
 		public String logoutMember(HttpSession session) {
 			session.invalidate();
 			return "redirect:/";
@@ -69,13 +69,13 @@ public class MemberController {
 		
 		
 		
-		@RequestMapping("memberEnroll.me")
+		@RequestMapping("memberEnroll.member")
 		public String memberEnroll() {
 			return "member/memberEnrollForm";
 		}
 		
 		
-		@RequestMapping("join.me")
+		@RequestMapping("join.member")
 		public ModelAndView joinMember(Member m, 
 									MultipartFile upfile,
 									String birthday_y,

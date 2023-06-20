@@ -100,7 +100,7 @@ public class AdminController {
 	 * @param currentPage : 페이징 처리를 위한 현재 페이지 번호
 	 * @return
 	 */
-	@RequestMapping("couponList.admin")
+	@RequestMapping("couponList.ad")
 	public ModelAndView coponListShow(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 								ModelAndView mv) {
 		PageInfo pi = Pagination.getPageInfo(adminService.adminCouponListCount(), currentPage, 10, 10);

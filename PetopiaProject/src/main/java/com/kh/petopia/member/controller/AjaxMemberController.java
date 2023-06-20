@@ -38,7 +38,7 @@ public class AjaxMemberController {
 
 	
 	
-	@RequestMapping(value="emailCheck.me", produces="text/html; charset=UTF-8")
+	@RequestMapping(value="emailCheck.member", produces="text/html; charset=UTF-8")
 	public String emailCheck(String checkEmail) {
 		
 		return memberService.emailCheck(checkEmail) >0 ? "NNN" : "YYY";
@@ -53,7 +53,7 @@ public class AjaxMemberController {
 	}
 	
 	
-	@PostMapping(value ="findEmail.me", produces="text/html; charset=UTF-8")
+	@PostMapping(value ="findEmail.member", produces="text/html; charset=UTF-8")
 	public String findEmail(String nickname) {
 		
 		String email = memberService.findEmail(nickname);
@@ -62,7 +62,7 @@ public class AjaxMemberController {
 	}
 	
 	
-	@PostMapping(value="findPwd.me", produces="text/html; charset=UTF-8")
+	@PostMapping(value="findPwd.member", produces="text/html; charset=UTF-8")
 	public String findPwd(String checkEmail, Model m) throws MessagingException {
 		String key = randomString();
 		System.out.println("이메일 "+checkEmail);
@@ -146,7 +146,7 @@ public class AjaxMemberController {
 //	}
 	
 	
-	@RequestMapping("updatePwd.me")
+	@RequestMapping("updatePwd.member")
 	public String resetPwd(String k, String memberPwd) {
 		
 		//certVo.setSecret(k);

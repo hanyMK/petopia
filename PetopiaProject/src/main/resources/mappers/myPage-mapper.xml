@@ -731,7 +731,6 @@
 		        LISTAGG(PRODUCT_TITLE, ',') WITHIN GROUP(ORDER BY RECEIPT_NO) PRODUCT_TITLE,
 		        MEMBER_NO,
 		        SHIPPING_STATUS,
-		        RECEIPT_NO, 
 		        RESULT_PRICE
 		            
 		 FROM ( SELECT
@@ -761,13 +760,14 @@
 		        LEFT JOIN     
 		                ATTACHMENT A ON (A.REF_NO = P.PRODUCT_NO)        
 			   WHERE 
-		                MEMBER_NO = #{memberNo}) 
+		                MEMBER_NO = #{memberNo}
+		       ORDER
+		  		  BY
+		   				RECEIPT_DATE DESC) 
 		GROUP 
 		    BY
 		        RECEIPT_NO, MEMBER_NO, SHIPPING_STATUS, RESULT_PRICE
-		ORDER
-		   BY
-		   		RECEIPT_DATE DESC
+
 	</select>
 	
 	<!-- 회원 배송 상태 변경 update -->

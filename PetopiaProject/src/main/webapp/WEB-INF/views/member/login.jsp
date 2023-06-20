@@ -61,7 +61,7 @@
 	<div id="naver_id_login" style="text-align:center">
     <img width="400" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
 <br>
-    <form action="login.me" method="post">
+    <form action="login.member" method="post">
         <table align="center" id="login-form"  >
             <tr height="20%" >
                 <td width="100%" ><input type="text" name="email" id="email" minlength="4" required placeholder="이메일을 입력해주세요" style="text-align: center;"></td>
@@ -88,14 +88,14 @@
             <td><a href="findEmail"  style="color:black;">이메일</a></td>
             <td><a href="findPwd"  style="color:black;">/ 비밀번호 찾기</a></td>
             <td> | </td>
-            <td><a href="memberEnroll.me"  style="color:black;"> 회원가입하기 </a></td>
+            <td><a href="memberEnroll.member"  style="color:black;"> 회원가입하기 </a></td>
         </tr>
     </table>
     
    
     <!-- //네이버 로그인 버튼 노출 영역 -->
     <script type="text/javascript">
-        var naver_id_login = new naver_id_login("SzNT24__lVCFTwGtQmSh", "http://localhost:8007/spring/memberEnroll.me");
+        var naver_id_login = new naver_id_login("SzNT24__lVCFTwGtQmSh", "http://localhost:8007/spring/memberEnroll.member");
         var state = naver_id_login.getUniqState();
         naver_id_login.setButton("white", 2,40);
         naver_id_login.setDomain("http://localhost:8007/spring/login");

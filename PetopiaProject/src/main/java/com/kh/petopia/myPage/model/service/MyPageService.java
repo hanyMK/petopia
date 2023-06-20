@@ -112,7 +112,7 @@ public interface MyPageService {
 	//배송상태 변경 메소드
 	int updateShippingStatus(int receiptNo);
 
-
+	ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo);
 	
 
 }

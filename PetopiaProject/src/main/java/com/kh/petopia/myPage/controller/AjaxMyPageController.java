@@ -265,6 +265,7 @@ public class AjaxMyPageController {
 		return myPageService.updateShippingStatus(receiptNo) > 0?  "Secesse" :"Fail";
 	}
 	
+
 	
 	
 	

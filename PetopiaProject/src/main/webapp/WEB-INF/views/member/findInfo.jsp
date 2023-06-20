@@ -109,7 +109,7 @@
 		    		console.log($title.val());
 		    		
 		    		$.ajax({
-		    			url : 'findEmail.me',
+		    			url : 'findEmail.member',
 		    			type: 'POST',
 		    			data : {
 		    				nickname : $title.val()
@@ -132,7 +132,7 @@
 		    		});
     			}else{
     				$.ajax({
-		    			url : 'findPwd.me',
+		    			url : 'findPwd.member',
 		    			type: 'POST',
 		    			data : {
 		    				checkEmail : $title.val()

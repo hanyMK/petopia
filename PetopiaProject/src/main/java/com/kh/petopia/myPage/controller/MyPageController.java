@@ -1,10 +1,13 @@
 package com.kh.petopia.myPage.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,12 +17,14 @@ import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Controller
 public class MyPageController {
 
 	@Autowired
 	private MyPageService myPageService;
+	
 	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
@@ -214,6 +219,14 @@ public class MyPageController {
 	@RequestMapping("orderList.me")
 	public String selectOrderList() {
 		return "myPage/myOrderList";
+	}
+	
+	//회원 배송, 주문 내역 디테일 조회
+	@GetMapping("detailOrderList.me")
+	public ModelAndView selectDetailOrderList(int receiptNo, ModelAndView mv) {
+		ArrayList<ProductReceipt> orderList = myPageService.selectDetailOrderList(receiptNo);
+		System.out.println(orderList);
+		return mv;
 	}
 
 	

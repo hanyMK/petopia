@@ -193,6 +193,10 @@ public class MyPageDao {
 	public int updateShippingStatus(SqlSessionTemplate sqlSession, int receiptNo) {
 		return sqlSession.update("myPageMapper.updateShippingStatus", receiptNo);
 	}
+	
+	public ArrayList<ProductReceipt> selectDetailOrderList(SqlSessionTemplate sqlSession, int receiptNo){
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectDetailOrderList", receiptNo);
+	}
 
 	
 	

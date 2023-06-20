@@ -236,7 +236,7 @@
                <c:choose>
                   <c:when test="${ empty sessionScope.loginMember }">
                       <!-- 로그인 전 -->
-                      <a href="memberEnroll.me">회원가입 </a> |
+                      <a href="memberEnroll.member">회원가입 </a> |
                       <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-target에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
                   </c:when>
                   <c:otherwise>
