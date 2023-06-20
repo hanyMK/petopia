@@ -229,6 +229,13 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.selectDetailOrderList(sqlSession, receiptNo );
 	}
 
+	// 현재 결제에서 사용 가능한 쿠폰 개수 조회 
+	@Override
+	public int selectAvaMemberCouponCount(HashMap<String, Integer> map) {
+		return myPageDao.selectAvaMemberCouponCount(sqlSession,map);
+	}
+	
+
 
 
 

@@ -55,7 +55,14 @@
 							<option selected disabled> 사용 가능 쿠폰 ?장 / 보유 ${couponCount}장 </option>
 							<option>사용 안 함</option>
 							<c:forEach var="c" items="${requestScope.cList}">
-								 <option value="${c.discount}">${c.couponName}</option>
+								<c:choose>
+									<c:when test="${c.couponType eq 1}">
+										<option value="${c.discount}">${c.couponName}(${c.discount}원)</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${c.discount}">${c.couponName}(${c.discount}%)</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</div>
@@ -98,7 +105,7 @@
 					
 					<div id="point-area">
 						적립금 
-						<input name="point" value="0" min="0" max="${point}" onKeyup="usePoint(this);"> 
+						<input name="point" value="0" min="0" max="${point}" onKeyup="usePoint();"> 
 						<br>
 						<small id="left-point">보유 적립금 : ${point}p</small>
 						<button id="useAllBtn" onclick="useAllPoint();">모두 사용</button>
@@ -111,6 +118,10 @@
 						function usePoint(){
 							console.log('적립금 입력해써?');
 							console.log($('input[name=point]').val());
+							
+							$('#usedPoint').text($('input[name=point]').val());
+							
+							
 						}
 						
 						// '모두 사용' 혹은 '사용 안 함' 버튼을 누른 경우 

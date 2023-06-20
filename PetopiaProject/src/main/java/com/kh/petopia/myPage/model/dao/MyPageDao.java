@@ -199,13 +199,16 @@ public class MyPageDao {
 	}
 
 	public int insertReview(SqlSessionTemplate sqlSession, AllReviews r) {
-		System.out.println("3");
 		return sqlSession.insert("myPageMapper.insertReview", r);
 	}
 
 	public int insertReview2(SqlSessionTemplate sqlSession, AllReviews r) {
-		System.out.println("4");
 		return sqlSession.insert("myPageMapper.insertReview2", r);
+	}
+
+	// 현재 결제에서 필요한 쿠폰 개수
+	public int selectAvaMemberCouponCount(SqlSessionTemplate sqlSession,HashMap <String, Integer> map) {
+		return sqlSession.selectOne("myPageMapper.selectAvaMemberCouponCount",map);
 	}
 
 	

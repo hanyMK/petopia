@@ -1,6 +1,7 @@
 package com.kh.petopia.reservation.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -77,26 +78,39 @@ public class ReservationController {
 		Member loginMember = (Member)(session.getAttribute("loginMember"));
 		int memberNo = loginMember.getMemberNo();
 		
-		r.setPetStoreNo(3);
-		r.setMemberNo(memberNo);
+		r.setPetStoreNo(3);			// 사용자가 예약할 서비스는 미용 서비스
+		r.setMemberNo(memberNo);	// 예약 사용자
 		
 		// 응답해줄 화면에 출력해야할 정보
 		
 		// 1. 선택한 미용사 / 예약 날짜 / 시간 
-		// => Reservation 객체에 들어있음
-		r.setReservationFee(reservationService.selectUsageFee(3));
+		// => 사용자로부터 입력 받은 후 Reservation 객체에 값 저장되어있음 
+		int usageFee = reservationService.selectUsageFee(3);
+		r.setReservationFee(usageFee);
+		System.out.println(usageFee);
 		
 		// 2. 예약하려는 사용자의 마이펫 정보 
 		Pet pet = myPageService.selectPet(memberNo);
 
-		// 3. 예약자 및 연락처 => 로그인 세선에 저장되어있음
+		// 3. 예약자 및 연락처 => 로그인 세션에 저장되어있음
 		
-		// 4. 사용자가 가지고있는 쿠폰이랑 적립금 조회
-		// 4-1. 보유한 쿠폰 조회 
-		int couponCount = myPageService.selectMemberCouponCount(memberNo);	// 보유한 쿠폰 개수
+		// 4. 보유한 쿠폰 조회 
+		int couponCount = myPageService.selectMemberCouponCount(memberNo);			// 보유한 쿠폰 개수
 		ArrayList<Coupon> cList = myPageService.selectMemberCouponList(memberNo);	// 보유한 쿠폰 리스트
 		
-		// 4-2. 적립금 조회 
+		// 현재 사용 가능한 쿠폰 개수
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("usageFee", usageFee);
+		
+		System.out.println(map);
+		
+		int avaCouponCount = myPageService.selectAvaMemberCouponCount(map);	
+		
+		System.out.println("현재 사용 가능한 쿠폰 개수 :" + avaCouponCount );
+		
+		
+		// 5. 적립금 조회 
 		int point = myPageService.selectMemberPoint(memberNo);
 		
 		// 6. 결제 정보 출력
