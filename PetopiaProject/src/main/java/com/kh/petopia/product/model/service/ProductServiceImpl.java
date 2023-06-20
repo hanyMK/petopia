@@ -95,11 +95,6 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<Coupon> selectCoupon(int memberNo) {
 		return productDao.selectCoupon(sqlSession, memberNo);
 	}
-
-	@Override
-	public Point selectPoint(int memNo) {
-		return productDao.selectPoint(sqlSession, memNo);
-	}
 	
 	@Override
 	public ArrayList<Product> searchProductList(String keyword) {

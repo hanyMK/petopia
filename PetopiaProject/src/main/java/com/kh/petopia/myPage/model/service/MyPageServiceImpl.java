@@ -160,7 +160,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
-	public ArrayList<AllReviews> productReviewForm(AllReviews r) {
+	public AllReviews productReviewForm(AllReviews r) {
 		return myPageDao.productReviewForm(sqlSession,r);
 	}
 
@@ -169,6 +169,20 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.reservationReviewForm(sqlSession,r);
 	}	
 	
+	public int insertReview(AllReviews r) {
+		int insert1 = myPageDao.insertReview(sqlSession,r);
+		
+		if(insert1 > 0) {
+			if(r.getOriginName() != null) {
+				return myPageDao.insertReview2(sqlSession, r);
+			} else {
+				return insert1;
+			}
+		} else {
+			return insert1;
+		}
+		
+	}
 	
 	
 	
@@ -208,6 +222,19 @@ public class MyPageServiceImpl implements MyPageService {
 	public int updateShippingStatus(int receiptNo) {
 		return myPageDao.updateShippingStatus(sqlSession, receiptNo);
 	}
+
+	
+	@Override
+	public ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo) {
+		return myPageDao.selectDetailOrderList(sqlSession, receiptNo );
+	}
+
+	// 현재 결제에서 사용 가능한 쿠폰 개수 조회 
+	@Override
+	public int selectAvaMemberCouponCount(HashMap<String, Integer> map) {
+		return myPageDao.selectAvaMemberCouponCount(sqlSession,map);
+	}
+	
 
 
 

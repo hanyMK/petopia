@@ -77,7 +77,7 @@
         	<li><a href="myReply.me?mno=${ loginMember.memberNo }"><h6>댓글 관리</h6></a></li>
         	<li><a href=""><h6>1:1 문의</h6></a></li>
         	<li><a href=""><h6>내 정보 수정</h6></a></li>
-        	<li><a href="couponList.admin"><h6>관리자 쿠폰 발급</h6></a></li>
+        	<li><a href="couponList.ad"><h6>관리자 쿠폰 발급</h6></a></li>
         </ul>
             
     </div> 

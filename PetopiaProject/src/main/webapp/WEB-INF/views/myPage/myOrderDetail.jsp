@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>준혁씨와 같이 작업하는 공간</title>
+<title>주문 상세 내역</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -152,10 +152,6 @@
     #coupon_insert_input{
         width: 400px;
     }
-    .payment_title{
-        font-size: 20px;
-        font-weight: bold;
-    }
 </style>
 </head>
 <body>
@@ -175,10 +171,10 @@
             
             <!-- Modal body -->
             <div class="modal-body">
-            받는분 이름 : <input type="text"> <br><br>
-            전화번호 : <input type="text"> <br><br>
-            주소 : <input type="text"> <br><br>
-            상세주소 : <input type="text"> <br><br>
+		            받는분 이름 : <input type="text"> <br><br>
+		            전화번호 : <input type="text"> <br><br>
+		            주소 : <input type="text"> <br><br>
+		            상세주소 : <input type="text"> <br><br>
             </div>
             
             <!-- Modal footer -->
@@ -201,10 +197,10 @@
                     <div id="tableContainer">
                         <c:forEach var="item" items="${list}">
                             <div>제목 : ${item.cartTitle}
-                            수량 : ${item.amount}
-                            사이즈 : ${item.productSize}
-                            가격 : ${item.cartPrice}
-                            추가금 : ${item.extraMoney}</div>
+					                            수량 : ${item.amount}
+					                            사이즈 : ${item.productSize}
+					                            가격 : ${item.cartPrice}
+					                            추가금 : ${item.extraMoney}</div>
                             <hr>
                         </c:forEach>
                     </div>
@@ -219,11 +215,11 @@
             </div>
             <div id="product_receipt_content_3">
                 <div id="product_receipt_detail_info3">
-                    <span id="detail_span">결제정보</span> <br>
-                    <span class="payment_title">상품가격 : </span> <span id="payment_info_1"></span><br>
-                    <span class="payment_title">쿠폰 사용 : </span> <span id="payment_info_2"></span><br>
-                    <span class="payment_title">적립금 사용 : </span> <span id="payment_info_3"></span><br>
-                    <span class="payment_title">총 결제 금액 : </span> <span id="payment_info_4"></span><br>
+                    <span id="detail_span">결제정보</span>
+                    <h4>상품가격 : </h4>
+                    <h4>쿠폰 사용 : </h4>
+                    <h4>적립금 사용 : </h4>
+                    <h4>총 결제 금액 : </h4>
                     <br><hr><br>
                     <h4>보유 펫페이 : 80,000 원</h4> <button>충전</button>
                     <br>
@@ -261,21 +257,18 @@
             <div id="product_receipt_content_5">
                 <div id="product_receipt_detail_info5">
                     <span id="detail_span">쿠폰/포인트</span>
+                    <div>
                         <div>쿠폰</div>
                         <input type="text" id="coupon_insert_input"> <button data-toggle="modal" data-target="#couponModal">쿠폰등록</button>
-                        <div hidden id="coupon_no"></div>
-                        <div hidden id="coupon_discount"></div>
                         <div>포인트</div>
-                        <input type="text" id="usePointInput"> 
-                        <button onclick="usePotinBtn();">사용</button>
-                        <button onclick="allUsePotinBtn();">모두사용</button>
+                        <input type="text"> <button>사용</button>
                         <br>
                         <c:choose>
                             <c:when test="${not empty point}">
-                                <span>보유 포인트 : </span><span id="point_span">${point}</span>
+                                <span>보유 포인트 : </span>
                             </c:when>
                             <c:otherwise>
-                                <span>보유 포인트 : </span><span id="point_span">0</span>
+                                <span>0</span>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -312,7 +305,9 @@
 
     <jsp:include page="../common/footer.jsp"/>
 
+
     <script>
+
         $('select').on('change',function(){
             if($('option:selected').text() == '직접입력'){
                 $('#memo').val('');
@@ -320,6 +315,8 @@
                 $('#memo').val($('option:selected').text());
             }
         })
+
+      
 
         // $('#selectMemo').on('change', function(){
         //     for(var i = 0; i < ('#selectMemo')[0].length; i++){
@@ -349,9 +346,9 @@
                                + '쿠폰 이름 : <span class="cName">'+ list[i].couponName +'</span> <br>'
                                + '<span hidden class="cno">'+ list[i].couponNo +'</span>';
                                if(list[i].couponType == 1){
-									value += '<span class="discount">'+ list[i].discount +'</span>원<br>';
+									value += '<span>'+ list[i].discount +'</span>원<br>';
 								}else{
-									value += '<span class="discount">'+ list[i].discount +'</span>%<br>';
+									value += '<span>'+ list[i].discount +'</span>%<br>';
 								}
                               //+ '할인률 : '+ list[i].discount +' <br>'
                               value += 
@@ -378,60 +375,14 @@
         function insertCoupon(){
             $('#coupon_list').on('click', '.couponClass', function(){
                 $('#coupon_insert_input').val($(this).find('.cName').html());
-                $('#coupon_no').text($('#coupon_insert_input').val($(this).find('.cno').html()))
-                $('#coupon_discount').text($('#coupon_insert_input').val($(this).find('.discount').html()));
                 $('#modal_close').click();
             });
         }
 
-        function allUsePotinBtn(){
-            $('#usePointInput').val(${point});
-            $('#point_span').text('0');
-            $('#payment_info_3').text($('#usePointInput').val());
-        }
+        fuc
 
-        function usePotinBtn(){
 
-            var num = $('#usePointInput').val();
-            var result = Math.floor(num/100) * 100;
-            
-            if(result > 0 && result < ${point}){
-                var point = ${point} - result;
-                $('#point_span').text(point);
-                $('#payment_info_3').text($('#usePointInput').val());
-            } else {
-                alert('보유 포인트보다 적거나 많습니다.');
-                $('#usePointInput').val('');
-                $('#payment_info_3').text('');
-            }
-            $("#usePointInput").blur(function() {
-                if($(this).val() == '') {
-                    $('#point_span').text(${point});
-                    $('#payment_info_3').text($('#usePointInput').val());
-                }
-            });
-        }
-    </script>
 
-    <script>
-
-        var couponDiscount = $('#coupon_discount').text();
-        var pointValue = $('#point_span').text();
-
-        $.ajax({
-            url : '',
-            data : {
-                total : ${result},
-                coupon : couponDiscount,
-                point : pointValue,
-            },
-            success : function(){
-
-            },
-            error : functioN(){
-
-            }
-        })
     </script>
 
 </body>

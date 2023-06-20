@@ -60,7 +60,7 @@
     <div class="outer" align="center">
     
 	
-    <form action="findEmail.me" method="post"  id="idSearh-form">
+    <form action="findEmail.member" method="post"  id="idSearh-form">
       
    
         <table id="serch" align="center" >
@@ -128,7 +128,7 @@
                 console.log('${param.k}');
 
                 $.ajax({
-                    url : 'updatePwd.me',
+                    url : 'updatePwd.member',
                     type: 'post',
                     data: {
                         memberPwd : memberPwd.value,

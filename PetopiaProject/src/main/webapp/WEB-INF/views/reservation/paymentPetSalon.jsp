@@ -42,6 +42,8 @@
 					</ul>
 				</div>
 				
+				
+				
 				<br>
 				
 				<div id="coupon-point">
@@ -49,28 +51,80 @@
 				
 					<div id="coupon-area">
 						쿠폰 
-						<select id="coupon">
-							<option> 사용 가능 쿠폰 ?장 / 보유 ${couponCount}장 </option>
+						<select id="coupon" onchange="selectCoupon();">
+							<option selected disabled> 사용 가능 쿠폰 ?장 / 보유 ${couponCount}장 </option>
+							<option>사용 안 함</option>
 							<c:forEach var="c" items="${requestScope.cList}">
-								 <option>${c.couponName}</option>
+								<c:choose>
+									<c:when test="${c.couponType eq 1}">
+										<option value="${c.discount}">${c.couponName}(${c.discount}원)</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${c.discount}">${c.couponName}(${c.discount}%)</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</div>
+					
+					<!-- 사용자가 쿠폰을 선택하면 실행되는 script -->
+					<script>
+					
+						function selectCoupon(){
+							
+							console.log('쿠폰  선택해써');
+							
+							var discount = $('#coupon').val();
+							console.log(discount);
+							
+							
+							if(discount == '사용 안 함'){
+								// 쿠폰 사용 안 함 선택한 경우
+								console.log('쿠폰 안 쓸고임');
+								$('#usedCoupon').text(0);
+								
+							}else{
+								
+								// 쿠폰 사용하려고 선택한 경우
+								if( discount.length == 4){
+									// discount 자체가 할인금액인 경우	
+									$('#usedCoupon').text(discount);
+									
+								}else{
+									// %할인인 경우
+									$('#usedCoupon').text( ${ r.reservationFee } * (discount/100));
+								}
+							}
+							
+						}
+						
+						
+					</script>
 					
 					<br>
 					
 					<div id="point-area">
 						적립금 
-						<input name="point" value="0" min="0" max="${point}"> 
+						<input name="point" value="0" min="0" max="${point}" onKeyup="usePoint();"> 
 						<br>
 						<small id="left-point">보유 적립금 : ${point}p</small>
-						<button id="useAllBtn" onclick="useAllPoint();" onkey>모두 사용</button>
+						<button id="useAllBtn" onclick="useAllPoint();">모두 사용</button>
 						<!-- 모두 사용 클릭하면 적립금에 내가 보유한 적립금이 모두 출력되고  버튼 클릭이 사용 안 함으로 바꿈 -->
 					</div>
 					
 					<script>
 					
-						all = 0;
+						// 적립금을 쓰기위해 적은 경우
+						function usePoint(){
+							console.log('적립금 입력해써?');
+							console.log($('input[name=point]').val());
+							
+							$('#usedPoint').text($('input[name=point]').val());
+							
+							
+						}
+						
+						// '모두 사용' 혹은 '사용 안 함' 버튼을 누른 경우 
 						function useAllPoint() {
 							
 							var input = $('input[name=point]').val();
@@ -78,9 +132,8 @@
 							
 							// 모두 사용 누른 경우 
 							if(input == '0'){
-								
 								console.log('모두 사용 눌렀어');
-								$('input[name=point]').attr('value',${point});
+								$('input[name=point]').attr('value', ${point});
 								$('#left-point').text('보유 적립금 : ' + 0 +'p');
 								$('button[id=useAllBtn]').text('사용 안 함');
 								
@@ -146,25 +199,31 @@
 				<div id="payment-info">
 					<h4> * 결제 </h4>
 					
-					<ul style="list-style:none;">
-						<li>기본금액 : ${ r.reservationFee }</li>
-						<li>총예약 금액 :
-							<c:choose>
-								<c:when test="${pet.weight ge 10 && pet.age ge 10}">
-										${ r.reservationFee + 10000 + 5000 } 원
-								</c:when>
-								<c:when test= "${pet.weight ge 10 }">
-										${ r.reservationFee + 5000 } 원
-								</c:when>
-								<c:otherwise>
-										${ r.reservationFee } 원
-								</c:otherwise>
-							</c:choose>
-						</li>
-						<li>쿠폰 사용 : - 0원  </li>
-						<li>적립금 사용 : -</li>
-						<li>총결제금액 : </li>
-					</ul>
+					<!-- 미용예약하려는 동물의 무게에 따라 금액이 다르게 측정됨 -->
+					<!-- 무게가 10kg이상이면 10000원 추가  -->
+					<!-- 펫 나이가 10살이상인 경우 5000원 추가  -->
+					기본금액 : ${ r.reservationFee } 원<br>
+					총예약 금액 :
+					<c:choose>
+						<c:when test="${pet.weight ge 10 && pet.age ge 10}">
+								${ r.reservationFee + 10000 + 5000 } 원
+						</c:when>
+						<c:when test= "${pet.weight ge 10 }">
+								${ r.reservationFee + 5000 } 원
+						</c:when>
+						<c:otherwise>
+								${ r.reservationFee } 원
+						</c:otherwise>
+					</c:choose>
+					<br>
+					쿠폰 사용 : - <span id="usedCoupon">0</span> 원 <br>
+					적립금 사용 : - <span id="usedPoint">0</span> 원 <br>
+					총결제금액 : 
+				</div>
+					
+					
+					
+			
 			</div>
 		</div>
 			
