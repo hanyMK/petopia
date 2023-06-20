@@ -104,6 +104,7 @@ public class ReservationController {
 		// 사용자가 선택한 쿠폰과 적립금에 따른 총 결제 금액 
 		
 		System.out.println(r);
+		System.out.println(cList);
 		
 		mv.addObject("r",r);						// 예약 정보
 		mv.addObject("pet",pet);					// 펫 정보
