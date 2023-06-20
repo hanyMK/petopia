@@ -273,6 +273,17 @@
 		AND SYSDATE BETWEEN START_DATE AND END_DATE
 	</select>
 	
+	<!-- 회원이 현재 결제에서 사용 가능한 쿠폰 개수  -->
+	<select id="selectAvaMemberCouponCount" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) 
+		FROM MEMBER_COUPON 
+		JOIN COUPON ON (MEMBER_COUPON.COUPON_NO = COUPON.COUPON_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_COUPON_STATUS = 'Y'
+		AND SYSDATE BETWEEN START_DATE AND END_DATE
+		AND COUPON.MIN_PRICE BETWEEN 0 AND #{usageFee}
+	</select>
+	
 	<select id="selectMemberPoint" parameterType="_int" resultType="_int">
 		SELECT NVL(SUM(POINT_AMOUNT),0)
 		FROM POINT

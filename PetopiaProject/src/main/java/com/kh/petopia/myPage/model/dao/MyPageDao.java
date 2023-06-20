@@ -208,6 +208,11 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 
+	// 현재 결제에서 필요한 쿠폰 개수
+	public int selectAvaMemberCouponCount(SqlSessionTemplate sqlSession,HashMap <String, Integer> map) {
+		return sqlSession.selectOne("myPageMapper.selectAvaMemberCouponCount",map);
+	}
+
 	
 	
 }
