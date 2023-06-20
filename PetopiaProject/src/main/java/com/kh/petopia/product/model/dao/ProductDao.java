@@ -58,10 +58,6 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectCoupon", memNo);
 	}
 	
-	public Point selectPoint(SqlSessionTemplate sqlSession, int memNo) {
-		return sqlSession.selectOne("productMapper.selectPoint", memNo);
-	}
-	
 	
 	
 	

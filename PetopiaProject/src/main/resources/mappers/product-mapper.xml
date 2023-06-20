@@ -290,18 +290,4 @@ STATUS
 		        member_no = #{memNo} and member_coupon_status = 'Y'
 	</select>
 	
-	<select id="selectPoint" parameterType="_int" resultType="point">
-		select
-				point_no pointNo,
-				point_amount pointAmount,
-				point_history pointHistory,
-				point_date poitnDate,
-				point_status pointStatus,
-				member_no memberNo
-		  from
-		  		point
-		 where
-		 		member_no = #{memNo}
-	</select>
-	
 </mapper>
