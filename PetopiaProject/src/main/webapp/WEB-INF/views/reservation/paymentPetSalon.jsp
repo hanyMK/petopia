@@ -8,9 +8,12 @@
 <title>미용 페이지</title>
 <style>
 	
-	#reservation-payment > div{
-	
-		
+	#reservation-info, #coupon-point, #payment-info {
+		border : 1px solid black;
+		width : 70%;
+		margin : auto;
+		padding-bottom : 20px;
+		padding-left : 20px;
 	}
 
 </style>
@@ -24,25 +27,25 @@
 		<div id="main_left"></div>
 		
 		<div id="main_center">
-			<h3>미용 결제</h3>
+			<h3 align="center">미용 결제</h3>
 			
-				<div id="reservation-payment">
+				<div id="payment-wrap">
 			
-				<h4> * 예약 정보</h4>
 				<div id="reservation-info">
-					날짜/시간  : ${r.checkIn}  ${r.reservationTime} <br>
-					마이펫 :  ${pet.petName} <br>
-					담당 : 박미용 <br>
-					
-					예약자  : <input value="${loginMember.memberName}"> <br>
-					연락처  : <input value="${loginMember.phone}"> 
-					
+				<h4> * 예약 정보</h4>
+					<ul style="list-style:none;">
+						<li>날짜/시간  : ${r.checkIn} / ${r.reservationTime}</li>
+						<li>마이펫 :  ${pet.petName}</li>
+						<li>담당자 : 박미용 </li>
+						<li>예약자  : <input value="${loginMember.memberName}"></li>
+						<li>연락처  : <input value="${loginMember.phone}"></li>
+					</ul>
 				</div>
 				
 				<br>
 				
-				<h4> * 쿠폰 / 적립금</h4>
 				<div id="coupon-point">
+				<h4> * 쿠폰 / 적립금</h4>
 				
 					<div id="coupon-area">
 						쿠폰 
@@ -52,148 +55,116 @@
 								 <option>${c.couponName}</option>
 							</c:forEach>
 						</select>
-						
-						<br><br>
-						
 					</div>
+					
+					<br>
 					
 					<div id="point-area">
 						적립금 
-						<input name="point" value="0"> 
-						<!-- <button id="usePoint" onclick="usePoint();">사용</button>
-						 -->
-						
-						
+						<input name="point" value="0" min="0" max="${point}"> 
 						<br>
-						
-						<small id="left-point">보유 적립금 : ${point} p</small>
-						<small><button id="useAll" onclick="useAllBtn();">모두 사용</button></small>
+						<small id="left-point">보유 적립금 : ${point}p</small>
+						<button id="useAllBtn" onclick="useAllPoint();" onkey>모두 사용</button>
 						<!-- 모두 사용 클릭하면 적립금에 내가 보유한 적립금이 모두 출력되고  버튼 클릭이 사용 안 함으로 바꿈 -->
-						
 					</div>
 					
 					<script>
-						
-						function useAllBtn() {
+					
+						all = 0;
+						function useAllPoint() {
 							
-							// 보유적립금
-							var point = '${point}';
-							var btnText = $('button[id=useAll]').text();
+							var input = $('input[name=point]').val();
+							console.log('입력 적립금' + input + '일 때 눌렀어');
 							
-							if( btnText = '모두 사용'){
+							// 모두 사용 누른 경우 
+							if(input == '0'){
 								
-								console.log('얌');
+								console.log('모두 사용 눌렀어');
+								$('input[name=point]').attr('value',${point});
+								$('#left-point').text('보유 적립금 : ' + 0 +'p');
+								$('button[id=useAllBtn]').text('사용 안 함');
 								
-								$('input[name=point]').attr('value',point); 
-								
-								$('#left-point').text('보유 적립금: ' + 0 +'p');
-								$('button[id=useAll]').text('사용 안 함');
-								
-							}
+							}else if(input == '${point}'){
 							
-							if( btnText = '사용 안 함' ){
-								
+								// 사용 안 함 누른 경우
+								console.log('사용 안 함 눌렀어');
 								$('input[name=point]').attr('value',0);
-								$('#left-point').text('보유 적립금: ' + point +'p');
-								$('button[id=useAll]').text('모두 사용');
+								$('#left-point').text('보유 적립금: ' + ${point} +'p');
+								$('button[id=useAllBtn]').text('모두 사용');
 								
+							}else{
 								
-							}
-							
-							
-							
-							console.log(point);
-							console.log(btnText);
-							
-							/*
-							$('input[name=point]').attr('value',point); // 8000포인트가 입력됨
+								console.log('0도 아니고 8000도 아닐때 오는 창');
 								
-							$('#left-point').text('보유적립금: ' + 0 +'p');
-							$('button[id=useAll]').text('사용 안 함');
+								console.log($('button[id=useAllBtn]').text());
 								
+								var $btnText =  $('button[id=useAllBtn]').text();
+								console.log($btnText);
 								
-							if( $('input[name=point]').val() != point ){
-								
-								
-							}else if( $('input[name=point]').val() == point){
+								if( $btnText == '모두 사용' ){
 									
-									$('input[name=point]').attr('value',0);
-									$('#left-point').text('보유적립금: ' + point +'p');
-									$('button[id=useAll]').text('모두 사용');
+									console.log('여기오냐?')
+									console.log($('input[name=point]').val() );
 									
-							}else {
+									
+									$('input[name=point]').removeAttr();
+									console.log($('input[name=point]').val() );
+									
+									$('input[name=point]').val(${point});
+									
+									$('#left-point').text('보유 적립금 : ' + 0 +'p');
+									$('button[id=useAllBtn]').text('사용 안 함');
+									
+								}
 								
-								// 사용자가 직접 적립금을 입력한 상태에서 모두 사용 클릭한 경우 
+								if( $btnText == '사용 안 함' ){
+									
+									console.log('여기능..');
+									
+									console.log('사용 안 함 눌렀어');
+									
+									$('input[name=point]').val(0);
+									
+									$('#left-point').text('보유적립금: ' + ${point} +'p');
+									$('button[id=useAllBtn]').text('모두 사용');
+									
+								}
 								
-								console.log('직접 입력하고나서 모두 사용 누른거지 ?');
 								
-								console.log($('input[name=point]'))
-								
-								$('input[name=point]').attr('value',0);
-								
-								// $('button[id=useAll]').text('사용 안 함');
-								
-							}
-							
-						}
-						
-						function usePoint(){
-							
-							// 보유적립금
-							var point = '${point}';
-							
-							if( $('input[name=point]').val() != '0' ){
-								
-								// 사용자가 입력한 적립금
-								 $('input[name=point]').val()
-								
-								var left = point - $('input[name=point]').val();
-								
-								console.log(left);
-								
-								$('#left-point').text('보유적립금: ' + left +'p');
 								
 							}
-						}
-						
-						
-						function inputPoint(){
-							
-							console.log('적립금 입력해써?!');
-							
-							// 보유적립금
-							var point = '${point}';
-							
-							// 사용자가 입력한 적립금
-							 $('input[name=point]').val()
-							
-							var left = point - $('input[name=point]').val();
-							
-							console.log(left);
-							
-							$('#left-point').text('보유적립금: ' + left +'p');
 							
 							
-							
-							
-						}
-						*/
 						}
 					
 					</script>
-				
+					
 				</div>
 				
 				<br>
 				
-				<h4> * 결제 </h4>
 				<div id="payment-info">
-					총 예약결제금액 
-				
-				</div>
-			
-			
-			
+					<h4> * 결제 </h4>
+					
+					<ul style="list-style:none;">
+						<li>기본금액 : ${ r.reservationFee }</li>
+						<li>총예약 금액 :
+							<c:choose>
+								<c:when test="${pet.weight ge 10 && pet.age ge 10}">
+										${ r.reservationFee + 10000 + 5000 } 원
+								</c:when>
+								<c:when test= "${pet.weight ge 10 }">
+										${ r.reservationFee + 5000 } 원
+								</c:when>
+								<c:otherwise>
+										${ r.reservationFee } 원
+								</c:otherwise>
+							</c:choose>
+						</li>
+						<li>쿠폰 사용 : - 0원  </li>
+						<li>적립금 사용 : -</li>
+						<li>총결제금액 : </li>
+					</ul>
 			</div>
 		</div>
 			

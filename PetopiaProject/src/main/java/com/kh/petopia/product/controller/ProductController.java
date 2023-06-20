@@ -16,6 +16,7 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.service.ProductService;
 import com.kh.petopia.product.model.vo.Cart;
@@ -27,6 +28,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private MyPageService myPageService;
 	
 	private String filePath ="resources/uploadFiles/";
 	
@@ -129,8 +133,9 @@ public class ProductController {
 	public ModelAndView productCartInfo(HttpSession session, ModelAndView mv) {
 		
 		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-		Point point = productService.selectPoint(memNo);
-		if(point != null) {
+		int point = myPageService.selectMemberPoint(memNo);
+		System.out.println(point);
+		if(point > 0) {
 			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("point" , point).setViewName("product/productBuyPage");
 		} else {
 			mv.addObject("list" ,productService.selectCartList(memNo)).setViewName("product/productBuyPage");

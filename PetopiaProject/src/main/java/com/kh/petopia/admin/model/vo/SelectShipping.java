@@ -12,4 +12,5 @@ public class SelectShipping {
 	private String receiptDate;
 	private int amount;
 	private String productTitle;
+	private int resultPrice;
 }

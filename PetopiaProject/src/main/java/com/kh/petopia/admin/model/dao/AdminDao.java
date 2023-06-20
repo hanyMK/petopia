@@ -62,12 +62,15 @@ public class AdminDao {
 	}
 
 	public ArrayList shippingList(SqlSessionTemplate sqlSession) {
-		// System.out.println("여기는 dao" + (ArrayList) sqlSession.selectList("adminMapper.shippingList"));
 		return (ArrayList) sqlSession.selectList("adminMapper.shippingList");
 	}
 
 	public int totalPayment(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.totalPayment");
+	}
+
+	public void shippingRelease(SqlSessionTemplate sqlSession, int receiptNo) {
+		sqlSession.update("adminMapper.shippingRelease", receiptNo);
 	}
 	
 	
