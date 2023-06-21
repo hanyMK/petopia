@@ -93,6 +93,7 @@ public class MemberController {
 			System.out.println(member);
 			
 			Attachment memberAtt = insertMemberFile(upfile, session);
+			System.out.println(memberAtt);
 			
 			int att = memberAtt != null ? memberService.joinMember(memberAtt): 0;
 			int memberPet = pet.getIsPet().equals("Y")? memberService.joinMember(pet): 0;
@@ -121,7 +122,7 @@ public class MemberController {
 				
 				memberAtt.setOriginName(upfile.getOriginalFilename());
 				memberAtt.setChangeName(MyFileRename.saveFile(session, upfile));
-				memberAtt.setFilePath("resources/uploadfiles/");
+				memberAtt.setFilePath("resources/uploadFiles/");
 				memberAtt.setFileCategory(4);
 				return memberAtt;
 			}

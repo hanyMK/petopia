@@ -138,8 +138,11 @@
 		<button id="food">애견식품</button>
 		<button id="clothes">애견의류</button>
 
-		<input type="text"><button>검색</button>
+		<input type="text" id="search_input"><button onclick="searchBtn();">검색</button>
 	</div>
+
+
+
 
 	<div id="product_header">
 		조회순 낮은가격순 높은가격순
@@ -221,6 +224,43 @@
 
 				}
 			});
+		}
+
+		function searchBtn(){
+			$.ajax({
+				url : 'selectSearch.pd',
+				data : {
+					keyword : $('#search_input').val()
+				},
+				success : function(list){
+					console.log(list);
+										
+					var value = '';
+					
+					for(let i in list){
+						console.log(list[i].filePath + list[i].changeName)
+
+						value += '<div class="product">'
+							   + 	'<div class="product_1">'
+							   + 		'<div class="product_1_1">'
+							   +           '<div hidden class="bno">' + list[i].productNo + '</div>'
+							   + 			'<img class="product_upfile" src="'+ list[i].filePath + list[i].changeName +'">'
+							   + 		'</div>'
+							   + 		'<div class="product_1_2">'
+							   +       '<div>'+ list[i].productTitle +'</div>'
+							   +       '<div>가격 : '+ list[i].productPrice +'</div>'
+							   +        '<div>카테고리 : ' + list[i].categoryName + '</div>'
+							   + 		'</div>'
+							   + 	'</div>'
+							   + '</div>';
+					};
+					
+					$('#product_content').html(value);
+				},
+				error : function(){
+
+				}
+			})
 		}
 	</script>
 

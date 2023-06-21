@@ -74,6 +74,67 @@
 						<small>보유 적립금 : <span id="left-point">${point}</span>p</small>
 						
 					</div>
+					
+					<script>
+					
+						// 사용자가 적립금을  keyup한 경우
+						function usePoint(){
+							
+							// 적립금 입력 후 쿠폰 선택시엔 둘 다 할인 적용되는데
+							// 쿠폰 선택 후 적립금 입력 시에는 둘 다 할인 적용이 안 됨
+							
+							// 쿠폰을 선택하고 적립금 입력을 한 경우 -> 이미 선택 되어있음
+							// 쿠폰을 선택하지 않고 적립금을 입력한 경우
+							// 구분해서 코드 작성해야함 
+							
+							// 쿠폰선택한 상태에서 적립금을 입력
+							var couponType = $('#coupon > option:selected').attr("value");
+							
+							if(couponType == 1){
+								
+							}else if( couponType == 2)
+							
+							var usedPoint = $('input[name=point]').val();
+							
+							if( ! isNaN(Number(usedPoint)) ){
+								console.log('숫자');
+								
+								// 만약 보유한 적립금금보다 더 많이 입력한 경우에는 
+								if( usedPoint > ${point} ){
+									// 경고창 띄우고
+									// 입력창에 입력가능한 최대 적립금 출력해주기
+									// 보유 적립금도 바꿔줌
+									
+									alert('너 어딜 감히 적립금 더쓸라해?');			
+									$('input[name=point]').val(${point});
+									$('#left-point').text(0);
+									
+								}else{
+									// 올바르게 입력한 경우
+									// 입력창에 입력한 적립금 출력해주기
+									// 보유 적립금도 바꿔줌
+									
+									$('input[name=point]').val(usedPoint);
+									$('#left-point').text( ${point} - usedPoint);
+								}
+	
+								console.log($('input[name=point]').val());
+								
+								// 적립금 사용 text에 입력한 값 뿌려주기
+								// 총 결제금액에 입력한 적립금값도 함께 반영
+								
+								// 쿠폰 선택 한경우에 또 빼줘야함
+								
+								$('#usedPoint').text($('input[name=point]').val());
+								$('#totalPayment').text( $('#totalReservationFee').text() - $('#usedCoupon').val() - $('input[name=point]').val() )
+								
+							} else {
+								alert('숫자를입력해주세요');
+								$('input[name=point]').val(0);
+							}
+						}
+					</script>
+					
 				</div>
 				
 				<br>

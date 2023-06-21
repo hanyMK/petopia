@@ -3,7 +3,7 @@ package com.kh.petopia.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.petopia.admin.model.vo.Coupon;
-import com.kh.petopia.common.model.vo.AllOrders;
+
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.member.model.vo.CertVO;
 import com.kh.petopia.member.model.vo.Member;
@@ -53,13 +53,6 @@ public interface MemberService {
 		
 		//주문 배송 리스트 조회(SELECT/멤버 넘버)
 		//날짜 순 내림차순(DESC)??
-		ArrayList<AllOrders> selectOrderList(int memberNo);
-		
-		
-		
-		//주문 배송 상세 조회(SELECT/멤버 넘버, 결제 번호, 상품 번호)??
-		AllOrders selectOrdersDatail (AllOrders ao);
-		
 		
 		//------AJax--------------------------
 

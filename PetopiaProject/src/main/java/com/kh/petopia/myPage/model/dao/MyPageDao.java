@@ -91,14 +91,9 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, Member member){
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, Member member){
 		
-		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
-										member,
-										new RowBounds(
-												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
-														pi.getBoardLimit()
-														));
+		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",member);
 	}
 	
 	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
@@ -156,7 +151,25 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 
-	
+	public String selectMemberImage(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberImage", memberNo);
+	}
+
+	public int selectMemberReservationIng(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberReservationIng", memberNo);
+	}
+
+	public int selectMemberReservationEnd(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberReservationEnd", memberNo);
+	}
+
+	public int selectMemberBoardCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberBoardCount", memberNo);
+	}
+
+	public int selectMemberReplyCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberReplyCount", memberNo);
+	}
 	
 	
 	
@@ -218,6 +231,11 @@ public class MyPageDao {
 	public int selectAvaMemberCouponCount(SqlSessionTemplate sqlSession,HashMap <String, Integer> map) {
 		return sqlSession.selectOne("myPageMapper.selectAvaMemberCouponCount",map);
 	}
+
+	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
+		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
+	}
+	
 
 	
 

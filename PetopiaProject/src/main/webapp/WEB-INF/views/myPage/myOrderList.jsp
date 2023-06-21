@@ -21,7 +21,6 @@
 	#main_center_right_bottom{
 		height:90%;
 		margin: auto;
-
 	}
 	#myBoardList{
 		border: 1px solid black;
@@ -38,7 +37,9 @@
 		margin: auto;
 			
     }
-	
+	#orderList{
+		padding-left: 500px;
+	}
 
 </style>
 </head>
@@ -56,13 +57,13 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<h2>배송목록 조회</h2>
+					<h2 align="center">배송목록 조회</h2>
 				</div>
 				<div id="main_center_right_bottom">
 					<div id="orderList">
 
 					</div>
-					<div id="pagingArea">
+					<div id="pagingArea" >
 						<ul class="pagination">
 			
 						</ul>

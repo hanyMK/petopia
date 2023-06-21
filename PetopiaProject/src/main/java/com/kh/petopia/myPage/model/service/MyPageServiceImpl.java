@@ -119,8 +119,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi,  Member member) {
-		return myPageDao.memberCouponList(sqlSession, pi, member);
+	public ArrayList<Coupon> memberCouponList( Member member) {
+		return myPageDao.memberCouponList(sqlSession,  member);
 	}
 	
 	@Override
@@ -206,6 +206,31 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 	
+	@Override
+	public String selectMemberImage(int memberNo) {
+		return myPageDao.selectMemberImage(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberReservationIng(int memberNo) {
+		return myPageDao.selectMemberReservationIng(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberReservationEnd(int memberNo) {
+		return myPageDao.selectMemberReservationEnd(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberBoardCount(int memberNo) {
+		return myPageDao.selectMemberBoardCount(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberReplyCount(int memberNo) {
+		return myPageDao.selectMemberReplyCount(sqlSession,memberNo);
+	}
+	
 	
 	
 	
@@ -255,6 +280,11 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int selectAvaMemberCouponCount(HashMap<String, Integer> map) {
 		return myPageDao.selectAvaMemberCouponCount(sqlSession,map);
+	}
+
+	@Override
+	public int updateShippingInfo(ProductReceipt productReceipt) {
+		return myPageDao.updateShippingInfo(sqlSession, productReceipt);
 	}
 	
 

@@ -531,7 +531,6 @@
                     console.log('안됨');
                 }
             })
-
         }
 
         var couponDiscount = $('#coupon_discount').text();
@@ -649,7 +648,7 @@
    	});
     </script>
 
-    <script>
+    <!-- <script>
         function goPayment(){
             $.ajax({
                 url : ,
@@ -667,7 +666,7 @@
             })
             
         }
-    </script>
+    </script> -->
 
 </body>
 </html>

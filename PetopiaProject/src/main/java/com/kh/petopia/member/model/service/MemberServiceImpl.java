@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.petopia.admin.model.vo.Coupon;
-import com.kh.petopia.common.model.vo.AllOrders;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.member.model.dao.MemberDao;
 import com.kh.petopia.member.model.vo.CertVO;
@@ -56,15 +55,6 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	@Override
-	public ArrayList<AllOrders> selectOrderList(int memberNo) {
-		return null;
-	}
-
-	@Override
-	public AllOrders selectOrdersDatail(AllOrders ao) {
-		return null;
-	}
 
 	@Override
 	public int emailCheck(String checkEmail) {

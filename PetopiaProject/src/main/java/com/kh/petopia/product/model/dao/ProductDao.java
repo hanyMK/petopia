@@ -58,6 +58,10 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectCoupon", memNo);
 	}
 	
+	public ArrayList<Product> selectSearch(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("productMapper.selectSearch", keyword);
+	}
+	
 	
 	
 	
