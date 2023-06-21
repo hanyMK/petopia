@@ -68,7 +68,7 @@ public interface MyPageService {
 	//회원이 발급 가능한 쿠폰 리스트 보여줌(페이징 처리 함께)
 	//listCount
 	int couponListCount();
-	ArrayList<Coupon> memberCouponList(PageInfo pi, Member member);
+	ArrayList<Coupon> memberCouponList(Member member);
 	
 	//회원 쿠폰 발급
 	//만약 이미 발급 받은 쿠폰인 경우 목록에 표시 및 선택 불가능

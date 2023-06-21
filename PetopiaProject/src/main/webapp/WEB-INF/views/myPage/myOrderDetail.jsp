@@ -25,7 +25,7 @@
         width: 900px;
         height: 800px;
         margin: auto;
-        padding: 30px;
+        padding: 60px;
     }
     #product_receipt_content_1{
         width: 55%;
@@ -91,7 +91,9 @@
         font-weight: 900px;
     }
 
-    
+    #main_center_right_top> h2{
+        padding-top: 50px;
+    }
     
 </style>
 </head>
@@ -109,7 +111,7 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<h2 >배송주문 목록 조회</h2>
+					<h2 align="center">배송주문 목록 조회</h2>
 				</div>
 				<div id="main_center_right_bottom">
 					<div id="orderList">

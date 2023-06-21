@@ -91,14 +91,9 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.couponListCount");
 	}
 	
-	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, PageInfo pi, Member member){
+	public ArrayList<Coupon> memberCouponList(SqlSessionTemplate sqlSession, Member member){
 		
-		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",
-										member,
-										new RowBounds(
-												       (pi.getCurrentPage() -1) * pi.getBoardLimit(),
-														pi.getBoardLimit()
-														));
+		return  (ArrayList)sqlSession.selectList("myPageMapper.memberCouponList",member);
 	}
 	
 	public int insertCouponToMember(SqlSessionTemplate sqlSession, Coupon coupon) {
