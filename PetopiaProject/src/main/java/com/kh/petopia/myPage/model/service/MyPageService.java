@@ -95,6 +95,16 @@ public interface MyPageService {
 	
 	int insertReservationReview(AllReviews r);
 	
+	String selectMemberImage(int mno);
+
+	int selectMemberReservationIng(int mno);
+
+	int selectMemberReservationEnd(int mno);
+
+	int selectMemberBoardCount(int mno);
+
+	int selectMemberReplyCount(int mno);
+	
 	
 	
 	
@@ -119,7 +129,9 @@ public interface MyPageService {
 	
 	ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo);
 
+	//회원 배송지 정보 변경
 	
+	int updateShippingInfo(ProductReceipt productReceipt);
 	
 
 }

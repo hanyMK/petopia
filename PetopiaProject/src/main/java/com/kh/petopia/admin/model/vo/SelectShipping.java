@@ -13,4 +13,5 @@ public class SelectShipping {
 	private int amount;
 	private String productTitle;
 	private int resultPrice;
+	
 }

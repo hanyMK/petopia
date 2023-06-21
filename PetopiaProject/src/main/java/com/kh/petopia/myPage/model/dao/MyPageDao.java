@@ -156,7 +156,25 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertReview2", r);
 	}
 
-	
+	public String selectMemberImage(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberImage", memberNo);
+	}
+
+	public int selectMemberReservationIng(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberReservationIng", memberNo);
+	}
+
+	public int selectMemberReservationEnd(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberReservationEnd", memberNo);
+	}
+
+	public int selectMemberBoardCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberBoardCount", memberNo);
+	}
+
+	public int selectMemberReplyCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMemberReplyCount", memberNo);
+	}
 	
 	
 	
@@ -218,6 +236,11 @@ public class MyPageDao {
 	public int selectAvaMemberCouponCount(SqlSessionTemplate sqlSession,HashMap <String, Integer> map) {
 		return sqlSession.selectOne("myPageMapper.selectAvaMemberCouponCount",map);
 	}
+
+	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
+		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
+	}
+	
 
 	
 

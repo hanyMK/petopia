@@ -31,7 +31,9 @@ public class ProductReceipt {
 	private String couponType;//쿠폰 타입
 	
 	private String receiver;//RECEIVER,
-	private String shippingAdress;
+	private String shippingAddress;
+	private String shippingMessage;//배송메모
+	private String phone;//번호
 	
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,12 +30,39 @@ public class MyPageController {
 	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPage.me")
-	public String myPage(int mno) {
-		//MyPage myPage = new MyPage();
-		//회원 등급 조회
-		//myPage.setRating(myPageService.getMemberRating(mno));
+	public ModelAndView myPage(int mno, ModelAndView mv) {
+		//프로필 이미지 조회
+		mv.addObject("image", myPageService.selectMemberImage(mno));
+		System.out.println(myPageService.selectMemberImage(mno));
 		
-		return "myPage/myPage";
+		// 전체 페이 금액 조회
+		mv.addObject("petpay", myPageService.selectMemberPetPay(mno));
+		
+		// 전체 포인트 조회
+		mv.addObject("point", myPageService.selectMemberPoint(mno));
+		
+		// 총 쿠폰 개수
+		mv.addObject("coupon", myPageService.selectMemberCouponCount(mno));
+		
+		// 예약 내역
+		// 오늘 날짜 기준으로 진행중인 예약 개수 조회
+		mv.addObject("rIng", myPageService.selectMemberReservationIng(mno));
+		// 오늘 날짜 기준으로 끝난 예약 개수 조회
+		mv.addObject("rEnd", myPageService.selectMemberReservationEnd(mno));
+		
+		// 게시글 개수
+		mv.addObject("board", myPageService.selectMemberBoardCount(mno));
+		
+		// 댓글 개수
+		mv.addObject("reply", myPageService.selectMemberReplyCount(mno));
+		
+		// 회원 등급 조회
+		mv.addObject("rating", myPageService.getMemberRating(mno));
+		
+		// jsp로 보내주기
+		mv.setViewName("myPage/myPage");
+		
+		return mv;
 	}
 	
 	// 마이페이지 게시글 조회
@@ -264,6 +292,19 @@ public class MyPageController {
 		.setViewName("myPage/myOrderDetail");
 		return mv;
 	}
+	
+	//배송지 설정 변경
+	@RequestMapping("updateSippingInfo.me")
+	public String updateSippingInfo(ProductReceipt productReceipt,
+									HttpSession session) {
+		System.out.println("오나?");
+		System.out.println(productReceipt);
+		if(myPageService.updateShippingInfo(productReceipt)> 0) session.setAttribute("alertMsg", "배송지 정보가 수정되었습니다");
+		else session.setAttribute("alertMsg", "배송지 정보 수정에 실패했습니다.");
+	
+		return "redirect:orderDetail.me?receiptNo="+ productReceipt.getReceiptNo();
+	}
+	
 
 	
 }
