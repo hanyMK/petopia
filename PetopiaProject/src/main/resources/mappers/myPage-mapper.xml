@@ -64,7 +64,9 @@
 		<result column="DISCOUNT"	property="discount" />
 		<result column="RECEIVER"	property="receiver" />
 		<result column="COUPON_TYPE"	property="couponType" />
-		<result column="SHIPPING_ADDRESS"	property="shippingAdress" />
+		<result column="SHIPPING_ADDRESS"	property="shippingAddress" />
+		<result column="SHIPPING_MESSAGE"	property="shippingMessage" />
+		<result column="PHONE"	property="phone" />
 	</resultMap>
 	
 	<resultMap type="coupon" id="couponResultSet">
@@ -883,6 +885,7 @@
 	                POINT,
 	                C.COUPON_TYPE,
 	                C.DISCOUNT DISCOUNT,
+	                (FILE_PATH  || CHANGE_NAME) FILE_PATH,
 	                CASE 
 	                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
 	                THEN R.RESULT_PRICE - POINT - C.DISCOUNT
@@ -908,5 +911,18 @@
 	                PR.RECEIPT_NO =   #{ receiptNo }
 
 	</select>
+	
+	<!-- 배송지 정보 수정 -->
+	<update id="updateShippingInfo" parameterType="productReceipt">
+		UPDATE 
+				SHIPPING
+		   SET 
+				SHIPPING_MESSAGE = #{shippingMessage},
+				RECEIVER = #{receiver} ,
+				SHIPPING_ADDRESS = #{shippingAddress} ,
+				PHONE =  #{phone}
+		 WHERE 
+		 		SHIPPING_NO =  #{receiptNo}
+	</update>
 
 </mapper>
