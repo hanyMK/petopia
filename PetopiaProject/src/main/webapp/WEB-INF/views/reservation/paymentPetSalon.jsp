@@ -146,9 +146,7 @@
 									
 									$('input[name=point]').val(usedPoint);
 									$('#left-point').text( ${point} - usedPoint);
-									
 								}
-								
 	
 								console.log($('input[name=point]').val());
 								
@@ -160,15 +158,11 @@
 								$('#usedPoint').text($('input[name=point]').val());
 								$('#totalPayment').text( $('#totalReservationFee').text() - $('#usedCoupon').val() - $('input[name=point]').val() )
 								
-								
-							}else {
+							} else {
 								alert('숫자를입력해주세요');
 								$('input[name=point]').val(0);
 							}
 						}
-						
-			
-					
 					</script>
 					
 				</div>

@@ -116,7 +116,7 @@ public interface ProductService {
 		ArrayList<Coupon> selectCoupon(int memberNo);
 		
 	// ------------- 검색 -------------
-		ArrayList<Product> selectSearch();
+		ArrayList<Product> selectSearch(String keyword);
 	// 상품 결제 (insert)
 		
 	// ------------- 마이페이지 결제 취소 ---------------

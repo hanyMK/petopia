@@ -67,23 +67,12 @@ public class AjaxMyPageController {
 										int memberNo,
 										HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
-		PageInfo pi= Pagination.getPageInfo(myPageService.couponListCount(), currentPage, 5, 10);
 		Member member = (Member)session.getAttribute("loginMember");
 		member.setRating(myPageService.getMemberRating(memberNo));
 		System.out.println(member);
-		//String rating = myPageService.getMemberRating(memberNo);
-		ArrayList<Coupon> cList = myPageService.memberCouponList(pi, member);
+		ArrayList<Coupon> cList = myPageService.memberCouponList(member);
 		System.out.println(cList);
-		//전월 실적 조회
-		HashMap<String, Object> map = new HashMap<>();
-		if(!cList.isEmpty()) {
-			map.put("cList", cList);
-			map.put("pi", pi);
-		}
-		
-		//System.out.println(map.get("cList") +"  /  "+ map.get("result"));
-		
-		return  new Gson().toJson(map);
+		return  new Gson().toJson(cList);
 		
 		
 	}

@@ -531,7 +531,6 @@
                     console.log('안됨');
                 }
             })
-
         }
 
         var couponDiscount = $('#coupon_discount').text();
