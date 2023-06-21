@@ -100,7 +100,7 @@
 								   } else {
 									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
 								   }
-							value += '<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } + '&reservationNo=' + list[i].reservationNo + '"><h6>리뷰 작성하기</h6></a>';
+							value += '<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } + '&receiptNo=' + list[i].receiptNo + '"><h6>리뷰 작성하기</h6></a>';
 						   
 						}
 						value += '</div><br>';

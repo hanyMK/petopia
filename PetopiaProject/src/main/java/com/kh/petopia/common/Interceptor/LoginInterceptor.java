@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	
 	
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler ) throws IOException {
 		
 		
 		HttpSession session = request.getSession();

@@ -60,6 +60,11 @@
 		<result column="PRODUCT_TITLE"	property="productTitle" />
 		<result column="FILE_PATH"	property="filePath" />
 		<result column="RESULT_PRICE"	property="resultPrice" />
+		<result column="TOTAL_RRICE"	property="totalPrice" />
+		<result column="DISCOUNT"	property="discount" />
+		<result column="RECEIVER"	property="receiver" />
+		<result column="COUPON_TYPE"	property="couponType" />
+		<result column="SHIPPING_ADDRESS"	property="shippingAdress" />
 	</resultMap>
 	
 	<resultMap type="coupon" id="couponResultSet">
@@ -271,6 +276,17 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_COUPON_STATUS = 'Y'                  
 		AND SYSDATE BETWEEN START_DATE AND END_DATE
+	</select>
+	
+	<!-- 회원이 현재 결제에서 사용 가능한 쿠폰 개수  -->
+	<select id="selectAvaMemberCouponCount" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) 
+		FROM MEMBER_COUPON 
+		JOIN COUPON ON (MEMBER_COUPON.COUPON_NO = COUPON.COUPON_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_COUPON_STATUS = 'Y'
+		AND SYSDATE BETWEEN START_DATE AND END_DATE
+		AND COUPON.MIN_PRICE BETWEEN 0 AND #{usageFee}
 	</select>
 	
 	<select id="selectMemberPoint" parameterType="_int" resultType="_int">
@@ -675,10 +691,10 @@
 	    BY RECEIPT_DATE DESC
 	</select>
 	
-	<select id="productReviewForm" parameterType="allReviews" resultMap="allReviewsResultMap">
+	<select id="productReviewForm" parameterType="allReviews" resultType="allReviews" resultMap="allReviewsResultMap">
 	SELECT
            PR.RECEIPT_DATE,
-           P.PRODUCT_TITLE AS TITLE,
+           P.PRODUCT_TITLE||' ' || PB.AMOUNT || '개' AS TITLE,
            PR.RECEIPT_NO,
            P.PRODUCT_NO,
            MEMBER_NO
@@ -696,7 +712,7 @@
            PR.RECEIPT_NO = #{receiptNo}
 	</select>
 	
-	<select id="reservationReviewForm" parameterType="allReviews" resultMap="allReviewsResultMap">
+	<select id="reservationReviewForm" parameterType="allReviews" resultType="allReviews" resultMap="allReviewsResultMap">
 	SELECT
 	        CASE 
 	        WHEN PET_STORE = 1 THEN '호텔'
@@ -705,7 +721,7 @@
 	        WHEN PET_STORE = 4 THEN '훈련'
 	        END  TITLE,
 	        RECEIPT_DATE,
-            RR.RESERVATION_NO
+            RR.RESERVATION_NO AS RECEIPT_NO
 	  FROM
 	        RESERVATION R 
       JOIN 
@@ -713,8 +729,78 @@
 	 WHERE
 	        MEMBER_NO = #{memberNo}
        AND
-            RR.RESERVATION_NO = #{reservationNo}
+            RR.RESERVATION_NO = #{receiptNo}
 	</select>
+	
+	<insert id="insertProductReview" parameterType="allReviews">
+	INSERT 
+	  INTO PRODUCT_REVIEW
+	      (
+	       PRODUCT_REVIEW_NO, 
+	       RECEIPT_NO, 
+	       PRODUCT_NO, 
+	       REVIEW_CONTENT, 
+	       CREATE_DATE, 
+	       RATING
+	      ) 
+    VALUES 
+          (
+           SEQ_PRODUCT_REVIEW_NO.NEXTVAL, 
+           #{receiptNo}, 
+           #{productNo}, 
+           #{reviewContent}, 
+           SYSDATE,
+           #{rating}
+           )
+	 </insert>
+	 
+	<insert id="insertReservationReview" parameterType="allReviews">
+	INSERT
+	  INTO
+	      PET_STORE_REVIEW
+	      (
+	      REVIEW_NO,
+	      RESERVATION_NO,
+	      REVIEW_CONTENT,
+	      CREATE_DATE,
+	      RATING
+	      )
+	VALUES
+	      (
+	      SEQ_PSRNO.NEXTVAL,
+	      #{receiptNo}, 
+	      #{reviewContent},
+	      SYSDATE,
+	      #{rating}     
+	      )
+	 </insert>
+	 
+	 <insert id="insertProductReview2" parameterType="allReviews">
+	 INSERT
+	   INTO
+	       ATTACHMENT
+	       (
+	       FILE_NO,
+	       FILE_CATEGORY,
+	       REF_NO,
+	       FILE_LEVEL,
+	       ORIGIN_NAME,
+	       CHANGE_NAME,
+	       FILE_PATH,
+	       FILE_STATUS
+	       )
+	 VALUES
+	       (
+	       SEQ_FNO.NEXTVAL,
+	       5,
+	       SEQ_PRODUCT_REVIEW_NO.CURRVAL,
+	       0,
+	       #{originName},
+	       #{changeName},
+	       #{filePath},
+	       'Y'
+	       )
+	 </insert>
 	
 	<select id="orderListCount" resultType="_int" parameterType="_int">
 		SELECT
@@ -731,7 +817,6 @@
 		        LISTAGG(PRODUCT_TITLE, ',') WITHIN GROUP(ORDER BY RECEIPT_NO) PRODUCT_TITLE,
 		        MEMBER_NO,
 		        SHIPPING_STATUS,
-		        RECEIPT_NO, 
 		        RESULT_PRICE
 		            
 		 FROM ( SELECT
@@ -761,13 +846,14 @@
 		        LEFT JOIN     
 		                ATTACHMENT A ON (A.REF_NO = P.PRODUCT_NO)        
 			   WHERE 
-		                MEMBER_NO = #{memberNo}) 
+		                MEMBER_NO =  #{memberNo}
+		                ORDER
+				   BY
+				   		RECEIPT_DATE DESC) 
 		GROUP 
-		    BY
-		        RECEIPT_NO, MEMBER_NO, SHIPPING_STATUS, RESULT_PRICE
-		ORDER
 		   BY
-		   		RECEIPT_DATE DESC
+		        RECEIPT_NO, MEMBER_NO, SHIPPING_STATUS, RESULT_PRICE
+
 	</select>
 	
 	<!-- 회원 배송 상태 변경 update -->
@@ -781,5 +867,46 @@
 		   		
 			
 	</update>
+	
+	<!-- 주문, 배송내역 상세조회 -->
+	<select id="selectDetailOrderList" parameterType="_int" resultMap="productReceiptResultSet">
+		SELECT  	DISTINCT
+	                PR.MEMBER_NO,
+	                RP.PRODUCT_TITLE ,
+			        SHIPPING_STATUS,
+	                PR.RECEIPT_NO,
+	                RP.RESULT_PRICE,
+	                SHIPPING_ADDRESS,
+	                RECEIVER,
+	                PHONE,
+	                SHIPPING_MESSAGE,
+	                POINT,
+	                C.COUPON_TYPE,
+	                C.DISCOUNT DISCOUNT,
+	                CASE 
+	                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+	                THEN R.RESULT_PRICE - POINT - C.DISCOUNT
+	                WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+	                THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+	                ELSE  R.RESULT_PRICE - POINT
+	                END TOTAL_RRICE
+	        FROM 
+	                VIEW_PRODUCT_RECEIPT PR
+	        JOIN 
+	                PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+	        JOIN
+	                VIEW_RECEIPT_PRICE RP ON(RP.RECEIPT_NO = PB.RECEIPT_NO)
+	        LEFT JOIN 
+	                COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+	        JOIN
+	                VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PB.RECEIPT_NO)
+	        JOIN 
+	                SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+	        JOIN     
+	                ATTACHMENT A ON (A.REF_NO = RP.PRODUCT_NO)        
+		   WHERE 
+	                PR.RECEIPT_NO =   #{ receiptNo }
+
+	</select>
 
 </mapper>

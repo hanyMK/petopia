@@ -12,7 +12,7 @@ import com.kh.petopia.member.model.vo.Member;
 
 public class AdminInterceptor extends HandlerInterceptorAdapter{
 	
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 		
 		Member admin = (Member)request.getSession().getAttribute("loginMember");
 		if(admin != null && admin.getMemberNo() == 1) {

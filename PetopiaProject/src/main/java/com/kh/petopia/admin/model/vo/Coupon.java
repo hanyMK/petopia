@@ -18,5 +18,6 @@ public class Coupon {
 	
 	private int memberNo;
 	private String memberCouponStatus;//MEMBER_COUPON_STATUS
+	
 
 }

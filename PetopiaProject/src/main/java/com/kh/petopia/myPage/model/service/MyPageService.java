@@ -41,6 +41,9 @@ public interface MyPageService {
 	
 	// 예약 결제 페이지에서 조회할 사용자의 쿠폰 리스트
 	ArrayList<Coupon> selectMemberCouponList(int memberNo);
+	
+	// 현재 결제에서 사용가능한 사용자의 쿠폰 개수
+	int selectAvaMemberCouponCount(HashMap<String, Integer> map);
 
 	// 펫페이, 포인트 n건 조회
 	// 예약 결제 페이지, 마이페이지 조회할 사용자의 포인트 
@@ -84,11 +87,13 @@ public interface MyPageService {
 
 	ArrayList<AllReviews> myReviewList(int mno);
 	
-	ArrayList<AllReviews> productReviewForm(AllReviews r);
+	AllReviews productReviewForm(AllReviews r);
 
-	ArrayList<AllReviews> reservationReviewForm(AllReviews r);
+	AllReviews reservationReviewForm(AllReviews r);
 	
+	int insertProductReview(AllReviews r);
 	
+	int insertReservationReview(AllReviews r);
 	
 	
 	
@@ -111,8 +116,10 @@ public interface MyPageService {
 	
 	//배송상태 변경 메소드
 	int updateShippingStatus(int receiptNo);
+	
+	ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo);
 
-
+	
 	
 
 }

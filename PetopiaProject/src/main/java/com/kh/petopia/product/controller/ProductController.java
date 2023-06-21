@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.google.gson.Gson;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.member.model.vo.Member;
-import com.kh.petopia.myPage.model.vo.Point;
+import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.product.model.service.ProductService;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
@@ -27,6 +29,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private MyPageService myPageService;
 	
 	private String filePath ="resources/uploadFiles/";
 	
@@ -126,14 +131,14 @@ public class ProductController {
 	}
 	
 	@RequestMapping("prdocutCartInfo.pd")
-	public ModelAndView productCartInfo(HttpSession session, ModelAndView mv) {
-		
+	public ModelAndView productCartInfo(HttpSession session, ModelAndView mv, int result) {
 		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-		Point point = productService.selectPoint(memNo);
-		if(point != null) {
-			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("point" , point).setViewName("product/productBuyPage");
+		int point = myPageService.selectMemberPoint(memNo);
+		System.out.println(point);
+		if(point > 0) {
+			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("point" , point).addObject("result", result).setViewName("product/productBuyPage");
 		} else {
-			mv.addObject("list" ,productService.selectCartList(memNo)).setViewName("product/productBuyPage");
+			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("result", result).setViewName("product/productBuyPage");
 		}
 		return mv;
 	}
@@ -156,5 +161,66 @@ public class ProductController {
 			return new Gson().toJson(list);
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="calculate.pd", produces="application/json; charset=UTF-8")
+	public String calculate(int total, String coupon, String point) {
+		System.out.println(total);
+		System.out.println(coupon);
+		System.out.println(point);
+		
+		int couponPrice = Integer.parseInt(coupon);
+		int pointPrice = Integer.parseInt(point);
+		double f = couponPrice;
+		int value = 0;
+		
+		if(couponPrice == 0 && pointPrice == 0) {
+			value = total;
+		} else if(couponPrice == 0) {
+			value = total - pointPrice;
+		} else if(pointPrice == 0) {
+			if(couponPrice >= 0 && couponPrice <= 100) {
+				int sht = (int)(total * (f/100));
+				value = total - sht;
+			} else {
+				value = total - couponPrice;
+			}
+		} else {
+			if(couponPrice >= 0 && couponPrice <= 100) {
+				int sht = (int)(total * (f/100));
+				value = total - sht - pointPrice;
+			} else {
+				value = total - couponPrice - pointPrice;
+			}
+		}
+		return new Gson().toJson(value);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="insertPetpay.pd", produces="application/json; charset=UTF-8")
+	public String insertPetpay(Petpay p) {
+		
+		myPageService.insertChargePetpay(p);
+		
+		return new Gson().toJson("안녕");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectPetpay.pd", produces="application/json; charset=UTF-8")
+	public String selectPetpay(HttpSession session) {
+		int mno = ((Member)session.getAttribute("loginMember")).getMemberNo();
+		int result = myPageService.selectMemberPetPay(mno);
+		return new Gson().toJson(result);
+	}
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value="insertPayment.pd", produces="application/json; charset=UTF-8")
+//	public String insertPayment(ProductReceipt pr) {
+//		System.out.println(pr.getProductNo());
+//		System.out.println(pr.getPoint());
+//		System.out.println(pr.getCouponNo());
+//		return "";
+//	}
 	
 }

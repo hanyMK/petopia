@@ -99,7 +99,7 @@
 
     <script>
         $('#buy_btn').click(function(){
-            location.href = 'prdocutCartInfo.pd';
+            location.href = 'prdocutCartInfo.pd?result=' + ${result};
         })
         
         function goShopping(){
