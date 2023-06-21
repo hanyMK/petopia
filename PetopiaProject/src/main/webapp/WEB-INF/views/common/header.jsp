@@ -262,18 +262,20 @@
                       <!-- 로그인 전 -->
                       <button class="fa-regular fa-credit-card fa-2x" id="payIcon"></button>
                       <button class="fa-regular fa-bell fa-2x" id="alramIcon"></button>
-                      <button class="fa-solid fa-cart-shopping"></button>
+                      <button class="fa-solid fa-cart-shopping" id="cartIcon"></button>
                   </c:when>
                   <c:otherwise>
-                  	  <!-- 알림, 페이 아이콘-->
+                  	  <!-- 페이 아이콘-->
 	                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
 	                  <div id="pay_box" > 					               
 						<iframe src="" scrolling="auto" id="payIframe"></iframe>
 	                  </div>
+	                  <!-- 알람 아이콘-->
 	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
 	                  <div id="alram_box" > 					               
 						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
 	                  </div>
+	                  <!-- 장바구니 아이콘-->
 	                  <button class="fa-solid fa-cart-shopping" id="cartIcon" onclick="goCart();"></button>
                   </c:otherwise>
                </c:choose>
@@ -326,37 +328,33 @@
     
     <script>
     
+    var alram = $("#alram_box");
+    var pay = $("#pay_box");
+    
     // 알람 버튼
     function alramBtn () {
-        var div = $("#alram_box");
         
-        if(div.css("display") === 'none' ) {
-        	div.css("display", 'block');  
+        if(alram.css("display") === 'none' ) {
+        	alram.css("display", 'block'); 
         	
-        	var target = $("#payIcon");
-            target.prop("readonly", true);
         }
         else {
-        	div.css("display", 'none'); 
-        	
-        	var target = $("#payIcon");
-            target.prop("readonly", false);
+        	alram.css("display", 'none'); 
         }
     }
     
  	// 페이 버튼
     function payBtn () {
-        var div = $("#pay_box");
+       
         
-        if(div.css("display") === 'none' ) {
-        	div.css("display", 'block');    
+        if(pay.css("display") === 'none' ) {
+        	pay.css("display", 'block');    
         	
         	var target = $("#alramIcon");
             target.prop("readonly", true);
-            taget.pr
         }
         else {
-        	div.css("display", 'none'); 
+        	pay.css("display", 'none'); 
         	
         	var target = $("#alramIcon");
             target.prop("readonly", false);

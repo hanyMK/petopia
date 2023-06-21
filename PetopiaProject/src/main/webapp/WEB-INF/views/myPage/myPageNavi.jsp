@@ -42,12 +42,7 @@
 		box-sizing: border-box;
 		float: left;
 	}
-	#main_center_right_1{
-		border: 1px solid black;
-		box-sizing: border-box;
-		width:100%;
-		height:250px;
-	}
+	
 	
 </style>
 </head>
@@ -71,7 +66,7 @@
         </ul>
         <ul class="myPage_navi_category">
         	<li><a href="#"><h5><b>마이페이지</b></h5></a></li>
-        	<li><a href="myReview.me?mno=${ loginMember.memberNo }"><h6>리뷰 관리</h6></a></li>
+        	<li><a href="myReview.me"><h6>리뷰 관리</h6></a></li>
         	<li><a href="myBoard.me"><h6>게시글/댓글 관리</h6></a></li>
         	<li><a href=""><h6>1:1 문의</h6></a></li>
         	<li><a href=""><h6>내 정보 수정</h6></a></li>
