@@ -71,6 +71,7 @@ public class MyPageController {
 	}
 	
 	
+	// 마이페이지 -> 쿠폰조회
 	@RequestMapping("memberCouponList.me")
 	public String memberCouponListView() {
 		return "myPage/memberCouponList";
@@ -92,6 +93,7 @@ public class MyPageController {
 		}
 	}
 	
+	// 마이페이지 펫페이 인출
 	@RequestMapping("insertWithdrawPetpay.me")
 	public String insertWithdrawPetpay(int memberNo, int petpayAmount, HttpSession session, Model model) {
 		Petpay p = new Petpay();
@@ -139,8 +141,8 @@ public class MyPageController {
 							   Model model ) {
 		
 		System.out.println("작성 : " + r);
-		System.out.println(upfile);
 		
+		// 사진 첨부 시
 		if(!upfile.getOriginalFilename().equals("")) {
 			r.setOriginName(upfile.getOriginalFilename());
 			r.setChangeName(MyFileRename.saveFile(session, upfile));
@@ -168,6 +170,8 @@ public class MyPageController {
 		}
 		
 	}
+	
+	
 
 
 
