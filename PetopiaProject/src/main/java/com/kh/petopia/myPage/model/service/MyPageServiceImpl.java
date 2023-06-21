@@ -282,7 +282,10 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.selectAvaMemberCouponCount(sqlSession,map);
 	}
 
-
+	@Override
+	public int updateShippingInfo(ProductReceipt productReceipt) {
+		return myPageDao.updateShippingInfo(sqlSession, productReceipt);
+	}
 	
 
 

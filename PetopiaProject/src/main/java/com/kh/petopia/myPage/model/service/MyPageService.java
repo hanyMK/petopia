@@ -129,9 +129,9 @@ public interface MyPageService {
 	
 	ArrayList<ProductReceipt> selectDetailOrderList(int receiptNo);
 
-
-
+	//회원 배송지 정보 변경
 	
+	int updateShippingInfo(ProductReceipt productReceipt);
 	
 
 }

@@ -237,6 +237,9 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.selectAvaMemberCouponCount",map);
 	}
 
+	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
+		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
+	}
 	
 
 	

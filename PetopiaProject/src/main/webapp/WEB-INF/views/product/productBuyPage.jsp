@@ -649,7 +649,7 @@
    	});
     </script>
 
-    <script>
+    <!-- <script>
         function goPayment(){
             $.ajax({
                 url : ,
@@ -667,7 +667,7 @@
             })
             
         }
-    </script>
+    </script> -->
 
 </body>
 </html>

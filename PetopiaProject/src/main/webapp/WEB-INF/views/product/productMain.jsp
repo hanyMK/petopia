@@ -138,8 +138,24 @@
 		<button id="food">애견식품</button>
 		<button id="clothes">애견의류</button>
 
-		<input type="text"><button>검색</button>
+		<input type="text" id="search_input"><button onclick="searchBtn();">검색</button>
 	</div>
+<!-- 
+	<script>
+		function searchBtn(){
+			$.ajax({
+				url : 'selectSearch.pd',
+				success : function(value){
+
+				},
+				error : function(){
+
+				}
+			})
+			search_input
+		}
+	</script> -->
+
 
 	<div id="product_header">
 		조회순 낮은가격순 높은가격순

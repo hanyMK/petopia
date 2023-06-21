@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -291,6 +292,19 @@ public class MyPageController {
 		.setViewName("myPage/myOrderDetail");
 		return mv;
 	}
+	
+	//배송지 설정 변경
+	@RequestMapping("updateSippingInfo.me")
+	public String updateSippingInfo(ProductReceipt productReceipt,
+									HttpSession session) {
+		System.out.println("오나?");
+		System.out.println(productReceipt);
+		if(myPageService.updateShippingInfo(productReceipt)> 0) session.setAttribute("alertMsg", "배송지 정보가 수정되었습니다");
+		else session.setAttribute("alertMsg", "배송지 정보 수정에 실패했습니다.");
+	
+		return "redirect:orderDetail.me?receiptNo="+ productReceipt.getReceiptNo();
+	}
+	
 
 	
 }

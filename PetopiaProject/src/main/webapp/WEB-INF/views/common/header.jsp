@@ -251,7 +251,7 @@
                       	
                       	</c:otherwise>
                       </c:choose>
-                      <a href="logout.me">로그아웃</a>
+                      <a href="logout.member">로그아웃</a>
                       
                   </c:otherwise>
                </c:choose>

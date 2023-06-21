@@ -94,21 +94,17 @@ public class ReservationController {
 
 		// 3. 예약자 및 연락처 => 로그인 세션에 저장되어있음
 		
-		// 4. 보유한 쿠폰 조회 
+		// 4.쿠폰 조회
+		
+		// 4-1. 쿠폰 조회
 		int couponCount = myPageService.selectMemberCouponCount(memberNo);			// 보유한 쿠폰 개수
 		ArrayList<Coupon> cList = myPageService.selectMemberCouponList(memberNo);	// 보유한 쿠폰 리스트
 		
-		// 현재 사용 가능한 쿠폰 개수
+		// 4-2. 현재 사용 가능한 쿠폰 개수
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("memberNo", memberNo);
 		map.put("usageFee", usageFee);
-		
-		System.out.println(map);
-		
 		int avaCouponCount = myPageService.selectAvaMemberCouponCount(map);	
-		
-		System.out.println("현재 사용 가능한 쿠폰 개수 :" + avaCouponCount );
-		
 		
 		// 5. 적립금 조회 
 		int point = myPageService.selectMemberPoint(memberNo);
@@ -123,6 +119,7 @@ public class ReservationController {
 		mv.addObject("r",r);						// 예약 정보
 		mv.addObject("pet",pet);					// 펫 정보
 		mv.addObject("couponCount",couponCount);	// 보유한 쿠폰 개수
+		mv.addObject("avaCouponCount",avaCouponCount);
 		mv.addObject("cList",cList);				// 사용자가 갖고있는 쿠폰 리스트 
 		mv.addObject("point",point);				// 적립금 
 		

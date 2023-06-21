@@ -213,6 +213,13 @@ public class ProductController {
 		return new Gson().toJson(result);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="selectSearch.pd", produces="application/json; charset=UTF-8")
+	public String selectSearch() {
+		productService.selectSearch();
+		return new Gson().toJson("안뇽");
+	}
+	
 	
 //	@ResponseBody
 //	@RequestMapping(value="insertPayment.pd", produces="application/json; charset=UTF-8")
