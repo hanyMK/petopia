@@ -206,6 +206,31 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 	
+	@Override
+	public String selectMemberImage(int memberNo) {
+		return myPageDao.selectMemberImage(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberReservationIng(int memberNo) {
+		return myPageDao.selectMemberReservationIng(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberReservationEnd(int memberNo) {
+		return myPageDao.selectMemberReservationEnd(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberBoardCount(int memberNo) {
+		return myPageDao.selectMemberBoardCount(sqlSession,memberNo);
+	}
+
+	@Override
+	public int selectMemberReplyCount(int memberNo) {
+		return myPageDao.selectMemberReplyCount(sqlSession,memberNo);
+	}
+	
 	
 	
 	

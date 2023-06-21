@@ -912,6 +912,49 @@
 
 	</select>
 	
+	<!-- 마이페이지 조회 -->
+		 
+	 <select id="selectMemberImage" parameterType="_int" resultType="String">
+		SELECT FILE_PATH || CHANGE_NAME AS FILE_PATH
+		  FROM ATTACHMENT A
+		  JOIN MEMBER M ON(A.REF_NO = M.MEMBER_NO)
+		 WHERE FILE_CATEGORY = 4
+		   AND FILE_STATUS = 'Y'
+		   AND MEMBER_NO = #{memberNo}
+	 </select>
+	 
+	 <select id="selectMemberReservationIng" parameterType="_int" resultType="_int">
+		SELECT COUNT(RR.RESERVATION_NO)
+		  FROM RESERVATION R
+		  JOIN MEMBER M ON(M.MEMBER_NO = R.MEMBER_NO)
+		  JOIN RESERVATION_RECEIPT RR ON(R.RESERVATION_NO = RR.RESERVATION_NO)
+		 WHERE M.MEMBER_NO = #{memberNo}
+		   AND RECEIPT_STATUS = 'Y'
+		   AND SYSDATE BETWEEN CHECK_IN AND CHECK_OUT
+	 </select>
+	 
+	 <select id="selectMemberReservationEnd" parameterType="_int" resultType="_int">
+		SELECT COUNT(RR.RESERVATION_NO)
+		  FROM RESERVATION R
+		  JOIN MEMBER M ON(M.MEMBER_NO = R.MEMBER_NO)
+		  JOIN RESERVATION_RECEIPT RR ON(R.RESERVATION_NO = RR.RESERVATION_NO)
+		 WHERE M.MEMBER_NO = #{memberNo}
+		   AND RECEIPT_STATUS = 'Y'
+		   AND NOT(SYSDATE BETWEEN CHECK_IN AND CHECK_OUT)
+	 </select>
+	 
+	 <select id="selectMemberBoardCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(BOARD_NO)
+		  FROM BOARD
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND STATUS = 'Y'
+	 </select>
+	 
+	 <select id="selectMemberReplyCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(REPLY_NO)
+		  FROM REPLY
+		 WHERE MEMBER_NO = #{memberNo}
+	 </select>
 	<!-- 배송지 정보 수정 -->
 	<update id="updateShippingInfo" parameterType="productReceipt">
 		UPDATE 

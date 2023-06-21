@@ -21,15 +21,17 @@
 			<div id="main_center_right">
 				<table id="main_center_right_1">
 					<tr>
-						<td>프로필이미지</td>
-						<td>vip ${loginMember.memberName } 님 안녕하세요</td>
-						<td>펫페이 : 145000원</td>
-						<td>포인트 : 5000</td>
+						<td><img src="${ image }"></td>
+						<td><mark>${ rating }</mark>${ loginMember.memberName } 님 안녕하세요</td>
 					</tr>
 					<tr>
-						<td>쿠폰 : 5개</td>
-						<td>예약내역 : 1개</td>
-						<td>내가 쓴 글 : 7 개</td>
+						<td>펫페이 : ${ petpay }원</td>
+						<td>포인트 : ${ point }원 </td>
+						<td>쿠폰 : ${ coupon }개</td>
+					</tr>
+					<tr>
+						<td>예약 중 : ${ rIng }개 / 예약 지남 : ${ rEnd }</td>
+						<td>내가 쓴 글 : ${ board }개 / 내가 쓴 댓글 : ${ reply }개</td>
 					</tr>
 				</table>
 			

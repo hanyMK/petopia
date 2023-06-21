@@ -215,9 +215,8 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping(value="selectSearch.pd", produces="application/json; charset=UTF-8")
-	public String selectSearch() {
-		productService.selectSearch();
-		return new Gson().toJson("안뇽");
+	public String selectSearch(String keyword) {
+		return new Gson().toJson(productService.selectSearch(keyword));
 	}
 	
 	

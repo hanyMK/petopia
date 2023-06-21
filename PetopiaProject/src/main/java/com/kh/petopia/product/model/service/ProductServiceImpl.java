@@ -97,8 +97,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override   // 메인 검색 기능 서비스
-	public ArrayList<Product> selectSearch() {
-		return productDao.selectSearch(sqlSession);
+	public ArrayList<Product> selectSearch(String keyword) {
+		return productDao.selectSearch(sqlSession, keyword);
 	}
 	
 	@Override
