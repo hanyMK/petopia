@@ -290,4 +290,9 @@ STATUS
 		        member_no = #{memNo} and member_coupon_status = 'Y'
 	</select>
 	
+	<select id="selectSearch">
+		select 
+		
+	</select>
+	
 </mapper>

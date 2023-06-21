@@ -96,6 +96,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.selectCoupon(sqlSession, memberNo);
 	}
 	
+	@Override   // 메인 검색 기능 서비스
+	public ArrayList<Product> selectSearch() {
+		return productDao.selectSearch(sqlSession);
+	}
+	
 	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
 		return null;
@@ -144,6 +149,8 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 
