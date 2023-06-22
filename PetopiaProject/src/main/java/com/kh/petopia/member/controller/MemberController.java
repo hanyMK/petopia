@@ -15,7 +15,7 @@ import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.member.model.service.MemberService;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
-import com.kh.petopia.myPage.model.service.MyPageServiceImpl;
+import com.kh.petopia.myPage.model.service.MyPageService;
 
 @Controller
 public class MemberController {
@@ -28,6 +28,9 @@ public class MemberController {
 		@Autowired
 		private BCryptPasswordEncoder bcyptPasswordEncoder;
 		
+		
+		@Autowired
+		private MyPageService myPageService;
 	
 		
 		
@@ -46,12 +49,12 @@ public class MemberController {
 		
 		@RequestMapping("login.member")
 		public ModelAndView login(Member m, ModelAndView mv, HttpSession session ) {
-			
 			Member loginMember = memberService.loginMember(m);
-			//System.out.println(loginMember.getMemberNo());
+			System.out.println(loginMember.getMemberNo());
+			loginMember.setRating(myPageService.getMemberRating(loginMember.getMemberNo()));
+			System.out.println(myPageService.getMemberRating(loginMember.getMemberNo()));
 			
 			if(loginMember != null && bcyptPasswordEncoder.matches(m.getMemberPwd(), loginMember.getMemberPwd())){
-				//loginMember.setRating(new MyPageServiceImpl().getMemberRating(loginMember.getMemberNo()));
 				session.setAttribute("loginMember", loginMember);
 				mv.setViewName("redirect:/");
 			}else {
@@ -87,6 +90,7 @@ public class MemberController {
 			
 			
 			m.setMemberPwd(bcyptPasswordEncoder.encode(m.getMemberPwd()));
+			System.out.println(m);
 			m.setBirthday(birthday_y + birthday_m + birthday_d);
 			
 			int member = memberService.joinMember(m);
@@ -128,6 +132,8 @@ public class MemberController {
 			}
 			return null;
 		}
+		
+		
 		/**
 		 * 이메일 찾기 요청시 화면 변경 값 전달하는 메소드
 		 * @param mv

@@ -119,8 +119,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Coupon> memberCouponList(PageInfo pi,  Member member) {
-		return myPageDao.memberCouponList(sqlSession, pi, member);
+	public ArrayList<Coupon> memberCouponList( Member member) {
+		return myPageDao.memberCouponList(sqlSession,  member);
 	}
 	
 	@Override

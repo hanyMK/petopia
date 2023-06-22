@@ -162,18 +162,19 @@
 		     where category = 'QNA'
 		       and qna_yn = 'Y'
 		       and member_no = #{ memberNo }
-		       
+		        
 		    union all
 		    
-		    select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
-		                WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
-		                WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
-		                ELSE '이벤트'
-		            END AS column_all, start_date date_all, null as category, null as board_title, null as nickname, null as reply_content
-		      from coupon c
-		      join member_coupon mc on(mc.coupon_no = c.coupon_no)
-		     where member_no = #{ memberNo }
-		       and member_coupon_status = 'Y'
+		    SELECT 
+	               COUPON_NAME AS COLUMN_ALL,
+	               START_DATE DATE_ALL,
+	               null as category, null as board_title, null as nickname, null as reply_content
+	          FROM COUPON C
+	          LEFT 
+	          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
+	         WHERE SYSDATE BETWEEN START_DATE AND END_DATE
+	           AND MEMBER_NO = #{ memberNo }
+	           AND MEMBER_COUPON_STATUS = 'Y'
 		       
 		    union all
 		    
@@ -213,26 +214,27 @@
 	</select>
 	
 	<select id="alramNoticeList" parameterType="_int" resultMap="alramResultSet">
-		select column_all, date_all
-		  from
-		  	   (
-				select qna_yn as column_all, create_date as date_all
-				  from board
-				 where category = 'QNA'
-				   and qna_yn = 'Y'
-				   and member_no = #{ memberNo }
-				union all
-				select CASE WHEN coupon_name = 'VIP 쿠폰' THEN 'VIP'
-				            WHEN coupon_name = 'SILVER 쿠폰' THEN 'SILVER'
-				            WHEN coupon_name = 'GOLD 쿠폰' THEN 'GOLD'
-				            ELSE '이벤트'
-				        END AS column_all, start_date as date_all
-				  from coupon c
-				  join member_coupon mc on(mc.coupon_no = c.coupon_no)
-				 where member_no = #{ memberNo }
-				   and member_coupon_status = 'Y'
-				)
-		  order by date_all desc
+		SELECT COLUMN_ALL, DATE_ALL
+		  FROM
+		       (
+		        SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL
+		          FROM BOARD
+		         WHERE CATEGORY = 'QNA'
+		           AND QNA_YN = 'Y'
+		           AND MEMBER_NO = #{ memberNo }
+		        
+		        UNION ALL
+		        
+		        SELECT 
+		               COUPON_NAME AS COLUMN_ALL,
+		               START_DATE DATE_ALL
+		          FROM COUPON C
+		          LEFT 
+		          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
+		         WHERE SYSDATE BETWEEN START_DATE AND END_DATE
+		           AND MEMBER_NO = #{ memberNo }
+		        )
+		 ORDER BY DATE_ALL DESC
 	</select>
 	
 	<select id="selectPet" parameterType="int" resultMap="petResultSet">
@@ -463,24 +465,23 @@
 		        SYSDATE BETWEEN START_DATE AND END_DATE
 		<choose>
 			<when test="rating == 'VIP'">
-				 AND 'VIP' = 'VIP'
+				 AND 'VIP' = #{rating}
 		 		 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
 		       		  COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
 			</when>
 			<when test="rating == 'GOLD'">
-				 AND 'GOLD' = 'GOLD'
+				 AND 'GOLD' = #{rating}
 	   			 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
 	         			COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
 			</when>
 			<otherwise>
-				  AND 'SILVER' = 'SILVER'
+				  AND 'SILVER' = #{rating}
    				  AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
         			   COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
         		 
 			</otherwise>
 		</choose>
 		AND MEMBER_NO IS NULL OR MEMBER_NO = #{memberNo}
-  		AND MEMBER_COUPON_STATUS = 'Y'
 		 
 	</select>
 	<!-- 사용상태에 따른  쿠폰리스트 -->
@@ -562,44 +563,44 @@
 	
 	<!-- 펫페이 충전 -->
 	<insert id="insertChargePetpay" parameterType="Petpay">
-	INSERT
-	  INTO PETPAY
-	       (
-	       PETPAY_NO,
-	       PETPAY_AMOUNT,
-	       PETPAY_DATE,
-	       PETPAY_STATUS,
-	       MEMBER_NO      
-	       )
-	VALUES (
-	       SEQ_PETPAY_NO.NEXTVAL,
-	       #{petpayAmount},
-	       SYSDATE,
-	       'P',
-	       #{memberNo}
-	       )
-	
+		INSERT
+		  INTO PETPAY
+		       (
+		       PETPAY_NO,
+		       PETPAY_AMOUNT,
+		       PETPAY_DATE,
+		       PETPAY_STATUS,
+		       MEMBER_NO      
+		       )
+		VALUES (
+		       SEQ_PETPAY_NO.NEXTVAL,
+		       #{petpayAmount},
+		       SYSDATE,
+		       'P',
+		       #{memberNo}
+		       )
+		
 	</insert>
 	
 	<!-- 펫페이 인출 -->
 	<insert id="insertWithdrawPetpay" parameterType="_int">
-	INSERT
-	  INTO PETPAY
-	       (
-	       PETPAY_NO,
-	       PETPAY_AMOUNT,
-	       PETPAY_DATE,
-	       PETPAY_STATUS,
-	       MEMBER_NO      
-	       )
-	VALUES (
-	       SEQ_PETPAY_NO.NEXTVAL,
-	       -#{petpayAmount},
-	       SYSDATE,
-	       'M',
-	       #{memberNo}
-	       )
-	
+		INSERT
+		  INTO PETPAY
+		       (
+		       PETPAY_NO,
+		       PETPAY_AMOUNT,
+		       PETPAY_DATE,
+		       PETPAY_STATUS,
+		       MEMBER_NO      
+		       )
+		VALUES (
+		       SEQ_PETPAY_NO.NEXTVAL,
+		       -#{petpayAmount},
+		       SYSDATE,
+		       'M',
+		       #{memberNo}
+		       )
+		
 	</insert>
 	
 	<select id="myReviewList" parameterType="_int" resultMap="allReviewsResultMap">

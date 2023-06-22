@@ -25,7 +25,7 @@
         width: 900px;
         height: 800px;
         margin: auto;
-        padding: 30px;
+        padding: 60px;
     }
     #product_receipt_content_1{
         width: 55%;
@@ -36,7 +36,7 @@
     }
     #product_receipt_detail_info{
         border: 1px solid black;
-        width: 600px;
+        width: 800px;
         height: 100%;
         box-sizing: border-box;
         overflow-y:scroll;
@@ -67,7 +67,7 @@
     }
     #product_receipt_detail_info4{
         border: 1px solid black;
-        width: 600px;
+        width: 800px;
         height: 100%;
         float: left;
         box-sizing: border-box;
@@ -91,7 +91,9 @@
         font-weight: 900px;
     }
 
-    
+    #main_center_right_top> h2{
+        padding-top: 50px;
+    }
     
 </style>
 </head>
@@ -109,7 +111,7 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<h2 >배송주문 목록 조회</h2>
+					<h2 align="center">배송주문 목록 조회</h2>
 				</div>
 				<div id="main_center_right_bottom">
 					<div id="orderList">

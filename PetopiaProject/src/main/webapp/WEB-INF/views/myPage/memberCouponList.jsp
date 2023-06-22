@@ -6,20 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 
 	#main_center_right_top{
 		height: 10%;
 		padding-top: 30px;
-		margin: auto;
+		
 	}
-	#main_center_right_top>div{
+	#main_center_right_top > div{
 		margin: auto;
 		text-align: center;
 	}
 	#main_center_right_bottom{
 		height:90%;
-		padding-left: 100px;
+		padding-left: 150px;
 	}
 	.myCouponList{
 		border: 1px solid black;
@@ -35,11 +36,19 @@
 		height:10%;
 		text-align:center;
 		border: none;
+		padding-left: 30px;
 	}
 	#main_center_right_bottom_1  a {
 		text-decoration: none;
 		color: black;
-		
+	}
+	#main_center_right_bottom_1 > button {
+		width: 200px;
+		height: 50px;
+		background-color: #FAC264; 
+	}
+	#coupon_status {
+		padding-left: 380px;
 	}
 	
 
@@ -61,13 +70,13 @@
 			<div id="main_center_right">
 				<div id="main_center_right_top">
 					<div id="main_center_right_bottom_1">
-						<button> <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
+						<button > <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
 						<button onclick="availableCoupon();">나의 쿠폰 목록</button>
-
 					</div>
 				</div>
 				<div id="main_center_right_bottom">
-					
+				
+				
 				</div>
 			</div>
 		</div>
@@ -79,16 +88,16 @@
 	
 	<script>
 	
-		var cpage = 1;
-		var value = '<h2 align="center">발급 가능한 쿠폰 </h2>';
+		
+		var value = '<h2  id="coupon_status">발급 가능한 쿠폰 </h2>';
 		$(document).ready(() =>{ // 
-			couponList(cpage);
+			couponList();
 		
 		})
 		
 		$(() => {
 			
-			$('#main_center_right_bottom').on('click', '.myCouponList' , e =>{
+			$('#main_center_right_bottom').on('click', '.myCouponList', e =>{
 				var couponNo = $(e.target).find('.couponNo').val();
 				if($(e.target).children().eq(2).text() == '발급 완료 된 쿠폰 입니다.'){
 					console.log($(e.target).children().eq(2).text());
@@ -129,49 +138,46 @@
 					memberNo: ${ sessionScope.loginMember.memberNo},
 					cpage: 1
 				},
-				success: result => {
+				success: cList => {
 
-					var cList = result.cList;
-					var perfomance = result.result;
-					var pi = result.pi;
 					console.log(cList);
 					for(var i in cList){
 						if(cList.length ==0){
 							value +='<h2 align="center"> 발급 가능한 쿠폰이 없습니다</h1>'
 						}else{
-
-							
 							value +=' <div class="myCouponList">' 
-								+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
-								if(cList[i].memberNo != 0){
-									value += '<br><mark><b>발급 완료 된 쿠폰 입니다.</mark></b><br>';
+									+ '<input type="hidden" class="couponNo" value="' + cList[i].couponNo +'">';
+									if(cList[i].memberNo != 0){
+										value += '<br><mark><b>발급 완료 된 쿠폰 입니다.</mark></b><br>';
+										
+									}
 									
-								}
-								
-								value += '<b>' + cList[i].couponName +'</b><br>';
-								if(cList[i].couponType == 1){
-									value += cList[i].discount +'원<br>';
-								}else{
-									value += cList[i].discount +'%<br>';
-								}
-								
-								if(cList[i].maxPrice == 0){
-									value += '최소 사용 금액 : ' + cList[i].minPrice +'원<br>'
-									+ cList[i].startDate +' ~ '
-									+ cList[i].endDate +'<br>'
-									+ '</div>';
-								}else{
-									value +=
-											'최대 할인 금액 : ' + cList[i].maxPrice +'원<br>'
-											+ '최소 사용 금액 :  ' + cList[i].minPrice +'원<br>'
-											+ cList[i].startDate +' ~ '
-											+ cList[i].endDate + '<br>'
-											+ '</div>';
-								}
+									value += '<b>' + cList[i].couponName +'</b><br>';
+									if(cList[i].couponType == 1){
+										value += cList[i].discount +'원<br>';
+									}else{
+										value += cList[i].discount +'%<br>';
+									}
+									
+									if(cList[i].maxPrice == 0){
+										value += '최소 사용 금액 : ' + cList[i].minPrice +'원<br>'
+										+ cList[i].startDate +' ~ '
+										+ cList[i].endDate +'<br>'
+										+ '</div>';
+									}else{
+										value +=
+												'최대 할인 금액 : ' + cList[i].maxPrice +'원<br>'
+												+ '최소 사용 금액 :  ' + cList[i].minPrice +'원<br>'
+												+ cList[i].startDate +' ~ '
+												+ cList[i].endDate + '<br>'
+												+ '</div>';
+									}
 										
 						}
 					}
-						$('#main_center_right_bottom').html(value);
+
+					$('#main_center_right_bottom').html(value);
+
 					
 				},
 				error : () => {
@@ -249,8 +255,7 @@
 													;
 										}else{
 											value += '<td>' + cList[i].memberCouponStatus + '</td>'
-													+'</tr>'
-													;
+													+'</tr>';
 										}
 							
 								}
