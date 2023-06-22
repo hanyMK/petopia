@@ -21,7 +21,7 @@ public interface MyPageService {
 	ArrayList<Board> myBoardList(int memberNo);
 	
 	// 알람 조회
-	ArrayList<Alram> alramList(int memberNo);
+	ArrayList<Alram> alramList(Member m);
 
 	ArrayList<ProductReceipt> alramShippingList(int mno);
 	

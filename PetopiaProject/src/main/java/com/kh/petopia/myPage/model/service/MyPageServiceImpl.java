@@ -35,8 +35,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Alram> alramList(int memberNo) {
-		return myPageDao.alramList(sqlSession, memberNo);
+	public ArrayList<Alram> alramList(Member m) {
+		return myPageDao.alramList(sqlSession, m);
 	}
 	
 	@Override
