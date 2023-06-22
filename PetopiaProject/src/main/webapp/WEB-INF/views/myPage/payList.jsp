@@ -1,176 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-	<!-- jQuery 라이브러리 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-
-	#main_center_right_top{
-		height: 25%;
-		padding-top: 25px;
-		margin: auto;
-		border: 1px solid black;
+	#alram_area_top{
+		height: 10%;
+		padding-top: 30px;
+		padding-bottom: 30px;		
 	}
-	#main_center_right_top>div{
+	#alram_area_bottom{
+		height:90%;
+		padding-top:17px;
+	}
+	#myList{
+		border: 1px solid black;
+		height: 100px;
+		width: 250px;
 		margin: auto;
 		text-align: center;
+		font-size: 12px;
 	}
-	#main_center_right_bottom{
-		height:75%;
-		padding-top: 25px;
-		margin: auto;
-		border: 1px solid black;
-	}
-	#pay_point_top {
-		height:70%;
-		text-align:center;
-	}
-	
-	#pay_point_middle {
-		height:10%;
-	}
-	
-	#pay_point_bottom {
-		height:20%;
-	}
-	
-	.pay_point_top_1 {
-		display: inline-block;
-		width: 200px;
-	}
-	
-	.pay_point_middle_1 {
-		display: inline-block;
-		width: 200px;
-	}
-	
-	#main_center_right_bottom_1 {
-		height:10%;
-		text-align:center;
-	}
-	
-	#main_center_right_bottom_2 {
-		height:10%;
-	}
-	
-	#main_center_right_bottom_3 {
-		height:10%;
-	}
-	
-	#main_center_right_bottom_4 {
-		height:70%;
-	}
-	
-	#petpayAmount {
-		width: 200px;
-	}
-	
-	#pointList{
-		display: none;
-	}
-	
-	
 	
 </style>
 </head>
 <body>
-
-	<jsp:include page="../common/header.jsp" />
-
-    <div id="main">
-		<div id="main_left">
-		
+	<!-- 알람창 카테고리 -->
+	<div id="alram_area" align="center">
+		<!-- 메인페이지 페이아이콘 클릭 시 iframe jsp -->
+		<div id="alram_area_bottom">
+			<h4>펫페이 : ${ petpayAmount }원</h4>
+			<br>
+			<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
+			<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button>
 		</div>
-		<div id="main_center">
-			<div id="main_center_left">
-				<jsp:include page="myPageNavi.jsp" />
-			</div>
-			<div id="main_center_right">
-				<div id="main_center_right_top">
-					<div id="pay_point_top">
-						<div class="pay_point_top_1">
-							<h4>펫페이</h4><br>
-							<h5>${ petpayAmount }원</h5>
-						</div>
-						<div class="pay_point_top_1">
-							<h4>포인트</h4><br>
-							<h5>${ pointAmount }원</h5>
-						</div>
-					</div>
-					<div id="pay_point_middle">
-						<div class="pay_point_middle_1">
-							<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
-							<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button>
-						</div>
-					</div><br>
-					<div id="pay_point_bottom">
-						<small>작성 가능한 리뷰 : ??개개</small><br>
-						<small>펫페이 충전 후 결제 시, 결제 금액의 5%를 포인트로 적립해드려요!</small>
-					</div>
-				</div>
-				<div id="main_center_right_bottom">	
-					<div id="main_center_right_bottom_1">
-						<button onclick="petpayBtn();">펫페이 내역</button>
-						<button onclick="pointBtn();">포인트 내역</button>
-					</div>
-					<div id="petpayList" align="center">
-						<div id="petpayList_1">
-							<button class="petpayStatus" onclick="petpayStatusBtn('ALL');">전체</button>
-							<button class="petpayStatus" onclick="petpayStatusBtn('PLUS');">충전</button>
-							<button class="petpayStatus" onclick="petpayStatusBtn('MINUS');">사용</button>
-						</div>
-						<div id="petpayList_2">
-							총 n건	기간
-						</div>
-						<div id="petpayList_3">
-							<c:forEach var="pp" items="${ petpayList }" >
-								<div id="myList">
-									${pp.petpayDate}
-									${pp.account}
-									${pp.petpayAmount}
-									${pp.petpayStatus}
-								</div><br>
-				            </c:forEach>
-						</div>	
-					</div>
-					<div id="pointList" align="center">
-						<div id="pointList_1">
-							<button class="pointStatus" onclick="pointStatusBtn('ALL');">전체</button>
-							<button class="pointStatus" onclick="pointStatusBtn('PLUS');">충전</button>
-							<button class="pointStatus" onclick="pointStatusBtn('MINUS');">사용</button>
-						</div>
-						<div id="pointList_2">
-							총 n건	기간
-						</div>
-						<div id="pointList_3">
-							<c:forEach var="p" items="${ pointList }" >
-								<div id="myList">
-									${p.pointDate}
-									${p.pointStatus }
-									${p.pointAmount}
-								</div><br>
-				            </c:forEach>
-						</div>
-					</div>		
-				</div>
-			</div>
-		</div>
-		<div id="main_right">
-			
-		</div>
-		
 	</div>
 	
 	<!-- 펫페이 충전 시 보여질 Modal -->
-    <div class="modal fade" id="chargePetpay">
+    <div class="modal fade" id="chargePetpay"
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
 
@@ -264,8 +144,7 @@
         </div>
     </div>
     
-    
-    
+	
     <script>
     
     function plusPay(plus) {
@@ -337,97 +216,7 @@
    	}
    	
     </script>
-    
-    <!-- 펫페이내역, 포인트내역 버튼 -->
-    <script>
-    
-    var petpayList = $("#petpayList");
-    var pointList = $("#pointList");
-    
-    function petpayBtn () {
-    	petpayStatusBtn();
-        if(petpayList.css("display") === 'none' ) {
-        	petpayList.css("display", 'block'); 
-        	pointList.css("display", 'none');  
-        }
-    }
-    
-    function pointBtn () {
-    	petpayStatusBtn();
-        if(pointList.css("display") === 'none' ) {
-        	pointList.css("display", 'block'); 
-        	petpayList.css("display", 'none'); 
-        }
-    }
-    
-    </script>
-    
-    <!-- 전체, 충전, 사용 카테고리 -->
-    <script>
-    // 펫페이
-    
-    function petpayStatusBtn(status) {
-    	
-    	console.log(status);
-    	
-    	$.ajax({
-    		url : 'petpayStatusList.me', 
-    		data : { 
-    				status : status,
-    				mno : ${ loginMember.memberNo }
-    			},
-    		success : function(list) {
-    			let value = "";
-    			for(let i in list) {
-    				console.log(list);
-    				value += '<div id="myList">'							
-    					   + list[i].petpayDate
-    					   + list[i].account
-    					   + list[i].petpayAmount
-    					   + list[i].petpayStatus
-    					   + '</div><br>';
-    				};
-    			$('#petpayList_3').html(value);
-    			
-    		},
-    		error : function() {
-    			console.log('AJAX 조회 실팽이');
-    		}
-    	});
-	}
-    
-    // 포인트
-     function pointStatusBtn(status) {
-    	
-    	console.log(status);
-    	
-    	$.ajax({
-    		url : 'pointStatusList.me', 
-    		data : { 
-    				status : status,
-    				mno : ${ loginMember.memberNo }
-    			},
-    		success : function(list) {
-    			let value = "";
-    			for(let i in list) {
-    				console.log(list);
-    				value += '<div id="myList">'							
-    					   + list[i].pointDate
-    					   + list[i].pointAmount
-    					   + list[i].pointStatus
-    					   + '</div><br>';
-    				};
-    			$('#pointList_3').html(value);
-    			
-    		},
-    		error : function() {
-    			console.log('AJAX 조회 실팽이');
-    		}
-    	});
-	}
-    
-    
-    </script>
+
 
 </body>
 </html>

@@ -78,6 +78,12 @@ public class MyPageController {
 		return "myPage/alramList";
 	}
 	
+	// 페이 iframe페이지
+	@RequestMapping("pay.me")
+	public String payList() {
+		return "myPage/payList";
+	}
+	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPetpayPoint.me")
 	public String myPetpayPoint(int mno, Model model) {
