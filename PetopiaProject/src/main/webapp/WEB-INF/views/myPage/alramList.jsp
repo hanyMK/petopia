@@ -40,21 +40,15 @@
 		</div>
 		<!-- 메인페이지 알람아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
-			<c:forEach var="l" items="${ list }" >
-				<div id="myList">
-					${l.columnAll} <br>
-					${l.dateAll} <br>
-					${l.category} <br>
-					${l.boardTitle} <br>
-					${l.nickname} <br>
-					${l.replyContent} <br>
-				</div><br>
-            </c:forEach>	
 		</div>
 		
 	</div>
 	
 	<script>
+	
+	$(document).ready(function() {
+		myAlramList();
+	});
 	
 	/* 전체 알람 */
 	function myAlramList() {

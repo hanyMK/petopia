@@ -74,8 +74,7 @@ public class MyPageController {
 	
 	// 알람 iframe페이지
 	@RequestMapping("alram.me")
-	public String alramList(int mno, Model model) {
-		model.addAttribute("list", myPageService.alramList(mno));
+	public String alramList() {
 		return "myPage/alramList";
 	}
 	
