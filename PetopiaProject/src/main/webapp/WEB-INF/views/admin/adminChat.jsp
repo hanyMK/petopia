@@ -27,11 +27,12 @@
                     url: "sendMessage.ad",
                     data: { message: message },
                     success: function(response) {
-                        chatContainer.append("<div><h3>사용자:</h3><p>" + message + "</p></div>");
-                        chatContainer.append("<div><h3>챗봇:</h3><p>" + response + "</p></div>");
+                        console.log(response);
+                    	 chatContainer.append("<div><h3>사용자:</h3><p>" + message + "</p></div>");
+                        chatContainer.append("<div><h3>챗봇:</h3><p>" + response + "</p></div>"); 
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        console.log("에러야");
                     }
                 });
             }
