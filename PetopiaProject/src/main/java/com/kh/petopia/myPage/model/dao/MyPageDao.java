@@ -26,8 +26,8 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myBoardList", memberNo);
 	}
 
-	public ArrayList<Alram> alramList(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.alramList", memberNo);
+	public ArrayList<Alram> alramList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.alramList", m);
 	}
 	
 	public ArrayList<ProductReceipt> alramShippingList(SqlSessionTemplate sqlSession, int memberNo) {

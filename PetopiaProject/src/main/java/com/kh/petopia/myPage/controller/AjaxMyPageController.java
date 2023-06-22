@@ -28,8 +28,9 @@ public class AjaxMyPageController {
 	
 	
 	@RequestMapping(value="ajaxAlram.me", produces="application/json; charset=UTF-8")
-	public String alramList(int mno) {
-		return new Gson().toJson(myPageService.alramList(mno));
+	public String alramList( HttpSession session) {
+		Member m = (Member)session.getAttribute("loginMember");
+		return new Gson().toJson(myPageService.alramList(m));
 	}
 	
 	
