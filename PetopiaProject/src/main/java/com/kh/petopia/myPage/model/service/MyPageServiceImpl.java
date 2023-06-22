@@ -104,7 +104,8 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public String getMemberRating(int mno) {
-		return myPageDao.getMemberRating(sqlSession, mno);
+		System.out.println(myPageDao.getMemberRating(sqlSession, mno));
+		return  myPageDao.getMemberRating(sqlSession, mno);
 	}
 
 

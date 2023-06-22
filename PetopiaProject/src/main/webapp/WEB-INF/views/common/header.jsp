@@ -179,9 +179,15 @@
 			cursor: pointer;
 		}
 		
-		#alramIframe, #payIframe{
-			width:300px;
+		#alramIframe{
+			width:350px;
 			height:500px;
+			background-color:white;
+		}
+		
+		#payIframe{
+			width:250px;
+			height:180px;
 			background-color:white;
 		}
 		
@@ -209,7 +215,8 @@
 		
     </style>
 
-<script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
+	<!-- 아이콘 사용 라이브러리 -->
+	<script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -256,33 +263,30 @@
                   </c:otherwise>
                </c:choose>
                
-               <div id="header_1_right_bottom">
-               <c:choose>
-                  <c:when test="${ empty sessionScope.loginMember }">
-                      <!-- 로그인 전 -->
-                      <button class="fa-regular fa-credit-card fa-2x" id="payIcon"></button>
-                      <button class="fa-regular fa-bell fa-2x" id="alramIcon"></button>
-                      <button class="fa-solid fa-cart-shopping" id="cartIcon"></button>
-                  </c:when>
-                  <c:otherwise>
-                  	  <!-- 페이 아이콘-->
-	                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
-	                  <div id="pay_box" > 					               
-						<iframe src="" scrolling="auto" id="payIframe"></iframe>
-	                  </div>
-	                  <!-- 알람 아이콘-->
-	                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
-	                  <div id="alram_box" > 					               
-						<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
-	                  </div>
-	                  <!-- 장바구니 아이콘-->
-	                  <button class="fa-solid fa-cart-shopping" id="cartIcon" onclick="goCart();"></button>
-                  </c:otherwise>
-               </c:choose>
-               
-				
-				
+               <div id="header_1_right_bottom" class="iconArea">
+	               <c:choose>
+	                  <c:when test="${ empty sessionScope.loginMember }">
+	                      <!-- 로그인 전 -->
+	                      <button class="fa-regular fa-credit-card fa-2x" id="payIcon"></button>
+	                      <button class="fa-regular fa-bell fa-2x" id="alramIcon"></button>
+	                      <button class="fa-solid fa-cart-shopping" id="cartIcon"></button>
+	                  </c:when>
+	                  <c:otherwise>
+	                  	  <!-- 페이 아이콘-->
+		                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
+		                  <div id="pay_box" > 					               
+							<iframe src="pay.me" scrolling="auto" id="payIframe"></iframe>
+		                  </div>
+		                  <!-- 알람 아이콘-->
+		                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
+		                  <div id="alram_box" > 					               
+							<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
+		                  </div>
+		               	  <button class="fa-solid fa-cart-shopping" id="cartIcon" onclick="goCart();"></button>
+	                  </c:otherwise>
+	               </c:choose>
                </div>
+               <!-- 장바구니 아이콘-->
             </div>
         </div>
 
@@ -321,9 +325,6 @@
             </ul>
     
         </div>
-
-
-
     </div>
     
     <script>
@@ -331,14 +332,19 @@
     var alram = $("#alram_box");
     var pay = $("#pay_box");
     
+    var alramIcon = $("#alramIcon");
+    var payIcon = $("#payIcon");
+    
     // 알람 버튼
     function alramBtn () {
         
         if(alram.css("display") === 'none' ) {
-        	alram.css("display", 'block'); 
-        	
+        	// iframe 열기
+        	pay.css("display", 'none'); 
+        	alram.css("display", 'block');
         }
         else {
+        	// iframe 닫기
         	alram.css("display", 'none'); 
         }
     }
@@ -346,21 +352,33 @@
  	// 페이 버튼
     function payBtn () {
        
-        
         if(pay.css("display") === 'none' ) {
-        	pay.css("display", 'block');    
+        	alram.css("display", 'none'); 
+        	pay.css("display", 'block'); 
         	
-        	var target = $("#alramIcon");
-            target.prop("readonly", true);
         }
         else {
         	pay.css("display", 'none'); 
-        	
-        	var target = $("#alramIcon");
-            target.prop("readonly", false);
         }
         
     }
+ 	
+ 	// 영역 외 클릭 시 Icon의 iframe 닫기
+    $('html').click(function(e) {   
+    	if($(e.target).parents('.iconArea').length < 1){   
+    		console.log('영역 이외');
+    		
+    		if(pay.css("display") === 'block') {
+	    		pay.css("display", 'none'); 
+	    		alramIcon.attr("disabled", false);
+    		}
+    		
+    		if(alram.css("display") === 'block') {
+    			alram.css("display", 'none'); 
+    			payIcon.attr("disabled", false);
+    		}
+    	}
+    });
  	
  	function goCart(){
  		location.href = "productCart.pd";

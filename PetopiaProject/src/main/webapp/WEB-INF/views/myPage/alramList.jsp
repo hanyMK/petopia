@@ -40,24 +40,22 @@
 		</div>
 		<!-- 메인페이지 알람아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
-			<c:forEach var="l" items="${ list }" >
-				<div id="myList">
-					${l.columnAll} <br>
-					${l.dateAll} <br>
-					${l.category} <br>
-					${l.boardTitle} <br>
-					${l.nickname} <br>
-					${l.replyContent} <br>
-				</div><br>
-            </c:forEach>	
 		</div>
 		
 	</div>
 	
 	<script>
 	
+	$(document).ready(function() {
+		myAlramList();
+		
+
+	});
+	
 	/* 전체 알람 */
 	function myAlramList() {
+		
+		var num = 0;
 		
 		$.ajax({
 			url : 'ajaxAlram.me', 
@@ -69,29 +67,32 @@
 					// columnAll이 null이면 댓글 조회 
 					if(list[i].columnAll == null) {
 					
-					value += '<div id="myList">'							
-						   + list[i].columnAll + '<br>'
+					value += '<div id="myList">'
 						   + list[i].dateAll + '<br>'
-						   + list[i].category + '<br>'
-						   + list[i].boardTitle + '<br>'
-						   + list[i].nickname + '<br>'
-						   + list[i].replyContent + '<br>'
+						   + '제목 : ' + list[i].boardTitle + '<br>'
+						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
+						   + '내용 : ' + list[i].replyContent + '<br>'
+						   + '<span class="delBtn" id="' + num++ + '">X</span>'
 						   + '</div><br>';
+						   
 					} else if(list[i].columnAll != null && list[i].columnAll == '배송중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '배송중 입니다.'
+							   + '<span class="delBtn" id="' + num++ + '">X</span>'
 							   + '</div><br>';
 					} else if(list[i].columnAll != null && list[i].columnAll == '상품준비중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '상품준비중 입니다.'
+							   + '<span class="delBtn" id="' + num++ + '">X</span>'
 							   + '</div><br>';
 					} else if(list[i].columnAll != null && list[i].columnAll == 'Y') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '1:1 답변 완료.'
+							   + '<span class="delBtn" id="' + num++ + '">X</span>'
 							   + '</div><br>';
 					} else {
-						value += '<div id="myAlramList">'
-							   + '쿠폰 들어옴.'
+						value += '<div id="myList">'
+							   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
 							   + '</div><br>';
 					}
 				};
@@ -104,6 +105,11 @@
 		});
 		
 	};
+	
+	$(document).on("click", ".delBtn", function() {
+		$(this).parent().remove();
+	});	
+
 	
 	/* 상품 배송출발 알람 */
 	function alramShippingList() {
@@ -121,12 +127,12 @@
 							   + list[i].shippingStatus
 							   + '입니다. </div><br>';
 					} else if (list[i].shippingStatus == '상품준비중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '주문하신 상품이 '
 							   + list[i].shippingStatus
 							   + '입니다. </div><br>';
 					} else if (list[i].shippingStatus == '배송완료') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '주문하신 상품이 '
 							   + list[i].shippingStatus
 							   + '되었습니다. </div><br>';
@@ -153,13 +159,11 @@
 				let value = "";
 				for(let i in list) {
 					console.log(list);
-					value += '<div id="myList">'							
-						   + list[i].columnAll + '<br>'
+					value += '<div id="myList">'
 						   + list[i].dateAll + '<br>'
-						   + list[i].category + '<br>'
-						   + list[i].boardTitle + '<br>'
-						   + list[i].nickname + '<br>'
-						   + list[i].replyContent + '<br>'
+						   + '제목 : ' + list[i].boardTitle + '<br>'
+						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
+						   + '내용 : ' + list[i].replyContent + '<br>'
 						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
@@ -189,7 +193,7 @@
 								   + '답변이 완료되었습니다.'
 								   + '</div><br>';
 						} else {
-							value += '<div id="myAlramList">'
+							value += '<div id="myList">'
 								   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
 								   + '</div><br>';
 						}

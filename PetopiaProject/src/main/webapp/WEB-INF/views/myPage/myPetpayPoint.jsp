@@ -36,7 +36,6 @@
 	
 	#pay_point_middle {
 		height:10%;
-		padding-right
 	}
 	
 	#pay_point_bottom {
@@ -96,27 +95,25 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<div>
-						<div id="pay_point_top">
-							<div class="pay_point_top_1">
-								<h4>펫페이</h4><br>
-								<h5>${ petpayAmount }원</h5>
-							</div>
-							<div class="pay_point_top_1">
-								<h4>포인트</h4><br>
-								<h5>${ pointAmount }원</h5>
-							</div>
+					<div id="pay_point_top">
+						<div class="pay_point_top_1">
+							<h4>펫페이</h4><br>
+							<h5>${ petpayAmount }원</h5>
 						</div>
-						<div id="pay_point_middle">
-							<div class="pay_point_middle_1">
-								<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
-								<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button>
-							</div>
-						</div><br>
-						<div id="pay_point_bottom">
-							<small>작성 가능한 리뷰 : ??개개</small><br>
-							<small>펫페이 충전 후 결제 시, 결제 금액의 5%를 포인트로 적립해드려요!</small>
+						<div class="pay_point_top_1">
+							<h4>포인트</h4><br>
+							<h5>${ pointAmount }원</h5>
 						</div>
+					</div>
+					<div id="pay_point_middle">
+						<div class="pay_point_middle_1">
+							<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
+							<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button>
+						</div>
+					</div><br>
+					<div id="pay_point_bottom">
+						<small>작성 가능한 리뷰 : ??개개</small><br>
+						<small>펫페이 충전 후 결제 시, 결제 금액의 5%를 포인트로 적립해드려요!</small>
 					</div>
 				</div>
 				<div id="main_center_right_bottom">	
@@ -222,7 +219,7 @@
         </div>
     </div>
     
-      <!-- 펫페이 인출 시 보여질 Modal -->
+    <!-- 펫페이 인출 시 보여질 Modal -->
     <div class="modal fade" id="withdrawPetpay">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -428,9 +425,6 @@
     		}
     	});
 	}
-    </script>
-    
-    <script>
     
     
     </script>

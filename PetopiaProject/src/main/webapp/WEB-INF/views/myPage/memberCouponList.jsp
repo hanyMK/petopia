@@ -6,20 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 
 	#main_center_right_top{
 		height: 10%;
 		padding-top: 30px;
-		margin: auto;
+		
 	}
-	#main_center_right_top>div{
+	#main_center_right_top > div{
 		margin: auto;
 		text-align: center;
 	}
 	#main_center_right_bottom{
 		height:90%;
-		padding-left: 70px;
+		padding-left: 150px;
 	}
 	.myCouponList{
 		border: 1px solid black;
@@ -35,10 +36,16 @@
 		height:10%;
 		text-align:center;
 		border: none;
+		padding-left: 30px;
 	}
 	#main_center_right_bottom_1  a {
 		text-decoration: none;
 		color: black;
+	}
+	#main_center_right_bottom_1 > button {
+		width: 200px;
+		height: 50px;
+		background-color: #FAC264; 
 	}
 	#coupon_status {
 		padding-left: 380px;
@@ -63,7 +70,7 @@
 			<div id="main_center_right">
 				<div id="main_center_right_top">
 					<div id="main_center_right_bottom_1">
-						<button> <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
+						<button > <a href="memberCouponList.me">발급 가능한 쿠폰</a></button>
 						<button onclick="availableCoupon();">나의 쿠폰 목록</button>
 					</div>
 				</div>

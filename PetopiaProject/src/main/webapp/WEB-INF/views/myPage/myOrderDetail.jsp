@@ -36,7 +36,7 @@
     }
     #product_receipt_detail_info{
         border: 1px solid black;
-        width: 600px;
+        width: 800px;
         height: 100%;
         box-sizing: border-box;
         overflow-y:scroll;
@@ -67,7 +67,7 @@
     }
     #product_receipt_detail_info4{
         border: 1px solid black;
-        width: 600px;
+        width: 800px;
         height: 100%;
         float: left;
         box-sizing: border-box;

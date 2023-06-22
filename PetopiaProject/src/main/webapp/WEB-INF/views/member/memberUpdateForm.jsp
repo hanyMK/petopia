@@ -50,7 +50,7 @@
     <div class="content">
         <br><br>
         <div class="innerOuter">
-            <h2>회원가입</h2>
+            <h2>회원정보 수정</h2>
             <br>
 
             <form action="join.member" method="post" id="enroll-form" enctype="multipart/form-data">
@@ -67,12 +67,12 @@
 					
 
                     <label for="email"> &nbsp; 이메일 : </label>
-                    <input type="email" class="form-control" id="memberEmail" placeholder="이메일 입력" name="email" onchange="checkEmail();"> <br>
+                    <input type="email" class="form-control" id="memberEmail" placeholder="이메일 입력" name="email" value="${loginMember.email}" readonly> <br>
                     <div id="emailhidden" class="hidden"></div><br>
                     
                     
 					 <label for="nickname">* 닉네임 : </label>
-                    <input type="text" class="form-control" id="nickname" placeholder="닉네임" name="nickname" required onchange="checkNickname();"> <br>
+                    <input type="text" class="form-control" id="nickname" placeholder="닉네임" name="nickname" value="${loginMember.nickname}"> <br>
                     <div id="nicknamehidden" class="hidden"></div><br>
 					
                     
@@ -85,46 +85,13 @@
                     <div id="checkhidden" class="hidden"></div><br>
                     
                     <label for="userName">* 이름 : </label>
-                    <input type="text" class="form-control" id="memberName" placeholder="이름" name="memberName" required onchange="checkName();"> <br>
+                    <input type="text" class="form-control" id="memberName" name="memberName" value="${loginMember.memberName}" readonly> <br>
                     <div id="namehidden" class="hidden"></div><br>
 
                     
                     <div>
                         <p>* 생년월일</p>
-                         <select name="birthday_y" id = "years" required>
-                              <script>
-                                  for(i=new Date().getFullYear(); i>1900; i--){
-                                      document.write("<option>" + [i] + "</option>");
-                                  }
-                              </script>
-                          </select>
-                          <select name="birthday_m" id = "month" required>
-                              <script>
-                                  for(i=1; i<13; i++) {
-                                	 if( i >= 1 && i <10){
-                                		 document.write("<option>0" +  +[i] + "</option>");
-                                	 }else{
-                                		 
-                                     	document.write("<option>" + [i] + "</option>");
-                                	 }
-                                  }
-                              </script>
-                          </select>
-                          <select name="birthday_d" id="day" required>
-                              <script>
-                             
-                                      for(i=1; i<32; i++) {
-                                    	  if(1<= i  && i <10){
-                                         	 document.write("<option>0" + [i] + "</option>");
-                                    		  
-                                    	  }else{
-                                    		  document.write("<option>" + [i] + "</option>");
-                                    	  }
-                                      }
-                              
-                              </script>
-                          </select>
-                          <i id = "birthdayEmo" class="fa-solid fa-calendar"></i>  
+                        <input type="text" class="form-control" value="${loginMember.birthday}" readonly>
                      </div>
 
                      
@@ -132,14 +99,14 @@
                    <!-- <input type="text" class="form-control" id="birthday" placeholder="생년월일 8자리(99.01.01)" name="birthday"> <br>-->
 
                     <label for="phone"> &nbsp;* 전화번호 : </label>
-                    <input type="tel" class="form-control" id="phone" placeholder="전화번호를 -를 포함해서 입력해주세요." name="phone" onchange="checkPhone();"> <br>
+                    <input type="tel" class="form-control" id="phone" value="${loginMember.phone}" name="phone" onchange="checkPhone();"> <br>
                     <div id="phonehidden" class="hidden"></div><br>
 
                     <label for="address"> &nbsp;* 주소 : </label><br>
-                    <input type="text" id="postcode" name="address" placeholder="우편번호">
-					<input type="button" onclick="findPostcode()" value="주소 검색"><br>
-                     <input type="text" class="form-control" id="address" placeholder="주소" name="address"> 
-					<input type="text"  class="form-control" id="detailAddress" name="address" placeholder="상세주소" required><br>
+                    <input type="text" id="postcode" name="address" placeholder="우편번호" >
+					<input type="button" onclick="findPostcode()" value="주소검색" ><br>
+                     <input type="text" class="form-control" id="address" name="address"> 
+					<input type="text"  class="form-control" id="detailAddress" name="address"  ><br>
 					
                   
                     <label for="address"> &nbsp;* 계좌번호 : </label>&nbsp;
@@ -154,38 +121,9 @@
                         <option value="카카오뱅크">카카오뱅크</option>
                         <option value="새마을금고">새마을금고</option>
                     </select>                    
-                    <input  type="number" id="payAccount" class="form-control" name="account" placeholder="-를 제외하여 입력하세요" required>
+                    <input  type="number" id="payAccount" class="form-control" name="account" value="${loginMember.account}" >
                     <br>
                     <br>
-                    <label for="havePet"> &nbsp; 반려동물 유무 : </label>
-                    <input type="radio" id="noPet" value="N" name="isPet" checked="true" required>
-                    <label for="noPet">없음</label> &nbsp;&nbsp;
-                    <input type="radio" id="havePet" value="Y" name="isPet">
-                    <label for="havePet">있음</label> &nbsp;&nbsp;
-                    <br>
-                    <br>
-                    <div id="petInfo">
-                        <label for=""> &nbsp; 성별 : </label> &nbsp;&nbsp;
-                        <input type="radio" id="Male" value="M" name="gender" checked>
-                        <label for="Male">남자</label> &nbsp;&nbsp;
-                        <input type="radio" id="Female" value="F" name="gender">
-                        <label for="Female">여자</label> &nbsp;&nbsp;
-                        <br>
-                        <br>
-                        <label for="species"> &nbsp; 반려동물 종류 : </label>
-                        <input type="text" class="form-control" id="species" placeholder="예시)믹스견" name="species" > <br>
-
-                        <label for="petName"> &nbsp; 반려동물 이름 : </label>
-                        <input type="text" class="form-control" id="petName" placeholder="반려동물 이름" name="petName" > <br>
-                        
-                        <label for="age"> &nbsp; 반려동물 나이 : </label>
-                        <input type="number" class="form-control" id="age" placeholder="나이를 입력해주세요" name="age" > <br>
-                    	
-                    	<label for="weight"> &nbsp; 반려동물 무게 : </label>
-                        <input type="number" step="0.1" class="form-control" id="weight" placeholder="몸무게를 입력해주세요(kg제외)" name="weight" ><br>
-                    
-                    	
-                    </div>
                 </div> 
                 <br>
                 <div class="btns" align="center">
@@ -198,45 +136,7 @@
 
     </div>
 
-    <script>
-        $(function(){
-
-            $('#havePet').on('change',function() {
-                if($(this).prop('checked')){
-                    $('#petInfo').css('display', 'block');
-                    $('#species').prop('required',true); 
-                    $('#petName').prop('required',true); 
-                    $('#age').prop('required',true); 
-                    $('#weight').prop('required',true); 
-                    $('#noPet').attr('checked', false);
-                }
-                else{
-                    $('#petInfo').css('display', 'none');
-                }
-
-            });
-            $('#noPet').on('change',function() {
-                if($(this).prop('checked')){
-                    $('#petInfo').css('display', 'none');
-                    $('#species').prop('required',false); 
-                    $('#petName').prop('required',false); 
-                    $('#petAge').prop('required',false); 
-                    $('#weight').prop('required',false); 
-                    $('#havePet').attr('checked', false);
-                }
-            })
-            
-            
-          
-
-        });
-
-
-
-    </script>
-
-
-    
+   
     <script>
 	    function findPostcode() {
 	        new daum.Postcode({
@@ -254,10 +154,6 @@
 
   
         //정규 표현식 함수
-        function regExpEmail(email) {      
-            var regEmail =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-            return regEmail.test(email);   
-        }
         function regExpNickname(nickname) {      
             var regNickname =/^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;       
             return regNickname.test(nickname);   
@@ -270,22 +166,17 @@
             var regPhone = /^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})$/;
             return regPhone.test(phone);
         }
-        function regExpName(name) { //이름
-            var regName =  /^[가-힣]{2,10}$/;
-            return regName.test(name);
-        }
 
-        var emailCheck = 0;
+
         var pwdCheck = 0;
         var pwdCheck2 = 0;
         var phoneCheck = 0;
-        var nameCheck = 0;
         var nicknameCheck = 0;
 
 
         //가입조건 충족시 버튼 속성 변경
         $('#join').on('click', function(){
-            if( emailCheck == 1 && phoneCheck == 1  && nameCheck == 1  && pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
+            if( phoneCheck == 1  && pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
                 $(this).attr('type','submit');  
             }
             if($('#havePet').val()== 'Y'){
@@ -295,40 +186,6 @@
             
         })
 
-        //이메일 검사()
-        function checkEmail(){
-            
-            var $email = $('.innerOuter #memberEmail');
-            if(regExpEmail($email.val()) == true){
-                $.ajax({
-                    url: 'emailCheck.member',
-                    type: 'post',
-                    data : {checkEmail : $email.val()},
-                    success : result => {
-                        console.log(result);
-                        if(result =='YYY'){
-                        	
-                        emailCheck = 1;
-                        $('#emailhidden').css('display','none');
-                        }else{
-                        	$('#emailhidden').css({'display': 'block', 'color' :'red'}).text('이미 존재하는 이메일 입니다.');
-                            $email.focus();
-                            emailCheck = 0;
-                        }
-                    },
-                    error : () =>{
-                        console.log('실패');
-                        
-                        
-                    }
-                })
-            }else{
-            	$('#emailhidden').css({'display': 'block', 'color' :'red'}).text('이메일형식을 확인해주세요.');
-                $email.focus();
-                emailCheck = 0;
-            }
-            
-        }
 
         //닉네임 체크
         function checkNickname(){
@@ -363,18 +220,6 @@
             }
         }
 
-        //이름 체크
-        function checkName(){
-            var $name = $('.innerOuter #memberName');
-            if(regExpName($name.val())== true){
-                nameCheck = 1;
-                $('#namehidden').css('display', 'none');
-            }else{
-                $('#namehidden').css({'display': 'block', 'color' :'red'}).text('이름을 다시 확인해주세요');
-                $name.focus();
-                nameCheck = 0;
-            }
-        }
         //비멀번호 체크
         function checkPwd1(){
             var $pwd = $('.innerOuter #memberPwd');
