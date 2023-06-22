@@ -149,52 +149,6 @@ public class AjaxAdminController {
 	}
 	
 	
-	  private static final String API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
-	    private static final String API_KEY = "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";
-
-	    @PostMapping(value = "/sendMessage", produces = MediaType.APPLICATION_JSON_VALUE)
-	    public String sendMessage(@RequestBody String message) {
-	        String response = getChatGptResponse(message);
-	        return "{\"response\": \"" + response + "\"}";
-	    }
-
-	    private String getChatGptResponse(String message) {
-	        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
-	        requestBody.add("role", "system");
-	        requestBody.add("content", "You are a customer support agent");
-	        requestBody.add("role", "user");
-	        requestBody.add("content", message);
-
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.APPLICATION_JSON);
-	        headers.set("Authorization", "Bearer " + API_KEY);
-
-	        RestTemplate restTemplate = new RestTemplate();
-	        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
-	        ResponseEntity<String> responseEntity = restTemplate.exchange(API_ENDPOINT, HttpMethod.POST, requestEntity, String.class);
-	        String response = responseEntity.getBody();
-
-	        return response;
-	    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
 
