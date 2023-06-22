@@ -463,24 +463,23 @@
 		        SYSDATE BETWEEN START_DATE AND END_DATE
 		<choose>
 			<when test="rating == 'VIP'">
-				 AND 'VIP' = 'VIP'
+				 AND 'VIP' = #{rating}
 		 		 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
 		       		  COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
 			</when>
 			<when test="rating == 'GOLD'">
-				 AND 'GOLD' = 'GOLD'
+				 AND 'GOLD' = #{rating}
 	   			 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
 	         			COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
 			</when>
 			<otherwise>
-				  AND 'SILVER' = 'SILVER'
+				  AND 'SILVER' = #{rating}
    				  AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
         			   COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
         		 
 			</otherwise>
 		</choose>
 		AND MEMBER_NO IS NULL OR MEMBER_NO = #{memberNo}
-  		AND MEMBER_COUPON_STATUS = 'Y'
 		 
 	</select>
 	<!-- 사용상태에 따른  쿠폰리스트 -->
@@ -562,44 +561,44 @@
 	
 	<!-- 펫페이 충전 -->
 	<insert id="insertChargePetpay" parameterType="Petpay">
-	INSERT
-	  INTO PETPAY
-	       (
-	       PETPAY_NO,
-	       PETPAY_AMOUNT,
-	       PETPAY_DATE,
-	       PETPAY_STATUS,
-	       MEMBER_NO      
-	       )
-	VALUES (
-	       SEQ_PETPAY_NO.NEXTVAL,
-	       #{petpayAmount},
-	       SYSDATE,
-	       'P',
-	       #{memberNo}
-	       )
-	
+		INSERT
+		  INTO PETPAY
+		       (
+		       PETPAY_NO,
+		       PETPAY_AMOUNT,
+		       PETPAY_DATE,
+		       PETPAY_STATUS,
+		       MEMBER_NO      
+		       )
+		VALUES (
+		       SEQ_PETPAY_NO.NEXTVAL,
+		       #{petpayAmount},
+		       SYSDATE,
+		       'P',
+		       #{memberNo}
+		       )
+		
 	</insert>
 	
 	<!-- 펫페이 인출 -->
 	<insert id="insertWithdrawPetpay" parameterType="_int">
-	INSERT
-	  INTO PETPAY
-	       (
-	       PETPAY_NO,
-	       PETPAY_AMOUNT,
-	       PETPAY_DATE,
-	       PETPAY_STATUS,
-	       MEMBER_NO      
-	       )
-	VALUES (
-	       SEQ_PETPAY_NO.NEXTVAL,
-	       -#{petpayAmount},
-	       SYSDATE,
-	       'M',
-	       #{memberNo}
-	       )
-	
+		INSERT
+		  INTO PETPAY
+		       (
+		       PETPAY_NO,
+		       PETPAY_AMOUNT,
+		       PETPAY_DATE,
+		       PETPAY_STATUS,
+		       MEMBER_NO      
+		       )
+		VALUES (
+		       SEQ_PETPAY_NO.NEXTVAL,
+		       -#{petpayAmount},
+		       SYSDATE,
+		       'M',
+		       #{memberNo}
+		       )
+		
 	</insert>
 	
 	<select id="myReviewList" parameterType="_int" resultMap="allReviewsResultMap">

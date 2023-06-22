@@ -68,7 +68,7 @@ public class AjaxMyPageController {
 										HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		Member member = (Member)session.getAttribute("loginMember");
-		member.setRating(myPageService.getMemberRating(memberNo));
+		//member.setRating(myPageService.getMemberRating(memberNo));
 		System.out.println(member);
 		ArrayList<Coupon> cList = myPageService.memberCouponList(member);
 		System.out.println(cList);

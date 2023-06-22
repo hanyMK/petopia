@@ -38,8 +38,31 @@
 			
     }
 	#orderList{
-		padding-left: 500px;
+		padding-left: 100px;
 	}
+	.myOrderList{
+		text-align: center
+	}
+	.list{
+		width: 300px;
+		float: left;
+		border: 1px solid black;
+		overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+	}
+	.status > h3{
+		display: inline;
+	}
+	.status > button{
+		width: 100px;
+		background-color:#FAC264 ;
+	}
+	.page-link{
+		background-color: #FAC264;
+	}
+
+
 
 </style>
 </head>
@@ -57,7 +80,7 @@
 			</div>
 			<div id="main_center_right">
 				<div id="main_center_right_top">
-					<h2 align="center">배송목록 조회</h2>
+					<h2 align="center">주문/배송목록 조회</h2>
 				</div>
 				<div id="main_center_right_bottom">
 					<div id="orderList">
@@ -107,15 +130,19 @@
 				})
 			})
 
+		})
+
+		$(()=>{
+
 			//배송상세 내역
-			$(document).on('click', '.myOrderList >.list', e =>{
-				var rno = $(e.target).children('input[type=hidden]').val();
-			
-				console.log(rno ) ;
+			$('#orderList').on('click', '.myOrderList > .list', function() {
+				var rno = $(this).find('.receiptNo1').val();
+				console.log(rno);
 				location.href = 'orderDetail.me?receiptNo=' +rno ;
 			})
-
 		})
+
+		
 		
 		//구매내역 조회 ajax
 		function selectOrderList(cpage){
@@ -144,19 +171,19 @@
 						console.log(list);
 						value += '<div class="myOrderList">'	
 								+ 	'<div class="list" style="font-weight: 900px;">' 
-								+ 	'<input type="hidden" name="receiptNo" value="' + item[i].receiptNo + '">'
+								+ 	'<input type="hidden" class="receiptNo1" name="receiptNo" value="' + item[i].receiptNo + '">'
 								+ 		'<b>상품명 : ' + item[i].productTitle + '</b><br>'
 								+ 		'<b>결제 금액 : ' + item[i].resultPrice + '</b><br>'
 								+	'</div>' ;
 								if(item[i].shippingStatus =='배송중'){
-									value += '<div>' 
-											+		item[i].shippingStatus +'<br>'
+									value += '<div class="status" >' 
+											+		'<h3>'+item[i].shippingStatus +'</h3><br>'
 											+ '<button class="'+ item[i].receiptNo +'">구매확정</button>'
 											+ '</div>' 
 											+ '</div><br>';
 								}else{
-									value += '<div>' 
-											+		item[i].shippingStatus 
+									value += '<div class="status" >' 
+											+		'<h3>'+item[i].shippingStatus +'</h3>'
 											+ '</div>' 
 											+ '</div><br>';
 								}
