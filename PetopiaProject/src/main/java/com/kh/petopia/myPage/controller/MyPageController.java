@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +16,7 @@ import com.kh.petopia.common.template.MyFileRename;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Petpay;
+import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Controller
@@ -112,14 +112,10 @@ public class MyPageController {
 	
 	// 마이페이지 펫페이 충전
 	@RequestMapping("insertChargePetpay.me")
-	public String insertChargePetpay(int memberNo, int petpayAmount, HttpSession session, Model model) {
-		Petpay p = new Petpay();
-		p.setMemberNo(memberNo);
-		p.setPetpayAmount(petpayAmount);
-		
+	public String insertChargePetpay(Petpay p, HttpSession session, Model model) {
 		if(myPageService.insertChargePetpay(p) > 0) {
 			session.setAttribute("alertMsg", "펫페이 충전 완료!");
-			return "redirect:myPetpayPoint.me?mno=" + memberNo;
+			return "redirect:myPetpayPoint.me?mno=" + p.getMemberNo();
 		} else {
 			model.addAttribute("errorMsg", "펫페이 충전 실패");
 			return "common/errorPage";
@@ -128,14 +124,10 @@ public class MyPageController {
 	
 	// 마이페이지 펫페이 인출
 	@RequestMapping("insertWithdrawPetpay.me")
-	public String insertWithdrawPetpay(int memberNo, int petpayAmount, HttpSession session, Model model) {
-		Petpay p = new Petpay();
-		p.setMemberNo(memberNo);
-		p.setPetpayAmount(petpayAmount);
-		
+	public String insertWithdrawPetpay(Petpay p, HttpSession session, Model model) {
 		if(myPageService.insertWithdrawPetpay(p) > 0) {
 			session.setAttribute("alertMsg", "펫페이 인출 완료!");
-			return "redirect:myPetpayPoint.me?mno=" + memberNo;
+			return "redirect:myPetpayPoint.me?mno=" + p.getMemberNo();
 		} else {
 			model.addAttribute("errorMsg", "펫페이 충전 실패");
 			return "common/errorPage";
@@ -145,8 +137,6 @@ public class MyPageController {
 	// 리뷰 조회 페이지
 	@RequestMapping("myReview.me")
 	public String myReviewList() {
-		//System.out.println(mno);
-		//model.addAttribute("list", myPageService.myReviewList(mno));
 		return "myPage/myReviewList";
 	}
 	
@@ -186,6 +176,21 @@ public class MyPageController {
 			// 상품 리뷰 작성
 			if(myPageService.insertProductReview(r) > 0) {
 				session.setAttribute("alertMsg", "리뷰 등록 성공!!");
+				
+				Point p = new Point();
+				p.setMemberNo(r.getMemberNo());
+				
+				/*
+				// 포인트 적립
+				if(upfile.getOriginalFilename().equals("")) {
+					p.setPointAmount(500);
+					myPageService.insertReviewPoint(p);
+				} else {
+					p.setPointAmount(1000);
+					myPageService.insertReviewPoint(p);
+				}
+				*/
+				
 				return "redirect:myReview.me";
 			} else {
 				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");

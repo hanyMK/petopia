@@ -43,7 +43,7 @@
 		<!-- 메인페이지 페이아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
 			<h4>펫페이 : ${ petpayAmount }원</h4>
-			<a  target="_parent" href="myPetpayPoint.me?mno=${ loginMember.memberNo }">조회 / 충전하기</a>
+			<a target="_parent" href="myPetpayPoint.me?mno=${ loginMember.memberNo }">조회 / 충전하기</a>
 		</div>
 	</div>
 
