@@ -16,6 +16,7 @@ import com.kh.petopia.member.model.service.MemberService;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.service.MyPageServiceImpl;
 
 @Controller
 public class MemberController {
@@ -50,11 +51,9 @@ public class MemberController {
 		@RequestMapping("login.member")
 		public ModelAndView login(Member m, ModelAndView mv, HttpSession session ) {
 			Member loginMember = memberService.loginMember(m);
-			System.out.println(loginMember.getMemberNo());
-			loginMember.setRating(myPageService.getMemberRating(loginMember.getMemberNo()));
-			System.out.println(myPageService.getMemberRating(loginMember.getMemberNo()));
 			
 			if(loginMember != null && bcyptPasswordEncoder.matches(m.getMemberPwd(), loginMember.getMemberPwd())){
+				loginMember.setRating(myPageService.getMemberRating(loginMember.getMemberNo()));
 				session.setAttribute("loginMember", loginMember);
 				mv.setViewName("redirect:/");
 			}else {
@@ -170,10 +169,12 @@ public class MemberController {
 			return "member/resetPwd";
 		}
 		
-		
-		
-
-
+	
+		//회원정보 수정
+		@GetMapping("updateInfo.member")
+		public String updateInfo() {
+			return "member/memberUpdateForm";
+		}
 		
 		
 		

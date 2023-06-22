@@ -482,17 +482,14 @@
 		        SYSDATE BETWEEN START_DATE AND END_DATE
 		<choose>
 			<when test="rating == 'VIP'">
-				 AND 'VIP' = #{rating}
 		 		 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
 		       		  COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
 			</when>
 			<when test="rating == 'GOLD'">
-				 AND 'GOLD' = #{rating}
 	   			 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
 	         			COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
 			</when>
 			<otherwise>
-				  AND 'SILVER' = #{rating}
    				  AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
         			   COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
         		 

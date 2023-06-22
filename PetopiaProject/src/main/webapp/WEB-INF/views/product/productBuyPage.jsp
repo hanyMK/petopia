@@ -233,8 +233,6 @@
 	    }
 	</script>
 
-
-
         <!-- 펫페이 충전 시 보여질 Modal -->
         <div class="modal fade" id="chargePetpay">
             <div class="modal-dialog modal-sm">
@@ -290,6 +288,7 @@
                             가격 : ${item.cartPrice}
                             추가금 : ${item.extraMoney}</div>
                             <hr>
+                            <input type="hidden" class="listSize" value="${item.productSize}" />
                         </c:forEach>
                     </div>
                 </div>
@@ -311,7 +310,7 @@
                     <br><hr><br>
                     <h4 id="payAmount"></h4> <button data-toggle="modal" data-target="#chargePetpay">충전</button>
                     <br>
-                    <button onclick="goPayment();">결제하기</button>
+                    <button onclick="insertPayment();">결제하기</button>
                 </div>
             </div>
             <div id="product_receipt_content_4">
@@ -392,6 +391,10 @@
                 </div>
             </div>
 
+
+            <button onclick="check();">dddddddddddddddddddddddddddddddd</button>
+
+
         </div>
 
     <jsp:include page="../common/footer.jsp"/>
@@ -421,6 +424,8 @@
         })
 
         function selectCoupon(){
+            // 빈배열 선언 
+
             $.ajax({
                 url : 'selectCoupon.pd',
                 data : {
@@ -533,24 +538,6 @@
             })
         }
 
-        var couponDiscount = $('#coupon_discount').text();
-        var pointValue = $('#point_span').text();
-
-        // $.ajax({
-        //     url : 'insertPayment.pd',
-        //     data : {
-        //         total : ${result},
-        //         coupon : couponDiscount,
-        //         point : pointValue,
-        //     },
-        //     success : function(){
-
-        //     },
-        //     error : function(){
-
-        //     }
-        // })
-
     function insertPetpay(){
             $.ajax({
                 url : 'insertPetpay.pd',
@@ -648,25 +635,53 @@
    	});
     </script>
 
-    <!-- <script>
-        function goPayment(){
-            $.ajax({
-                url : ,
-                data : {
+    <script>
+        function check(){
+        //     var arr = [];
+        //    for(let i = 0; i < $('.listSize').length; i++){
+        //         // arr.push(${list.get(0)});
+                
+        //         console.log($('.listSize').each(i, ));
+        //     }
+        //     // console.log(arr);
+            // $.each($('.listSize'), function(index, value){
+            //     console.log(index + " : " + $('.listSize').val());
+            // }) 
+            // $('.listSize').each($('.listSize').length, list){
 
-                },
-                success : function(){
-                    couponNo : ,
-                    point : ,
-                    
-                },
-                error : function(){
+            // }
+            for(var i = 0; i < $('.listSize').length; i++){
+                console.log($('.listSize')[i].value);
+            }
 
-                }
-            })
-            
         }
-    </script> -->
+
+    </script>
+
+    <script>
+        var couponDiscount = $('#coupon_discount').text();
+        function insertPayment(){
+            $.ajax({
+                url : 'insertPayment.pd',
+                data : {
+                memberNo : ${loginMember.memberNo},
+                //list : '$(list)',
+                couponNo : $('.cno').text(),
+                point : $('#payment_info_3').text(),
+                // shippingNo : ,
+                // amount : ,
+                // productSize : ,
+                //totalPrice : ${result}
+            },
+            success : function(result){
+                console.log(result);
+            },
+            error : function(){
+
+            }
+            })
+        }
+    </script>
 
 </body>
 </html>

@@ -135,11 +135,7 @@ public class ProductController {
 		int memNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 		int point = myPageService.selectMemberPoint(memNo);
 		System.out.println(point);
-		if(point > 0) {
-			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("point" , point).addObject("result", result).setViewName("product/productBuyPage");
-		} else {
-			mv.addObject("list" ,productService.selectCartList(memNo)).addObject("result", result).setViewName("product/productBuyPage");
-		}
+		mv.addObject("list" ,productService.selectCartList(memNo)).addObject("point" , point).addObject("result", result).setViewName("product/productBuyPage");
 		return mv;
 	}
 	
@@ -219,14 +215,15 @@ public class ProductController {
 		return new Gson().toJson(productService.selectSearch(keyword));
 	}
 	
-	
-//	@ResponseBody
-//	@RequestMapping(value="insertPayment.pd", produces="application/json; charset=UTF-8")
-//	public String insertPayment(ProductReceipt pr) {
-//		System.out.println(pr.getProductNo());
-//		System.out.println(pr.getPoint());
-//		System.out.println(pr.getCouponNo());
-//		return "";
-//	}
+	@ResponseBody
+	@RequestMapping(value="insertPayment.pd", produces="application/json; charset=UTF-8")
+	public String insertPayment(ProductReceipt pr) {
+		System.out.println("---------------------------------");
+		System.out.println("memberNo : " + pr.getMemberNo());
+		System.out.println("couponNo : " + pr.getCouponNo()); // 쿠폰 없을시 빈 문자열 ""
+		System.out.println("point : " + pr.getPoint()); // 포인트 없을시 빈 문자열 ""
+		System.out.println("");
+		return "";
+	}
 	
 }

@@ -315,6 +315,8 @@ public class MyPageController {
 		return "redirect:orderDetail.me?receiptNo="+ productReceipt.getReceiptNo();
 	}
 	
+	
+	
 
 	
 }
