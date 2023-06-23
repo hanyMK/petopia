@@ -24,8 +24,19 @@
 	}
 	#alram_area_bottom{
 		height:90%;
-		padding-top:17px;
+		padding-top:50px;
 	}
+	
+	#alram_area_bottom>a{
+		font-size:20px;
+		text-decoration: none;
+		color:#F6823F;
+	}
+	
+	#alram_area_bottom>a:hover{
+		cursor:point;
+	}
+	
 	#myList{
 		border: 1px solid black;
 		height: 100px;
@@ -42,7 +53,7 @@
 	<div id="alram_area" align="center">
 		<!-- 메인페이지 페이아이콘 클릭 시 iframe jsp -->
 		<div id="alram_area_bottom">
-			<h4>펫페이 : ${ petpayAmount }원</h4>
+			<h2>펫페이 : ${ petpayAmount }원</h2><br>
 			<a target="_parent" href="myPetpayPoint.me?mno=${ loginMember.memberNo }">조회 / 충전하기</a>
 		</div>
 	</div>

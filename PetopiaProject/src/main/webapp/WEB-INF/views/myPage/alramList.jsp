@@ -85,15 +85,15 @@
 					} else if(list[i].columnAll != null && list[i].columnAll == 'Y') {
 						value += '<div id="myList">'
 							   + '1:1 답변이 등록되었습니다.'
-							   + '<input type="hidden" value="문의">';;
+							   + '<input type="hidden" value="문의">';
 					} else {
 						value += '<div id="myList">'
 							   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
-							   + '<input type="hidden" value="쿠폰">';;
+							   + '<input type="hidden" value="쿠폰">';
 					}
 					
-					value += '<span class="delBtn" id="' + list[i].primaryNo + '">X</span>'
-						  + '</div><br>';
+					value += '<button class="delBtn" id="' + list[i].primaryNo + '">X</button>'
+						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
 				
@@ -153,9 +153,10 @@
 							   + '주문하신 상품이 '
 							   + list[i].shippingStatus;
 					}
-					value += '<input type="hidden" value="배송">'
-					       + '<span class="delBtn" id="' + list[i].shippingNo + '">X</span>'
-					       + '입니다. </div><br>';
+					value += '입니다.'
+						   + '<input type="hidden" value="배송">'
+					       + '<button class="delBtn" id="' + list[i].shippingNo + '">X</button>'
+					       + '</div><br>'
 				};
 				
 				$('#alram_area_bottom').html(value);
@@ -184,7 +185,7 @@
 						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
 						   + '내용 : ' + list[i].replyContent + '<br>'
 						   + '<input type="hidden" value="댓글">'
-						   + '<span class="delBtn" id="' + list[i].replyNo + '">X</span>'
+						   + '<button class="delBtn" id="' + list[i].replyNo + '">X</button>'
 						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
@@ -212,16 +213,15 @@
 						if(list[i].columnAll == 'Y') {
 							value += '<div id="myList">'
 								   + '답변이 완료되었습니다.'
-								   + '<input type="hidden" value="문의">'
-								   + '<span class="delBtn" id="' + list[i].primaryNo + '">X</span>'
-								   + '</div><br>';
+								   + '<input type="hidden" value="문의">';
 						} else {
 							value += '<div id="myList">'
 								   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
-								   + '<input type="hidden" value="쿠폰">'
-								   + '<span class="delBtn" id="' + list[i].primaryNo + '">X</span>'
-								   + '</div><br>';
+								   + '<input type="hidden" value="쿠폰">';
 						}
+						
+						value += '<button class="delBtn" id="' + list[i].primaryNo + '">X</button>'
+						       + '</div><br>';
 					}
 				};
 				

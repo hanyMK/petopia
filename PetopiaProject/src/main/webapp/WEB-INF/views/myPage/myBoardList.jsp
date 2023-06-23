@@ -75,11 +75,12 @@
 				let value = "";
 				for(let i in list) {
 					console.log(list);
-					value += '<div id="myBoardList">'							
-						   + list[i].boardTitle + '<br>'
-						   + list[i].boardContent + '<br>'
-						   + list[i].createDate + '<br>'
-						   + list[i].category + '<br>'
+					value += '<div id="myBoardList">'
+						   + 	'<input type="hidden" id="boardNo1" name="boardNo" value="' + list[i].boardNo + '">'
+						   + 	'제목 : ' + list[i].boardTitle + '<br>'
+						   + 	'내용 : ' + list[i].boardContent + '<br>'
+						   + 	'작성 날짜 : ' + list[i].createDate + '<br>'
+						   + 	'카테고리 : ' + list[i].category + '<br>'
 						   + '</div><br>';
 				};
 				$('#main_center_right_bottom').html(value);
@@ -101,11 +102,12 @@
 				let value = "";
 				for(let i in list) {
 					console.log(list);
-					value += '<div id="myBoardList">'							
-						   + list[i].boardTitle + '<br>'
-						   + list[i].replyContent + '<br>'
-						   + list[i].createDate + '<br>'
-						   + list[i].category + '<br>'
+					value += '<div id="myBoardList">'
+						   + 	'<input type="hidden" id="boardNo1" name="boardNo" value="' + list[i].boardNo + '">'
+						   + 	'제목 : ' + list[i].boardTitle + '<br>'
+						   + 	'내용 : ' + list[i].replyContent + '<br>'
+						   + 	'작성 날짜 : ' + list[i].createDate + '<br>'
+						   + 	'카테고리 : ' + list[i].category + '<br>'
 						   + '</div><br>';
 				};
 				$('#main_center_right_bottom').html(value);
@@ -119,8 +121,17 @@
 	};
 	
 	</script>
+	
+	<script>
+		// 게시물 상세 조회, 댓글 상세 조회
+		$(function() {
+			$('#main_center_right_bottom').on('click','#myBoardList', function() {
+				//console.log($('#boardNo1').val());
+				location.href = 'detail.bo?bno=' + $('#boardNo1').val();
+			})
+		});
+	</script>
 
-   
     <jsp:include page="../common/footer.jsp" />
 
 </body>

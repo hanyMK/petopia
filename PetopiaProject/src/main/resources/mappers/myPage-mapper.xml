@@ -112,6 +112,7 @@
 		<result column="SHIPPING_STATUS"  property="shippingStatus"/>
 		<result column="CHECK_IN_OUT" property="checkInOut"/>
 		<result column="FINAL_PRICE" property="finalPrice"/>
+		<result column="FILE_PATH"	property="filePath" />
 	</resultMap>
 	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
@@ -119,7 +120,8 @@
 		       board_title,
 		       board_content,
 		       create_date,
-		       category
+		       category,
+		       board_no
 		  from 
 		       board b
 		  join
@@ -137,7 +139,8 @@
 		       b.board_title,
 		       r.reply_content,
 		       r.create_date,
-		       b.category
+		       b.category,
+		       b.board_no
 		  from 
 		       board b
 		  join
@@ -152,13 +155,11 @@
 		    by r.create_date desc
 	</select>
 	
-	
-	
 	<select id="alramList" parameterType="member" resultMap="alramResultSet">
-		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_KEY, CATEGORY, BOARD_TITLE, NICKNAME, REPLY_CONTENT
+		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO, CATEGORY, BOARD_TITLE, NICKNAME, REPLY_CONTENT
 		  FROM
 		      (
-		       SELECT QNA_YN AS COLUMN_ALL, BOARD_NO AS PRIMARY_KEY, CREATE_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM BOARD
 		        WHERE CATEGORY = 'QNA'
 		          AND QNA_YN = 'Y'
@@ -167,7 +168,7 @@
 		      	  
 		        UNION ALL
 		        
-		       SELECT COUPON_NAME AS COLUMN_ALL, MC.COUPON_NO AS PRIMARY_KEY, START_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, C.COUPON_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM COUPON C
 		         LEFT 
 		         JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
@@ -191,7 +192,7 @@
 		               
 		       UNION ALL
 		        
-		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_NO AS PRIMARY_KEY, S.SHIPPING_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_DATE AS DATE_ALL, S.SHIPPING_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM PRODUCT_RECEIPT P
 		         JOIN SHIPPING S ON(S.SHIPPING_NO = P.RECEIPT_NO)
 		        WHERE MEMBER_NO = #{ memberNo }
@@ -199,7 +200,7 @@
 		        
 		       UNION ALL
 		        
-		       SELECT NULL AS COLUMN_ALL, R.REPLY_NO AS PRIMARY_KEY, R.CREATE_DATE AS DATE_ALL, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
+		       SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.REPLY_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
 		         FROM MEMBER M
 		         LEFT
 		         JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
@@ -246,7 +247,7 @@
 		        
 		        UNION ALL
 		        
-		        SELECT COUPON_NAME AS COLUMN_ALL, START_DATE DATE_ALL, MC.COUPON_NO AS PRIMARY_NO
+		        SELECT COUPON_NAME AS COLUMN_ALL, START_DATE DATE_ALL, C.COUPON_NO AS PRIMARY_NO
 		          FROM COUPON C
 		          LEFT 
 		          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
@@ -645,205 +646,259 @@
 	</insert>
 	
 	<select id="myReviewList" parameterType="_int" resultMap="allReviewsResultMap">
-	SELECT MEMBER_NO, TITLE, RECEIPT_NO, RECEIPT_DATE, REVIEW_PRODUCT_NO, PRODUCT_NO, REVIEW_NO, SHIPPING_STATUS, CEHCK_IN_OUT, FINAL_PRICE
-    FROM
-    (
-	SELECT
-	       MEMBER_NO,
-	       P.PRODUCT_TITLE||' ' || PB.AMOUNT || '개' AS TITLE ,
-	       PR.RECEIPT_NO,
-	       PR.RECEIPT_DATE,
-	       PRV.PRODUCT_NO AS REVIEW_PRODUCT_NO,
-	       P.PRODUCT_NO,
-	       CASE WHEN (PRV.PRODUCT_NO = P.PRODUCT_NO AND PRV.RECEIPT_NO = PR.RECEIPT_NO)THEN PRV.PRODUCT_REVIEW_NO
-	       END AS REVIEW_NO,
-	       S.SHIPPING_STATUS,
-	       NULL AS CEHCK_IN_OUT,
-	       CASE 
-	       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
-	       THEN R.RESULT_PRICE - POINT - C.DISCOUNT
-	       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
-	       THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
-	       ELSE  R.RESULT_PRICE - POINT
-	       END FINAL_PRICE
-	  FROM 
-	       VIEW_PRODUCT_RECEIPT PR
-	  JOIN 
-	       PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
-	  JOIN 
-	       PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
-	  LEFT JOIN
-	       PRODUCT_REVIEW PRV ON (PRV.RECEIPT_NO= PR.RECEIPT_NO)
-	  LEFT JOIN 
-	       COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
-	  JOIN
-	       VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PB.RECEIPT_NO)
-	  JOIN 
-	       SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
-	  LEFT JOIN     
-	  
-	       ATTACHMENT A ON (A.REF_NO = P.PRODUCT_NO)        
-	 WHERE 
-	       MEMBER_NO = #{memberNo}
-	   AND
-	       SHIPPING_STATUS = '배송완료'
-      
-	UNION ALL
-	
-    SELECT 
-	        MEMBER_NO,
-	        CASE 
-	        WHEN PET_STORE = 1 THEN '호텔'
-	        WHEN PET_STORE = 2 THEN '유치원'
-	        WHEN PET_STORE = 3 THEN '미용, 선생님 : ' || EMPLOYEE
-	        WHEN PET_STORE = 4 THEN '훈련, 선생님 : ' || EMPLOYEE
-	        END  TITLE,
-            R.RESERVATION_NO RECEIPT_NO,
-            RR.RECEIPT_DATE,
-            NULL AS REVIEW_PRODUCT_NO,
-            NULL AS PRODUCT_NO,
-            REVIEW_NO,
-            NULL AS SHIPPING_STATUS,
-            CONCAT(CONCAT(CHECK_IN, ' ~ '), CHECK_OUT) AS CHECK_IN_OUT,
-            CASE 
-	        WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
-	        THEN RESERVATION_FEE - C.DISCOUNT - POINT 
-	        WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
-	        THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
-	        ELSE  RESERVATION_FEE - POINT
-	        END FINAL_PRICE
-	  FROM
-	        RESERVATION R 
-	  JOIN (
-	        SELECT
-	                RESERVATION_NO,
-	                RECEIPT_DATE,
-	                NVL(COUPON_NO,0) COUPON_NO,
-	                NVL(POINT,0) POINT
-	          FROM 
-	                RESERVATION_RECEIPT
-	          WHERE 
-	                RECEIPT_STATUS='Y') RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
-	  LEFT 
-	       JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
-	  LEFT 
-	       JOIN PET_STORE_REVIEW PSR ON(PSR.RESERVATION_NO = RR.RESERVATION_NO)
-	 WHERE
-	        MEMBER_NO = #{memberNo}
-	 )
-	 ORDER
-	    BY RECEIPT_DATE DESC
+		SELECT MEMBER_NO, TITLE, RECEIPT_NO, RECEIPT_DATE, REVIEW_PRODUCT_NO, PRODUCT_NO, REVIEW_NO, SHIPPING_STATUS, CEHCK_IN_OUT, FINAL_PRICE
+	    FROM
+	    (
+		SELECT
+		       MEMBER_NO,
+		       P.PRODUCT_TITLE||' ' || PB.AMOUNT || '개' AS TITLE ,
+		       PR.RECEIPT_NO,
+		       PR.RECEIPT_DATE,
+		       PRV.PRODUCT_NO AS REVIEW_PRODUCT_NO,
+		       P.PRODUCT_NO,
+		       CASE WHEN (PRV.PRODUCT_NO = P.PRODUCT_NO AND PRV.RECEIPT_NO = PR.RECEIPT_NO)THEN PRV.PRODUCT_REVIEW_NO
+		       END AS REVIEW_NO,
+		       S.SHIPPING_STATUS,
+		       NULL AS CEHCK_IN_OUT,
+		       CASE 
+		       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		       THEN R.RESULT_PRICE - POINT - C.DISCOUNT
+		       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		       THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+		       ELSE  R.RESULT_PRICE - POINT
+		       END FINAL_PRICE
+		  FROM 
+		       VIEW_PRODUCT_RECEIPT PR
+		  JOIN 
+		       PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+		  JOIN 
+		       PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
+		  LEFT JOIN
+		       PRODUCT_REVIEW PRV ON (PRV.RECEIPT_NO= PR.RECEIPT_NO)
+		  LEFT JOIN 
+		       COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+		  JOIN
+		       VIEW_RESULT_PRICE R ON (R.RECEIPT_NO = PB.RECEIPT_NO)
+		  JOIN 
+		       SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+		  LEFT JOIN     
+		  
+		       ATTACHMENT A ON (A.REF_NO = P.PRODUCT_NO)        
+		 WHERE 
+		       MEMBER_NO = #{memberNo}
+		   AND
+		       SHIPPING_STATUS = '배송완료'
+	      
+		UNION ALL
+		
+	    SELECT 
+		        MEMBER_NO,
+		        CASE 
+		        WHEN PET_STORE = 1 THEN '호텔'
+		        WHEN PET_STORE = 2 THEN '유치원'
+		        WHEN PET_STORE = 3 THEN '미용, 선생님 : ' || EMPLOYEE
+		        WHEN PET_STORE = 4 THEN '훈련, 선생님 : ' || EMPLOYEE
+		        END  TITLE,
+	            R.RESERVATION_NO RECEIPT_NO,
+	            RR.RECEIPT_DATE,
+	            NULL AS REVIEW_PRODUCT_NO,
+	            NULL AS PRODUCT_NO,
+	            REVIEW_NO,
+	            NULL AS SHIPPING_STATUS,
+	            CONCAT(CONCAT(CHECK_IN, ' ~ '), CHECK_OUT) AS CHECK_IN_OUT,
+	            CASE 
+		        WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+		        THEN RESERVATION_FEE - C.DISCOUNT - POINT 
+		        WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+		        THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
+		        ELSE  RESERVATION_FEE - POINT
+		        END FINAL_PRICE
+		  FROM
+		        RESERVATION R 
+		  JOIN (
+		        SELECT
+		                RESERVATION_NO,
+		                RECEIPT_DATE,
+		                NVL(COUPON_NO,0) COUPON_NO,
+		                NVL(POINT,0) POINT
+		          FROM 
+		                RESERVATION_RECEIPT
+		          WHERE 
+		                RECEIPT_STATUS='Y') RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
+		  LEFT 
+		       JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
+		  LEFT 
+		       JOIN PET_STORE_REVIEW PSR ON(PSR.RESERVATION_NO = RR.RESERVATION_NO)
+		 WHERE
+		        MEMBER_NO = #{memberNo}
+		 )
+		 ORDER
+		    BY RECEIPT_DATE DESC
 	</select>
 	
 	<select id="productReviewForm" parameterType="allReviews" resultType="allReviews" resultMap="allReviewsResultMap">
-	SELECT
-           PR.RECEIPT_DATE,
-           P.PRODUCT_TITLE||' ' || PB.AMOUNT || '개' AS TITLE,
-           PR.RECEIPT_NO,
-           P.PRODUCT_NO,
-           MEMBER_NO
-     FROM 
-           PRODUCT_RECEIPT PR
-      JOIN 
-     	   PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
-      JOIN 
-      	   PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
-	 WHERE 
-	       MEMBER_NO = #{memberNo}
-       AND
-           P.PRODUCT_NO = #{productNo}
-       AND 
-           PR.RECEIPT_NO = #{receiptNo}
+		SELECT
+	           PR.RECEIPT_DATE,
+	           P.PRODUCT_TITLE||' ' || PB.AMOUNT || '개' AS TITLE,
+	           PR.RECEIPT_NO,
+	           P.PRODUCT_NO,
+	           MEMBER_NO,
+	           FILE_PATH  || CHANGE_NAME FILE_PATH
+	     FROM 
+	           PRODUCT_RECEIPT PR
+	      JOIN 
+	     	   PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+	      JOIN 
+	      	   PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
+	      JOIN     
+	           ATTACHMENT A ON (A.REF_NO = P.PRODUCT_NO) 
+		 WHERE 
+		       MEMBER_NO = #{memberNo}
+	       AND
+	           P.PRODUCT_NO = #{productNo}
+	       AND 
+	           PR.RECEIPT_NO = #{receiptNo}
 	</select>
 	
 	<select id="reservationReviewForm" parameterType="allReviews" resultType="allReviews" resultMap="allReviewsResultMap">
-	SELECT
-	        CASE 
-	        WHEN PET_STORE = 1 THEN '호텔'
-	        WHEN PET_STORE = 2 THEN '유치원'
-	        WHEN PET_STORE = 3 THEN '미용'
-	        WHEN PET_STORE = 4 THEN '훈련'
-	        END  TITLE,
-	        RECEIPT_DATE,
-            RR.RESERVATION_NO AS RECEIPT_NO
-	  FROM
-	        RESERVATION R 
-      JOIN 
-           RESERVATION_RECEIPT RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
-	 WHERE
-	        MEMBER_NO = #{memberNo}
-       AND
-            RR.RESERVATION_NO = #{receiptNo}
+		SELECT
+		        CASE 
+		        WHEN PET_STORE = 1 THEN '호텔'
+		        WHEN PET_STORE = 2 THEN '유치원'
+		        WHEN PET_STORE = 3 THEN '미용'
+		        WHEN PET_STORE = 4 THEN '훈련'
+		        END  TITLE,
+		        RECEIPT_DATE,
+	            RR.RESERVATION_NO AS RECEIPT_NO
+		  FROM
+		        RESERVATION R 
+	      JOIN 
+	           RESERVATION_RECEIPT RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
+		 WHERE
+		        MEMBER_NO = #{memberNo}
+	       AND
+	            RR.RESERVATION_NO = #{receiptNo}
 	</select>
 	
 	<insert id="insertProductReview" parameterType="allReviews">
-	INSERT 
-	  INTO PRODUCT_REVIEW
-	      (
-	       PRODUCT_REVIEW_NO, 
-	       RECEIPT_NO, 
-	       PRODUCT_NO, 
-	       REVIEW_CONTENT, 
-	       CREATE_DATE, 
-	       RATING
-	      ) 
-    VALUES 
-          (
-           SEQ_PRODUCT_REVIEW_NO.NEXTVAL, 
-           #{receiptNo}, 
-           #{productNo}, 
-           #{reviewContent}, 
-           SYSDATE,
-           #{rating}
-           )
-	 </insert>
-	 
-	<insert id="insertReservationReview" parameterType="allReviews">
-	INSERT
-	  INTO
-	      PET_STORE_REVIEW
-	      (
-	      REVIEW_NO,
-	      RESERVATION_NO,
-	      REVIEW_CONTENT,
-	      CREATE_DATE,
-	      RATING
-	      )
-	VALUES
-	      (
-	      SEQ_PSRNO.NEXTVAL,
-	      #{receiptNo}, 
-	      #{reviewContent},
-	      SYSDATE,
-	      #{rating}     
-	      )
+		INSERT 
+		  INTO PRODUCT_REVIEW
+		      (
+		       PRODUCT_REVIEW_NO, 
+		       RECEIPT_NO, 
+		       PRODUCT_NO, 
+		       REVIEW_CONTENT, 
+		       CREATE_DATE, 
+		       RATING
+		      ) 
+	    VALUES 
+	          (
+	           SEQ_PRODUCT_REVIEW_NO.NEXTVAL, 
+	           #{receiptNo}, 
+	           #{productNo}, 
+	           #{reviewContent}, 
+	           SYSDATE,
+	           #{rating}
+	           )
 	 </insert>
 	 
 	 <insert id="insertProductReview2" parameterType="allReviews">
-	 INSERT
-	   INTO
-	       ATTACHMENT
-	       (
-	       FILE_NO,
-	       FILE_CATEGORY,
-	       REF_NO,
-	       FILE_LEVEL,
-	       ORIGIN_NAME,
-	       CHANGE_NAME,
-	       FILE_PATH,
-	       FILE_STATUS
-	       )
-	 VALUES
-	       (
-	       SEQ_FNO.NEXTVAL,
-	       5,
-	       SEQ_PRODUCT_REVIEW_NO.CURRVAL,
-	       0,
-	       #{originName},
-	       #{changeName},
-	       #{filePath},
-	       'Y'
-	       )
+		 INSERT
+		   INTO
+		       ATTACHMENT
+		       (
+		       FILE_NO,
+		       FILE_CATEGORY,
+		       REF_NO,
+		       FILE_LEVEL,
+		       ORIGIN_NAME,
+		       CHANGE_NAME,
+		       FILE_PATH,
+		       FILE_STATUS
+		       )
+		 VALUES
+		       (
+		       SEQ_FNO.NEXTVAL,
+		       5,
+		       SEQ_PRODUCT_REVIEW_NO.CURRVAL,
+		       0,
+		       #{originName},
+		       #{changeName},
+		       #{filePath},
+		       'Y'
+		       )
+	 </insert>
+	 
+	<insert id="insertReservationReview" parameterType="allReviews">
+		INSERT
+		  INTO
+		      PET_STORE_REVIEW
+		      (
+		      REVIEW_NO,
+		      RESERVATION_NO,
+		      REVIEW_CONTENT,
+		      CREATE_DATE,
+		      RATING
+		      )
+		VALUES
+		      (
+		      SEQ_PSRNO.NEXTVAL,
+		      #{receiptNo}, 
+		      #{reviewContent},
+		      SYSDATE,
+		      #{rating}     
+		      )
+	 </insert>
+	 
+	 <insert id="insertReservationReview2" parameterType="allReviews">
+		 INSERT
+		   INTO
+		       ATTACHMENT
+		       (
+		       FILE_NO,
+		       FILE_CATEGORY,
+		       REF_NO,
+		       FILE_LEVEL,
+		       ORIGIN_NAME,
+		       CHANGE_NAME,
+		       FILE_PATH,
+		       FILE_STATUS
+		       )
+		 VALUES
+		       (
+		       SEQ_FNO.NEXTVAL,
+		       5,
+		       SEQ_PSNO.CURRVAL,
+		       0,
+		       #{originName},
+		       #{changeName},
+		       #{filePath},
+		       'Y'
+		       )
+	 </insert>
+
+	 
+	 <insert id="insertReviewPoint" parameterType="point">
+	 	INSERT
+		  INTO
+		       POINT
+		       (
+		       POINT_NO,
+		       POINT_AMOUNT,
+		       POINT_HISTORY,
+		       POINT_DATE,
+		       POINT_STATUS,
+		       MEMBER_NO     
+		       )
+		VALUES 
+		       (
+		       SEQ_POINT_NO.NEXTVAL,
+		       #{pointAmount},
+		       'REVIEW',
+		       SYSDATE,
+		       'P',
+		       #{memberNo}
+		       )
 	 </insert>
 	
 	<select id="orderListCount" resultType="_int" parameterType="_int">
@@ -1009,5 +1064,34 @@
 		 WHERE 
 		 		SHIPPING_NO =  #{receiptNo}
 	</update>
+	
+	<!-- 마이펫 정보 조회(네비 클릭 시) -->
+	<select id="selectMyPet" parameterType="_int" resultMap="petResultSet">
+		SELECT MEMBER_NO, GENDER, SPECIES, PET_NAME, AGE, WEIGHT
+		  FROM PET
+		 WHERE MEMBER_NO = #{ memberNo }
+	</select>
+	
+	<insert id="insertMyPet" parameterType="pet">
+		INSERT
+		  INTO PET
+		       (
+		       MEMBER_NO,
+		       GENDER,
+		       SPECIES,
+		       PET_NAME,
+		       AGE,
+		       WEIGHT
+		       )
+		VALUES
+		       (
+		       #{memberNo},
+		       #{gender},
+		       #{species},
+		       #{petName},
+		       #{age},
+		       #{weight}
+		       )
+	</insert>
 
 </mapper>
