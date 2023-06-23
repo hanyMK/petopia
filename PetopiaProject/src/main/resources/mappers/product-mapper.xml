@@ -398,9 +398,25 @@ STATUS
 		   and 
 		   		coupon_no = #{couponNo}
 	</update>
-	
+		<!-- 
+	<insert id="insertPoint">
+		insert 
+		  into 
+		       point
+		       (
+		       point_no,
+		       point_amount,
+		       point_history,
+		       
+		       )
+		values
+			   (
+			   SEQ_POINT_NO.NEXTVAL,
+			   
+			   )
+	</insert>
+	 	-->
 	<!-- 
-	insertPoint
 	insertBonusPoint
  	-->
 </mapper>
