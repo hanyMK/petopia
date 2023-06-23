@@ -212,6 +212,15 @@
 			height: 30px;
 			width: 30px;
 		}
+        #div1{
+            position: fixed;
+            top: 800px;
+            /* width: 100% */
+            left: 900px;
+            right: 10px;
+            border: 1px solid black;
+
+        }
 		
     </style>
 
@@ -325,6 +334,9 @@
             </ul>
     
         </div>
+
+        <div id="div1">dddddddddddddd</div>
+
     </div>
     
     <script>
