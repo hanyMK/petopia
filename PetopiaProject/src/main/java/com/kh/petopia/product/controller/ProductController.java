@@ -6,11 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.google.gson.Gson;
 import com.kh.petopia.admin.model.vo.Coupon;
@@ -217,12 +217,20 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping(value="insertPayment.pd", produces="application/json; charset=UTF-8")
-	public String insertPayment(ProductReceipt pr) {
+	public String insertPayment(ProductReceipt pr, int[] pno, String[] size, int[] amount) {
 		System.out.println("---------------------------------");
 		System.out.println("memberNo : " + pr.getMemberNo());
 		System.out.println("couponNo : " + pr.getCouponNo()); // 쿠폰 없을시 빈 문자열 ""
 		System.out.println("point : " + pr.getPoint()); // 포인트 없을시 빈 문자열 ""
-		System.out.println("");
+		System.out.println(pno[0]);
+		System.out.println(pno[1]);
+		System.out.println(pno[2]);
+		System.out.println(size[0]);
+		System.out.println(size[1]);
+		System.out.println(size[2]);
+		System.out.println(amount[0]);
+		System.out.println(amount[1]);
+		System.out.println(amount[2]);
 		return "";
 	}
 	
