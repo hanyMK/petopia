@@ -47,9 +47,12 @@ public class AjaxMemberController {
 
 	
 	@RequestMapping(value="nicknameCheck.member", produces="text/html; charset=UTF-8")
-	public String nicknameCheck(String nickname) {
-		
-		return memberService.nicknameCkeck(nickname) >0 ? "NNN" : "YYY";
+	public String nicknameCheck(String nickname, String memberNickname) {
+		if(nickname.equals("memberNickname")) {
+			return "YYY";
+		}else {
+			return memberService.nicknameCkeck(nickname) >0? "NNN" : "YYY";
+		}
 	}
 	
 	

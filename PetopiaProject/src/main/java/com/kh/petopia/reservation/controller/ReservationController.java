@@ -113,6 +113,9 @@ public class ReservationController {
 		// 사용자의 입력에 따른 예약금액 
 		// 사용자가 선택한 쿠폰과 적립금에 따른 총 결제 금액 
 		
+		// 7. 보유 펫페이 출력
+		int petPay = myPageService.selectMemberPetPay(memberNo);
+		
 		System.out.println(r);
 		System.out.println(cList);
 		
@@ -122,6 +125,7 @@ public class ReservationController {
 		mv.addObject("avaCouponCount",avaCouponCount);
 		mv.addObject("cList",cList);				// 사용자가 갖고있는 쿠폰 리스트 
 		mv.addObject("point",point);				// 적립금 
+		mv.addObject("petPay",petPay);
 		
 		mv.setViewName("reservation/paymentPetSalon");
 		return mv;

@@ -35,8 +35,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public ArrayList<Alram> alramList(int memberNo) {
-		return myPageDao.alramList(sqlSession, memberNo);
+	public ArrayList<Alram> alramList(Member m) {
+		return myPageDao.alramList(sqlSession, m);
 	}
 	
 	@Override
@@ -52,6 +52,26 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public ArrayList<Alram> alramNoticeList(int memberNo) {
 		return myPageDao.alramNoticeList(sqlSession, memberNo);
+	}
+	
+	@Override
+	public int deleteShippingAlram(int delNo) {
+		return myPageDao.deleteShippingAlram(sqlSession, delNo);
+	}
+	
+	@Override
+	public int deleteReplyAlram(int delNo) {
+		return myPageDao.deleteReplyAlram(sqlSession, delNo);
+	}
+	
+	@Override
+	public int deleteQnaAlram(int delNo) {
+		return myPageDao.deleteQnaAlram(sqlSession, delNo);
+	}
+	
+	@Override
+	public int deleteCouponAlram(int delNo) {
+		return myPageDao.deleteCouponAlram(sqlSession, delNo);
 	}
 	
 	@Override
@@ -104,7 +124,8 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public String getMemberRating(int mno) {
-		return myPageDao.getMemberRating(sqlSession, mno);
+		System.out.println(myPageDao.getMemberRating(sqlSession, mno));
+		return  myPageDao.getMemberRating(sqlSession, mno);
 	}
 
 
@@ -286,6 +307,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public int updateShippingInfo(ProductReceipt productReceipt) {
 		return myPageDao.updateShippingInfo(sqlSession, productReceipt);
 	}
+
+	
 	
 
 

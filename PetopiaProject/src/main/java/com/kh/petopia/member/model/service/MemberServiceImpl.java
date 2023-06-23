@@ -1,10 +1,9 @@
 package com.kh.petopia.member.model.service;
 
-import java.util.ArrayList;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
@@ -42,19 +41,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.joinMemberAtt(sqlSession, memberAtt);
 	}
 
-
+	@Transactional
 	@Override
 	public int updateMember(Member m, Attachment memberAtt) {
-		return 0;
+		int att = memberAtt != null?memberDao.updateMember(sqlSession, memberAtt):0;
+		return memberDao.updateMember(sqlSession, m)*att;
+		
 	}
-
-
-
-	@Override
-	public int changeMemberPwd(Member m) {
-		return 0;
-	}
-
 
 	@Override
 	public int emailCheck(String checkEmail) {
@@ -66,10 +59,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.nicknameCkeck(sqlSession, nickname);
 	}
 
-	@Override
-	public int getCoupon(Coupon c) {
-		return 0;
-	}
 
 	@Override
 	public String findEmail(String nickname) {
@@ -90,5 +79,6 @@ public class MemberServiceImpl implements MemberService {
 	public boolean validata(CertVO certVo) {
 		return memberDao.validata(sqlSession, certVo);
 	}
+
 
 }
