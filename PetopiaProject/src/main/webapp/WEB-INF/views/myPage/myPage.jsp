@@ -16,8 +16,6 @@
 	}
 	
 	#main_center_right_1{
-		border: 1px solid black;
-		box-sizing: border-box;
 		width:100%;
 		height:250px;
 	}
@@ -27,7 +25,6 @@
 	}
 	
 	#main_area_1 {
-		border:1px black solid;
 		height:100%;
 		width:30%;
 		padding-top:25px;
@@ -36,7 +33,6 @@
 	#main_area_2 {
 		width:70%;
 		height:100%;
-		border:1px black solid;
 		padding-top:55px;
 	}
 	
@@ -46,7 +42,7 @@
 	
 	#myPageSelect a {
 		text-decoration: none;
-		color: orange;
+		color: #F6823F;
 	}
 	
 	

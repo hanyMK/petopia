@@ -156,7 +156,7 @@ public class MyPageDao {
 	}
 	
 	public int insertProductReview2(SqlSessionTemplate sqlSession, AllReviews r) {
-		return sqlSession.insert("myPageMapper.insertReview2", r);
+		return sqlSession.insert("myPageMapper.insertProductReview2", r);
 	}
 	
 	public int insertReservationReview(SqlSessionTemplate sqlSession, AllReviews r) {
@@ -164,7 +164,11 @@ public class MyPageDao {
 	}
 
 	public int insertReservationReview2(SqlSessionTemplate sqlSession, AllReviews r) {
-		return sqlSession.insert("myPageMapper.insertReview2", r);
+		return sqlSession.insert("myPageMapper.insertReservationReview2", r);
+	}
+	
+	public int insertReviewPoint(SqlSessionTemplate sqlSession, Point p) {
+		return sqlSession.insert("myPageMapper.insertReviewPoint", p);
 	}
 
 	public String selectMemberImage(SqlSessionTemplate sqlSession, int memberNo) {
@@ -185,6 +189,14 @@ public class MyPageDao {
 
 	public int selectMemberReplyCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMemberReplyCount", memberNo);
+	}
+	
+	public Pet selectMyPet(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMyPet", memberNo);
+	}
+	
+	public int insertMyPet(SqlSessionTemplate sqlSession, Pet p) {
+		return sqlSession.insert("myPageMapper.insertMyPet", p);
 	}
 	
 	
@@ -251,6 +263,8 @@ public class MyPageDao {
 	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
 		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
 	}
+
+	
 
 
 	

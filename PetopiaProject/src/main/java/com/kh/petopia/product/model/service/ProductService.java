@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
-import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
+import com.kh.petopia.product.model.vo.ProductInfo;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 public interface ProductService {
 
@@ -114,6 +115,14 @@ public interface ProductService {
 		ArrayList<Cart> selectCart(int memberNo);
 		
 		ArrayList<Coupon> selectCoupon(int memberNo);
+		
+		int insertReceipt(ProductReceipt pr);
+		int insertBridge(ArrayList pInfo);
+		int insertShipping(ProductReceipt pr);
+		
+		int updateCoupon(ProductReceipt pr);
+		int insertPoint(ProductReceipt pr);
+		int insertBonusPoint(ProductReceipt pr);
 		
 	// ------------- 검색 -------------
 		ArrayList<Product> selectSearch(String keyword);

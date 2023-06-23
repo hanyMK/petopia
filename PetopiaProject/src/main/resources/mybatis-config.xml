@@ -27,6 +27,7 @@
 		<typeAlias type="com.kh.petopia.board.model.vo.Reply" alias="reply"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Alram" alias="alram"/>
 		<typeAlias type="com.kh.petopia.product.model.vo.ProductReceipt" alias="productReceipt"/>
+		<typeAlias type="com.kh.petopia.product.model.vo.ProductInfo" alias="productInfo"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Point" alias="point"/>
 		<typeAlias type="com.kh.petopia.myPage.model.vo.Petpay" alias="petpay"/>
 		<typeAlias type="com.kh.petopia.admin.model.vo.SelectShipping" alias="selectShipping"/>

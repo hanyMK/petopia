@@ -17,7 +17,7 @@ public class ProductReceipt {
 	
 	private String shippingStatus; // 배송상태 .......
 	
-	//private int productNo; //PRODUCT_NO	NUMBER
+	private int productNo; //PRODUCT_NO	NUMBER
 	private int amount; //AMOUNT	NUMBER
 	private int resultPrice; //쿠폰, 포인트 적용 후 최종 결제 금액
 	
@@ -35,5 +35,5 @@ public class ProductReceipt {
 	private String shippingMessage;//배송메모
 	private String phone;//번호
 	
-
+	private int bonusPt;
 }

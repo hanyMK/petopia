@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.petopia.common.template.MyFileRename;
+import com.kh.petopia.member.model.vo.Member;
+import com.kh.petopia.member.model.vo.Pet;
 import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Petpay;
@@ -80,8 +82,10 @@ public class MyPageController {
 	
 	// 페이 iframe페이지
 	@RequestMapping("pay.me")
-	public String payList() {
-		return "myPage/payList";
+	public ModelAndView payList(ModelAndView mv, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		mv.addObject("petpayAmount", myPageService.selectMemberPetPay(member.getMemberNo())).setViewName("myPage/payList");
+		return mv;
 	}
 	
 	// 헤더 마이페이지 클릭
@@ -144,6 +148,7 @@ public class MyPageController {
 	@RequestMapping("productReviewForm.me")
 	public String productReviewForm(AllReviews r, Model model) {
 		System.out.println("상품 :  " + r);
+		System.out.println(myPageService.productReviewForm(r));
 		model.addAttribute("review", myPageService.productReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
@@ -151,7 +156,7 @@ public class MyPageController {
 	// 예약 리뷰 작성 페이지
 	@RequestMapping("reservationReviewForm.me")
 	public String reservationReviewForm(AllReviews r, Model model) {
-		System.out.println("예약 : " +r);
+		System.out.println("예약 : " + r);
 		model.addAttribute("review", myPageService.reservationReviewForm(r));
 		return "myPage/myReviewInsert";
 	}
@@ -180,7 +185,6 @@ public class MyPageController {
 				Point p = new Point();
 				p.setMemberNo(r.getMemberNo());
 				
-				/*
 				// 포인트 적립
 				if(upfile.getOriginalFilename().equals("")) {
 					p.setPointAmount(500);
@@ -189,7 +193,6 @@ public class MyPageController {
 					p.setPointAmount(1000);
 					myPageService.insertReviewPoint(p);
 				}
-				*/
 				
 				return "redirect:myReview.me";
 			} else {
@@ -200,6 +203,19 @@ public class MyPageController {
 			// 예약 리뷰 작성
 			if(myPageService.insertReservationReview(r) > 0) {
 				session.setAttribute("alertMsg", "리뷰 등록 성공!!");
+				
+				Point p = new Point();
+				p.setMemberNo(r.getMemberNo());
+				
+				// 포인트 적립
+				if(upfile.getOriginalFilename().equals("")) {
+					p.setPointAmount(500);
+					myPageService.insertReviewPoint(p);
+				} else {
+					p.setPointAmount(1000);
+					myPageService.insertReviewPoint(p);
+				}
+				
 				return "redirect:myReview.me";
 			} else {
 				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
@@ -208,6 +224,24 @@ public class MyPageController {
 		}
 		
 	}
+	
+	// 마이페이지 펫정보 수정, 조회
+	@RequestMapping("myPet.me")
+	public String myPetList(Model model, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		int mno = member.getMemberNo();
+		System.out.println(myPageService.selectMyPet(mno));
+		model.addAttribute("pet", myPageService.selectMyPet(mno));
+		return "myPage/myPetList";
+	}
+	
+	@RequestMapping("insertMyPet.me")
+	public String insertPet(Pet p, Model model) {
+		System.out.println(p);
+		model.addAttribute("myPet", myPageService.insertMyPet(p));
+		return "myPage/myPetList";
+	}
+	
 	
 	
 

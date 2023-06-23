@@ -228,6 +228,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
+	public int insertReviewPoint(Point p) {
+		return myPageDao.insertReviewPoint(sqlSession, p);
+	}
+	
+	@Override
 	public String selectMemberImage(int memberNo) {
 		return myPageDao.selectMemberImage(sqlSession,memberNo);
 	}
@@ -250,6 +255,16 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int selectMemberReplyCount(int memberNo) {
 		return myPageDao.selectMemberReplyCount(sqlSession,memberNo);
+	}
+	
+	@Override
+	public Pet selectMyPet(int memberNo) {
+		return myPageDao.selectMyPet(sqlSession,memberNo);
+	}
+	
+	@Override
+	public int insertMyPet(Pet p) {
+		return myPageDao.insertMyPet(sqlSession, p);
 	}
 	
 	
@@ -307,6 +322,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public int updateShippingInfo(ProductReceipt productReceipt) {
 		return myPageDao.updateShippingInfo(sqlSession, productReceipt);
 	}
+
+	
 
 	
 	
