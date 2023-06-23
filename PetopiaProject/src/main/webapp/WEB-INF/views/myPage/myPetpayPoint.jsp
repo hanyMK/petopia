@@ -14,7 +14,7 @@
 <style>
 
 	#main_center_right_top{
-		height: 25%;
+		height: 20%;
 		padding-top: 25px;
 		margin: auto;
 		border: 1px solid black;
@@ -24,13 +24,13 @@
 		text-align: center;
 	}
 	#main_center_right_bottom{
-		height:75%;
+		height:80%;
 		padding-top: 25px;
 		margin: auto;
 		border: 1px solid black;
 	}
 	#pay_point_top {
-		height:70%;
+		height:50%;
 		text-align:center;
 	}
 	
@@ -39,15 +39,10 @@
 	}
 	
 	#pay_point_bottom {
-		height:20%;
+		height:40%;
 	}
 	
 	.pay_point_top_1 {
-		display: inline-block;
-		width: 200px;
-	}
-	
-	.pay_point_middle_1 {
 		display: inline-block;
 		width: 200px;
 	}
@@ -56,19 +51,7 @@
 		height:10%;
 		text-align:center;
 	}
-	
-	#main_center_right_bottom_2 {
-		height:10%;
-	}
-	
-	#main_center_right_bottom_3 {
-		height:10%;
-	}
-	
-	#main_center_right_bottom_4 {
-		height:70%;
-	}
-	
+
 	#petpayAmount {
 		width: 200px;
 	}
@@ -106,13 +89,8 @@
 						</div>
 					</div>
 					<div id="pay_point_middle">
-						<div class="pay_point_middle_1">
-							<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
-							<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button>
-						</div>
-					</div><br>
-					<div id="pay_point_bottom">
-						<small>작성 가능한 리뷰 : ??개개</small><br>
+						<button type="button" data-toggle="modal" data-target="#chargePetpay">충전하기</button>
+						<button type="button" data-toggle="modal" data-target="#withdrawPetpay">인출하기</button><br><br>
 						<small>펫페이 충전 후 결제 시, 결제 금액의 5%를 포인트로 적립해드려요!</small>
 					</div>
 				</div>
@@ -122,15 +100,12 @@
 						<button onclick="pointBtn();">포인트 내역</button>
 					</div>
 					<div id="petpayList" align="center">
-						<div id="petpayList_1">
+						<div>
 							<button class="petpayStatus" onclick="petpayStatusBtn('ALL');">전체</button>
 							<button class="petpayStatus" onclick="petpayStatusBtn('PLUS');">충전</button>
 							<button class="petpayStatus" onclick="petpayStatusBtn('MINUS');">사용</button>
 						</div>
-						<div id="petpayList_2">
-							총 n건	기간
-						</div>
-						<div id="petpayList_3">
+						<div>
 							<c:forEach var="pp" items="${ petpayList }" >
 								<div id="myList">
 									${pp.petpayDate}

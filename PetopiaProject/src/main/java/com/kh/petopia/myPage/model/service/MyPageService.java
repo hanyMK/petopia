@@ -105,6 +105,9 @@ public interface MyPageService {
 	
 	int insertReservationReview(AllReviews r);
 	
+	// 리뷰 작성 시, 포인트 적립
+	int insertReviewPoint(Point p);
+	
 	String selectMemberImage(int mno);
 
 	int selectMemberReservationIng(int mno);
@@ -114,6 +117,14 @@ public interface MyPageService {
 	int selectMemberBoardCount(int mno);
 
 	int selectMemberReplyCount(int mno);
+	
+	// 펫 유무 마이페이지 
+	Pet selectMyPet(int mno);
+	
+	// 펫 없는 사람 등록
+	int insertMyPet(Pet p);
+	
+	
 	
 	
 	
@@ -142,6 +153,8 @@ public interface MyPageService {
 	//회원 배송지 정보 변경
 	
 	int updateShippingInfo(ProductReceipt productReceipt);
+
+	
 
 	
 	
