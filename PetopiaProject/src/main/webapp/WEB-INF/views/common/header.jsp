@@ -371,7 +371,6 @@
  	// 영역 외 클릭 시 Icon의 iframe 닫기
     $('html').click(function(e) {   
     	if($(e.target).parents('.iconArea').length < 1){   
-    		console.log('영역 이외');
     		
     		if(pay.css("display") === 'block') {
 	    		pay.css("display", 'none'); 

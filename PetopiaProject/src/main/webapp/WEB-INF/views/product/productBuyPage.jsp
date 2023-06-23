@@ -289,6 +289,8 @@
                             추가금 : ${item.extraMoney}</div>
                             <hr>
                             <input type="hidden" class="listSize" value="${item.productSize}" />
+                            <input type="hidden" class="listProductNo" value="${item.productNo}" />
+                            <input type="hidden" class="listAmount" value="${item.amount}" />
                         </c:forEach>
                     </div>
                 </div>
@@ -650,24 +652,41 @@
             // $('.listSize').each($('.listSize').length, list){
 
             // }
-            for(var i = 0; i < $('.listSize').length; i++){
-                console.log($('.listSize')[i].value);
-            }
+
 
         }
 
     </script>
 
     <script>
+
+
+
         var couponDiscount = $('#coupon_discount').text();
+
         function insertPayment(){
+            var pnoArr = [];
+            var sizeArr = [];
+            var amountArr = [];
+            for(var i = 0; i < $('.listProductNo').length; i++){
+                pnoArr[i] = $('.listProductNo')[i].value;
+                sizeArr[i] = $('.listSize')[i].value;
+                amountArr[i] = $('.listAmount')[i].value;
+            }
+            console.log(arr);
             $.ajax({
                 url : 'insertPayment.pd',
+                type : 'post',
+                traditional : true,
                 data : {
                 memberNo : ${loginMember.memberNo},
                 //list : '$(list)',
+               // pno : JSON.stringify(arr),
+                pno : pnoArr,
+                size : sizeArr,
+                amount : amountArr,
                 couponNo : $('.cno').text(),
-                point : $('#payment_info_3').text(),
+                point : $('#payment_info_3').text()
                 // shippingNo : ,
                 // amount : ,
                 // productSize : ,

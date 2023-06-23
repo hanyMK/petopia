@@ -3,6 +3,7 @@ package com.kh.petopia.myPage.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.gson.JsonElement;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
@@ -28,6 +29,15 @@ public interface MyPageService {
 	ArrayList<Board> alramReplyList(int memberNo);
 	
 	ArrayList<Alram> alramNoticeList(int mno);
+	
+	// 알람 삭제
+	int deleteShippingAlram(int delNo);
+	
+	int deleteReplyAlram(int delNo);
+
+	int deleteQnaAlram(int delNo);
+	
+	int deleteCouponAlram(int delNo);
 	
 	// 마이페이지 - 게시글조회 - 댓글조회
 	ArrayList<Reply> myReplyList(int mno);
@@ -132,6 +142,8 @@ public interface MyPageService {
 	//회원 배송지 정보 변경
 	
 	int updateShippingInfo(ProductReceipt productReceipt);
+
+	
 	
 
 }

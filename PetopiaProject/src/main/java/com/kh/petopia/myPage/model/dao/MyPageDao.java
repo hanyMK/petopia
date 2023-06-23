@@ -41,7 +41,23 @@ public class MyPageDao {
 	public ArrayList<Alram> alramNoticeList(SqlSessionTemplate sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.alramNoticeList", memberNo);
 	}
-
+	
+	public int deleteShippingAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteShippingAlram", delNo);
+	}
+	
+	public int deleteReplyAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteReplyAlram", delNo);
+	}
+	
+	public int deleteQnaAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteQnaAlram", delNo);
+	}
+	
+	public int deleteCouponAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteCouponAlram", delNo);
+	}
+	
 	public ArrayList<Reply> myReplyList(SqlSessionTemplate sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myReplyList", memberNo);
 	}
@@ -235,6 +251,8 @@ public class MyPageDao {
 	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
 		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
 	}
+
+
 	
 
 	

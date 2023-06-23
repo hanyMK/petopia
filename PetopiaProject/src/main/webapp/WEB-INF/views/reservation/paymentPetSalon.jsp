@@ -49,9 +49,15 @@
 				<h4> * 쿠폰 / 적립금</h4>
 				
 					<div id="coupon-area">
+<<<<<<< Updated upstream
 						쿠폰 
 						<select id="coupon">
 							<option value="0">사용 가능 쿠폰 ${avaCouponCount}장 / 보유 ${couponCount}장 </option>
+=======
+						쿠폰
+						<select id="coupon" onchange="selectCoupon();">
+							<option> 사용 가능 쿠폰 ${avaCouponCount}장 / 보유 ${couponCount}장 </option>
+>>>>>>> Stashed changes
 							<c:forEach var="c" items="${requestScope.cList}">
 								<c:choose>
 									<c:when test="${c.couponType eq 1}">
@@ -65,6 +71,7 @@
 						</select>
 					</div>
 					
+<<<<<<< Updated upstream
 					<br>
 					
 					<div id="point-area">
@@ -73,11 +80,55 @@
 						<button id="pointBtn">사용</button>
 						<br>
 						<small>보유 적립금 : <span id="left-point">${point}</span>p</small>
+=======
+					<!-- 사용자가 쿠폰을 선택하면 실행되는 script -->
+					<script>
+					
+						function selectCoupon(){
+							console.log('쿠폰  선택해써');
+							
+							var couponType = $('#coupon > option:selected').attr("value");
+							var discount = $('#coupon > option:selected').attr("value1");
+							var totalReservationFee = $('#totalReservationFee').text();
+							
+							console.log('쿠폰타입은:'+ couponType);
+							console.log('할인은:' + discount);
+							console.log('현재 총 예약 금액:'+ totalReservationFee);
+							
+							if( couponType == 1 ){
+								// 금액할인
+								$('#usedCoupon').text(discount);							
+								$('#totalPayment').text(totalReservationFee - discount - $('input[name=point]').val());
+							}else if(couponType == 2){
+								// % 할인
+								$('#usedCoupon').text(totalReservationFee * (discount/100));
+								$('#totalPayment').text(totalReservationFee - (totalReservationFee * (discount/100)) - $('input[name=point]').val() );
+							}else{
+								// 쿠폰 선택 안 하면
+								$('#usedCoupon').text(0);
+								$('#totalPayment').text(totalReservationFee);
+							}
+						}
+					</script>
+					<!-- 사용자가 쿠폰을 선택하면 실행되는 script -->
+					
+					<br>
+					
+					<div id="point-area">
+						적립금
+						<input name="point" value="0" min="0" max="${point}" onKeyup="usePoint();">
+						<br>
+						<small>보유 적립금 : <span id="left-point">${point}</span>p</small>
+						
+>>>>>>> Stashed changes
 					</div>
 					
 					<script>
 					
+<<<<<<< Updated upstream
 						/*
+=======
+>>>>>>> Stashed changes
 						// 사용자가 적립금을  keyup한 경우
 						function usePoint(){
 							
@@ -86,7 +137,13 @@
 							
 							// 쿠폰을 선택하고 적립금 입력을 한 경우 -> 이미 선택 되어있음
 							// 쿠폰을 선택하지 않고 적립금을 입력한 경우
+<<<<<<< Updated upstream
 							// 구분해서 코드 작성해야함 
+							
+							// 쿠폰선택한 상태에서 적립금을 입력
+							var couponType = $('#coupon > option:selected').attr("value");
+=======
+							// 구분해서 코드 작성해야함
 							
 							// 쿠폰선택한 상태에서 적립금을 입력
 							var couponType = $('#coupon > option:selected').attr("value");
@@ -95,7 +152,123 @@
 								
 							}else if( couponType == 2)
 							
+								var usedPoint = $('input[name=point]').val();
+							
+							if( ! isNaN(Number(usedPoint)) ){
+								console.log('숫자');
+								
+								// 만약 보유한 적립금금보다 더 많이 입력한 경우에는
+								if( usedPoint > ${point} ){
+									// 경고창 띄우고
+									// 입력창에 입력가능한 최대 적립금 출력해주기
+									// 보유 적립금도 바꿔줌
+									
+									alert('너 어딜 감히 적립금 더쓸라해?');			
+									$('input[name=point]').val(${point});
+									$('#left-point').text(0);
+									
+								}else{
+									// 올바르게 입력한 경우
+									// 입력창에 입력한 적립금 출력해주기
+									// 보유 적립금도 바꿔줌
+									
+									$('input[name=point]').val(usedPoint);
+									$('#left-point').text( ${point} - usedPoint);
+									
+								}
+								
+	
+								console.log($('input[name=point]').val());
+								
+								// 적립금 사용 text에 입력한 값 뿌려주기
+								// 총 결제금액에 입력한 적립금값도 함께 반영
+								
+								// 쿠폰 선택 한경우에 또 빼줘야함
+								
+								$('#usedPoint').text($('input[name=point]').val());
+								$('#totalPayment').text( $('#totalReservationFee').text() - $('#usedCoupon').val() - $('input[name=point]').val() )
+								
+								
+							}else {
+								alert('숫자를입력해주세요');
+								$('input[name=point]').val(0);
+							}
+						}
+						
+			
+					
+					</script>
+					
+				</div>
+				
+				<br>
+				
+				<div id="payment-info">
+					<h4> * 결제 </h4>
+					
+					<!-- 미용예약하려는 동물의 무게에 따라 금액이 다르게 측정됨 -->
+					<!-- 무게가 10kg이상이면 10000원 추가  -->
+					<!-- 펫 나이가 10살이상인 경우 5000원 추가  -->
+					기본금액 : <span id="reservationFee">${ r.reservationFee } 원 </span> <br>
+					총예약 금액 :
+					<span id="totalReservationFee">
+						<c:choose>
+							<c:when test="${pet.weight ge 10 && pet.age ge 10}">
+								<c:set var="totalFee" value="${ r.reservationFee + 10000 + 5000 }"/>
+								<c:out value="${totalFee}"/>
+							</c:when>
+							<c:when test= "${pet.weight ge 10 }">
+								<c:set var="totalFee" value="${ r.reservationFee + 5000 }"/>
+								<c:out value="${totalFee}"/>
+							</c:when>
+							<c:otherwise>
+								<c:set var="totalFee" value="${ r.reservationFee }"/>
+								<c:out value="${totalFee}"/>
+							</c:otherwise>
+						</c:choose>
+					</span>
+					<br>
+					쿠폰 사용 : - <span id="usedCoupon">0</span> 원 <br>
+					적립금 사용 : - <span id="usedPoint">0</span> 원 <br>
+					총결제금액 : <span id="totalPayment">${totalFee}</span> 원 <br>
+					
+				</div>
+					
+					
+					
+			
+			</div>
+		</div>
+			
+		
+		<div id="main_right"></div>
+		
+
+	</div>
+	
+	<script>
+		/*
+		
+		// 사용자가 적립금 버튼
+						function useAllPoint() {
+>>>>>>> Stashed changes
+							
+							if(couponType == 1){
+								
+							}else if( couponType == 2)
+							
+<<<<<<< Updated upstream
 							var usedPoint = $('input[name=point]').val();
+=======
+							// 모두 사용 누른 경우
+							if(input == '0'){
+								console.log('모두 사용 눌렀어');
+								$('input[name=point]').attr('value', ${point});
+								$('#left-point').text('보유 적립금 : ' + 0 +'p');
+								$('button[id=useAllBtn]').text('사용 안 함');
+								
+							}else if(input == '${point}'){
+>>>>>>> Stashed changes
 							
 							if( ! isNaN(Number(usedPoint)) ){
 								console.log('숫자');
@@ -133,6 +306,7 @@
 								alert('숫자를입력해주세요');
 								$('input[name=point]').val(0);
 							}
+<<<<<<< Updated upstream
 						}
 						*/
 					</script>
@@ -190,6 +364,13 @@
 		<div id="main_right"></div>
 
 	</div>
+=======
+							
+							
+		
+		*/
+	</script>
+>>>>>>> Stashed changes
 	
 	<script>
 	
