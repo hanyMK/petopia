@@ -38,7 +38,8 @@ public interface MemberService {
 		 */
 		
 		//회원정보 수정(UPDATE)
-		int updateMember(Member m, Attachment memberAtt);
+		int updateMember(Member m);
+		int updateMember(Attachment memberAtt);
 		
 
 		//비밀번호 재설정(INSERT/이메일, 새로운 비밀번호)

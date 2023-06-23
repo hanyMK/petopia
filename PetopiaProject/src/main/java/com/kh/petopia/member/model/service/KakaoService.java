@@ -46,7 +46,7 @@ public class KakaoService {
 		bw.write(sb.toString());
 		bw.flush();
 		
-		System.out.println(urlConnection.getResponseCode());
+		//System.out.println(urlConnection.getResponseCode());
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 		String line = "";
@@ -87,13 +87,13 @@ public class KakaoService {
 			while((line = br.readLine()) != null) {
 				responseData +=line;
 			}
-			System.out.println("responseData  " +responseData);
+			///System.out.println("responseData  " +responseData);
 			
 			JSONObject responseObj = (JSONObject)new JSONParser().parse(responseData);
 			JSONObject kakaoAccountObj = (JSONObject)responseObj.get("kakao_account");
 			//JSONObject profileObj = (JSONObject)responseObj.get("properties");
 			
-			System.out.println(kakaoAccountObj);
+			//System.out.println(kakaoAccountObj);
 			//System.out.println(profileObj);
 		
 		//	String profileImg = profileObj.get("profile_image").toString();

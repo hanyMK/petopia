@@ -187,19 +187,38 @@ public class MemberController {
 								 String memberAtt,
 								 HttpSession session) {
 
-			Attachment att = insertMemberFile(upfile, session);
-			if(att != null) {
-				if(!memberAtt.equals("")) {
+			int updateMember = memberService.updateMember(m);
+			System.out.println(memberAtt);
+			
+			if(!upfile.getOriginalFilename().equals("")) {
+				Attachment attachment = insertMemberFile(upfile, session);
+				attachment.setRefNo(m.getMemberNo());
+				//기존파일 있으면
+				if(memberAtt != null) {
 					new File(session.getServletContext().getRealPath(memberAtt.substring(22))).delete();
-					att.setRefNo(m.getMemberNo());
+					updateMember = memberService.updateMember(attachment);
+				}else {
+					//기존파일이 없으면
+					updateMember = memberService.joinMember(attachment);
 				}
-							
 			}
-				
-			if(memberService.updateMember(m, att)>0) session.setAttribute("alertMsg", "회원 정보가 수정되었습니다");
+			System.out.println(updateMember);
+			if(updateMember >0) session.setAttribute("alertMsg", "회원 정보가 수정되었습니다");
 			else session.setAttribute("alertMsg", "회원 정보 수정 실패") ;
 			
 			return "redirect:updateInfo.me";
+			
+			
+//			if(att != null) {
+//				if(!memberAtt.equals("")) {
+//					new File(session.getServletContext().getRealPath(memberAtt.substring(22))).delete();
+//					att.setRefNo(m.getMemberNo());
+//					updateMember = memberService.updateMember(m, att);
+//				}
+//							
+//			}
+				
+			
 		}
 		
 		
@@ -210,7 +229,7 @@ public class MemberController {
 										HttpSession session,
 										ModelAndView mv) throws IOException, ParseException {
 			//http://localhost:8282/petopia/memberEnroll.member?code=UeauyYwUPDS68VBMWof45HaDZUCIFhpm0-sew0RHmSuz4aUczLGM_WdVb6b_775lcm-Q2worDNMAAAGI5fVyGA
-			System.out.println(code);
+			//System.out.println(code);
 			
 			String accessToken = kakaoService.getToken(code);
 			String email = kakaoService.getUserInfo(accessToken);
@@ -223,10 +242,6 @@ public class MemberController {
 			}
 			return mv;
 		}
-		
-		//카카오 로그아웃
-		
-		
 		
 		
 		

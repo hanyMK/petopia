@@ -118,7 +118,14 @@
 					(
 					SEQ_FNO.NEXTVAL,
 					#{fileCategory},
-					(SELECT NVL(MAX(MEMBER_NO), 0) FROM MEMBER),
+					<choose>
+				   	  	<when test="refNo == null">
+				   	  		(SELECT NVL(MAX(MEMBER_NO), 0) FROM MEMBER),
+				   	  	</when>
+				   	  	<otherwise>
+				   	  	   #{refNo},
+				   	  	</otherwise>
+				   	 </choose>
 					#{originName},
 					#{changeName},
 					#{filePath}

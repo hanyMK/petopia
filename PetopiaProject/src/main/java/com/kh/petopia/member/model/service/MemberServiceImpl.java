@@ -45,11 +45,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.joinMemberAtt(sqlSession, memberAtt);
 	}
 
-	@Transactional
 	@Override
-	public int updateMember(Member m, Attachment memberAtt) {
-		int att = memberAtt != null?memberDao.updateMember(sqlSession, memberAtt):0;
-		return memberDao.updateMember(sqlSession, m)*att;
+	public int updateMember(Member m) {
+		return memberDao.updateMember(sqlSession, m);
+		
+	}
+	@Override
+	public int updateMember(Attachment memberAtt) {
+		return memberDao.updateMember(sqlSession, memberAtt);
 		
 	}
 
