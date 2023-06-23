@@ -147,7 +147,7 @@ public class MemberController {
 			return mv;
 		
 		}
-<<<<<<< Updated upstream
+
 		
 		@GetMapping("findPwd")
 		public ModelAndView findPwdView(ModelAndView mv) {
@@ -187,8 +187,7 @@ public class MemberController {
 								 MultipartFile upfile,
 								 String memberAtt,
 								 HttpSession session) {
-=======
->>>>>>> Stashed changes
+
 
 			int updateMember = memberService.updateMember(m);
 			System.out.println(memberAtt);
