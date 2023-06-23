@@ -1,5 +1,6 @@
 package com.kh.petopia.member.model.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.kh.petopia.admin.model.vo.Coupon;
@@ -12,7 +13,7 @@ import com.kh.petopia.member.model.vo.Pet;
 public interface MemberService {
 	
 	//로그인 서비스(SELECT)
-		Member loginMember(Member m);
+		Member loginMember(String email);
 		
 		//회원가입 서비스(INSERT)
 		int joinMember(Member m );
@@ -73,6 +74,7 @@ public interface MemberService {
 		
 		//인증키 확인 및 
 		boolean validata(CertVO certVo);
+		
 		
 		
 

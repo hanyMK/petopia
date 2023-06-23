@@ -13,9 +13,9 @@ public class MemberDao {
 
 	
 	
-	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
+	public Member loginMember(SqlSessionTemplate sqlSession, String email) {
 		
-		return sqlSession.selectOne("memberMapper.loginMember", m );
+		return sqlSession.selectOne("memberMapper.loginMember",email );
 		
 	}
 	
