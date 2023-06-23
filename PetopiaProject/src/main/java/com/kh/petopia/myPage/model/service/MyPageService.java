@@ -3,6 +3,7 @@ package com.kh.petopia.myPage.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.gson.JsonElement;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.board.model.vo.Board;
 import com.kh.petopia.board.model.vo.Reply;
@@ -21,13 +22,22 @@ public interface MyPageService {
 	ArrayList<Board> myBoardList(int memberNo);
 	
 	// 알람 조회
-	ArrayList<Alram> alramList(int memberNo);
+	ArrayList<Alram> alramList(Member m);
 
 	ArrayList<ProductReceipt> alramShippingList(int mno);
 	
 	ArrayList<Board> alramReplyList(int memberNo);
 	
 	ArrayList<Alram> alramNoticeList(int mno);
+	
+	// 알람 삭제
+	int deleteShippingAlram(int delNo);
+	
+	int deleteReplyAlram(int delNo);
+
+	int deleteQnaAlram(int delNo);
+	
+	int deleteCouponAlram(int delNo);
 	
 	// 마이페이지 - 게시글조회 - 댓글조회
 	ArrayList<Reply> myReplyList(int mno);
@@ -95,6 +105,9 @@ public interface MyPageService {
 	
 	int insertReservationReview(AllReviews r);
 	
+	// 리뷰 작성 시, 포인트 적립
+	int insertReviewPoint(Point p);
+	
 	String selectMemberImage(int mno);
 
 	int selectMemberReservationIng(int mno);
@@ -104,6 +117,14 @@ public interface MyPageService {
 	int selectMemberBoardCount(int mno);
 
 	int selectMemberReplyCount(int mno);
+	
+	// 펫 유무 마이페이지 
+	Pet selectMyPet(int mno);
+	
+	// 펫 없는 사람 등록
+	int insertMyPet(Pet p);
+	
+	
 	
 	
 	
@@ -132,6 +153,10 @@ public interface MyPageService {
 	//회원 배송지 정보 변경
 	
 	int updateShippingInfo(ProductReceipt productReceipt);
+
+	
+
+	
 	
 
 }

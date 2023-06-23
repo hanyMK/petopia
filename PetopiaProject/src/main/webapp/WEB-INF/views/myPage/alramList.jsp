@@ -48,46 +48,52 @@
 	
 	$(document).ready(function() {
 		myAlramList();
+		
+
 	});
 	
 	/* 전체 알람 */
 	function myAlramList() {
 		
 		$.ajax({
-			url : 'ajaxAlram.me', 
-			data : { mno : ${ loginMember.memberNo } },
+			url : 'ajaxAlram.me',
 			success : function(list) {
 				let value = "";
 				for(let i in list) {
-					console.log(list);
 					// columnAll이 null이면 댓글 조회 
 					if(list[i].columnAll == null) {
 					
-					value += '<div id="myList">'							
-						   + list[i].columnAll + '<br>'
+					value += '<div id="myList">'
 						   + list[i].dateAll + '<br>'
-						   + list[i].category + '<br>'
-						   + list[i].boardTitle + '<br>'
-						   + list[i].nickname + '<br>'
-						   + list[i].replyContent + '<br>'
-						   + '</div><br>';
+						   + '제목 : ' + list[i].boardTitle + '<br>'
+						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
+						   + '내용 : ' + list[i].replyContent + '<br>'
+						   + '<input type="hidden" value="댓글">';
+						   
 					} else if(list[i].columnAll != null && list[i].columnAll == '배송중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '배송중 입니다.'
-							   + '</div><br>';
+							   + '<input type="hidden" value="배송">';
 					} else if(list[i].columnAll != null && list[i].columnAll == '상품준비중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '상품준비중 입니다.'
-							   + '</div><br>';
+							   + '<input type="hidden" value="배송">';
+					} else if(list[i].columnAll != null && list[i].columnAll == '배송완료') {
+						value += '<div id="myList">'
+							   + '배송완료되었습니다.'
+							   + '<input type="hidden" value="배송">';
 					} else if(list[i].columnAll != null && list[i].columnAll == 'Y') {
-						value += '<div id="myAlramList">'
-							   + '1:1 답변 완료.'
-							   + '</div><br>';
+						value += '<div id="myList">'
+							   + '1:1 답변이 등록되었습니다.'
+							   + '<input type="hidden" value="문의">';
 					} else {
-						value += '<div id="myAlramList">'
-							   + '쿠폰 들어옴.'
-							   + '</div><br>';
+						value += '<div id="myList">'
+							   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
+							   + '<input type="hidden" value="쿠폰">';
 					}
+					
+					value += '<button class="delBtn" id="' + list[i].primaryNo + '">X</button>'
+						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
 				
@@ -99,6 +105,31 @@
 		
 	};
 	
+	// 알람 삭제 함수
+	$(document).on("click", ".delBtn", function() {
+		$(this).parent().remove();
+		
+		var category = $(this).siblings('input[type=hidden]').val();
+		var delNo = $(this).attr('id');
+		
+		console.log(category);
+		console.log(delNo);
+		$.ajax({
+			url : 'deleteAlram.me',
+			data : { delNo : delNo, category : category },
+			success : function(result) {
+				console.log("성공해쪄");
+			},
+			error : function() {
+				console.log('AJAX 댓글 조회 실팽이');
+			}
+		
+		});
+		
+		
+	});
+
+		
 	/* 상품 배송출발 알람 */
 	function alramShippingList() {
 		
@@ -106,25 +137,26 @@
 			url : 'alramShipping.me', 
 			data : { mno : ${ loginMember.memberNo } },
 			success : function(list) {
-				console.log(list);
 				let value = "";
 				for(let i in list) {
 					if(list[i].shippingStatus == '배송중') {
 						value += '<div id="myList">'
 							   + '주문하신 상품이 '
-							   + list[i].shippingStatus
-							   + '입니다. </div><br>';
+							   + list[i].shippingStatus;
+							
 					} else if (list[i].shippingStatus == '상품준비중') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '주문하신 상품이 '
-							   + list[i].shippingStatus
-							   + '입니다. </div><br>';
+							   + list[i].shippingStatus;
 					} else if (list[i].shippingStatus == '배송완료') {
-						value += '<div id="myAlramList">'
+						value += '<div id="myList">'
 							   + '주문하신 상품이 '
-							   + list[i].shippingStatus
-							   + '되었습니다. </div><br>';
+							   + list[i].shippingStatus;
 					}
+					value += '입니다.'
+						   + '<input type="hidden" value="배송">'
+					       + '<button class="delBtn" id="' + list[i].shippingNo + '">X</button>'
+					       + '</div><br>'
 				};
 				
 				$('#alram_area_bottom').html(value);
@@ -146,14 +178,14 @@
 			success : function(list) {
 				let value = "";
 				for(let i in list) {
-					console.log(list);
-					value += '<div id="myList">'							
-						   + list[i].columnAll + '<br>'
+					console.log(list[i].replyNo);
+					value += '<div id="myList">'
 						   + list[i].dateAll + '<br>'
-						   + list[i].category + '<br>'
-						   + list[i].boardTitle + '<br>'
-						   + list[i].nickname + '<br>'
-						   + list[i].replyContent + '<br>'
+						   + '제목 : ' + list[i].boardTitle + '<br>'
+						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
+						   + '내용 : ' + list[i].replyContent + '<br>'
+						   + '<input type="hidden" value="댓글">'
+						   + '<button class="delBtn" id="' + list[i].replyNo + '">X</button>'
 						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
@@ -181,12 +213,15 @@
 						if(list[i].columnAll == 'Y') {
 							value += '<div id="myList">'
 								   + '답변이 완료되었습니다.'
-								   + '</div><br>';
+								   + '<input type="hidden" value="문의">';
 						} else {
-							value += '<div id="myAlramList">'
+							value += '<div id="myList">'
 								   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
-								   + '</div><br>';
+								   + '<input type="hidden" value="쿠폰">';
 						}
+						
+						value += '<button class="delBtn" id="' + list[i].primaryNo + '">X</button>'
+						       + '</div><br>';
 					}
 				};
 				

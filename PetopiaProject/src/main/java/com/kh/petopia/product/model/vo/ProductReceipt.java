@@ -10,14 +10,14 @@ public class ProductReceipt {
 	private int receiptNo; //	NUMBER
 	private int memberNo; //MEMBER_NO	NUMBER
 	private Date receiptDate; //RECEIPT_DATE	DATE
-	private int couponNo; //COUPON_NO	NUMBER
-	private int point; //POINT	NUMBER
+	private String couponNo; //COUPON_NO	NUMBER
+	private String point; //POINT	NUMBER
 	private int shippingNo; //OSHIPPING_NO	NUMBER
 	private String productTitle;
 	
 	private String shippingStatus; // 배송상태 .......
 	
-	private int productNo; //PRODUCT_NO	NUMBER
+	//private int productNo; //PRODUCT_NO	NUMBER
 	private int amount; //AMOUNT	NUMBER
 	private int resultPrice; //쿠폰, 포인트 적용 후 최종 결제 금액
 	

@@ -41,6 +41,12 @@ public class MemberDao {
 		
 	}
 	
+	public int updateMember(SqlSessionTemplate sqlSession, Attachment memberAtt) {
+		
+		return sqlSession.update("memberMapper.updateMemberAtt", memberAtt);
+		
+	}
+	
 	
 	public int deleteMember(SqlSessionTemplate sqlSession, String userId) {
 		

@@ -179,9 +179,15 @@
 			cursor: pointer;
 		}
 		
-		#alramIframe, #payIframe{
-			width:300px;
+		#alramIframe{
+			width:350px;
 			height:500px;
+			background-color:white;
+		}
+		
+		#payIframe{
+			width:250px;
+			height:180px;
 			background-color:white;
 		}
 		
@@ -270,7 +276,8 @@
 		}
     </style>
 
-<script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
+	<!-- 아이콘 사용 라이브러리 -->
+	<script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
 </head>
 <body>
    <!-- 채팅, 리모컨  -->
@@ -336,12 +343,12 @@
 	                  	  <!-- 페이 아이콘-->
 		                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
 		                  <div id="pay_box" > 					               
-							<iframe src="" scrolling="auto" id="payIframe"></iframe>
+							<iframe src="pay.me" scrolling="auto" id="payIframe"></iframe>
 		                  </div>
 		                  <!-- 알람 아이콘-->
 		                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
 		                  <div id="alram_box" > 					               
-							<iframe src="alram.me?mno=${ loginMember.memberNo }" scrolling="auto" id="alramIframe"></iframe>
+							<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
 		                  </div>
 		               	  <button class="fa-solid fa-cart-shopping" id="cartIcon" onclick="goCart();"></button>
 	                  </c:otherwise>
@@ -413,13 +420,12 @@
         
         if(alram.css("display") === 'none' ) {
         	// iframe 열기
+        	pay.css("display", 'none'); 
         	alram.css("display", 'block');
-        	payIcon.attr("disabled", true).css("color", "black");
         }
         else {
         	// iframe 닫기
         	alram.css("display", 'none'); 
-        	payIcon.attr("disabled", false);
         }
     }
     
@@ -427,13 +433,12 @@
     function payBtn () {
        
         if(pay.css("display") === 'none' ) {
+        	alram.css("display", 'none'); 
         	pay.css("display", 'block'); 
-        	alramIcon.attr("disabled", true).css("color", "black");
         	
         }
         else {
         	pay.css("display", 'none'); 
-        	alramIcon.attr("disabled", false);
         }
         
     }
@@ -441,7 +446,6 @@
  	// 영역 외 클릭 시 Icon의 iframe 닫기
     $('html').click(function(e) {   
     	if($(e.target).parents('.iconArea').length < 1){   
-    		console.log('영역 이외');
     		
     		if(pay.css("display") === 'block') {
 	    		pay.css("display", 'none'); 

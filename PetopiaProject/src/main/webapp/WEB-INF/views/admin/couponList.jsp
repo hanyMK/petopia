@@ -210,20 +210,15 @@
 			                <tr>
 			                    <th>쿠폰 이름 :</th>
 			                    <td><input type="text" name=couponName id="couponName"  required></td>
-			                    
-			    
 			                </tr>
 			                <tr>
 			                    <th>쿠폰 타입 :</th>
 			                    <td><input type="number" name="couponType"  required></td>
-			    
 			                </tr>
-			               
 			                <tr>
 			                    <th>할인가 :</th>
 			                    <td><input type="number" name="discount" id="discount" required></td>
 			                </tr>
-			             
 			                <tr>
 			                    <th>시작일 : </th>
 			                    <td><input type="datetime-local" name="startDate1" id="startDate1" >

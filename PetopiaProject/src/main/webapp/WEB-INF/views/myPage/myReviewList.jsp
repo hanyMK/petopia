@@ -78,7 +78,6 @@
 						value += '<div id="myReviewList">';
 						if(list[i].shippingStatus == '배송완료') {
 							if(list[i].productNo != list[i].reviewProductNo){
-							//&& (list[i].product_no != list[i].review_product_no)
 							// 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회
 							value += '<small style="color:green;">상품</small>'
 								   + '상품 : ' + list[i].title + '<br>'
@@ -117,7 +116,7 @@
 		
 	};
 	
-function myReviewEndList() {
+	function myReviewEndList() {
 		
 		$.ajax({
 			url : 'myReviewEndList.me', 
@@ -166,9 +165,8 @@ function myReviewEndList() {
 		});
 		
 	};
-	
-	
 	</script>
+	
    
     <jsp:include page="../common/footer.jsp" />
 

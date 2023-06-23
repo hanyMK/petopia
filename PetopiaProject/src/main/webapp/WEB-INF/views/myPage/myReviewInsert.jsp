@@ -47,11 +47,16 @@
 		   opacity: 0.5;
 		}
 		
+		#pImg{
+			width:150px;
+			height:150px;
+		}
     </style>
 </head>
 <body>
         
     <jsp:include page="../common/header.jsp" />
+    
 
     <div class="content">
         <br><br>
@@ -62,19 +67,27 @@
             	<input type="hidden" name="memberNo"  value="${loginMember.memberNo }">
              	<input type="hidden" name="receiptNo" value="${ review.receiptNo }">   
              	
-            	<c:choose>
-             		<c:when test="${ not empty review.productNo }">
-             			<!-- 상품  리뷰 작성인 경우 -->
-             			<input type="hidden" name="productNo" value="${ review.productNo }">
-             			<label><b>상품 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
-             		</c:when>
-                	<c:otherwise>
-                		<!-- 예약 리뷰 작성인 경우 -->
-                		<label><b>예약 : ${ review.title } 결제 날짜: ${ review.receiptDate }</b></label>
-                	</c:otherwise>
-                </c:choose>   	
-             	
+            	<img src="${review.filePath}" id="pImg"><br>
+            	
                 <table align="center">
+	                <c:choose>
+	             		<c:when test="${ not empty review.productNo }">
+	             			<!-- 상품  리뷰 작성인 경우 -->
+	             			<input type="hidden" name="productNo" value="${ review.productNo }">
+	             			<tr>
+		                        <th width="100px"><label>상품</label></th>
+		                        <td width="400px"><input type="text" class="form-control" value="${ review.title }" readonly></td>
+	                    	</tr>
+	             		</c:when>
+	                	<c:otherwise>
+	                		<!-- 예약 리뷰 작성인 경우 -->
+	                		<tr>
+		                        <th width="100px"><label>예약</label></th>
+		                        <td width="400px"><input type="text" class="form-control" value="${ review.title }" readonly></td>
+	                    	</tr>
+	                	</c:otherwise>
+	                </c:choose>   	
+             	
                     <tr>
                         <th width="100px"><label>작성자</label></th>
                         <td width="400px"><input type="text" id="nickname" class="form-control" value="${ loginMember.nickname }" name="nickName" readonly></td>

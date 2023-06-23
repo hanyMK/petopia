@@ -26,8 +26,8 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myBoardList", memberNo);
 	}
 
-	public ArrayList<Alram> alramList(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.alramList", memberNo);
+	public ArrayList<Alram> alramList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.alramList", m);
 	}
 	
 	public ArrayList<ProductReceipt> alramShippingList(SqlSessionTemplate sqlSession, int memberNo) {
@@ -41,7 +41,23 @@ public class MyPageDao {
 	public ArrayList<Alram> alramNoticeList(SqlSessionTemplate sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.alramNoticeList", memberNo);
 	}
-
+	
+	public int deleteShippingAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteShippingAlram", delNo);
+	}
+	
+	public int deleteReplyAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteReplyAlram", delNo);
+	}
+	
+	public int deleteQnaAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteQnaAlram", delNo);
+	}
+	
+	public int deleteCouponAlram(SqlSessionTemplate sqlSession, int delNo) {
+		return sqlSession.update("myPageMapper.deleteCouponAlram", delNo);
+	}
+	
 	public ArrayList<Reply> myReplyList(SqlSessionTemplate sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.myReplyList", memberNo);
 	}
@@ -140,7 +156,7 @@ public class MyPageDao {
 	}
 	
 	public int insertProductReview2(SqlSessionTemplate sqlSession, AllReviews r) {
-		return sqlSession.insert("myPageMapper.insertReview2", r);
+		return sqlSession.insert("myPageMapper.insertProductReview2", r);
 	}
 	
 	public int insertReservationReview(SqlSessionTemplate sqlSession, AllReviews r) {
@@ -148,7 +164,11 @@ public class MyPageDao {
 	}
 
 	public int insertReservationReview2(SqlSessionTemplate sqlSession, AllReviews r) {
-		return sqlSession.insert("myPageMapper.insertReview2", r);
+		return sqlSession.insert("myPageMapper.insertReservationReview2", r);
+	}
+	
+	public int insertReviewPoint(SqlSessionTemplate sqlSession, Point p) {
+		return sqlSession.insert("myPageMapper.insertReviewPoint", p);
 	}
 
 	public String selectMemberImage(SqlSessionTemplate sqlSession, int memberNo) {
@@ -169,6 +189,14 @@ public class MyPageDao {
 
 	public int selectMemberReplyCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMemberReplyCount", memberNo);
+	}
+	
+	public Pet selectMyPet(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectMyPet", memberNo);
+	}
+	
+	public int insertMyPet(SqlSessionTemplate sqlSession, Pet p) {
+		return sqlSession.insert("myPageMapper.insertMyPet", p);
 	}
 	
 	
@@ -235,6 +263,10 @@ public class MyPageDao {
 	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
 		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
 	}
+
+	
+
+
 	
 
 	

@@ -65,12 +65,12 @@
         	<li><a href="memberCouponList.me"><h6>쿠폰</h6></a></li>
         </ul>
         <ul class="myPage_navi_category">
-        	<li><a href="#"><h5><b>마이페이지</b></h5></a></li>
+        	<li><a href="myPage.me?mno=${ loginMember.memberNo }"><h5><b>마이페이지</b></h5></a></li>
         	<li><a href="myReview.me"><h6>리뷰 관리</h6></a></li>
         	<li><a href="myBoard.me"><h6>게시글/댓글 관리</h6></a></li>
         	<li><a href=""><h6>1:1 문의</h6></a></li>
-        	<li><a href=""><h6>내 정보 수정</h6></a></li>
-        	<li><a href=""><h6>펫 정보 추가 / 수정</h6></a></li>
+        	<li><a href="updateInfo.me"><h6>내 정보 수정</h6></a></li>
+        	<li><a href="myPet.me"><h6>펫 정보 추가 / 수정</h6></a></li>
         	<li><a href=""><h6>탈퇴하기</h6></a></li>
         	
         </ul>

@@ -21,4 +21,7 @@ public class Alram {
 	private String qnaYn;
 	private String couponName;
 	
+	// 전체 PK
+	private int primaryNo;
+	
 }

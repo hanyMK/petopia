@@ -46,9 +46,7 @@ public interface MemberService {
 		//2. 메일로 비밀 번호 변경 가능한 링크 전송
 		//3. 링크를 통해 비밀번호 변겅(링크에 회원 이메일 정보가 담겨있어야함 또는 회원이 입력한 이메일을 변수에 담아서 기록해야함)
 		//4. 이메일과 새로운 비밀 번호를 UPDATE
-		int changeMemberPwd(Member m);
 		
-//		//회원탈퇴서비스(UPDATE)
 //		int deleteMember(String email);
 		
 		//주문 배송 리스트 조회(SELECT/멤버 넘버)
@@ -60,12 +58,6 @@ public interface MemberService {
 		int emailCheck(String checkEmail);
 		//닉네임 중복체크(SELECT)
 		int nicknameCkeck(String nickname);
-		
-		//회원 쿠폰 받기(INSERT/회원 번호와 쿠폰 번호 입력)
-		int getCoupon(Coupon c);
-		//발급 가능한 쿠폰 리스트 보기
-		
-		
 		//이메일 찾기(select)
 		String findEmail(String nickname);
 		

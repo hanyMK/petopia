@@ -10,10 +10,10 @@
     <title>로그인 페이지</title>
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <style>
@@ -37,6 +37,12 @@
     #m_login{
       height: 100%;
     }
+    #kakao{
+        border: 0;
+        background: none;
+        margin: auto;
+        padding-left: 500px;
+    }
      
   </style>
 
@@ -58,8 +64,9 @@
     <div id="naver_id_login" style="text-align:center"><a href="${url}">
     <img width="400" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
     -->
-	<div id="naver_id_login" style="text-align:center">
-    <img width="400" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
+	<button align="center" id="kakao">
+        <img src="resources/images/kakao_login_medium_narrow.png"/>
+    </button>
 <br>
     <form action="login.member" method="post">
         <table align="center" id="login-form"  >
@@ -93,15 +100,24 @@
     </table>
     
    
-    <!-- //네이버 로그인 버튼 노출 영역 -->
     <script type="text/javascript">
-        var naver_id_login = new naver_id_login("SzNT24__lVCFTwGtQmSh", "http://localhost:8007/spring/memberEnroll.member");
-        var state = naver_id_login.getUniqState();
-        naver_id_login.setButton("white", 2,40);
-        naver_id_login.setDomain("http://localhost:8007/spring/login");
-        naver_id_login.setState(state);
-        naver_id_login.setPopup();
-        naver_id_login.init_naver_id_login();
+        //네이버 로그인 버튼 노출 영역
+        // var naver_id_login = new naver_id_login("SzNT24__lVCFTwGtQmSh", "http://localhost:8007/spring/memberEnroll.member");
+        // var state = naver_id_login.getUniqState();
+        // naver_id_login.setButton("white", 2,40);
+        // naver_id_login.setDomain("http://localhost:8007/spring/login");
+        // naver_id_login.setState(state);
+        // naver_id_login.setPopup();
+        // naver_id_login.init_naver_id_login();
+
+        $('#kakao').click(() =>{
+            function kakaoLogin(){
+                let clientId = "1ed88bda51d1f5cb549a7d3dbf650f5a";
+                let uri = "";
+                location.href =  'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id='+clientId
+                                +'&redirect_uri';
+            };
+        })
     </script>
     
     <jsp:include page="../common/footer.jsp" />
