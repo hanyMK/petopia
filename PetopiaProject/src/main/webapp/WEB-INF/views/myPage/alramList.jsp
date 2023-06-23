@@ -58,8 +58,7 @@
 		var num = 0;
 		
 		$.ajax({
-			url : 'ajaxAlram.me', 
-			data : { mno : ${ loginMember.memberNo } },
+			url : 'ajaxAlram.me',
 			success : function(list) {
 				let value = "";
 				for(let i in list) {
@@ -93,6 +92,7 @@
 					} else {
 						value += '<div id="myList">'
 							   + list[i].columnAll + ' 쿠폰이 발행되었습니다.'
+							   + '<span class="delBtn" id="' + num++ + '">X</span>'
 							   + '</div><br>';
 					}
 				};
@@ -106,11 +106,18 @@
 		
 	};
 	
+	// 알람 삭제 함수
 	$(document).on("click", ".delBtn", function() {
 		$(this).parent().remove();
-	});	
+		/*
+		$.ajax({
+			url : 'deleteAlram'
+		})
+		*/
+		
+	});
 
-	
+		
 	/* 상품 배송출발 알람 */
 	function alramShippingList() {
 		
