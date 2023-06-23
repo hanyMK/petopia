@@ -14,12 +14,19 @@ import com.kh.petopia.admin.model.service.AdminService;
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.Pagination;
+import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.service.MyPageServiceImpl;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Controller
 public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private MyPageService mypageService;
+
 	
 	@RequestMapping("adminPage.ad")
 	public String adminPage() {
@@ -47,14 +54,18 @@ public class AdminController {
 		return "admin/adminShipping"; 
 	}
 	
-	@RequestMapping("adminChat.ad")
-	public String adminChat() {
-		return "admin/adminChat";
+	@RequestMapping("shippingDetail.ad")
+	public ModelAndView adminShippingDetail(int receiptNo, ModelAndView mv) {
+		ArrayList<ProductReceipt> orderList = mypageService.selectDetailOrderList(receiptNo);
+		mv.addObject("order", orderList)
+		.setViewName("admin/adminShippingDetail");
+		return mv;
 	}
-
-
 	
-	
+	@RequestMapping("chatBot.ct")
+	public String adminChat() {
+		return "admin/chatBot";
+	}
 	
 
 	
