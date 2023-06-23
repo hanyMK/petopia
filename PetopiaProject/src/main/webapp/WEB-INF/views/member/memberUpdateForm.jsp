@@ -53,26 +53,37 @@
             <h2>회원정보 수정</h2>
             <br>
 
-            <form action="join.member" method="post" id="enroll-form" enctype="multipart/form-data">
+            <form action="updateInfo.me" method="post" id="enroll-form" enctype="multipart/form-data">
                 <div class="form-group">
-                    <img name="upfile" id="upfile" src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male4-256.png">
-                   
-                    <div id="file-area">
-		          <!-- 1개만 가능 -->
-                        <input type="file" id="profile" name="upfile" onchange="loadImg(this, 1);">
-                         <button value="reset" type="reset">삭제</button>
-                    </div>
+                    <c:choose > 
+                        <c:when test="${not empty memberAtt}">
+                            <img name="upfile" id="upfile" src="${memberAtt}">
+                            <input text="hidden" name="memberAtt" value="${memberAtt}">
+                            <input type="file" id="profile" name="upfile" onchange="loadImg(this, 1);">
+                            <button value="reset" type="reset">삭제</button>
+                        </c:when>
+                        <c:otherwise>
+                            <img name="upfile" id="upfile" src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male4-256.png">
+                            
+                            <div id="file-area">
+                                <!-- 1개만 가능 -->
+                                <input type="file" id="profile" name="upfile" onchange="loadImg(this, 1);">
+                                <button value="reset" type="reset">삭제</button>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                  
                  <br>
 					
 
                     <label for="email"> &nbsp; 이메일 : </label>
+                    <input type="hidden" name="memberNo" value="${loginMember.memberNo}">
                     <input type="email" class="form-control" id="memberEmail" placeholder="이메일 입력" name="email" value="${loginMember.email}" readonly> <br>
                     <div id="emailhidden" class="hidden"></div><br>
                     
                     
 					 <label for="nickname">* 닉네임 : </label>
-                    <input type="text" class="form-control" id="nickname" placeholder="닉네임" name="nickname" value="${loginMember.nickname}"> <br>
+                    <input type="text" class="form-control" id="nickname" placeholder="닉네임" name="nickname" value="${loginMember.nickname}" onchange="checkNickname();"> <br>
                     <div id="nicknamehidden" class="hidden"></div><br>
 					
                     
@@ -112,7 +123,7 @@
                     <label for="address"> &nbsp;* 계좌번호 : </label>&nbsp;
                     <br>
                     <select name="bank" id="bank" required>
-                        <option >은행</option>
+                        <option>${loginMember.bank}</option>
                         <option value="농협">농협</option>
                         <option value="우리">우리</option>
                         <option value="신한">신한</option>
@@ -127,7 +138,7 @@
                 </div> 
                 <br>
                 <div class="btns" align="center">
-                    <button type="button" class="disabled btn btn-primary" id="join">회원가입</button>
+                    <button type="button" class="disabled btn btn-primary" id="update">정보수정</button>
                     <button type="reset" class="btn btn-danger">초기화</button>
                 </div>
             </form>
@@ -135,7 +146,7 @@
         <br><br>
 
     </div>
-
+        
    
     <script>
 	    function findPostcode() {
@@ -147,11 +158,19 @@
 	                document.getElementById('address').value = roadAddr;
 	            }
 	        }).open();
+            $('#detailAddress').val('');
 	    }
 	</script>
 
+
     <script> 
 
+
+        var address = '${loginMember.address}'.split(',');
+        
+        $('#postcode').val(address[0]);
+        $('#address').val(address[1]);
+        $('#detailAddress').val(address[2]);
   
         //정규 표현식 함수
         function regExpNickname(nickname) {      
@@ -170,35 +189,37 @@
 
         var pwdCheck = 0;
         var pwdCheck2 = 0;
-        var phoneCheck = 0;
-        var nicknameCheck = 0;
+        var phoneCheck = 1;
+        var nicknameCheck = 1;
 
 
         //가입조건 충족시 버튼 속성 변경
-        $('#join').on('click', function(){
-            if( phoneCheck == 1  && pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
+        $('#update').on('click', function(){
+            console.log(pwdCheck+'/'+pwdCheck2+'/'+phoneCheck+'/'+nicknameCheck);
+            if( phoneCheck == 1  &&  pwdCheck == 1 && pwdCheck2 ==1 && nicknameCheck ==1) {
                 $(this).attr('type','submit');  
+            }else{
+                alert("비밀번호를 확인해주세요");
             }
-            if($('#havePet').val()== 'Y'){
-            	$('#age').val('0');
-            	$('#weight').val('0');
-            }
-            
         })
 
 
         //닉네임 체크
         function checkNickname(){
             var $nickname = $('.innerOuter #nickname');
-            if(regExpNickname($nickname.val()) ==true){
+            if($nickname.val() == '${loginMember.nickname}'){
+                nicknameCheck = 1;
+            }else if(regExpNickname($nickname.val()) ==true && $nickname.val() != '${loginMember.nickname}'){
                 $.ajax({
                     url: 'nicknameCheck.member',
                     type: 'post',
-                    data : {nickname : $nickname.val()},
+                    data : {nickname : $nickname.val(),
+                            memberNickname : '${loginMember.nickname}'
+                    
+                    },
                     success : result => {
                         console.log(result);
                         if(result =='YYY'){
-                        	
                         nicknameCheck = 1;
                         $('#nicknamehidden').css('display','none');
                         }else{
@@ -209,8 +230,6 @@
                     },
                     error : () =>{
                         console.log('실패');
-                       
-                       
                     }
                 })
             }else{
@@ -253,7 +272,9 @@
         //전화번호 확인
         function checkPhone(){
             var $phone = $('.innerOuter #phone');
-            if(regExpPhone($phone.val()) == true){
+            if($phone.val() == '${loginMember.phone}'){
+                phoneCheck = 1;
+            }else if(regExpPhone($phone.val()) == true ){
                 phoneCheck = 1;
                 $('#phonehidden').css('display', 'none');
             }else{

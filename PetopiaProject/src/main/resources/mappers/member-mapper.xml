@@ -122,26 +122,38 @@
 					)
 	</insert>
 
-	<!-- 회원정보 수정용 쿼리 -->
+	<!-- 회원사진 수정용 쿼리 -->
 
 
-	<update id="updateMember" parameterType="member">
-		update
-				member
-		  set
-		  		user_name = #{userName},
-		  		email = #{email},
-		  		age = #{age},
-		  		phone=#{phone},
-		  		address = #{address},
-		  		gender = #{gender},
-		  		modify_date = sysdate
-		 where
-		 		user_id = #{userId}
+	<update id="updateMemberAtt" parameterType="att">
+		UPDATE
+				ATTACHMENT
+		  SET
+				FILE_CATEGORY = #{fileCategory},
+				ORIGIN_NAME = #{originName},
+				CHANGE_NAME = #{changeName},
+				FILE_PATH = #{filePath}
+		 WHERE
+		 		REF_NO = #{refNo}
 		  			
-		
-		
 	</update>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="member" >
+		UPDATE
+				MEMBER
+		  SET
+		  		MEMBER_PWD = #{memberPwd},
+		  		NICKNAME = #{nickname},
+		  		PHONE = #{phone},
+		  		BANK = #{bank},
+		  		ACCOUNT = #{account},
+		  		ADDRESS = #{address}
+		 WHERE
+		 		MEMBER_NO = #{memberNo}
+		  			
+	</update>
+	
 	
 	<!-- 회원 탈퇴용 쿼리 -->
 	<update id="deleteMember" parameterType="string">
