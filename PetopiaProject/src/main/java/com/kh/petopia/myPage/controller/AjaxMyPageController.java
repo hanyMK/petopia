@@ -51,6 +51,24 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.alramNoticeList(mno));
 	}
 	
+	@RequestMapping(value="deleteAlram.me", produces="application/json; charset=UTF-8")
+	public String deleteAlram(int delNo, String category) {
+		
+		if(category.equals("배송")) {
+			System.out.println("배송왔어?");
+			return new Gson().toJson(myPageService.deleteShippingAlram(delNo));
+		} else if(category.equals("댓글")) {
+			System.out.println("주문왔냐구");
+			return new Gson().toJson(myPageService.deleteReplyAlram(delNo));
+		} else if(category.equals("문의")) {
+			return new Gson().toJson(myPageService.deleteQnaAlram(delNo));
+		} else if(category.equals("쿠폰")) {
+			return new Gson().toJson(myPageService.deleteCouponAlram(delNo));
+		} else {
+			return null;
+		}
+	}
+	
 	// 마이페이지 게시글 댓글 조회
 	@RequestMapping(value="ajaxMyBoard.me", produces="application/json; charset=UTF-8")
 	public String myBoardList(int mno) {

@@ -48,6 +48,7 @@
 		<result column="reply_content"	property="replyContent" />
 		<result column="qna_yn" 	property="qnaYn" />
 		<result column="coupon_name"	property="couponName" />
+		<result column="PRIMARY_NO" property="primaryNo"/>
 	</resultMap>
 	
 	<resultMap id="productReceiptResultSet" type="productReceipt">
@@ -154,10 +155,10 @@
 	
 	
 	<select id="alramList" parameterType="member" resultMap="alramResultSet">
-		SELECT COLUMN_ALL, DATE_ALL, CATEGORY, BOARD_TITLE, NICKNAME, REPLY_CONTENT
+		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_KEY, CATEGORY, BOARD_TITLE, NICKNAME, REPLY_CONTENT
 		  FROM
 		      (
-		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT QNA_YN AS COLUMN_ALL, BOARD_NO AS PRIMARY_KEY, CREATE_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM BOARD
 		        WHERE CATEGORY = 'QNA'
 		          AND QNA_YN = 'Y'
@@ -166,7 +167,7 @@
 		      	  
 		        UNION ALL
 		        
-		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT COUPON_NAME AS COLUMN_ALL, MC.COUPON_NO AS PRIMARY_KEY, START_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM COUPON C
 		         LEFT 
 		         JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
@@ -190,7 +191,7 @@
 		               
 		       UNION ALL
 		        
-		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_NO AS PRIMARY_KEY, S.SHIPPING_DATE AS DATE_ALL, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM PRODUCT_RECEIPT P
 		         JOIN SHIPPING S ON(S.SHIPPING_NO = P.RECEIPT_NO)
 		        WHERE MEMBER_NO = #{ memberNo }
@@ -198,7 +199,7 @@
 		        
 		       UNION ALL
 		        
-		       SELECT NULL AS COLUMN_ALL, B.CREATE_DATE AS DATE_ALL, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
+		       SELECT NULL AS COLUMN_ALL, R.REPLY_NO AS PRIMARY_KEY, R.CREATE_DATE AS DATE_ALL, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
 		         FROM MEMBER M
 		         LEFT
 		         JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
@@ -213,46 +214,72 @@
 	</select>
 	
 	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
-		select shipping_status
+		select shipping_status, s.shipping_no
 		  from product_receipt p
-		  join shipping s on(s.shipping_no = p.shipping_no)
+		  join shipping s on(s.shipping_no = p.receipt_no)
 		   and member_no = #{ memberNo }
+		   and alram_status = 'Y'
 		 order by p.receipt_date desc
 	</select>
 	
-	<select id="alramReplyList" parameterType="_int" resultMap="alramResultSet">
-		select null as column_all, b.create_date as date_all, b.category as category, b.board_title as board_title, r.nickname as nickname, r.reply_content as reply_content
+	<select id="alramReplyList" parameterType="_int" resultMap="replyResultSet">
+		select b.category, b.board_title, r.nickname, r.reply_content, r.reply_no, r.create_date
 	      from member m
 	      left join board b on(m.member_no = b.member_no)
 	      left join reply r on(r.board_no = b.board_no)
 	     where b.member_no = #{ memberNo }
 	       and r.member_no != #{ memberNo }
-	     order by b.create_date desc
+	       and r.alram_status = 'Y'
+	     order by r.create_date desc
 	</select>
 	
 	<select id="alramNoticeList" parameterType="_int" resultMap="alramResultSet">
-		SELECT COLUMN_ALL, DATE_ALL
+		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO
 		  FROM
 		       (
-		        SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL
+		        SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO
 		          FROM BOARD
 		         WHERE CATEGORY = 'QNA'
 		           AND QNA_YN = 'Y'
 		           AND MEMBER_NO = #{ memberNo }
+		           AND ALRAM_STATUS = 'Y'
 		        
 		        UNION ALL
 		        
-		        SELECT 
-		               COUPON_NAME AS COLUMN_ALL,
-		               START_DATE DATE_ALL
+		        SELECT COUPON_NAME AS COLUMN_ALL, START_DATE DATE_ALL, MC.COUPON_NO AS PRIMARY_NO
 		          FROM COUPON C
 		          LEFT 
 		          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
 		         WHERE SYSDATE BETWEEN START_DATE AND END_DATE
 		           AND MEMBER_NO = #{ memberNo }
+		           AND MC.ALRAM_STATUS = 'Y'
 		        )
 		 ORDER BY DATE_ALL DESC
 	</select>
+	
+	<update id="deleteShippingAlram" parameterType="_int">
+		UPDATE SHIPPING
+		   SET ALRAM_STATUS = 'N'
+		 WHERE SHIPPING_NO = #{delNo}
+	</update>
+	
+	<update id="deleteReplyAlram" parameterType="_int">
+		UPDATE REPLY
+		   SET ALRAM_STATUS = 'N'
+		 WHERE REPLY_NO = #{delNo}
+	</update>
+	
+	<update id="deleteQnaAlram" parameterType="_int">
+		UPDATE BOARD
+		   SET ALRAM_STATUS = 'N'
+		 WHERE BOARD_NO = #{delNo}
+	</update>
+	
+	<update id="deleteCouponAlram" parameterType="_int">
+		UPDATE MEMBER_COUPON
+		   SET ALRAM_STATUS = 'N'
+		 WHERE COUPON_NO = #{delNo}
+	</update>
 	
 	<select id="selectPet" parameterType="int" resultMap="petResultSet">
 		SELECT

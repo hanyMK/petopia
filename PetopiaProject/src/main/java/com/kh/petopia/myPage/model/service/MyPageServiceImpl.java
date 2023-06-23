@@ -55,6 +55,26 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
+	public int deleteShippingAlram(int delNo) {
+		return myPageDao.deleteShippingAlram(sqlSession, delNo);
+	}
+	
+	@Override
+	public int deleteReplyAlram(int delNo) {
+		return myPageDao.deleteReplyAlram(sqlSession, delNo);
+	}
+	
+	@Override
+	public int deleteQnaAlram(int delNo) {
+		return myPageDao.deleteQnaAlram(sqlSession, delNo);
+	}
+	
+	@Override
+	public int deleteCouponAlram(int delNo) {
+		return myPageDao.deleteCouponAlram(sqlSession, delNo);
+	}
+	
+	@Override
 	public ArrayList<Reply> myReplyList(int memberNo) {
 		return myPageDao.myReplyList(sqlSession, memberNo);
 	}
@@ -287,6 +307,8 @@ public class MyPageServiceImpl implements MyPageService {
 	public int updateShippingInfo(ProductReceipt productReceipt) {
 		return myPageDao.updateShippingInfo(sqlSession, productReceipt);
 	}
+
+	
 	
 
 
