@@ -141,6 +141,7 @@ public class MemberController {
 			return mv;
 		
 		}
+<<<<<<< Updated upstream
 		
 		@GetMapping("findPwd")
 		public ModelAndView findPwdView(ModelAndView mv) {
@@ -180,6 +181,8 @@ public class MemberController {
 								 MultipartFile upfile,
 								 String memberAtt,
 								 HttpSession session) {
+=======
+>>>>>>> Stashed changes
 
 			Attachment att = insertMemberFile(upfile, session);
 			if(att != null) {
