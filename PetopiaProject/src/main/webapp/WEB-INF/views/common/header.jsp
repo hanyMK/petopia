@@ -255,8 +255,7 @@
                       <a href="memberEnroll.member">회원가입 </a> |
                       <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-target에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
                   </c:when>
-                  <c:otherwise>
-                                    
+                  <c:otherwise> 
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
                       <c:choose>
                       	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
@@ -264,10 +263,16 @@
                       	</c:when>
                       	<c:otherwise>
 		                     <a href="myPage.me?mno=${ loginMember.memberNo }">마이페이지</a>
-                      	
                       	</c:otherwise>
                       </c:choose>
-                      <a href="logout.member">로그아웃</a>
+                      <c:choose>
+                        <c:when test="${loginMember.loginType eq 'P'}">
+                            <a href="logout.member">로그아웃</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="https://kauth.kakao.com/oauth/logout?client_id=1ed88bda51d1f5cb549a7d3dbf650f5a&logout_redirect_uri=http://localhost:8282/petopia/logout.member">로그아웃</a>
+                        </c:otherwise>
+                      </c:choose>
                       
                   </c:otherwise>
                </c:choose>

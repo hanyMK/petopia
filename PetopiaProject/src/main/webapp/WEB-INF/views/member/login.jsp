@@ -111,12 +111,16 @@
         // naver_id_login.init_naver_id_login();
 
         $('#kakao').click(() =>{
-            function kakaoLogin(){
+            console.log('ks');
+           
                 let clientId = "1ed88bda51d1f5cb549a7d3dbf650f5a";
-                let uri = "";
-                location.href =  'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id='+clientId
-                                +'&redirect_uri';
-            };
+                let uri = "http://localhost:8282/petopia/kakaoMemberEnroll.member";
+
+                location.href =  'https://kauth.kakao.com/oauth/authorize?response_type=code'
+                                +'&client_id='+clientId
+                                +'&redirect_uri=' + uri
+                                +'&scope=account_email';
+            
         })
     </script>
     

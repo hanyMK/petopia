@@ -1,11 +1,15 @@
 package com.kh.petopia.member.model.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.member.model.dao.MemberDao;
 import com.kh.petopia.member.model.vo.CertVO;
@@ -22,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public Member loginMember(Member m) {
-		return memberDao.loginMember(sqlSession, m);
+	public Member loginMember(String email) {
+		return memberDao.loginMember(sqlSession, email);
 	}
 	
 	@Override
@@ -41,11 +45,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.joinMemberAtt(sqlSession, memberAtt);
 	}
 
-	@Transactional
 	@Override
-	public int updateMember(Member m, Attachment memberAtt) {
-		int att = memberAtt != null?memberDao.updateMember(sqlSession, memberAtt):0;
-		return memberDao.updateMember(sqlSession, m)*att;
+	public int updateMember(Member m) {
+		return memberDao.updateMember(sqlSession, m);
+		
+	}
+	@Override
+	public int updateMember(Attachment memberAtt) {
+		return memberDao.updateMember(sqlSession, memberAtt);
 		
 	}
 
@@ -79,6 +86,8 @@ public class MemberServiceImpl implements MemberService {
 	public boolean validata(CertVO certVo) {
 		return memberDao.validata(sqlSession, certVo);
 	}
+
+
 
 
 }

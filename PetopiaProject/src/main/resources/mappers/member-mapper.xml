@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<!-- 로그인 용 쿼리문 -->
-	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+	<select id="loginMember" parameterType="string" resultMap="memberResultSet">
 		SELECT 
 				MEMBER_NO,
 				EMAIL,
@@ -37,7 +37,8 @@
 				ADDRESS,
 				ENROLL_DATE,
 				MODIFY_DATE,
-				STATUS
+				STATUS,
+				LOGIN_TYPE
 		  FROM 
 		  		MEMBER
 		 WHERE
@@ -59,7 +60,8 @@
 				    PHONE,   
 				    BANK,  
 				    ACCOUNT,   
-				    ADDRESS
+				    ADDRESS,
+				    LOGIN_TYPE
 				    )
 				VALUES
 					(
@@ -72,7 +74,8 @@
 					#{phone},
 					#{bank},
 					#{account},
-					#{address}
+					#{address},
+					#{loginType}
 					)
 	</insert>
 	
@@ -115,7 +118,14 @@
 					(
 					SEQ_FNO.NEXTVAL,
 					#{fileCategory},
-					(SELECT NVL(MAX(MEMBER_NO), 0) FROM MEMBER),
+					<choose>
+				   	  	<when test="refNo == null">
+				   	  		(SELECT NVL(MAX(MEMBER_NO), 0) FROM MEMBER),
+				   	  	</when>
+				   	  	<otherwise>
+				   	  	   #{refNo},
+				   	  	</otherwise>
+				   	 </choose>
 					#{originName},
 					#{changeName},
 					#{filePath}
