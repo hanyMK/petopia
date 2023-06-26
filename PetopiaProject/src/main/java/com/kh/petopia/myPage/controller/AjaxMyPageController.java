@@ -82,8 +82,7 @@ public class AjaxMyPageController {
 	
 	//마이페이지 쿠폰 조회
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
-	public String selectMemberCouponList(int memberNo,
-										HttpSession session) {
+	public String selectMemberCouponList(HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		Member member = (Member)session.getAttribute("loginMember");
 		ArrayList<Coupon> cList = myPageService.memberCouponList(member);
@@ -246,8 +245,8 @@ public class AjaxMyPageController {
 	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
 	public String selectOrderList(int memberNo, 
 								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
-		
-		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
+		System.out.println(currentPage);
+		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 3, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
 		HashMap<String, Object> receiptList = new HashMap<>(); 
 		System.out.println(list);
