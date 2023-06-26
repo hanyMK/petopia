@@ -223,7 +223,10 @@
 	           SHIPPING_NO = #{receiptNo}       
 	</select>
 	
-	
+	<select id="bringKey" resultType="string">
+		SELECT KEY
+  		  FROM API
+	</select>
 	
 	
 	

@@ -222,12 +222,24 @@
 
         }
 		
+		#fixed_menu_border{
+			position: fixed;
+			right: 0px;
+			left: 1500px;
+			top: 800px;
+			background-color:#FAC264;
+			width: 30px;
+		}
+		
+		
+	 
     </style>
 
 	<!-- 아이콘 사용 라이브러리 -->
 	<script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
 
 
    	<c:if test="${ not empty alertMsg }">
@@ -304,6 +316,8 @@
             </div>
         </div>
 
+
+
         <div id="header_2">
             <ul id="navi">
                 <li>
@@ -340,11 +354,25 @@
     
         </div>
 
-        <div id="div1">dddddddddddddd</div>
-
+		<!-- 채팅, 리모컨  -->
+			
+			<div id="fixed_menu_border">
+			 <!--  <div id="chatMove_1">채팅</div> -->
+			  <a href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
+			 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
+			
+			</div>
+   	 
     </div>
     
+    
+
+    
     <script>
+    // 맨위로
+    $('#topMove_1').click(function(){
+      location.href = 'javascript:window.scrollTo(0,0)'
+    });
     
     var alram = $("#alram_box");
     var pay = $("#pay_box");
@@ -399,6 +427,10 @@
  	function goCart(){
  		location.href = "productCart.pd";
  	}
+ 	
+ 	$('#chatMove_1').click(function(){
+ 		$('#chatOpen').css('display', 'block');
+ 	})
     </script>
 </body>
 </html>

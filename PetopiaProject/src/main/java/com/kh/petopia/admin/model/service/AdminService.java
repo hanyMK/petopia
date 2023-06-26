@@ -49,5 +49,8 @@ public interface AdminService {
 
 	void shippingRelease(int[] receiptNos);
 	
+	// api 키 조회
+	String bringKey();
+	
 	
 }

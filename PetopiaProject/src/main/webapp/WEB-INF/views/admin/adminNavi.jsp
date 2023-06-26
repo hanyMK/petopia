@@ -56,13 +56,12 @@
 	<!-- 마이페이지 메뉴바 -->
     <div class="myPage_navi">
         <ul class="myPage_navi_category">
-        	<li><a><h4><b>관리자 페이지 아직 만드는중~~</b></h4></a></li>
-        	<li><a><h6>관리자 님</h6></a></li>
+        	<li><a><h4><b>관리자 페이지</b></h4></a></li>
         </ul>
         <ul class="myPage_navi_category">
         	<li><a href="memberList.ad"><h5><b>회원조회</b></h5></a></li>
-        	<li><a href="adminSales.ad"><h6>매출관리</h6></a></li>
-        	<li><a href="adminShipping.ad"><h6>주문/배송 조회</h6></a></li>
+        	<li><a href="adminSales.ad"><h5><b>매출관리</b></h5></a></li>
+        	<li><a href="adminShipping.ad"><h5><b>주문/배송 조회</b></h5></a></li>
         	<li><a href=""><h6>펫페이/포인트 조회</h6></a></li>
         </ul>
         <ul class="myPage_navi_category">
