@@ -199,6 +199,9 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertMyPet", p);
 	}
 	
+	public int updateMyPet(SqlSessionTemplate sqlSession, Pet p) {
+		return sqlSession.update("myPageMapper.updateMyPet", p);
+	}
 	
 	
 	
@@ -263,6 +266,8 @@ public class MyPageDao {
 	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
 		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
 	}
+
+	
 
 	
 

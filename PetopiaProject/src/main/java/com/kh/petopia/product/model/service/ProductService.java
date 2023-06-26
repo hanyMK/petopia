@@ -1,13 +1,13 @@
 package com.kh.petopia.product.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
-import com.kh.petopia.product.model.vo.ProductInfo;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 public interface ProductService {
@@ -108,21 +108,13 @@ public interface ProductService {
 		
 		int insertCart(Cart cart);
 		
-		int deleteCart(int productNo);
-		
 		ArrayList<Cart> selectCartList(int memNo);
 		
 		ArrayList<Cart> selectCart(int memberNo);
 		
 		ArrayList<Coupon> selectCoupon(int memberNo);
 		
-		int insertReceipt(ProductReceipt pr);
-		int insertBridge(ArrayList pInfo);
-		int insertShipping(ProductReceipt pr);
-		
-		int updateCoupon(ProductReceipt pr);
-		int insertPoint(ProductReceipt pr);
-		int insertBonusPoint(ProductReceipt pr);
+		int insertReceipt(ProductReceipt pr, ArrayList list, HashMap hashCart, int[] resultArr);
 		
 	// ------------- 검색 -------------
 		ArrayList<Product> selectSearch(String keyword);

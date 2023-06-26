@@ -398,7 +398,7 @@ STATUS
 		   and 
 		   		coupon_no = #{couponNo}
 	</update>
-		<!-- 
+ 
 	<insert id="insertPoint">
 		insert 
 		  into 
@@ -407,16 +407,80 @@ STATUS
 		       point_no,
 		       point_amount,
 		       point_history,
-		       
+		       point_status,
+		       member_no
 		       )
 		values
 			   (
 			   SEQ_POINT_NO.NEXTVAL,
-			   
+			   #{point},
+			   'PETPAY',
+			   'M',
+			   #{memberNo}
 			   )
 	</insert>
-	 	-->
-	<!-- 
-	insertBonusPoint
- 	-->
+
+	<insert id="insertBonusPoint">
+		insert
+		  into
+		  	   point
+		  	   (
+		       point_no,
+		       point_amount,
+		       point_history,
+		       point_status,
+		       member_no
+		       )
+		values
+			   (
+			   SEQ_POINT_NO.NEXTVAL,
+			   #{bonusPt},
+			   'PETPAY',
+			   'P',
+			   #{memberNo}
+			   )
+			   
+	</insert>
+	
+	<insert id="insertUsePetPay">
+		insert
+		  into
+		  	   petpay
+		  	   (
+		  	   petpay_no,
+		  	   petpay_amount,
+		  	   petpay_status,
+		  	   member_no
+		  	   )
+		values
+			   (
+			   SEQ_PETPAY_NO.NEXTVAL,
+			   -#{totalPrice},
+			   'M',
+			   #{memberNo}
+			   )
+	</insert>
+	
+	<delete id="deleteCart" parameterType="hashmap">
+		delete 
+		  from
+		  	   product_cart
+		 where
+		 	   member_no = #{memberNo}
+		   and
+		 	   product_no in 
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+		 	   #{item.pnoEl}
+		</foreach> 
+		   and
+		   	   product_size in 
+		<foreach collection="list" item="item" open="(" separator="," close=")">   
+		   	   #{item.sizeEl}
+		</foreach> 
+		   and
+		   	   amount in 
+		<foreach collection="list" item="item" open="(" separator="," close=")">   
+		   	   #{item.amountEl}
+		</foreach>	    
+	</delete>
 </mapper>

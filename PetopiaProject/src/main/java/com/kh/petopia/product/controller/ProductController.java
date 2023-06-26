@@ -1,6 +1,7 @@
 package com.kh.petopia.product.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -160,7 +161,7 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping(value="calculate.pd", produces="application/json; charset=UTF-8")
-	public String calculate(int total, String coupon, String point) {
+	public String calculate(int total, String coupon, String point, ProductInfo pInfo) {
 		System.out.println(total);
 		System.out.println(coupon);
 		System.out.println(point);
@@ -169,24 +170,48 @@ public class ProductController {
 		int pointPrice = Integer.parseInt(point);
 		double f = couponPrice;
 		int value = 0;
+		int extraMoney = 0;
+		
+		ArrayList<ProductInfo> list = new ArrayList();
+		
+		for(int i = 0; i < pInfo.getSize().length; i++) {
+			ProductInfo p = new ProductInfo();
+			p.setSizeEl(pInfo.getSize()[i]);
+			
+			list.add(p);
+		}
+		
+		
+		for(int i = 0; i > list.size(); i++) {
+			if(list.get(i).getSizeEl().equals("M")) {
+				extraMoney += 2000;
+			}
+			
+			if(list.get(i).getSizeEl().equals("L")) {
+				extraMoney += 4000;
+			}
+		}
+		
+		int exTotal = total + extraMoney;
+		
 		
 		if(couponPrice == 0 && pointPrice == 0) {
-			value = total;
+			value = exTotal;
 		} else if(couponPrice == 0) {
-			value = total - pointPrice;
+			value = exTotal - pointPrice;
 		} else if(pointPrice == 0) {
 			if(couponPrice >= 0 && couponPrice <= 100) {
-				int cPrice = (int)(total * (f/100));
-				value = total - cPrice;
+				int cPrice = (int)(exTotal * (f/100));
+				value = exTotal - cPrice;
 			} else {
-				value = total - couponPrice;
+				value = exTotal - couponPrice;
 			}
 		} else {
 			if(couponPrice >= 0 && couponPrice <= 100) {
-				int cPrice = (int)(total * (f/100));
-				value = total - cPrice - pointPrice;
+				int cPrice = (int)(exTotal * (f/100));
+				value = exTotal - cPrice - pointPrice;
 			} else {
-				value = total - couponPrice - pointPrice;
+				value = exTotal - couponPrice - pointPrice;
 			}
 		}
 		return new Gson().toJson(value);
@@ -224,19 +249,20 @@ public class ProductController {
 		if(pr.getPoint().equals("")) {
 			pr.setPoint("0");
 		}
+		
 		Integer.parseInt(pr.getCouponNo());
 		Integer.parseInt(pr.getPoint());
+		
 		int bonusPt = (int)(pr.getTotalPrice() * 0.05);
 		
 		pr.setBonusPt(bonusPt);
 		//포인트랑 쿠폰이 리시티에 인설트가 되었을 경우에 해줘야함
+		int[] resultArr = new int[10];
 		
+		// 인트형배열에 집어넣기
 		System.out.println("---------------------------------");
-	
-
 		
 		ArrayList<ProductInfo> list = new ArrayList();
-		
 		for(int i = 0; i < pInfo.getPno().length; i++) {
 			ProductInfo p = new ProductInfo();
 			p.setPnoEl(pInfo.getPno()[i]);
@@ -244,30 +270,19 @@ public class ProductController {
 			p.setAmountEl(pInfo.getAmount()[i]);
 			
 			list.add(p);
-			}
-		
-		int result3 = 0;
-		int result4 = 0;
-		int result5 = 0;
-		int result1 = productService.insertReceipt(pr);
-		int result2 = productService.insertBridge(list);
-		if((result1 * result2) != 0) {
-			if(Integer.parseInt(pr.getCouponNo()) != 0) {
-				result3 = productService.updateCoupon(pr);
-			} else {
-				result3 = 1;
-			}
-			
-			if(Integer.parseInt(pr.getPoint()) != 0) {
-				result4 = productService.insertPoint(pr);
-			} else {
-				result4 = 1;
-			}
-			result5 = productService.insertBonusPoint(pr);
 		}
-		// productService.insertShipping(pr);
 		
-		return "";
+		
+		HashMap hashCart = new HashMap();
+		hashCart.put("memberNo", pr.getMemberNo());
+		hashCart.put("list", list);
+		
+		if(pr.getPetPay() >= pr.getTotalPrice()) {
+			resultArr[9] = productService.insertReceipt(pr, list, hashCart, resultArr);
+		} 
+		
+		System.out.println("resultArr[9] : " + resultArr[9]);
+		return new Gson().toJson(resultArr[9]);
 	}
 	
 }

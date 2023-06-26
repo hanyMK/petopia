@@ -235,6 +235,30 @@
 		
 	};
 	</script>
+	
+	<script>
+	
+		// 알람 상세 조회
+		$(function() {
+			$('#alram_area_bottom').on('click','#myList', function() {
+				var category = $(this).children('input[type=hidden]').val();
+				console.log(category);
+				var primaryNo = $(this).children('button[class="delBtn"]').attr('id');
+				console.log(primaryNo);
+				if(category == '쿠폰') {
+					parent.location.href = "memberCouponList.me"; 
+				} else if(category == '배송'){
+					parent.location.href = "orderDetail.me?receiptNo=" + primaryNo ;
+				} else if(category="댓글"){
+					parent.location.href = "detail.bo?bno=" + primaryNo; 
+				} else if(category="문의"){
+					//parent.location.href = ""; 
+				}
+					
+			})
+		});
+	
+	</script>
 
 
 </body>
