@@ -123,9 +123,6 @@
 							<button class="pointStatus" onclick="pointStatusBtn('MINUS');">사용</button>
 						</div>
 						<div id="pointList_2">
-							총 n건	기간
-						</div>
-						<div id="pointList_3">
 							<c:forEach var="p" items="${ pointList }" >
 								<div id="myList">
 									${p.pointDate}

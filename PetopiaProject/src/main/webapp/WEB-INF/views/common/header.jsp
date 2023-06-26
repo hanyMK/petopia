@@ -340,8 +340,6 @@
     
         </div>
 
-        <div id="div1">dddddddddddddd</div>
-
     </div>
     
     <script>

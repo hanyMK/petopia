@@ -124,7 +124,8 @@ public interface MyPageService {
 	// 펫 없는 사람 등록
 	int insertMyPet(Pet p);
 	
-	
+	// 펫 정보 수정
+	int updateMyPet(Pet p);
 	
 	
 	
@@ -153,6 +154,8 @@ public interface MyPageService {
 	//회원 배송지 정보 변경
 	
 	int updateShippingInfo(ProductReceipt productReceipt);
+
+	
 
 	
 

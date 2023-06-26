@@ -267,6 +267,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.insertMyPet(sqlSession, p);
 	}
 	
+	@Override
+	public int updateMyPet(Pet p) {
+		return myPageDao.updateMyPet(sqlSession, p);
+	}
+	
 	
 	
 	
