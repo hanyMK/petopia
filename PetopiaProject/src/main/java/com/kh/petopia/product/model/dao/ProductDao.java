@@ -1,6 +1,7 @@
 package com.kh.petopia.product.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,6 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
-import com.kh.petopia.product.model.vo.ProductInfo;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Repository
@@ -89,5 +89,12 @@ public class ProductDao {
 		return sqlSession.insert("productMapper.insertBonusPoint", pr);
 	}
 	
+	public int insertUsePetPay(SqlSessionTemplate sqlSession, ProductReceipt pr) {
+		return sqlSession.insert("productMapper.insertUsePetPay", pr);
+	}
+	
+	public int deleteCart(SqlSessionTemplate sqlSession, HashMap hashCart) {
+		return sqlSession.delete("productMapper.deleteCart", hashCart);
+	}
 	
 }
