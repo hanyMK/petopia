@@ -213,80 +213,24 @@
 			width: 30px;
 		}
 		
-		
-		<!--------------------------------------------------------------------->
-		<!-- 리모컨 스타일 -->
-	    .fixed_menu_border{
-	    position: absolute;
-	 	  z-index: 2;	
-	      top : 10px;
-	      bottom: 150px;
-	      right: 100px;
-	      width: 10px;
-	      height: 705px;
-	      color: black;
-	      text-align: center;
-	    }
-	    #chatMove{
-	      height: 100%;
-	      width: 50%;
-	      padding: 5px;
-	    }
-	    #topMove{
-	      height: 100%;
-	      width: 50%;
-	      padding: 5px;
-	    }
-	    #chatMove_1:hover{
-	      cursor: pointer;
-	      background-color: rgb(219, 219, 219);
-	    }
-	    #topMove_1:hover{
-	      cursor: pointer;
-	      background-color: rgb(219, 219, 219);
-	    }
-	    #topMove_1{
-	      background-color: #FFFFFF;
-	      box-shadow: 2px 2px 2px 2px rgb(219, 219, 219);
-	      border-radius: 60px;
-	      width: 100%;
-	      height: 100%;
-	      text-align: center;
-	      padding-top: 20px;
-	      font-weight: bold;
-	      font-size: 18px;
-	    }
-	    #chatMove_1{
-	      background-color: #FFFFFF;
-	      box-shadow: 1px 1px 1px 2px rgb(219, 219, 219);
-	      border-radius: 60px;
-	      width: 100%;
-	      height: 100%;
-	      text-align: center;
-	      padding-top: 20px;
-	      font-weight: bold;
-	      font-size: 18px;
-	    }
-		
-		#chatOpen{
-			width: 200px;
-			height: 500px;
-			position: relative;
-			display: none;
+		#fixed_menu_border{
+			position: fixed;
+			right: 0px;
+			left: 1500px;
+			top: 800px;
+			background-color:#FAC264;
+			width: 30px;
 		}
+		
+		
+	 
     </style>
 
 	<!-- 아이콘 사용 라이브러리 -->
 	<script src="https://kit.fontawesome.com/280c5da56d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-   <!-- 채팅, 리모컨  -->
-			<div class="fixed_menu_border">
-			 <!--  <div id="chatMove_1">채팅</div> -->
-			  <a href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
-			 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
-			
-			</div>
+
 
 
    	<c:if test="${ not empty alertMsg }">
@@ -396,7 +340,14 @@
     
         </div>
 
-
+		<!-- 채팅, 리모컨  -->
+			
+			<div id="fixed_menu_border">
+			 <!--  <div id="chatMove_1">채팅</div> -->
+			  <a href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
+			 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
+			
+			</div>
    	 
     </div>
     

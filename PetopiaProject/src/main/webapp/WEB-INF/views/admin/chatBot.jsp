@@ -77,7 +77,21 @@
                 sendMessage(message);
                 messageInput.val("");
             }
+      
         });
+        
+        messageInput.keypress(function(e) {
+            if (e.which === 13) { // Enter 키 눌렀을 때
+                e.preventDefault();
+                var message = messageInput.val();
+                if (message.trim() !== "") {
+                    sendMessage(message);
+                    messageInput.val("");
+                }
+            }
+        });
+        
+        
 
         function sendMessage(message) {
         chatContainer.append("<div class=\"typing-indicator\"><p>...</p></div>");  // 대기 표시기 추가
@@ -95,17 +109,19 @@
                 }
             });
         }
+        
     });
   </script>
 </head>
 
 <body>
 		
+	<div id="chatBot">
+	
 	<div id="chatDog" align="left" >
-        <img id="dog" src="resources/images/chatDog.png" alt="챗봇 캐릭터" onclick="window.location.reload()">
+        <img id="dog" src="resources/images/chatDog.png" alt="챗봇 캐릭터" onmouseover="this.src='resources/images/chatDog(angry).png'" onmouseout="this.src='resources/images/chatDog.png'" onclick="window.location.reload()">
 	</div>
 	
-	<div id="chatBot">
 		
 	    <div id="chatContainer"></div>
 		<div id="inputBox" align="right">
@@ -114,8 +130,6 @@
 		</div>
 	</div>
 
-		
-	 	
 
 </body>
 </html>
