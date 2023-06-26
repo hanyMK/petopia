@@ -100,20 +100,12 @@
 						<button onclick="pointBtn();">포인트 내역</button>
 					</div>
 					<div id="petpayList" align="center">
-						<div>
+						<div id="petpayList_1">
 							<button class="petpayStatus" onclick="petpayStatusBtn('ALL');">전체</button>
 							<button class="petpayStatus" onclick="petpayStatusBtn('PLUS');">충전</button>
 							<button class="petpayStatus" onclick="petpayStatusBtn('MINUS');">사용</button>
 						</div>
-						<div>
-							<c:forEach var="pp" items="${ petpayList }" >
-								<div id="myList">
-									${pp.petpayDate}
-									${pp.account}
-									${pp.petpayAmount}
-									${pp.petpayStatus}
-								</div><br>
-				            </c:forEach>
+						<div id="petpayList_2">
 						</div>	
 					</div>
 					<div id="pointList" align="center">
@@ -123,13 +115,6 @@
 							<button class="pointStatus" onclick="pointStatusBtn('MINUS');">사용</button>
 						</div>
 						<div id="pointList_2">
-							<c:forEach var="p" items="${ pointList }" >
-								<div id="myList">
-									${p.pointDate}
-									${p.pointStatus }
-									${p.pointAmount}
-								</div><br>
-				            </c:forEach>
 						</div>
 					</div>		
 				</div>
@@ -237,6 +222,13 @@
     </div>
     
     
+    <script>
+    
+	    $(document).ready(function(){
+	    	petpayStatusBtn();
+		});
+    
+    </script>
     
     <script>
     
@@ -359,7 +351,7 @@
     					   + list[i].petpayStatus
     					   + '</div><br>';
     				};
-    			$('#petpayList_3').html(value);
+    			$('#petpayList_2').html(value);
     			
     		},
     		error : function() {
@@ -389,7 +381,7 @@
     					   + list[i].pointStatus
     					   + '</div><br>';
     				};
-    			$('#pointList_3').html(value);
+    			$('#pointList_2').html(value);
     			
     		},
     		error : function() {
