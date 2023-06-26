@@ -131,6 +131,16 @@ public class ReservationController {
 		return mv;
 	}
 	
+	   // 애견 미용 예약 step-3
+	   @RequestMapping("payment3.ps")
+	   public ModelAndView paymentPetSalon3(Reservation r, HttpSession session, ModelAndView mv) {
+	      
+	      System.out.println("먀");
+	      
+	      return null;
+	      
+	   }
+	
 
 
 	
