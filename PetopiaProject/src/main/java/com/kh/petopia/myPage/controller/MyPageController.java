@@ -111,7 +111,7 @@ public class MyPageController {
 	// 마이페이지 -> 쿠폰조회
 	@RequestMapping("memberCouponList.me")
 	public String memberCouponListView() {
-		return "myPage/memberCouponList";
+		return "myPage/myCouponList";
 	}
 	
 	// 마이페이지 펫페이 충전
@@ -196,7 +196,7 @@ public class MyPageController {
 				
 				return "redirect:myReview.me";
 			} else {
-				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+				model.addAttribute("errorMsg", "리뷰 등록 실패 ㅠ");
 				return "common/errorPage";
 			}
 		} else {
@@ -218,7 +218,7 @@ public class MyPageController {
 				
 				return "redirect:myReview.me";
 			} else {
-				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+				model.addAttribute("errorMsg", "리뷰 등록 실패 ㅠ");
 				return "common/errorPage";
 			}
 		}
@@ -230,16 +230,30 @@ public class MyPageController {
 	public String myPetList(Model model, HttpSession session) {
 		Member member = (Member)session.getAttribute("loginMember");
 		int mno = member.getMemberNo();
-		System.out.println(myPageService.selectMyPet(mno));
 		model.addAttribute("pet", myPageService.selectMyPet(mno));
 		return "myPage/myPetList";
 	}
 	
 	@RequestMapping("insertMyPet.me")
-	public String insertPet(Pet p, Model model) {
-		System.out.println(p);
-		model.addAttribute("myPet", myPageService.insertMyPet(p));
-		return "myPage/myPetList";
+	public ModelAndView insertMyPet(Pet p, ModelAndView mv) {
+		if(myPageService.insertMyPet(p) > 0) {
+			mv.addObject("alertMsg", "펫정보 추가가 완료되었습니다").setViewName("myPage/myPetList");
+		} else {
+			mv.addObject("errorMsg", "펫정보 추가가 실패되었습니다")
+			.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("updateMyPet.me")
+	public ModelAndView updateMyPet(Pet p, ModelAndView mv) {
+		if(myPageService.updateMyPet(p) > 0) {
+			mv.addObject("alertMsg", "펫정보 수정이 완료되었습니다").setViewName("myPage/myPetList");
+		} else {
+			mv.addObject("errorMsg", "펫정보 수정이 실패되었습니다")
+			.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	

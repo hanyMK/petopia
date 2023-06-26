@@ -92,7 +92,6 @@
 		var value = '<h2  id="coupon_status">발급 가능한 쿠폰 </h2>';
 		$(document).ready(() =>{ // 
 			couponList();
-		
 		})
 		
 		$(() => {
@@ -134,13 +133,7 @@
 			$.ajax({
 				url : 'couponList.me',
 				type : 'post',
-				data :{
-					memberNo: ${ sessionScope.loginMember.memberNo},
-					cpage: 1
-				},
 				success: cList => {
-
-					console.log(cList);
 					for(var i in cList){
 						if(cList.length ==0){
 							value +='<h2 align="center"> 발급 가능한 쿠폰이 없습니다</h1>'

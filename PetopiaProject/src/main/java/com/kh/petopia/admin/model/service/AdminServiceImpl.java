@@ -90,6 +90,11 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	@Override
+	public String bringKey() {
+		return adminDao.bringKey(sqlSession);
+	}
+
 
 
 }

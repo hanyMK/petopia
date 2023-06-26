@@ -222,6 +222,21 @@
 
         }
 		
+		#fixed_menu_border{
+			position: fixed;
+			right: 0px;
+			left: 1500px;
+			top: 800px;
+			height:100px;
+			width:100px;
+		}
+		
+		#fixed_menu_border>a {
+			
+		}
+		
+		
+	 
     </style>
 
 	<!-- 아이콘 사용 라이브러리 -->
@@ -230,13 +245,13 @@
 <body>
 
 
+
    	<c:if test="${ not empty alertMsg }">
 	<script type="text/javascript">
 	alertify.alert('${alertMsg}');
 	</script>
 	<c:remove var="alertMsg" scope="session"/>
 	</c:if>
-    
 
     <div id="header">
         <!-- 로그인 및 회원가입 -->
@@ -262,15 +277,15 @@
                       		<a href="adminPage.ad">관리자 페이지</a>
                       	</c:when>
                       	<c:otherwise>
-		                     <a href="myPage.me?mno=${ loginMember.memberNo }">마이페이지</a>
+		                     <a href="myPage.me?mno=${ sessionScope.loginMember.memberNo }">마이페이지</a>
                       	</c:otherwise>
                       </c:choose>
                       <c:choose>
-                        <c:when test="${loginMember.loginType eq 'P'}">
+                        <c:when test="${sessionScope.loginMember.loginType eq 'P'}">
                             <a href="logout.member">로그아웃</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="https://kauth.kakao.com/oauth/logout?client_id=1ed88bda51d1f5cb549a7d3dbf650f5a&logout_redirect_uri=http://localhost:8282/petopia/logout.member">로그아웃</a>
+                            <a href="${logout}">로그아웃</a>
                         </c:otherwise>
                       </c:choose>
                       
@@ -303,6 +318,8 @@
                <!-- 장바구니 아이콘-->
             </div>
         </div>
+
+
 
         <div id="header_2">
             <ul id="navi">
@@ -340,11 +357,25 @@
     
         </div>
 
-        <div id="div1">dddddddddddddd</div>
-
+		<!-- 채팅, 리모컨  -->
+			
+			<div id="fixed_menu_border">
+			 <!--  <div id="chatMove_1">채팅</div> -->
+			  <a class="fa-solid fa-headset" href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
+			 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
+			
+			</div>
+   	 
     </div>
     
+    
+
+    
     <script>
+    // 맨위로
+    $('#topMove_1').click(function(){
+      location.href = 'javascript:window.scrollTo(0,0)'
+    });
     
     var alram = $("#alram_box");
     var pay = $("#pay_box");
@@ -399,6 +430,10 @@
  	function goCart(){
  		location.href = "productCart.pd";
  	}
+ 	
+ 	$('#chatMove_1').click(function(){
+ 		$('#chatOpen').css('display', 'block');
+ 	})
     </script>
 </body>
 </html>

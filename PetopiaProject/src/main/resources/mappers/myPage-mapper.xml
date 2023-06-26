@@ -1093,5 +1093,15 @@
 		       #{weight}
 		       )
 	</insert>
+	
+	<update id="updateMyPet" parameterType="pet">
+	UPDATE PET
+	   SET GENDER = #{gender},
+	       SPECIES = #{species},
+	       PET_NAME = #{petName},
+	       AGE = #{age},
+	       WEIGHT = #{weight}
+	 WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>

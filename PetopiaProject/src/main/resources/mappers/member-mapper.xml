@@ -244,8 +244,6 @@
 	<!-- 인증 번호 삭제 -->
 	
 	<delete id="remove" parameterType="certVo">
-
-		delete cert where who = #{who} and secret =#{secret}
-		
+		DELETE CERT WHERE WHO = #{who} AND SECRET = #{secret}		
 	</delete>
 </mapper>  

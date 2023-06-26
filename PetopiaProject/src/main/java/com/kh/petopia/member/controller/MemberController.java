@@ -1,11 +1,21 @@
 package com.kh.petopia.member.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,8 +50,14 @@ public class MemberController {
 		@Autowired
 		private MyPageService myPageService;
 	
-		@Autowired
-		private KakaoService kakaoService;
+		//@Autowired
+		//private KakaoService kakaoService;
+		
+		private String clientId = "1ed88bda51d1f5cb549a7d3dbf650f5a";
+		
+		private String redirectUri = "http://localhost:8282/petopia/kakaoMemberEnroll.member";
+
+		private String logout = "https://kauth.kakao.com/oauth/logout?client_id="+ clientId +"&logout_redirect_uri=http://localhost:8282/petopia/logout.member";
 		
 		@GetMapping("login")
 		public String loginView() {
@@ -59,6 +75,7 @@ public class MemberController {
 			if(loginMember != null && bcyptPasswordEncoder.matches(m.getMemberPwd(), loginMember.getMemberPwd())){
 				loginMember.setRating(myPageService.getMemberRating(loginMember.getMemberNo()));
 				session.setAttribute("loginMember", loginMember);
+				
 				mv.setViewName("redirect:/");
 			}else {
 				mv.addObject("errorMsg", "로그인에 실패했습니다. 다시 시도해주세요");
@@ -188,8 +205,10 @@ public class MemberController {
 								 String memberAtt,
 								 HttpSession session) {
 
-
+			m.setMemberPwd(bcyptPasswordEncoder.encode(m.getMemberPwd()));
+			System.out.println(m);
 			int updateMember = memberService.updateMember(m);
+			
 			System.out.println(memberAtt);
 			
 			if(!upfile.getOriginalFilename().equals("")) {
@@ -210,33 +229,122 @@ public class MemberController {
 			
 			return "redirect:updateInfo.me";
 			
-			
-//			if(att != null) {
-//				if(!memberAtt.equals("")) {
-//					new File(session.getServletContext().getRealPath(memberAtt.substring(22))).delete();
-//					att.setRefNo(m.getMemberNo());
-//					updateMember = memberService.updateMember(m, att);
-//				}
-//							
-//			}
-				
+
 			
 		}
 		
 		
-		//카카오로그인
-		@GetMapping("kakaoMemberEnroll.member")
+		public String getToken(String code) {
+			String kakaoUri = "https://kauth.kakao.com/oauth/token";
+			BufferedWriter bw =  null;
+			BufferedReader br = null;
+			
+			String acccessToken = "";
+			try {
+				URL url = new URL(kakaoUri);
+				HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();
+				
+				urlConnection.setRequestMethod("POST");
+				urlConnection.setDoOutput(true);
+				
+				 bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));;
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append("grant_type=authorization_code");
+				sb.append("&client_id=" + clientId);
+				sb.append("&redirect_uri=" + redirectUri);
+				sb.append("&code="+code);
+				
+				bw.write(sb.toString());
+				bw.flush();
+				
+				//System.out.println(urlConnection.getResponseCode());
+				
+				br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+				String line = "";
+				String responseData = "";
+				
+				while((line = br.readLine()) != null) {
+					responseData +=line;
+				}
+				JSONParser parser  = new JSONParser();
+				JSONObject element = (JSONObject)parser.parse(responseData);
+				
+				acccessToken = element.get("access_token").toString();
+				
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(br != null && bw != null) {
+						bw.close();
+						br.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			return acccessToken;
+		}
 		
+		public String getUserInfo(String accessToken) {
+			String kakaourl = "https://kapi.kakao.com/v2/user/me";
+			String email ="";
+			BufferedReader br = null;
+			try {
+				URL url = new URL(kakaourl);
+				HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();		
+				
+				urlConnection.setRequestMethod("GET");
+				urlConnection.setRequestProperty("Authorization", "Bearer " +accessToken );
+				
+				br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+				String line = "";
+				String responseData = "";
+				
+				while((line = br.readLine()) != null) {
+					responseData +=line;
+				}
+
+				JSONObject responseObj = (JSONObject)new JSONParser().parse(responseData);
+				JSONObject kakaoAccountObj = (JSONObject)responseObj.get("kakao_account");
+
+				email = kakaoAccountObj.get("email").toString();
+	
+				br.close();
+				
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(br != null)br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return email;
+		}
+		
+		
+		//카카오회원가입
+		@GetMapping("kakaoMemberEnroll.member")
 		public ModelAndView kakaoLogin(@RequestParam String code, 
 										HttpSession session,
 										ModelAndView mv) throws IOException, ParseException {
-			//http://localhost:8282/petopia/memberEnroll.member?code=UeauyYwUPDS68VBMWof45HaDZUCIFhpm0-sew0RHmSuz4aUczLGM_WdVb6b_775lcm-Q2worDNMAAAGI5fVyGA
-			//System.out.println(code);
-			
-			String accessToken = kakaoService.getToken(code);
-			String email = kakaoService.getUserInfo(accessToken);
-			if(!email.equals("") && memberService.emailCheck(email)>0 ) {
+	
+			String email = getUserInfo(getToken(code));
+			if(!email.equals("") && memberService.emailCheck(email) > 0 ) {
 				 session.setAttribute("loginMember", memberService.loginMember(email));
+				 session.setAttribute("logout", logout);
 				 mv.setViewName("redirect:/");
 			}else {
 				 mv.addObject("email", email)

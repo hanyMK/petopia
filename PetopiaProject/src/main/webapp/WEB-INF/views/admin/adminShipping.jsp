@@ -35,9 +35,13 @@
             margin: auto;
             margin-top : 20px;
         }
+   
+    
     #bt1{
-    margin-left: 400px;
-    }    
+    margin-top: 25px;
+    margin-left: 600px;
+    width: 100px;
+    }
 </style>
 	<script>
 	
@@ -113,7 +117,7 @@
 	
 	                 
 	             
-					$('.shippingList-table tbody tr').hover(
+					 $('.shippingList-table tbody tr').hover(
 					        function() {
 					        	$(this).find('td').css('background-color', 'LightSkyBlue');
 					        },
@@ -121,6 +125,30 @@
 					        	$(this).find('td').css('background-color', '');
 					        }
 					  );
+					
+					
+			
+				/* 	 $('.shippingList-table').on('click', 'tr', function() {
+						
+						 $(this).find('td:eq(0)').prop('checked',true);
+					     
+
+					  }); */
+					
+				
+					 $('.shippingList-table').on('dblclick', 'tr', function() {
+						 
+						    // 두 번째 <td> 요소를 선택합니다.
+						    var secondTd = $(this).find('td:eq(1)');
+						    // 두 번째 <td>의 값을 가져옵니다.
+						    var value = secondTd.text();
+						    
+						    location.href = 'shippingDetail.ad?receiptNo=' + value ;
+
+					});
+					 
+					 
+					
 				 
 				
 				}
@@ -214,9 +242,9 @@
 					<tbody>
 					</tbody> 
 				</table>
-				<div id="btnArea">
+				
 				<button id="bt1" onclick= release()>출고</button>
-				</div>
+				
 			 	<div id="pagingArea">
 				<ul class="pagination">
 				</ul>

@@ -78,16 +78,19 @@
 						value += '<div id="myReviewList">';
 						if(list[i].shippingStatus == '배송완료') {
 							if(list[i].productNo != list[i].reviewProductNo){
-							// 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회
+							<!-- 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회-->
 							value += '<small style="color:green;">상품</small>'
 								   + '상품 : ' + list[i].title + '<br>'
 								   + '결제금액 : ' + list[i].finalPrice + '<br>'
 								   + '결제일자 : ' + list[i].receiptDate + '<br>'
 								   + list[i].productNo + '---' + list[i].reviewProductNo + '----' + list[i].receiptNo + '<br>'
-								   + '<a href="productReviewForm.me?memberNo=' + ${ loginMember.memberNo } + '&productNo=' + list[i].productNo + '&receiptNo=' + list[i].receiptNo + '"><h6>리뷰 작성하기</h6></a>';
+								   + '<a href="productReviewForm.me?memberNo=' + ${ loginMember.memberNo } 
+								   											   + '&productNo=' + list[i].productNo 
+								   											   + '&receiptNo=' + list[i].receiptNo + '">'
+								   + '<h6>리뷰 작성하기</h6></a>';
 							}
 						} else {
-							// 배송상태가 없으면 예약 리뷰 조회
+							<!-- 배송상태가 없으면 예약 리뷰 조회 -->
 							value += '<small style="color:orange;">예약</small>'
 								   + '예약 : ' + list[i].title + '<br>'
 								   + '예약금액 : ' + list[i].finalPrice + '  선생님 : ' + list[i].details  + '<br>';
@@ -99,21 +102,20 @@
 								   } else {
 									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
 								   }
-							value += '<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } + '&receiptNo=' + list[i].receiptNo + '"><h6>리뷰 작성하기</h6></a>';
-						   
+							value += '<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } 
+																				   + '&receiptNo=' + list[i].receiptNo + '">'
+								   + '<h6>리뷰 작성하기</h6></a>';
 						}
 						value += '</div><br>';
 					}
 				};
 				
 				$('#main_center_right_bottom').html(value);
-				
 			},
 			error : function() {
 				console.log('AJAX 조회 실팽이');
 			}
 		});
-		
 	};
 	
 	function myReviewEndList() {
