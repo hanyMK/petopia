@@ -34,6 +34,9 @@
          <h3 align="center">미용 결제</h3>
          
             <form action="payment3.ps" method="post" >
+            
+            	<input type="hidden" name="checkIn">
+            	<input type="hidden" name="checkOut">
          
                <div id="reservation-info">
                   <h4> * 예약 정보</h4>
@@ -58,10 +61,10 @@
                         <c:forEach var="c" items="${requestScope.cList}">
                            <c:choose>
                               <c:when test="${c.couponType eq 1}">
-                                 <option value="${c.couponType}" value1="${c.discount}">${c.couponName}(${c.discount}원)</option>
+                                 <option name="coupon" value="${c.couponType}" value1="${c.discount}">${c.couponName}(${c.discount}원)</option>
                               </c:when>
                               <c:otherwise>
-                                 <option value="${c.couponType}" value1="${c.discount}">${c.couponName}(${c.discount}%)</option>
+                                 <option name="coupon" value="${c.couponType}" value1="${c.discount}">${c.couponName}(${c.discount}%)</option>
                               </c:otherwise>
                            </c:choose>
                         </c:forEach>
