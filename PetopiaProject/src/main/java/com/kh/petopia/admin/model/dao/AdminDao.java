@@ -72,6 +72,10 @@ public class AdminDao {
 	public void shippingRelease(SqlSessionTemplate sqlSession, int receiptNo) {
 		sqlSession.update("adminMapper.shippingRelease", receiptNo);
 	}
+
+	public String bringKey(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.bringKey");
+	}
 	
 	
 }

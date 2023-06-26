@@ -94,7 +94,7 @@
                     <label for="userName">* 이름 : </label>
                     <input type="text" class="form-control" id="memberName" placeholder="이름" name="memberName" required onchange="checkName();"> <br>
                     <div id="namehidden" class="hidden"></div><br>
-                    <input type="hidden" name="loginType" value="P">
+                    <input type="hidden" id="loginType" name="loginType" value="P">
 
                     
                     <div>
@@ -285,7 +285,7 @@
         var emailCheck = 0;
         if($('.innerOuter #memberEmail').attr('readonly')){
             emailCheck = 1;
-            $('input[name=logintype]').val('K');
+            $('#loginType').val('K');
         }
         var pwdCheck = 0;
         var pwdCheck2 = 0;

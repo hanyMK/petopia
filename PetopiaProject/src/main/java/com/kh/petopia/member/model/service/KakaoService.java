@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KakaoService {
 	
-	@Autowired
-	private MemberService memberService;
-
-	
+//	@Autowired
+//	private MemberService memberService;
+//
+//	
 	public String getToken(String code) throws IOException, ParseException{
 		String kakaoUri = "https://kauth.kakao.com/oauth/token";
 		URL url = new URL(kakaoUri);
@@ -64,7 +64,9 @@ public class KakaoService {
 		String acccessToken = element.get("access_token").toString();
 		//System.out.println(acccessToken);
 		
+		bw.close();
 		br.close();
+		
 		return acccessToken;
 		
 	}

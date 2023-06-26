@@ -20,5 +20,13 @@ public class Reservation {
 	String employeeName;
 	String petStoreName;
 	String memberName;	
+	
+	//
+	String reservationName;		// 예약자명
+	String reservationPhone;	// 예약자 연락처
+	
+	// INSERT RESERVATION_RECEIPT 테이블
+	int couponNo;	// 결제 시 사용한 쿠폰
+	int point;		// 결제 시 사용한 적립금
 
 }
