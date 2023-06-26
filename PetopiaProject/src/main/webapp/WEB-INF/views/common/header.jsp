@@ -236,7 +236,6 @@
 	</script>
 	<c:remove var="alertMsg" scope="session"/>
 	</c:if>
-    
 
     <div id="header">
         <!-- 로그인 및 회원가입 -->
@@ -262,15 +261,15 @@
                       		<a href="adminPage.ad">관리자 페이지</a>
                       	</c:when>
                       	<c:otherwise>
-		                     <a href="myPage.me?mno=${ loginMember.memberNo }">마이페이지</a>
+		                     <a href="myPage.me?mno=${ sessionScope.loginMember.memberNo }">마이페이지</a>
                       	</c:otherwise>
                       </c:choose>
                       <c:choose>
-                        <c:when test="${loginMember.loginType eq 'P'}">
+                        <c:when test="${sessionScope.loginMember.loginType eq 'P'}">
                             <a href="logout.member">로그아웃</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="https://kauth.kakao.com/oauth/logout?client_id=1ed88bda51d1f5cb549a7d3dbf650f5a&logout_redirect_uri=http://localhost:8282/petopia/logout.member">로그아웃</a>
+                            <a href="${logout}">로그아웃</a>
                         </c:otherwise>
                       </c:choose>
                       

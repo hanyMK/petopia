@@ -111,7 +111,7 @@ public class MyPageController {
 	// 마이페이지 -> 쿠폰조회
 	@RequestMapping("memberCouponList.me")
 	public String memberCouponListView() {
-		return "myPage/memberCouponList";
+		return "myPage/myCouponList";
 	}
 	
 	// 마이페이지 펫페이 충전
