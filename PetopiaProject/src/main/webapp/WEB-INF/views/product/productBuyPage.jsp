@@ -81,7 +81,7 @@
     }
     #product_receipt_content_3{
         width: 45%;
-        height: 570px;
+        height: 620px;
         float: right;
         box-sizing: border-box;
         padding: 15px;
@@ -95,7 +95,7 @@
     }
     #product_receipt_content_4{
         width: 55%;
-        height: 400px;
+        height: 450px;
         float: left;
         box-sizing: border-box;
         padding: 15px;
@@ -214,8 +214,7 @@
                 $('#phone').val('');
             }
             $('#give_name').text($('#giveName').val());
-            $('#give_address').text($('#address').val());
-            $('#give_detale_address').text($('#detailAddress').val());
+            $('#give_address').text($('#address').val() + ' ' + $('#detailAddress').val());
             
         }
     </script>
@@ -320,10 +319,9 @@
                     <span id="detail_span">배송지</span>
                     <br>
                     <br>
-                    <div id="give_name">받는분 이름 : ${loginMember.memberName}</div>
-                    <div id="give_phone">전화번호 : ${loginMember.phone}</div>
-                    <div id="give_address">주소 : ${loginMember.address}</div>
-                    <div id="give_detale_address">상세주소 : ${loginMember.address}</div>
+                    받는분 이름 : <span id="give_name">${loginMember.memberName}</span><br>
+                    전화번호 : <span id="give_phone">${loginMember.phone}</span><br>
+                    주소 : <span id="give_address">${loginMember.address}</span><br>
                     <br>
                     <!-- Button to Open the Modal -->
                     <button id="give_update" button type="button" data-toggle="modal" data-target="#myModal">배송지 수정하기</button>
@@ -331,10 +329,10 @@
                     <hr>
                     <div>수령지 : </div>
                     <select id="selectMemo">
-                        <option class="a" value="">관리사무소</option>
+                        <option class="a" value="">직접입력</option>
                         <option class="a" value="">택배수령함</option>
                         <option class="a" value="">문앞</option>
-                        <option class="a" value="">직접입력</option>
+                        <option class="a" value="">관리사무소</option>
                     </select>
                     <br>
                     <br>
@@ -673,24 +671,22 @@
                 sizeArr[i] = $('.listSize')[i].value;
                 amountArr[i] = $('.listAmount')[i].value;
             }
-            console.log(arr);
             $.ajax({
                 url : 'insertPayment.pd',
                 type : 'post',
                 traditional : true,
                 data : {
                 memberNo : ${loginMember.memberNo},
-                //list : '$(list)',
-               // pno : JSON.stringify(arr),
                 pno : pnoArr,
                 size : sizeArr,
                 amount : amountArr,
                 couponNo : $('.cno').text(),
-                point : $('#payment_info_3').text()
-                // shippingNo : ,
-                // amount : ,
-                // productSize : ,
-                //totalPrice : ${result}
+                point : $('#payment_info_3').text(),
+                receiver : $('#give_name').text(),
+                shippingAddress : $('#give_address').text(),
+                shippingMessage : $('#memo').val(),
+                phone : $('#give_phone').text(),
+                totalPrice : $('#payment_info_4').text()
             },
             success : function(result){
                 console.log(result);

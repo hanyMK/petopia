@@ -2,15 +2,15 @@ package com.kh.petopia.product.model.dao;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.Attachment;
-import com.kh.petopia.myPage.model.vo.Point;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
+import com.kh.petopia.product.model.vo.ProductInfo;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Repository
 public class ProductDao {
@@ -63,6 +63,31 @@ public class ProductDao {
 	}
 	
 	
+	public int insertReceipt(SqlSessionTemplate sqlSession, ProductReceipt pr) {
+		return sqlSession.insert("productMapper.insertReceipt", pr);
+	}
+	
+	public int insertBridge(SqlSessionTemplate sqlSession, ArrayList list) {
+		int num = sqlSession.insert("productMapper.insertBridge", list);
+		System.out.println(num);
+		return num;
+	}
+	
+	public int insertShipping(SqlSessionTemplate sqlSession, ProductReceipt pr) {
+		return sqlSession.insert("productMapper.insertShipping", pr);
+	}
+	
+	public int updateCoupon(SqlSessionTemplate sqlSession, ProductReceipt pr) {
+		return sqlSession.update("productMapper.updateCoupon", pr);
+	}
+
+	public int insertPoint(SqlSessionTemplate sqlSession, ProductReceipt pr) {
+		return sqlSession.insert("productMapper.insertPoint", pr);
+	}
+
+	public int insertBonusPoint(SqlSessionTemplate sqlSession, ProductReceipt pr) {
+		return sqlSession.insert("productMapper.insertBonusPoint", pr);
+	}
 	
 	
 }

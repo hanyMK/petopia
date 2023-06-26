@@ -212,6 +212,15 @@
 			height: 30px;
 			width: 30px;
 		}
+        #div1{
+            position: fixed;
+            top: 800px;
+            /* width: 100% */
+            left: 900px;
+            right: 10px;
+            border: 1px solid black;
+
+        }
 		
 		#fixed_menu_border{
 			position: fixed;
@@ -239,7 +248,6 @@
 	</script>
 	<c:remove var="alertMsg" scope="session"/>
 	</c:if>
-    
 
     <div id="header">
         <!-- 로그인 및 회원가입 -->
@@ -258,19 +266,24 @@
                       <a href="memberEnroll.member">회원가입 </a> |
                       <a href="login">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-target에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
                   </c:when>
-                  <c:otherwise>
-                                    
+                  <c:otherwise> 
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
                       <c:choose>
                       	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
                       		<a href="adminPage.ad">관리자 페이지</a>
                       	</c:when>
                       	<c:otherwise>
-		                     <a href="myPage.me?mno=${ loginMember.memberNo }">마이페이지</a>
-                      	
+		                     <a href="myPage.me?mno=${ sessionScope.loginMember.memberNo }">마이페이지</a>
                       	</c:otherwise>
                       </c:choose>
-                      <a href="logout.member">로그아웃</a>
+                      <c:choose>
+                        <c:when test="${sessionScope.loginMember.loginType eq 'P'}">
+                            <a href="logout.member">로그아웃</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${logout}">로그아웃</a>
+                        </c:otherwise>
+                      </c:choose>
                       
                   </c:otherwise>
                </c:choose>

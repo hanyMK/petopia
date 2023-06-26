@@ -14,6 +14,8 @@ import com.kh.petopia.product.model.dao.ProductDao;
 import com.kh.petopia.product.model.vo.Ask;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
+import com.kh.petopia.product.model.vo.ProductInfo;
+import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -101,6 +103,39 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.selectSearch(sqlSession, keyword);
 	}
 	
+	@Override  // 결제 1
+	public int insertReceipt(ProductReceipt pr) {
+		return productDao.insertReceipt(sqlSession, pr);
+	}
+
+	@Override  // 결제 2
+	public int insertBridge(ArrayList list) {
+		return productDao.insertBridge(sqlSession, list);
+	}
+	
+	@Override
+	public int insertShipping(ProductReceipt pr) {
+		
+		return productDao.insertShipping(sqlSession, pr);
+	}
+	
+	@Override
+	public int updateCoupon(ProductReceipt pr) {
+		return productDao.updateCoupon(sqlSession, pr);
+	}
+
+	@Override
+	public int insertPoint(ProductReceipt pr) {
+		return productDao.insertPoint(sqlSession, pr);
+	}
+
+	@Override
+	public int insertBonusPoint(ProductReceipt pr) {
+		return productDao.insertBonusPoint(sqlSession, pr);
+	}
+	
+	
+	
 	@Override
 	public ArrayList<Product> searchProductList(String keyword) {
 		return null;
@@ -149,6 +184,12 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+
+
 
 
 

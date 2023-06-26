@@ -316,4 +316,107 @@ STATUS
                product_date desc
 	</select>
 	
+	<insert id="insertReceipt" parameterType="productReceipt">
+		insert into 
+				product_receipt
+				(
+				receipt_no,
+				member_no,
+				<if test="couponNo != 0">
+					coupon_no,
+				</if>
+				<if test="point != 0">
+					point,
+				</if>
+				receipt_date
+				) 
+		values
+				(
+				SEQ_PRODUCT_RECEIPT_NO.NEXTVAL, 
+				#{memberNo},
+				<if test="couponNo != 0">
+					#{couponNo},
+				</if>
+				<if test="point != 0">
+					#{point},
+				</if>
+				SYSDATE
+				)
+	</insert>
+	
+	<insert id="insertBridge" parameterType="list">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" 
+			separator=" ">
+			  into
+			  		product_bridge
+			  		(
+			  		receipt_no,
+			  		product_no,
+			  		amount,
+			  		product_size
+			  		)
+			values
+					(
+					(select max(receipt_no) from product_receipt),
+					#{item.pnoEl},
+					#{item.amountEl},
+					#{item.sizeEl}
+					)
+		</foreach>
+	</insert>
+	
+	<insert id="insertShipping" parameterType="productReceipt">
+		insert 
+		  into
+		  		shipping
+		  		(
+		  		shipping_no,
+		  		shipping_message,
+		  		shipping_date,
+		  		receiver,
+		  		shipping_address,
+		  		phone
+		  		)
+		values	
+		 		(
+		 		(select max(receipt_no) from product_receipt),
+		 		#{shippingMessage},
+		 		SYSDATE,
+		 		#{receiver},
+		 		#{shippingAddress},
+		 		#{phone}
+		 		)	 	 
+	</insert>
+	
+	<update id="updateCoupon">
+		update 
+				member_coupon 
+		   set 
+		   		member_coupon_status = 'U' 
+		 where 
+		 		member_no = #{memberNo} 
+		   and 
+		   		coupon_no = #{couponNo}
+	</update>
+		<!-- 
+	<insert id="insertPoint">
+		insert 
+		  into 
+		       point
+		       (
+		       point_no,
+		       point_amount,
+		       point_history,
+		       
+		       )
+		values
+			   (
+			   SEQ_POINT_NO.NEXTVAL,
+			   
+			   )
+	</insert>
+	 	-->
+	<!-- 
+	insertBonusPoint
+ 	-->
 </mapper>

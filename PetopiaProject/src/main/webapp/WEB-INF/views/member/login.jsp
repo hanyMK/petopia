@@ -38,10 +38,7 @@
       height: 100%;
     }
     #kakao{
-        border: 0;
-        background: none;
         margin: auto;
-        padding-left: 500px;
     }
      
   </style>
@@ -64,9 +61,9 @@
     <div id="naver_id_login" style="text-align:center"><a href="${url}">
     <img width="400" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
     -->
-	<button align="center" id="kakao">
-        <img src="resources/images/kakao_login_medium_narrow.png"/>
-    </button>
+    <div id="kakao" style="text-align:center">
+        <img align="center"  src="resources/images/kakao_login_large_narrow.png"/>
+    </div>
 <br>
     <form action="login.member" method="post">
         <table align="center" id="login-form"  >
@@ -111,12 +108,16 @@
         // naver_id_login.init_naver_id_login();
 
         $('#kakao').click(() =>{
-            function kakaoLogin(){
+            console.log('ks');
+           
                 let clientId = "1ed88bda51d1f5cb549a7d3dbf650f5a";
-                let uri = "";
-                location.href =  'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id='+clientId
-                                +'&redirect_uri';
-            };
+                let uri = "http://localhost:8282/petopia/kakaoMemberEnroll.member";
+
+                location.href =  'https://kauth.kakao.com/oauth/authorize?response_type=code'
+                                +'&client_id='+clientId
+                                +'&redirect_uri=' + uri
+                                +'&scope=account_email';
+            
         })
     </script>
     

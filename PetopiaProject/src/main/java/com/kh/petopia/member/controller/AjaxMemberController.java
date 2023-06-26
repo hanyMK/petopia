@@ -69,9 +69,6 @@ public class AjaxMemberController {
 	public String findPwd(String checkEmail, Model m) throws MessagingException {
 		String key = randomString();
 		System.out.println("이메일 "+checkEmail);
-		
-		
-		
 		String url = getUrl(key);
 	//	member.put(key, getMember(checkEmail));
 		String btnStyle = "width: 200px; height: 50px; background-color: #FAC264 ;";

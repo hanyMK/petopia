@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     
     <style>
@@ -67,8 +67,15 @@
 					
 
                     <label for="email"> &nbsp; 이메일 : </label>
-                    <input type="email" class="form-control" id="memberEmail" placeholder="이메일 입력" name="email" onchange="checkEmail();"> <br>
-                    <div id="emailhidden" class="hidden"></div><br>
+                    <c:choose>
+                        <c:when test="${not empty email}">
+                            <input type="email" class="form-control" id="memberEmail" name="email" value="${email}" readonly> <br>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="email" class="form-control" id="memberEmail" placeholder="이메일 입력" name="email" onchange="checkEmail();"> <br>
+                            <div id="emailhidden" class="hidden"></div><br>
+                        </c:otherwise>
+                    </c:choose>
                     
                     
 					 <label for="nickname">* 닉네임 : </label>
@@ -87,6 +94,7 @@
                     <label for="userName">* 이름 : </label>
                     <input type="text" class="form-control" id="memberName" placeholder="이름" name="memberName" required onchange="checkName();"> <br>
                     <div id="namehidden" class="hidden"></div><br>
+                    <input type="hidden" id="loginType" name="loginType" value="P">
 
                     
                     <div>
@@ -274,8 +282,11 @@
             var regName =  /^[가-힣]{2,10}$/;
             return regName.test(name);
         }
-
         var emailCheck = 0;
+        if($('.innerOuter #memberEmail').attr('readonly')){
+            emailCheck = 1;
+            $('#loginType').val('K');
+        }
         var pwdCheck = 0;
         var pwdCheck2 = 0;
         var phoneCheck = 0;

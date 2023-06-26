@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +21,7 @@ import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.product.model.service.ProductService;
 import com.kh.petopia.product.model.vo.Cart;
 import com.kh.petopia.product.model.vo.Product;
+import com.kh.petopia.product.model.vo.ProductInfo;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Controller
@@ -176,15 +176,15 @@ public class ProductController {
 			value = total - pointPrice;
 		} else if(pointPrice == 0) {
 			if(couponPrice >= 0 && couponPrice <= 100) {
-				int sht = (int)(total * (f/100));
-				value = total - sht;
+				int cPrice = (int)(total * (f/100));
+				value = total - cPrice;
 			} else {
 				value = total - couponPrice;
 			}
 		} else {
 			if(couponPrice >= 0 && couponPrice <= 100) {
-				int sht = (int)(total * (f/100));
-				value = total - sht - pointPrice;
+				int cPrice = (int)(total * (f/100));
+				value = total - cPrice - pointPrice;
 			} else {
 				value = total - couponPrice - pointPrice;
 			}
@@ -217,20 +217,56 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping(value="insertPayment.pd", produces="application/json; charset=UTF-8")
-	public String insertPayment(ProductReceipt pr, int[] pno, String[] size, int[] amount) {
+	public String insertPayment(ProductReceipt pr, ProductInfo pInfo) {
+		if(pr.getCouponNo().equals("")) {
+			pr.setCouponNo("0");
+		}
+		if(pr.getPoint().equals("")) {
+			pr.setPoint("0");
+		}
+		Integer.parseInt(pr.getCouponNo());
+		Integer.parseInt(pr.getPoint());
+		int bonusPt = (int)(pr.getTotalPrice() * 0.05);
+		
+		pr.setBonusPt(bonusPt);
+		//포인트랑 쿠폰이 리시티에 인설트가 되었을 경우에 해줘야함
+		
 		System.out.println("---------------------------------");
-		System.out.println("memberNo : " + pr.getMemberNo());
-		System.out.println("couponNo : " + pr.getCouponNo()); // 쿠폰 없을시 빈 문자열 ""
-		System.out.println("point : " + pr.getPoint()); // 포인트 없을시 빈 문자열 ""
-		System.out.println(pno[0]);
-		System.out.println(pno[1]);
-		System.out.println(pno[2]);
-		System.out.println(size[0]);
-		System.out.println(size[1]);
-		System.out.println(size[2]);
-		System.out.println(amount[0]);
-		System.out.println(amount[1]);
-		System.out.println(amount[2]);
+	
+
+		
+		ArrayList<ProductInfo> list = new ArrayList();
+		
+		for(int i = 0; i < pInfo.getPno().length; i++) {
+			ProductInfo p = new ProductInfo();
+			p.setPnoEl(pInfo.getPno()[i]);
+			p.setSizeEl(pInfo.getSize()[i]);
+			p.setAmountEl(pInfo.getAmount()[i]);
+			
+			list.add(p);
+			}
+		
+		int result3 = 0;
+		int result4 = 0;
+		int result5 = 0;
+		int result1 = productService.insertReceipt(pr);
+		int result2 = productService.insertBridge(list);
+		if((result1 * result2) != 0) {
+			if(Integer.parseInt(pr.getCouponNo()) != 0) {
+				result3 = productService.updateCoupon(pr);
+			} else {
+				result3 = 1;
+			}
+			
+			if(Integer.parseInt(pr.getPoint()) != 0) {
+				result4 = productService.insertPoint(pr);
+			} else {
+				result4 = 1;
+			}
+			result5 = productService.insertBonusPoint(pr);
+		}
+		// productService.insertShipping(pr);
+		
 		return "";
 	}
 	
