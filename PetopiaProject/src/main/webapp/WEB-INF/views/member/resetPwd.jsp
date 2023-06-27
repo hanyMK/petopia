@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ID찾기</title>
+<title>비밀 번호 찾기</title>
 
      <!-- jQuery 라이브러리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -37,12 +37,10 @@
     #find-nickname{
         padding-top: 20px;
     }
-    
-
-   
-   #modal{
-   	display :none;
-   }
+    hidden{
+        display: none;
+    }
+  
 </style>
 </head>
 <body>
@@ -65,17 +63,22 @@
            
             <tr >
                 <td colspan="2" height="10%" id="find-nickname"><h4>비밀번호 재설정</h4></td>
+                
             </tr>
             <tr>
                 <td><input type="password" id="memberPwd" name="memberPwd" placeholder="새로운 비밀번호를 입력해주세요" required ></td>
-             	<td>  <div id="pwdhidden" class="hidden"></td>
             </tr>
-               <tr >
+            <tr id="hiddenPwd">
+                <td><div id="pwdhidden"></div></td>
+            </tr>
+            <tr>
                 <td colspan="2" height="10%" id="find-nickname"><h4>비밀번호 재설정 확인</h4></td>
             </tr>
             <tr>
-                <td ><input type="password" id="checkPwd" name="checkPwd" placeholder="비밀번호를 동일하게 입력해주세요" required ></td>
-            	 <td>  <div id="checkhidden" class="hidden"></td>
+                <td ><input type="password" id="checkPwd" name="checkPwd" placeholder="비밀번호를 동일하게 입력해주세요" required ></td><br>
+            </tr>
+            <tr id="hiddenChek"> 
+                <td><div id="checkhidden" class="hidden"></div></div></td>
             </tr>
 
         </table>
@@ -121,10 +124,6 @@
 		var paramK = '${ param.k}';
         chpwd.onclick = () => {
             if(  pwdCheck == 1 && pwdCheck2 ==1 ) {
-            	
-             //  console.log("hi");
-                console.log('${param.k}');
-
                 $.ajax({
                     url : 'updatePwd.member',
                     type: 'post',
@@ -137,57 +136,48 @@
                         if(result == 'YES'){
                         alert('비밀번호가 변경되었습니다');
                         	location.href='login';
+                        }else{
+                            alert('비밀번호 변경 시간이 초과 되었습니다.');
                         }
                     },
                     error : () =>{
-                        console.log('실패');
-                        
+                        console.log('실패');                        
                     }
-
                 });
-                
-                
-                //가입조건 충족시 버튼 속성 변경
-              
-             
-             // checkPwd.setAttribute('type', 'submit');
-              
-            };
+            }else{
+                alert('비밀번호를 다시 확인해 주세요');
+            }
         }
         //비밀번호 체크
         
         memberPwd.onchange = () =>{
-
-       
-            if(regExpPwd(memberPwd.value)== true ){
+            console.log(memberPwd.value);
+            console.log(regExpPwd(memberPwd.value));
+            
+            if(regExpPwd(memberPwd.value) == true){
                 pwdCheck = 1;
-                //$('#pwdhidden').css('display', 'none');
                 pwdhidden.style.display = 'none';
+                pwdhidden.style.color = 'black';
             }else {
-                //$('#pwdhidden').css({'display': 'block', 'color' :'red'}).text('영문자, 숫자를 포함한 8~15자를 입력하세요');
-                //memberPwd.focus();
+                memberPwd.style.color = 'red';
                 pwdhidden.style.display = 'block';
-                pwdhidden.style.color = 'red';
                 pwdhidden.innerText = '영문자, 숫자를 포함한 8~15자를 입력하세요';
+                pwdhidden.style.color = 'red';
                 memberPwd.focus();
                 pwdCheck = 0;
             }
-          
         }
     
 
         //비밀번호 입력확인
         checkPwd.onchange =  () => {
-           
             if(checkPwd.value == memberPwd.value){
                 pwdCheck2 = 1;
-                //$('#checkhidden').css('display', 'none')
                 checkhidden.style.display = 'none';
             }else{
-               // $('#checkhidden').css({'display': 'block', 'color' :'red'}).text('비밀번호를 동일하게 입력해주세요');
-               checkhidden.style.display = 'block';
-               checkhidden.style.color = 'red';
-               checkhidden.innerText = '비밀번호를 동일하게 입력해주세요';
+                checkhidden.style.display = 'block';
+                checkhidden.innerText = '비밀번호를 동일하게 입력해주세요';
+                checkhidden.style.color = 'red';
                checkPwd.focus();
                 pwdCheck2 = 0;
             }
@@ -197,8 +187,6 @@
     
     </script>
 
-
-  
 
     
     <jsp:include page="../common/footer.jsp"/>

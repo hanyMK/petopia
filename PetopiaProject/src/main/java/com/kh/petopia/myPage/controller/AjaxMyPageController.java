@@ -82,8 +82,7 @@ public class AjaxMyPageController {
 	
 	//마이페이지 쿠폰 조회
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
-	public String selectMemberCouponList(int memberNo,
-										HttpSession session) {
+	public String selectMemberCouponList(HttpSession session) {
 		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		Member member = (Member)session.getAttribute("loginMember");
 		ArrayList<Coupon> cList = myPageService.memberCouponList(member);
@@ -250,7 +249,6 @@ public class AjaxMyPageController {
 		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
 		HashMap<String, Object> receiptList = new HashMap<>(); 
-		System.out.println(list);
 		
 		if(!list.isEmpty()) {
 			receiptList.put("pi", pi);
@@ -264,8 +262,6 @@ public class AjaxMyPageController {
 	//구매확정 버튼 클릭시 상품 상태 변경 메소드
 	@PostMapping("updateShippingStatus.me")
 	public String updateShippingStatus(int receiptNo) {
-		System.out.println(receiptNo);
-		
 		return myPageService.updateShippingStatus(receiptNo) > 0?  "Secesse" :"Fail";
 	}
 	
