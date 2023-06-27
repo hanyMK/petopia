@@ -6,7 +6,6 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,21 +51,18 @@ public class AjaxMyPageController {
 	}
 	
 	@RequestMapping(value="deleteAlram.me", produces="application/json; charset=UTF-8")
-	public String deleteAlram(int delNo, String category) {
+	public String deleteAlram(String category, int delNo) {
+		System.out.println(category);
+		System.out.println(delNo);
 		
-		if(category.equals("배송")) {
-			System.out.println("배송왔어?");
-			return new Gson().toJson(myPageService.deleteShippingAlram(delNo));
-		} else if(category.equals("댓글")) {
-			System.out.println("주문왔냐구");
-			return new Gson().toJson(myPageService.deleteReplyAlram(delNo));
-		} else if(category.equals("문의")) {
-			return new Gson().toJson(myPageService.deleteQnaAlram(delNo));
-		} else if(category.equals("쿠폰")) {
-			return new Gson().toJson(myPageService.deleteCouponAlram(delNo));
-		} else {
-			return null;
-		}
+		HashMap<String, Object> map = new HashMap();
+		map.put("category", category);
+		map.put("delNo", delNo);
+		
+		System.out.println(map);
+		
+		return new Gson().toJson(myPageService.deleteAlram(map));
+		
 	}
 	
 	// 마이페이지 게시글 댓글 조회
@@ -80,27 +76,21 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReplyList(mno));
 	}
 	
-	//마이페이지 쿠폰 조회
+	
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
-	public String selectMemberCouponList(int memberNo,
-										HttpSession session) {
-		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
+	public String selectMemberCouponList(HttpSession session) {
 		Member member = (Member)session.getAttribute("loginMember");
 		ArrayList<Coupon> cList = myPageService.memberCouponList(member);
-		System.out.println(cList);
 		return  new Gson().toJson(cList);
-		
-		
 	}
-	// 쿠폰발급
+	
+	
 	@RequestMapping("insertCoupon.me")
 	public String insertCouponToMember(int memberNo, int couponNo) {
 		Coupon coupon = new Coupon();
 		coupon.setMemberNo(memberNo);
 		coupon.setCouponNo(couponNo);
 		return (myPageService.insertCouponToMember(coupon) > 0)? "YES" : "NO"; 
-		
-		
 	}
 	
 	//회원등급에 따른 사용가능 쿠폰 조회
@@ -250,7 +240,6 @@ public class AjaxMyPageController {
 		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
 		HashMap<String, Object> receiptList = new HashMap<>(); 
-		System.out.println(list);
 		
 		if(!list.isEmpty()) {
 			receiptList.put("pi", pi);
@@ -264,8 +253,6 @@ public class AjaxMyPageController {
 	//구매확정 버튼 클릭시 상품 상태 변경 메소드
 	@PostMapping("updateShippingStatus.me")
 	public String updateShippingStatus(int receiptNo) {
-		System.out.println(receiptNo);
-		
 		return myPageService.updateShippingStatus(receiptNo) > 0?  "Secesse" :"Fail";
 	}
 	

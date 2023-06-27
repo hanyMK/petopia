@@ -7,6 +7,17 @@
 <meta charset="UTF-8">
 <title>여기는 애견 미용실 메인 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+   
+   #salon-employee, #salon-review{
+      border : 1px solid black;
+      width : 60%;
+      margin : auto;
+      padding-bottom : 20px;
+      padding-left : 20px;
+   }
+
+</style>
 </head>
 <body>
 
@@ -18,47 +29,55 @@
 		
 		<div id="main_center">
 			
+			<h3 align="center">petopia 애견 미용</h3>
+			
 			<!-- 애견 미용 콘텐츠 시작 -->
 			<div id="petSalone-content">
 			
-				<h3> petopia 애견 미용 </h3>
-			
+				<h4 align="center">* 애견 미용 정보 * </h4>
 				<div id="salon-employee">
-				
-					<h4>* 애견 미용 정보 * </h4>
 					${petSalon.petStoreName} <br>
-					${petSalon.petStoreAddress} <br>
-					${petSalon.openTime} <br>
-					${petSalon.closeTime} <br>
-					${petSalon.offDay} <br>
-					${petSalon.petStoreCall} <br>
+					위치 : ${petSalon.petStoreAddress} <br>
+					영업시간 : ${petSalon.openTime} - ${petSalon.closeTime} <br>
+					정기 휴무일 : ${petSalon.offDay} <br>
+					☎ ${petSalon.petStoreCall} <br>
 					${petSalon.petStoreInfo} <br>
-					${petSalon.usageFee} <br>
+					기본금액 : ${petSalon.usageFee} <br>
+					
+					<br>
+					
+					<a href="reservation.ps" style="color:lightgray;">예약</a>
 					
 				</div>
 				
 				<br>
 					
-				<a href="reservation.ps" style="color:lightgray;">예약</a>
 				
 				<br><br>
 				
-				<hr>
+				<hr width="80%;">
 				
+				<h4 align="center">* 리뷰 영역 *</h4>
 				<div id="salon-review">
-					<h4>* 리뷰 영역 *</h4>
 					<ul style="list-style:none;">
 						<c:forEach var="review" items="${rList}">
-							<li>${review.reviewNo}</li>
+							<!-- <li>${review.reviewNo}</li>  -->
 							<li>미용사 : ${review.employeeName}</li>
 							<li>작성자 : ${review.nickName}</li>
 							<li>리뷰내용 : ${review.reviewContent}</li>
-							<li>작성일자 : ${review.createDate}</li>
+							
+							<li>평점
+								<c:forEach begin="1" end="${review.rating}">
+									★
+								</c:forEach>
+							</li>
+							
 							<c:if test="${ not empty review.modifyDate  }">
 								<li>수정일자 : ${review.modifyDate}</li>
 							</c:if>
-							<li>평점 : ${review.rating}</li>
-							<br>
+							
+							<li>${review.createDate}</li>
+							
 						</c:forEach>
 					
 					</ul>

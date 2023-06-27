@@ -55,23 +55,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
-	public int deleteShippingAlram(int delNo) {
-		return myPageDao.deleteShippingAlram(sqlSession, delNo);
-	}
-	
-	@Override
-	public int deleteReplyAlram(int delNo) {
-		return myPageDao.deleteReplyAlram(sqlSession, delNo);
-	}
-	
-	@Override
-	public int deleteQnaAlram(int delNo) {
-		return myPageDao.deleteQnaAlram(sqlSession, delNo);
-	}
-	
-	@Override
-	public int deleteCouponAlram(int delNo) {
-		return myPageDao.deleteCouponAlram(sqlSession, delNo);
+	public int deleteAlram(HashMap<String, Object> map) {
+		return myPageDao.deleteAlram(sqlSession, map);
 	}
 	
 	@Override
@@ -265,6 +250,11 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int insertMyPet(Pet p) {
 		return myPageDao.insertMyPet(sqlSession, p);
+	}
+	
+	@Override
+	public int updateMyPet(Pet p) {
+		return myPageDao.updateMyPet(sqlSession, p);
 	}
 	
 	

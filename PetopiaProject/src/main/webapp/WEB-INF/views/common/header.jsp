@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 <!-- jQuery 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 부트스트랩 (펫페이 충전, 쿠폰발급) -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Alertify Framework -->
 <!-- JavaScript -->
@@ -225,10 +228,23 @@
 		
 		#fixed_menu_border{
 			position: fixed;
-			right: 0px;
-			left: 1600px;
-			top: 700px;
-            text-align: center;
+			left: 2000px;
+			top: 900px;
+			right:0px;
+			text-align:center;
+		}
+		
+		#fixed_menu_content{
+			height:70px;
+			width:70px;
+			background-color:orange;
+			border-radius:50%;
+		}
+		
+		#fixed_menu_content>a {
+			font-size:50px;
+			padding-top:10px;
+			padding-left:10px;
 		}
         #fixed_menu_content{
             border: 1px solid black;
@@ -265,6 +281,7 @@
             <div id="header_1_right">               
                <!-- null == loginUser // empty loginUser -->
                <!-- 빈문자열인지 아닌지도 체크  -->
+               
                <c:choose>
                   <c:when test="${ empty sessionScope.loginMember }">
                       <!-- 로그인 전 -->
@@ -361,12 +378,11 @@
 		<!-- 채팅, 리모컨  -->
 			
 			<div id="fixed_menu_border">
-			 <!--  <div id="chatMove_1">채팅</div> -->
-             <div id="fixed_menu_content">
-                <a href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
-             </div>
-			 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
-			
+				<div id="fixed_menu_content">
+				 <!--  <div id="chatMove_1">채팅</div> -->
+				  <a class="fa-brands fa-rocketchat" href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;"></a>
+				 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
+				</div>
 			</div>
    	 
     </div>

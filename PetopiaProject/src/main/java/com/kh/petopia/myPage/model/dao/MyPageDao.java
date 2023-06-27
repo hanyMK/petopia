@@ -42,20 +42,10 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.alramNoticeList", memberNo);
 	}
 	
-	public int deleteShippingAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteShippingAlram", delNo);
-	}
-	
-	public int deleteReplyAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteReplyAlram", delNo);
-	}
-	
-	public int deleteQnaAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteQnaAlram", delNo);
-	}
-	
-	public int deleteCouponAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteCouponAlram", delNo);
+	public int deleteAlram(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		System.out.println("dao");
+		System.out.println(map);
+		return sqlSession.update("myPageMapper.deleteAlram", map);
 	}
 	
 	public ArrayList<Reply> myReplyList(SqlSessionTemplate sqlSession, int memberNo) {
@@ -199,6 +189,9 @@ public class MyPageDao {
 		return sqlSession.insert("myPageMapper.insertMyPet", p);
 	}
 	
+	public int updateMyPet(SqlSessionTemplate sqlSession, Pet p) {
+		return sqlSession.update("myPageMapper.updateMyPet", p);
+	}
 	
 	
 	
@@ -241,7 +234,8 @@ public class MyPageDao {
 	}
 	
 	public ArrayList<ProductReceipt> selectOrderList(SqlSessionTemplate sqlSession, int memberNo, PageInfo pi){
-		int offset = (pi.getCurrentPage() -1)/pi.getBoardLimit() * pi.getBoardLimit();
+	
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectOrderList",
 												 memberNo,
 												 new RowBounds(offset, pi.getBoardLimit()));
@@ -263,6 +257,8 @@ public class MyPageDao {
 	public int updateShippingInfo(SqlSessionTemplate sqlSession, ProductReceipt productReceipt) {
 		return sqlSession.update("myPageMapper.updateShippingInfo", productReceipt);
 	}
+
+	
 
 	
 

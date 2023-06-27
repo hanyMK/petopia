@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 	#main_center_right_top{
-		border: 1px solid pink;
+		padding-top:50px;
 		width:400px;
 	}
 </style>
@@ -25,11 +25,13 @@
 			<div id="main_center_left">
 				<jsp:include page="myPageNavi.jsp" />
 			</div>
-			<div id="main_center_right">
+			<div id="main_center_right" align="center">
 				<div id="main_center_right_top">
+				<h2>나의 펫 정보</h2><br><br>
 					<c:choose>
 						<c:when test="${ empty pet.memberNo }">
 							<form action="insertMyPet.me" method="post" id="enroll-form">
+							<input type="hidden" value="${loginMember.memberNo }" name="memberNo">
 							<div id="petInfo">
 		                        <label for=""> &nbsp; 성별 : </label> &nbsp;&nbsp;
 		                        <input type="radio" id="Male" value="M" name="gender" checked>
@@ -58,9 +60,34 @@
 			                </form>
 	                    </c:when>
 	                    <c:otherwise>
-	                   		<div>
-	                   			dfsa
-	                   		</div>
+	                   		<form action="updateMyPet.me" method="post" id="update-form">
+							<input type="hidden" value="${loginMember.memberNo }" name="memberNo">
+							<div id="petInfo">
+		                        <label for=""> &nbsp; 성별 : </label> &nbsp;&nbsp;
+		                        <input type="radio" id="Male" value="M" name="gender" value="${ pet.gender }" checked>
+		                        <label for="Male">남자</label> &nbsp;&nbsp;
+		                        <input type="radio" id="Female" value="F" name="gender">
+		                        <label for="Female">여자</label> &nbsp;&nbsp;
+		                        <br>
+		                        <br>
+		                        <label for="species"> &nbsp; 반려동물 종류 : </label>
+		                        <input type="text" class="form-control" id="species" placeholder="예시)믹스견" name="species" value="${ pet.species }" > <br>
+		
+		                        <label for="petName"> &nbsp; 반려동물 이름 : </label>
+		                        <input type="text" class="form-control" id="petName" placeholder="반려동물 이름" name="petName" value="${ pet.petName }" > <br>
+		                        
+		                        <label for="age"> &nbsp; 반려동물 나이 : </label>
+		                        <input type="number" class="form-control" id="age" placeholder="나이를 입력해주세요" name="age" value="${ pet.age }" > <br>
+		                    	
+		                    	<label for="weight"> &nbsp; 반려동물 무게 : </label>
+		                        <input type="number" step="0.1" class="form-control" id="weight" placeholder="몸무게를 입력해주세요(kg제외)" name="weight" value="${ pet.weight }" ><br>
+		                    </div>
+		                    <br>
+			                <div class="btns" align="center">
+			                    <button type="submit" class="disabled btn btn-primary" id="join">펫 정보 수정</button>
+			                    <button type="reset" class="btn btn-danger">초기화</button>
+			                </div>
+			                </form>
 	                    </c:otherwise>
 	                </c:choose>
 				</div>
@@ -77,7 +104,6 @@
 	</div>
 	
 	<script>
-		console.log(${pet.memberNo});
 	</script>
 	
 	<jsp:include page="../common/footer.jsp" />

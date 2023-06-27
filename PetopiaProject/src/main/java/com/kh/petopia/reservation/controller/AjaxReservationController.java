@@ -1,13 +1,23 @@
 package com.kh.petopia.reservation.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.petopia.myPage.model.service.MyPageService;
+import com.kh.petopia.myPage.model.vo.Petpay;
 
 @Controller
 public class AjaxReservationController {
+	
+	@Autowired
+	private MyPageService myPageService;
    
    @ResponseBody
    @PostMapping(value="calculate.ps", produces="application/json; charset=UTF-8")
@@ -47,6 +57,18 @@ public class AjaxReservationController {
       result[2] = Integer.toString(totalFee);
       
       return result;
+   }
+   
+   @ResponseBody
+   @RequestMapping(value="reservationPetPay.ps")
+   public String ajaxReservationPetPay(Petpay p, HttpSession session,ModelAndView mv) {
+	   
+	   System.out.println(p);
+	   
+	   myPageService.insertChargePetpay(p);
+	   
+	   return new Gson().toJson("안녕");
+	   
    }
       
    

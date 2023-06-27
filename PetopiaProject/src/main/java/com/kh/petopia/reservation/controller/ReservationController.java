@@ -28,6 +28,9 @@ public class ReservationController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	
+	private int memberNo;
+	private int petStoreNo;
 
 	// 애견 미용 예약 step-1
 	@RequestMapping("reservation.ps")
@@ -35,14 +38,15 @@ public class ReservationController {
 
 		// 1. 해당 미용실의 미용사 리스트를 조회해서 뿌려주기 
 		// 참고로 미용실번호는 고정임 3번
-		int psno = 3;
+		petStoreNo = 3;
 		
-		ArrayList<Employee> eList = reservationService.selectEmployeeList(psno);
+		ArrayList<Employee> eList = reservationService.selectEmployeeList(petStoreNo);
 		System.out.println(eList);
 		
 		// 2. 로그인한 사용자의 마이펫 조회  myPageService
-		Member loginMember = (Member)(session.getAttribute("loginMember"));
-		Pet pet = myPageService.selectPet(loginMember.getMemberNo());
+		memberNo = ((Member)(session.getAttribute("loginMember"))).getMemberNo();
+		
+		Pet pet = myPageService.selectPet(memberNo);
 		System.out.println(pet);
 		
 		// 3. 미용 예약의 기본 금액 조회 
@@ -75,17 +79,14 @@ public class ReservationController {
 	@RequestMapping("payment.ps")
 	public ModelAndView paymentPetSalon(Reservation r, HttpSession session, ModelAndView mv) {
 		
-		Member loginMember = (Member)(session.getAttribute("loginMember"));
-		int memberNo = loginMember.getMemberNo();
-		
-		r.setPetStoreNo(3);			// 사용자가 예약할 서비스는 미용 서비스
+		r.setPetStoreNo(petStoreNo);			// 사용자가 예약할 서비스는 미용 서비스
 		r.setMemberNo(memberNo);	// 예약 사용자
 		
 		// 응답해줄 화면에 출력해야할 정보
 		
 		// 1. 선택한 미용사 / 예약 날짜 / 시간 
 		// => 사용자로부터 입력 받은 후 Reservation 객체에 값 저장되어있음 
-		int usageFee = reservationService.selectUsageFee(3);
+		int usageFee = reservationService.selectUsageFee(petStoreNo);
 		r.setReservationFee(usageFee);
 		System.out.println(usageFee);
 		
@@ -133,11 +134,35 @@ public class ReservationController {
 	
 	   // 애견 미용 예약 step-3
 	   @RequestMapping("payment3.ps")
-	   public ModelAndView paymentPetSalon3(Reservation r, HttpSession session, ModelAndView mv) {
+	   public ModelAndView paymentPetSalon3(Reservation r,ModelAndView mv) {
+		   // 사용자가 예약결제를하려고 결제 버튼을 눌렀을 때 
 	      
-	      System.out.println("먀");
+		  r.setPetStoreNo(petStoreNo);
+	      r.setMemberNo(memberNo);
 	      
-	      return null;
+	      System.out.println(r);
+	      
+	      // 1. INSERT RESERVATION 
+	      // 2. INSERT RESERVATION_RECEIPTㅑ
+
+	      
+	     if( reservationService.insertReservation(r) > 0 ) {
+	    	 
+	    	 
+	    	 int reservationNo = reservationService.selectReservationNo();
+	    	 
+	    	 mv.addObject("reservationNo",reservationNo);
+	    	 mv.addObject("r",r);
+	    	 mv.setViewName("reservation/completeReservation");
+	    	 
+	     }else {
+	    	 System.out.println("결제 실패");
+	    	 
+	    	 mv.addObject("errorMsg","결제에 오류가 발생하였습니다");
+	    	 mv.setViewName("errorPage");
+	     }
+	      
+	      return mv;
 	      
 	   }
 	

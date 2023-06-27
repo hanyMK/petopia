@@ -90,21 +90,23 @@ public class MyPageController {
 	
 	// 헤더 마이페이지 클릭
 	@RequestMapping("myPetpayPoint.me")
-	public String myPetpayPoint(int mno, Model model) {
+	public ModelAndView myPetpayPoint(int mno, ModelAndView mv) {
 		// 전체금액, 총 n건, 날짜, 사용, 충전
 		
 		// 전체금액, 총 n건 int 타입으로 받아오기
-		model.addAttribute("petpayAmount", myPageService.selectMemberPetPay(mno));
-		model.addAttribute("pointAmount", myPageService.selectMemberPoint(mno));
+		mv.addObject("petpayAmount", myPageService.selectMemberPetPay(mno));
+		mv.addObject("pointAmount", myPageService.selectMemberPoint(mno));
 		
-		model.addAttribute("petpayCount", myPageService.selectPetPayCount(mno));
-		model.addAttribute("pointCount", myPageService.selectPointCount(mno));
+		mv.addObject("petpayCount", myPageService.selectPetPayCount(mno));
+		mv.addObject("pointCount", myPageService.selectPointCount(mno));
 		
 		// 금액, 날짜, 사용M, 충전P ArrayList
-		model.addAttribute("petpayList", myPageService.myPetpayList(mno));
-		model.addAttribute("pointList", myPageService.myPointList(mno));
+		mv.addObject("petpayList", myPageService.myPetpayList(mno));
+		mv.addObject("pointList", myPageService.myPointList(mno));
 
-		return "myPage/myPetpayPoint";
+		mv.setViewName("myPage/myPetpayPoint");
+		
+		return mv;
 	}
 	
 	
@@ -146,19 +148,21 @@ public class MyPageController {
 	
 	// 상품 리뷰 작성 페이지
 	@RequestMapping("productReviewForm.me")
-	public String productReviewForm(AllReviews r, Model model) {
+	public ModelAndView productReviewForm(AllReviews r, ModelAndView mv) {
 		System.out.println("상품 :  " + r);
 		System.out.println(myPageService.productReviewForm(r));
-		model.addAttribute("review", myPageService.productReviewForm(r));
-		return "myPage/myReviewInsert";
+		mv.addObject("review", myPageService.productReviewForm(r));
+		mv.setViewName("myPage/myReviewInsert");
+		return mv;
 	}
 	
 	// 예약 리뷰 작성 페이지
 	@RequestMapping("reservationReviewForm.me")
-	public String reservationReviewForm(AllReviews r, Model model) {
+	public ModelAndView reservationReviewForm(AllReviews r, ModelAndView mv) {
 		System.out.println("예약 : " + r);
-		model.addAttribute("review", myPageService.reservationReviewForm(r));
-		return "myPage/myReviewInsert";
+		mv.addObject("review", myPageService.reservationReviewForm(r));
+		mv.setViewName("myPage/myReviewInsert");
+		return mv;
 	}
 	
 	// 리뷰 작성 INSERT
@@ -196,7 +200,7 @@ public class MyPageController {
 				
 				return "redirect:myReview.me";
 			} else {
-				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+				model.addAttribute("errorMsg", "리뷰 등록 실패 ㅠ");
 				return "common/errorPage";
 			}
 		} else {
@@ -218,7 +222,7 @@ public class MyPageController {
 				
 				return "redirect:myReview.me";
 			} else {
-				model.addAttribute("errorMsg", "게시글 등록 실패 ㅠ");
+				model.addAttribute("errorMsg", "리뷰 등록 실패 ㅠ");
 				return "common/errorPage";
 			}
 		}
@@ -227,19 +231,34 @@ public class MyPageController {
 	
 	// 마이페이지 펫정보 수정, 조회
 	@RequestMapping("myPet.me")
-	public String myPetList(Model model, HttpSession session) {
+	public ModelAndView myPetList(ModelAndView mv, HttpSession session) {
 		Member member = (Member)session.getAttribute("loginMember");
 		int mno = member.getMemberNo();
-		System.out.println(myPageService.selectMyPet(mno));
-		model.addAttribute("pet", myPageService.selectMyPet(mno));
-		return "myPage/myPetList";
+		mv.addObject("pet", myPageService.selectMyPet(mno));
+		mv.setViewName("myPage/myPetList");
+		return mv;
 	}
 	
 	@RequestMapping("insertMyPet.me")
-	public String insertPet(Pet p, Model model) {
-		System.out.println(p);
-		model.addAttribute("myPet", myPageService.insertMyPet(p));
-		return "myPage/myPetList";
+	public ModelAndView insertMyPet(Pet p, ModelAndView mv) {
+		if(myPageService.insertMyPet(p) > 0) {
+			mv.addObject("alertMsg", "펫정보 추가가 완료되었습니다").setViewName("myPage/myPetList");
+		} else {
+			mv.addObject("errorMsg", "펫정보 추가가 실패되었습니다")
+			.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("updateMyPet.me")
+	public ModelAndView updateMyPet(Pet p, ModelAndView mv) {
+		if(myPageService.updateMyPet(p) > 0) {
+			mv.addObject("alertMsg", "펫정보 수정이 완료되었습니다").setViewName("myPage/myPetList");
+		} else {
+			mv.addObject("errorMsg", "펫정보 수정이 실패되었습니다")
+			.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	

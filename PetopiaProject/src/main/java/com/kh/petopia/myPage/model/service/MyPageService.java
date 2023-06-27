@@ -31,13 +31,7 @@ public interface MyPageService {
 	ArrayList<Alram> alramNoticeList(int mno);
 	
 	// 알람 삭제
-	int deleteShippingAlram(int delNo);
-	
-	int deleteReplyAlram(int delNo);
-
-	int deleteQnaAlram(int delNo);
-	
-	int deleteCouponAlram(int delNo);
+	int deleteAlram(HashMap<String, Object> map);
 	
 	// 마이페이지 - 게시글조회 - 댓글조회
 	ArrayList<Reply> myReplyList(int mno);
@@ -124,7 +118,8 @@ public interface MyPageService {
 	// 펫 없는 사람 등록
 	int insertMyPet(Pet p);
 	
-	
+	// 펫 정보 수정
+	int updateMyPet(Pet p);
 	
 	
 	
@@ -153,6 +148,8 @@ public interface MyPageService {
 	//회원 배송지 정보 변경
 	
 	int updateShippingInfo(ProductReceipt productReceipt);
+
+	
 
 	
 
