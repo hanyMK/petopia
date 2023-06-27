@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-	#alram_area_top{
-		height: 10%;
-		padding-top: 30px;
-		padding-bottom: 30px;		
+		#alram_area_top{
+			height: 10%;
+			padding-top: 30px;
+			padding-bottom: 30px;		
 		}
 		#alram_area_bottom{
 			height:90%;
@@ -70,19 +70,22 @@
 					if(list[i].columnAll == null) {
 					
 					value += list[i].dateAll + '<br>'
-						   + '제목 : ' + list[i].boardTitle + '<br>'
+						   + '제목 : ' + list[i].title + '<br>'
 						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
 						   + '내용 : ' + list[i].replyContent + '<br>'
 						   + '<input type="hidden" value="댓글">';
 						   
 					} else if(list[i].columnAll != null && list[i].columnAll == '배송중') {
-						value += list[i].columnAll + '입니다.'
+						value += '[ ' + list[i].title + ' ] 상품이 '
+							   + list[i].columnAll + '입니다.'
 							   + '<input type="hidden" value="배송">';
 					} else if(list[i].columnAll != null && list[i].columnAll == '상품준비중') {
-						value += '상품준비중 입니다.'
+						value += '[ ' + list[i].title + ' ] 상품이 '
+							   + list[i].columnAll + '입니다.'
 							   + '<input type="hidden" value="배송">';
 					} else if(list[i].columnAll != null && list[i].columnAll == '배송완료') {
-						value += '배송완료되었습니다.'
+						value += '[ ' + list[i].title + ' ] 상품이 '
+							   + list[i].columnAll + '입니다.'
 							   + '<input type="hidden" value="배송">';
 					} else if(list[i].columnAll != null && list[i].columnAll == 'Y') {
 						value += '1:1 답변이 등록되었습니다.'
@@ -93,7 +96,7 @@
 					}
 					
 					value += '</div>'
-						   + '<button class="delBtn" id="' + list[i].primaryNo + '">X</button>'
+						   + '<button class="delBtn" id="' + list[i].primaryNo + "," + list[i].replyNo + '">X</button>'
 						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
@@ -109,16 +112,17 @@
 	// 알람 삭제 함수
 	$(document).on("click", ".delBtn", function() {
 		
-		$(this).parent().remove();		
+		$(this).parent().remove();
 		
 		var category = $(this).siblings('div[id=myList]').children('input[type=hidden]').val();
 		var delNo = $(this).attr('id');
 		
+		console.log(delNo);
+		
 		delNo = category == '댓글' ? delNo = delNo.split(',')[1] : delNo ;
 		
-		
 		console.log(category);
-		//console.log(delNo);
+		console.log(delNo);
 		
 		$.ajax({
 			url : 'deleteAlram.me',
@@ -147,15 +151,9 @@
 				let value = "";
 				for(let i in list) {
 					value += '<div><div id="myList">'
-						   + '주문하신 상품이 ';
-					if(list[i].shippingStatus == '배송중') {
-						value += list[i].shippingStatus;
-					} else if (list[i].shippingStatus == '상품준비중') {
-						value += list[i].shippingStatus;
-					} else if (list[i].shippingStatus == '배송완료') {
-						value += list[i].shippingStatus;
-					}
-					value += '입니다.'
+					       + list[i].receiptDate + ' 에 구매하신 <br>'
+						   + '[ ' + list[i].productTitle + ' ] 상품이 '
+						   + list[i].shippingStatus + '입니다'
 						   + '<input type="hidden" value="배송">'
 						   + '</div>'
 					       + '<button class="delBtn" id="' + list[i].shippingNo + '">X</button>'
@@ -186,20 +184,17 @@
 						   + '제목 : ' + list[i].boardTitle + '<br>'
 						   + '댓글 단 사람 : ' + list[i].nickname + '<br>'
 						   + '내용 : ' + list[i].replyContent + '<br>'
-						   + list[i].boardNo + list[i].replyNo 
 						   + '<input type="hidden" value="댓글">'
 						   + '</div>'
 						   + '<button class="delBtn" id="' + list[i].boardNo +","+ list[i].replyNo + '">X</button>'
 						   + '</div><br>';
 				};
 				$('#alram_area_bottom').html(value);
-				
 			},
 			error : function() {
 				console.log('AJAX 댓글 조회 실팽이');
 			}
 		});
-		
 	};
 	
 	
@@ -252,13 +247,13 @@
 				console.log(primaryNo);
 				
 				if(category == '쿠폰') {
-					//parent.location.href = "memberCouponList.me"; 
+					parent.location.href = "memberCouponList.me"; 
 				} else if(category == '배송'){
-					//parent.location.href = "orderDetail.me?receiptNo=" + primaryNo;
+					parent.location.href = "orderDetail.me?receiptNo=" + primaryNo;
 				} else if(category="댓글"){
-					//parent.location.href = "detail.bo?bno=" + primaryNo; 
+					parent.location.href = "detail.bo?bno=" + primaryNo; 
 				} else if(category="문의"){
-					//parent.location.href = ""; 
+					parent.location.href = ""; 
 				}
 					
 			})

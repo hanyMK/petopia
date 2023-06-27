@@ -43,12 +43,13 @@
 		<result column="column_all"	property="columnAll" />
 		<result column="date_all"	property="dateAll" />
 		<result column="category"	property="category" />
-		<result column="board_title"	property="boardTitle" />
+		<result column="title"	property="title" />
 		<result column="nickname"	property="nickname" />
 		<result column="reply_content"	property="replyContent" />
 		<result column="qna_yn" 	property="qnaYn" />
 		<result column="coupon_name"	property="couponName" />
 		<result column="PRIMARY_NO" property="primaryNo"/>
+		<result column="REPLY_NO" property="replyNo"/>
 	</resultMap>
 	
 	<resultMap id="productReceiptResultSet" type="productReceipt">
@@ -68,6 +69,7 @@
 		<result column="SHIPPING_ADDRESS"	property="shippingAddress" />
 		<result column="SHIPPING_MESSAGE"	property="shippingMessage" />
 		<result column="PHONE"	property="phone" />
+		<result column="RECEIPT_DATE"	property="receiptDate" />
 	</resultMap>
 	
 	<resultMap type="coupon" id="couponResultSet">
@@ -156,10 +158,10 @@
 	</select>
 	
 	<select id="alramList" parameterType="member" resultMap="alramResultSet">
-		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO, CATEGORY, BOARD_TITLE, NICKNAME, REPLY_CONTENT
+		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO, CATEGORY, TITLE, NICKNAME, REPLY_CONTENT, REPLY_NO
 		  FROM
 		       (
-		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
 		         FROM BOARD
 		        WHERE CATEGORY = 'QNA'
 		          AND QNA_YN = 'Y'
@@ -168,7 +170,7 @@
 		      	  
 		        UNION ALL
 		        
-		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, C.COUPON_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
+		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, C.COUPON_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
 		         FROM COUPON C
 		         LEFT 
 		         JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
@@ -192,15 +194,17 @@
 		               
 		       UNION ALL
 		        
-		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_DATE AS DATE_ALL, S.SHIPPING_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
-		         FROM PRODUCT_RECEIPT P
-		         JOIN SHIPPING S ON(S.SHIPPING_NO = P.RECEIPT_NO)
+		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_DATE AS DATE_ALL, S.SHIPPING_NO AS PRIMARY_NO, NULL AS CATEGORY, PRODUCT_TITLE AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
+		         FROM PRODUCT_RECEIPT PR
+		         JOIN SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+		         JOIN PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+		         JOIN PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
 		        WHERE MEMBER_NO = #{ memberNo }
 		          AND S.ALRAM_STATUS = 'Y'
 		        
 		       UNION ALL
 		        
-		       SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.BOARD_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
+		       SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.BOARD_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE AS TITLE, R.NICKNAME, R.REPLY_CONTENT, R.REPLY_NO
 		         FROM MEMBER M
 		         LEFT
 		         JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
@@ -217,17 +221,23 @@
 	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
 		SELECT 
 			   SHIPPING_STATUS, 
-			   S.SHIPPING_NO
+			   S.SHIPPING_NO,
+			   P.PRODUCT_TITLE,
+			   PR.RECEIPT_DATE
 		  FROM 
-		       PRODUCT_RECEIPT P
-		  JOIN
-		       SHIPPING S ON(S.SHIPPING_NO = P.RECEIPT_NO)
+		  	   PRODUCT_RECEIPT PR 
+          JOIN 
+          	   SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+		  JOIN 
+		  	   PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+		  JOIN 
+		  	   PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
+		 WHERE 
+		 	   MEMBER_NO = #{ memberNo }
 		   AND 
-		       MEMBER_NO = #{ memberNo }
-		   AND
-		       ALRAM_STATUS = 'Y'
+		   	   S.ALRAM_STATUS = 'Y'
 		 ORDER
-		    BY P.RECEIPT_DATE DESC
+		    BY S.SHIPPING_DATE DESC
 	</select>
 	
 	<select id="alramReplyList" parameterType="_int" resultMap="replyResultSet">
