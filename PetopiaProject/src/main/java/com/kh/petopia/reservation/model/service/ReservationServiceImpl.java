@@ -41,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		int result = 1 ;
 		
-		int[] arr = new int[6];
+		int[] arr = {0, 0, 0, 1, 1,0}; 
 		
 		// INSERT RESERVATION 
 		arr[0] = reservationDao.insertReservation(sqlSession, r);
@@ -64,7 +64,6 @@ public class ReservationServiceImpl implements ReservationService {
 			 arr[3] = reservationDao.insertMinusPoint(sqlSession,r);
 			 System.out.println("왜안와3");
 		 }else {
-			 arr[3] = 1;
 			 System.out.println("왜안와3");
 		 }
 		 
@@ -73,7 +72,6 @@ public class ReservationServiceImpl implements ReservationService {
 	    	arr[4] = reservationDao.updateCouponStatus(sqlSession,r);	   
 	    	System.out.println("왜안와4");
 	    }else {
-	    	arr[4] = 1;
 	    	System.out.println("왜안와4");
 	    }
 	    

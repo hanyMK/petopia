@@ -58,7 +58,12 @@ public class AdminDao {
 	}
 	
 	public int salesCheck2(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("adminMapper.salesCheck2");
+		int result = sqlSession.selectOne("adminMapper.salesCheck2");
+		
+		System.out.println("와써?");
+		System.out.println(result);
+		
+		return result;
 	}
 
 	public int shippingListCount(SqlSessionTemplate sqlSession) {
