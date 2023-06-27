@@ -29,13 +29,15 @@
 		
 		<div id="main_center">
 			
-			<h3 align="center">petopia 애견 미용</h3>
+			<h3 align="center"> petopia 애견 미용</h3>
 			
 			<!-- 애견 미용 콘텐츠 시작 -->
 			<div id="petSalone-content">
 			
 				<h4 align="center">* 애견 미용 정보 * </h4>
+				
 				<div id="salon-employee">
+				
 					${petSalon.petStoreName} <br>
 					위치 : ${petSalon.petStoreAddress} <br>
 					영업시간 : ${petSalon.openTime} - ${petSalon.closeTime} <br>
@@ -61,6 +63,9 @@
 				<div id="salon-review">
 					<ul style="list-style:none;">
 						<c:forEach var="review" items="${rList}">
+						
+							<hr width="95%;">
+						
 							<!-- <li>${review.reviewNo}</li>  -->
 							<li>미용사 : ${review.employeeName}</li>
 							<li>작성자 : ${review.nickName}</li>
@@ -77,6 +82,8 @@
 							</c:if>
 							
 							<li>${review.createDate}</li>
+							
+							<hr width="95%;">
 							
 						</c:forEach>
 					

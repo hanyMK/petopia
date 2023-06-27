@@ -80,11 +80,7 @@ public class ReservationServiceImpl implements ReservationService {
 	    System.out.println("왜안와5");
 	    
 	    for(int i=0; i<arr.length; i++) {
-	    	if( arr[i] == 0 ) {
-	    		result = 0 ;
-	    		break;
-	    	}
-	    	System.out.println("성공");
+	    	result *= arr[i];
 	    }
 	    
 		return result;
@@ -96,10 +92,7 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDao.selectReservationNo(sqlSession);
 	}
 	
-	@Override
-	public Reservation selectCompleteReservation() {
-		return reservationDao.selectCompleteReservationNo(sqlSession);
-	}
+
 
 
 
