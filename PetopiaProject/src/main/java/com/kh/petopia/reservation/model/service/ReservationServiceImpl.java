@@ -93,5 +93,10 @@ public class ReservationServiceImpl implements ReservationService {
 		 
 	}
 
+	@Override
+	public Reservation selectCompleteReservation() {
+		return reservationDao.selectCompleteReservation(sqlSession);
+	}
+
 	
 }

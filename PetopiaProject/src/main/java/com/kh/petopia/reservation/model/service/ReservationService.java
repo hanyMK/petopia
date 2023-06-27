@@ -18,6 +18,9 @@ public interface ReservationService {
 
 	// 결제 테이블 insert
 	int insertReservation(Reservation r);
+
+	// 결제 완료 후 데이터 저장
+	Reservation selectCompleteReservation();
 	
 	// 결제 리싶트테이블 insert
 	// int insertReservationReceipt(Reservation r);
