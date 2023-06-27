@@ -213,7 +213,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
-                        <button type="submit" class="btn btn-danger">인출하기</button>
+                        <button type="submit" class="btn btn-danger" id="withdrawPetpayBtn">인출하기</button>
                         <button type="reset" class="btn btn-danger">초기화</button>
                     </div>
                 </form>
@@ -256,38 +256,76 @@
    	$(function () {
    		
    		$('#petpayAmount').on('change', function() {
+   			
    			var input = $(this).val();
    			
-   			// 최대 가능 금액 백만원이 넘어가는 경우
-   			if(input > 1000000) {
-   				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
-   				$('#chargePetpayBtn').attr('disabled', true);
-   				
-   			} else {
-   				$('#overPetpay').html('');
-   				$('#chargePetpayBtn').attr('disabled', false);
-   			}
+   			console.log(input);
    			
-   			// 만원 단위로 입력을 안했을 경우
-   			if(input != Math.floor(input/10000) * 10000) {
-   				$('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
-   				input = Math.floor(input/10000) * 10000;
-   				                        
-   				// 만원 단위로 입력도 안하고 백만원 초과 시
-   				if(input > 1000000) {
-       				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
-       				$('#chargePetpayBtn').attr('disabled', true);
-       			} else {
-       				$('#overPetpay').remove();
-       				$('#chargePetpayBtn').attr('disabled', false);
-       			}
+   			// 0보다 작거나 같은 경우 충전하기 버튼 disabled
+   			if(input <= 0) {
+   				$('#chargePetpayBtn').attr('disabled', true);
    			} else {
-   				$('#alertPetpay').html('');
+   				// 금액이 0보다 큰 경우
+	   			// 최대 가능 금액 백만원이 넘어가는 경우
+	   			if(input > 1000000) {
+	   				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+	   				$('#chargePetpayBtn').attr('disabled', true);
+	   				
+	   			} else {
+	   				$('#overPetpay').html('');
+	   				$('#chargePetpayBtn').attr('disabled', false);
+	   			}
+	   			
+	   			// 만원 단위로 입력을 안했을 경우
+	   			if(input != Math.floor(input/10000) * 10000) {
+	   				$('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
+	   				input = Math.floor(input/10000) * 10000;
+	   				                        
+	   				// 만원 단위로 입력도 안하고 백만원 초과 시
+	   				if(input > 1000000) {
+	       				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+	       				$('#chargePetpayBtn').attr('disabled', true);
+	       			} else {
+	       				$('#overPetpay').remove();
+	       				$('#chargePetpayBtn').attr('disabled', false);
+	       			}
+	   			} else {
+	   				$('#alertPetpay').html('');
+	   			}
    			}
    			
    			$('#petpayAmount').val(input);
    			
    		});
+   	});
+   	
+   	// 인출
+   	$(function() {
+   		
+   		
+		$('#petpayAmountMinus').on('change', function() {
+			
+   			var input = $(this).val();
+   			console.log(input);
+   			
+   			// 0보다 작거나 같은 경우 인출하기 버튼 disabled
+   			if(input <= 0) {
+   				$('#withdrawPetpayBtn').attr('disabled', true);
+   			} else {
+   				// 금액이 0보다 큰 경우
+	   			// 최대 가능 금액 백만원이 넘어가는 경우
+	   			if(input > ${petpayAmount}) {
+	   				$('#withdrawPetpayBtn').attr('disabled', true);
+	   				
+	   			} else {
+	   				$('#withdrawPetpayBtn').attr('disabled', false);
+	   			}
+	   			
+   			}
+   			
+   			$('#petpayAmount').val(input);
+		});
+		
    	});
    	
    	
@@ -298,7 +336,7 @@
    		var petpay = '${petpayAmount}';
    		console.log(petpay);
    		$('#petpayAmountMinus').val(petpay); // 인출
-   	}
+   	};
    	
     </script>
     
@@ -332,7 +370,6 @@
     
     function petpayStatusBtn(status) {
     	
-    	console.log(status);
     	
     	$.ajax({
     		url : 'petpayStatusList.me', 
@@ -343,7 +380,6 @@
     		success : function(list) {
     			let value = "";
     			for(let i in list) {
-    				console.log(list);
     				value += '<div id="myList">'							
     					   + list[i].petpayDate
     					   + list[i].account
@@ -363,8 +399,6 @@
     // 포인트
      function pointStatusBtn(status) {
     	
-    	console.log(status);
-    	
     	$.ajax({
     		url : 'pointStatusList.me', 
     		data : { 
@@ -374,7 +408,6 @@
     		success : function(list) {
     			let value = "";
     			for(let i in list) {
-    				console.log(list);
     				value += '<div id="myList">'							
     					   + list[i].pointDate
     					   + list[i].pointAmount

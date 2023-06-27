@@ -697,6 +697,7 @@
                 //console.log(result);
                 if(result != 0){
                     alert('결제가 완료 되었습니다.');
+                    location.href = 'product.pd';
                     
                 } else {
                     alert('결제할 금액보다 보유한 펫페이가 적습니다. 충전후 이용 부탁드립니다.');
