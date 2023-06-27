@@ -26,10 +26,5 @@ public class PetStoreServiceImpl implements PetStoreService {
 		
 	}
 
-	@Override
-	public ArrayList<PetStoreReview> selectReviewList(int psno) {
-		// 호텔, 유치원, 미용, 훈련 각각의 리뷰 리스트를 SELECT
-		return petStoreDao.selectReviewList(sqlSession,psno);
-	}
 
 }

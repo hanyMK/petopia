@@ -1,4 +1,5 @@
 package com.kh.petopia.petStore.model.vo;
+<<<<<<< Updated upstream
 
 import java.sql.Date;
 
@@ -16,3 +17,5 @@ public class PetStoreReview {
 	private int rating;				// 평점
 	
 }
+=======
+>>>>>>> Stashed changes

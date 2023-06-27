@@ -206,7 +206,6 @@
                     <div class="modal-body">
     
 			            <table align="center">
-			            
 			                <tr>
 			                    <th>쿠폰 이름 :</th>
 			                    <td><input type="text" name=couponName id="couponName"  required></td>
@@ -237,8 +236,6 @@
 			                    <th>최소사용 금액 : </th>
 			                    <td><input type="number"  name="minPriace" id="minPriace"></td>
 			                </tr>
-			           
-			                
 			            </table>
                     </div>
                     <!-- Modal footer -->
@@ -264,22 +261,8 @@
 		 var today = new Date(nowDate + timeOff).toISOString().substring(0,16);
 		 document.getElementById("startDate1").setAttribute('min', today);
 		 document.getElementById("endDate1").setAttribute('min', today);
-		
-
-		// function changeDate(){
-
-			
-		 	//sDate.att('value',eDate.value.replace("T", " "));
-		
-		 	//console.log(rsDate.value);
-		
-		//}
-		//couponBtn.onclick = () =>{
-			//console.log(sDate.value.replace("T", " "));
-		 	///sDate.value = sDate.value.replace("T", " ");
-		 	//eDate.value = eDate.value.replace("T", " ");
-		//}
-
+		 
+		 
 		$(function(){
 
 			$('#insertCoupon').on('click', ()=>{
@@ -291,9 +274,6 @@
 				$('#startDate').val(sDate);
 				console.log($('#endDate').val());
 			});
-			
-			
-			
 		})
 		
 		

@@ -78,8 +78,8 @@
                         <option>애견식품</option>
                         <option>애견의류</option>
                         </select> <br><br>
-                제목    <input type="text" name="productTitle" id="input_title"> <br><br>
-                가격    <input type="number" name="productPrice" id="input_price"> <br><br>
+                제목    <input type="text" name="productTitle" id="input_title" required> <br><br>
+                가격    <input type="number" name="productPrice" id="input_price" required> <br><br>
                         <span id="spanSize">사이즈</span> 
                         <input type="hidden" name="smallSize" id="sizeSmallInput" class="sizeInput" readonly> 
                         <input type="hidden" name="mediumSize" id="sizeMediumInput" class="sizeInput" readonly>
@@ -90,14 +90,14 @@
                 <button type="button" name="largeSize" id="largeSize">L</button>
                 <br>
                 <br>
-                썸네일 사진 넣기 <input type="file" name="thumbnail" onchange="thumbnailReadURL(this)">
+                썸네일 사진 넣기 <input type="file" name="thumbnail" onchange="thumbnailReadURL(this)" required>
                 <br>
                 <br>
                 <div id="product_thumbnail">
                     <img id="preview_thumbnail">
                 </div>
                 <br>
-                상세페이지 사진 넣기 <input type="file" name="detail" onchange="detailReadURL(this)">
+                상세페이지 사진 넣기 <input type="file" name="detail" onchange="detailReadURL(this)" required>
                 <br>
                 <br>
                 <div id="product_detail">
