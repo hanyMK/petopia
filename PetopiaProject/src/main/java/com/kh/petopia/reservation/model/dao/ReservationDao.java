@@ -50,9 +50,13 @@ public class ReservationDao {
 		return sqlSession.insert("reservationMapper.insertPlusPoint",r);
 	}
 	
+
+	public int selectReservationNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("reservationMapper.selectReservationNo");
+	}
+
 	public Reservation selectCompleteReservation(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("reservationMapper.selectCompleteReservation");
 	}
-
 
 }
