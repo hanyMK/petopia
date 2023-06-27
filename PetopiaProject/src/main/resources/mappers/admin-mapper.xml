@@ -144,42 +144,52 @@
 	</select>
 	
 	<select id="salesCheck" resultType="_int">
-	 <![CDATA[
-    SELECT SUM(PRODUCT_PRICE) 
-    FROM (
-      SELECT
-        AMOUNT * PRODUCT_PRICE PRODUCT_PRICE1,
-        CASE
-          WHEN PR.COUPON_NO != 0 AND C.COUPON_TYPE = 1
-            THEN AMOUNT * PRODUCT_PRICE - POINT - C.DISCOUNT
-          WHEN PR.COUPON_NO != 0 AND C.COUPON_TYPE = 2
-            THEN AMOUNT * PRODUCT_PRICE * ((100 - C.DISCOUNT) / 100) - POINT
-          ELSE AMOUNT * PRODUCT_PRICE - POINT
-        END PRODUCT_PRICE,
-        PR.RECEIPT_NO,
-        PR.MEMBER_NO,
-        RECEIPT_DATE,
-        NVL(PR.COUPON_NO, 0) COUPON_NO,
-        NVL(POINT, 0) POINT,
-        SHIPPING_NO
-      FROM
-        PRODUCT_BRIDGE PB
-        JOIN (
-          SELECT
-            RECEIPT_NO,
-            MEMBER_NO,
-            RECEIPT_DATE,
-            NVL(COUPON_NO, 0) COUPON_NO,
-            NVL(POINT, 0) POINT,
-            SHIPPING_NO
-          FROM
-            PRODUCT_RECEIPT
-        ) PR ON (pb.receipt_no = PR.receipt_no)
-        JOIN PRODUCT P ON (P.PRODUCT_NO = PB.PRODUCT_NO)
-        LEFT JOIN COUPON C ON (C.COUPON_NO = PR.COUPON_NO)
-      AND RECEIPT_DATE BETWEEN TRUNC(SYSDATE, 'MM') AND LAST_DAY(TRUNC(SYSDATE))
-    )
-  ]]>
+
+    SELECT SUM(RESULT_PRICE)
+                          FROM (  SELECT
+                        
+                                        MEMBER_NO,
+                                        CASE 
+                                        WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+                                        THEN R.RESULT_PRICE - POINT - C.DISCOUNT
+                                        WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+                                        THEN R.RESULT_PRICE * ((100-C.DISCOUNT)/100) - POINT
+                                        ELSE  R.RESULT_PRICE - POINT
+                                        END RESULT_PRICE ,
+                                        PR.RECEIPT_NO
+                                FROM VIEW_PRODUCT_RECEIPT PR
+                                LEFT JOIN COUPON C ON(C.COUPON_NO = PR.COUPON_NO)
+                                JOIN(VIEW_RESULT_PRICE) R ON (R.RECEIPT_NO = PR.RECEIPT_NO)
+                                WHERE TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
+                                    AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))))
+                                 )
+	</select>
+	
+	<select id="salesCheck2" resultType="_int">
+	  SELECT SUM(RESULT)
+                 FROM (
+                       SELECT 
+                              MEMBER_NO,
+                              RR.RESERVATION_NO,
+                              RESERVATION_FEE,
+                              
+                              CASE 
+                                      WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
+                                      THEN RESERVATION_FEE - C.DISCOUNT - POINT 
+                                      WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 2
+                                      THEN  RESERVATION_FEE * ((100-C.DISCOUNT)/100) - POINT
+                                      ELSE  RESERVATION_FEE - POINT
+                                      END RESULT ,
+                                      RR.POINT,
+                                      RR.COUPON_NO
+                        FROM
+                              RESERVATION R 
+                        JOIN (
+                              VIEW_RESERVATION_RECEIPT) RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
+                        LEFT JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
+                       WHERE  MEMBER_NO = 22
+                           AND  TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
+                                AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))))) 
 	</select>
 	
 	<select id= "shippingListCount" resultType="_int">
@@ -225,7 +235,7 @@
 	
 	<select id="bringKey" resultType="string">
 		SELECT KEY
-  		  FROM API
+  		  FROM CHAT_GPT_API
 	</select>
 	
 	

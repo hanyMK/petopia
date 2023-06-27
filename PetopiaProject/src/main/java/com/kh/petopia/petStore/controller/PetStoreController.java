@@ -79,6 +79,7 @@ public class PetStoreController {
 		PetStore petSalon = petStoreService.selectPetStore(psno);
 		
 		// 애견 미용 관련 리뷰 리스트 조회
+
 		ArrayList<PetStoreReview> rList = petStoreService.selectReviewList(psno);
 		
 		System.out.println(rList);
@@ -95,6 +96,7 @@ public class PetStoreController {
 			mv.addObject("errorMsg","애견미용 페이지 이동 실패");
 			mv.setViewName("common/errorPage");
 		}
+
 		
 		return mv;
 		

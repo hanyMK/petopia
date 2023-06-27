@@ -39,7 +39,7 @@
 				<h4 align="center">예약 정보</h4>
 				<ul style="list-style:none;">
 					<li>날짜/시간  : ${r.checkIn} / ${r.reservationTime}</li>
-					<li>담당자 : ${r.employeeName} </li>
+					<li>담당자 : 박미용 </li>
 					<li>예약자  : ${r.reservationName} </li>
 					<li>연락처  : ${r.reservationPhone} </li>
 				 </ul>
@@ -51,17 +51,27 @@
 				<h4 align="center">결제 정보</h4>	
 				<ul style="list-style:none;">
 					<li> 기본금액 : ${r.reservationFee}원 </li>		
-					<li> 사용 쿠폰 : {r.couponNo}</li>	
-					<li> 사용 적립금 : - ${point}p </li>	
+					<li> 사용 쿠폰 : ${r.couponNo}</li>	
+					
+					<li> 
+						사용 적립금 : 
+						<c:choose>
+							<c:when test="${ r.point != 0  }">
+								${r.point}
+							</c:when>
+							<c:otherwise>
+								0
+							</c:otherwise>
+						</c:choose>
+						p
+					</li>	
+					
 					<li> 최종결제금액 : ${r.finalTotalFee}원	</li>		
 				 </ul>
 			</div>
 			
 			</div>
-			
-			<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo }
-		   + '&receiptNo=' + ${r.reservationNo } + '">'
-		   + '<h6>리뷰 작성하기</h6></a>
+
 			
 				
 		</div>

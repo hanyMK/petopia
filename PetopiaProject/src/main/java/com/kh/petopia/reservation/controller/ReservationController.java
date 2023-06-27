@@ -143,13 +143,15 @@ public class ReservationController {
 	      System.out.println(r);
 	      
 	      // 1. INSERT RESERVATION 
-	      // 2. INSERT RESERVATION_RECEIPT
+	      // 2. INSERT RESERVATION_RECEIPTㅑ
+
 	      
 	     if( reservationService.insertReservation(r) > 0 ) {
-	    	 System.out.println("결제 성공!");
 	    	 
-	    	 Reservation result = reservationService.selectCompleteReservation();
 	    	 
+	    	 int reservationNo = reservationService.selectReservationNo();
+	    	 
+	    	 mv.addObject("reservationNo",reservationNo);
 	    	 mv.addObject("r",r);
 	    	 mv.setViewName("reservation/completeReservation");
 	    	 

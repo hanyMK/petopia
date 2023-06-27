@@ -96,13 +96,12 @@
                 let next = cPage + 1;
 				let max = pi.maxPage;
 				
-				let statusColor = "black";	
+				let statusColor = "";	
 					for(let i in list){
-						
-						if (list[i].status === '블랙') {
-					      statusColor = 'red';
-				    	} else if(list[i].status === '탈퇴'){
-				    	  statusColor = 'lightGray';
+						if (list[i].status === '탈퇴') {
+						  statusColor = 'lightGray';
+				    	} else if(list[i].status === '활동'){
+				    	  statusColor = 'black';
 				    	}
 						
 						
@@ -114,7 +113,7 @@
 	                        + '<td>' + list[i].enrollDate + '</td>'
 	                        + '<td style="color: ' + statusColor + ';">' + list[i].status + '</td>'
 	                        + '</tr>'
-	                        
+   
 					}
 				
 					$('.memberList-table tbody').html(value);
@@ -181,7 +180,7 @@
 				data: {
 					searchType: searchType, 
 					keyword: keyword,
-					currentPage : cPage
+					cPage : cPage
 			         
 				},
 				success : function(result){
@@ -196,18 +195,15 @@
 					let prev = cPage - 1;
 	                let next = cPage + 1;
 					let max = pi.maxPage;
+					let statusColor = "";	
 					
-					let statusColor = "black";	
 						for(let i in list){
-							
-							if (list[i].status === '블랙') {
-						      statusColor = 'red';
-					    	} else if(list[i].status === '탈퇴'){
-					    	  statusColor = 'lightGray';
+							if (list[i].status === '탈퇴') {
+							  statusColor = 'lightGray';
+					    	} else if(list[i].status === '활동'){
+					    	  statusColor = 'black';
 					    	}
 							
-								
-									
 							value += '<tr>'
 								+ '<td>' + list[i].memberNo + '</td>'
 		                        + '<td>' + list[i].memberName + '</td>'

@@ -61,6 +61,7 @@ public class AjaxAdminController {
 	@RequestMapping(value = "ajaxMemberSearch.ad", produces = "application/json; charset=UTF-8")
 	public String memberSearch(String searchType, String keyword,
 			@RequestParam(value = "cPage", defaultValue = "1") int currentPage) {
+		
 
 		Map<String, Object> params = new HashMap<>();
 		params.put("searchType", searchType);

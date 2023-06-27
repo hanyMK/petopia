@@ -145,7 +145,7 @@
 		               (
 		               SEQ_FNO.NEXTVAL,
 		               1,
-		               SEQ_PRODUCT_NO.CURRVAL,
+		               (SELECT MAX(PRODUCT_NO) FROM PRODUCT),
 		               1,
 		               #{originName},
 		               #{changeName},
