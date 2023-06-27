@@ -131,14 +131,10 @@
 				)
 	</insert>
 	
-	<select id="selectCompleteReservation" resultMap="reservationResultSet">
-		SELECT 	RESERVATION_NO
-		FROM RESERVATION
-		WHERE RESERVATION_NO = SEQ_POINT_NO.CURRVAL
+	<select id="selectReservationNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL
+		FROM DUAL
 	</select>
-	
-	
-	
 	
 
 
