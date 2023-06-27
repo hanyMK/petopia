@@ -264,6 +264,7 @@
             <div id="header_1_right">               
                <!-- null == loginUser // empty loginUser -->
                <!-- 빈문자열인지 아닌지도 체크  -->
+               
                <c:choose>
                   <c:when test="${ empty sessionScope.loginMember }">
                       <!-- 로그인 전 -->

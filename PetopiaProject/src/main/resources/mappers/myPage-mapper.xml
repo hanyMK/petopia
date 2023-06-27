@@ -116,49 +116,49 @@
 	</resultMap>
 	
 	<select id="myBoardList" parameterType="_int" resultMap="boardResultSet">
-		select
-		       board_title,
-		       board_content,
-		       create_date,
-		       category,
-		       board_no
-		  from 
-		       board b
-		  join
-		       member m on(m.member_no = b.member_no)
-		 where 
-		       m.member_no = #{ memberNo }
-		   and
-		       b.status = 'Y'
-		 order
-		    by create_date desc
+		SELECT
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   CREATE_DATE,
+			   CATEGORY,
+			   BOARD_NO
+		  FROM
+		       BOARD B
+		  JOIN
+		       MEMBER M ON(M.MEMBER_NO = B.MEMBER_NO)
+		 WHERE
+		       M.MEMBER_NO = #{ memberNo }
+		   AND
+		       B.STATUS = 'Y'
+		 ORDER
+		    BY CREATE_DATE DESC
 	</select>
 	
 	<select id="myReplyList" parameterType="_int" resultMap="replyResultSet">
-		select
-		       b.board_title,
-		       r.reply_content,
-		       r.create_date,
-		       b.category,
-		       b.board_no
-		  from 
-		       board b
-		  join
-		       member m on(m.member_no = b.member_no)
-		  join
-		       reply r on(b.board_no = r.board_no)
-		 where 
-		       r.member_no = #{ memberNo }
-		   and
-		       b.status = 'Y'
-		 order
-		    by r.create_date desc
+		SELECT
+			   BOARD_TITLE,
+			   R.REPLY_CONTENT,
+			   R.CREATE_DATE,
+			   B.CATEGORY,
+			   B.BOARD_NO
+		  FROM
+		       BOARD B
+		  JOIN
+		       MEMBER M ON(M.MEMBER_NO = B.MEMBER_NO)
+		  JOIN 
+		       REPLY R ON(B.BOARD__NO = R.BOARD_NO)
+		 WHERE
+		       R.MEMBER_NO = #{ memberNo }
+		   AND
+		       B.STATUS = 'Y'
+		 ORDER
+		    BY R.CREATE_DATE DESC
 	</select>
 	
 	<select id="alramList" parameterType="member" resultMap="alramResultSet">
 		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO, CATEGORY, BOARD_TITLE, NICKNAME, REPLY_CONTENT
 		  FROM
-		      (
+		       (
 		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS BOARD_TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT
 		         FROM BOARD
 		        WHERE CATEGORY = 'QNA'
@@ -215,47 +215,68 @@
 	</select>
 	
 	<select id="alramShippingList" parameterType="_int" resultMap="productReceiptResultSet">
-		select shipping_status, s.shipping_no
-		  from product_receipt p
-		  join shipping s on(s.shipping_no = p.receipt_no)
-		   and member_no = #{ memberNo }
-		   and alram_status = 'Y'
-		 order by p.receipt_date desc
+		SELECT 
+			   SHIPPING_STATUS, 
+			   S.SHIPPING_NO
+		  FROM 
+		       PRODUCT_RECEIPT P
+		  JOIN
+		       SHIPPING S ON(S.SHIPPING_NO = P.RECEIPT_NO)
+		   AND 
+		       MEMBER_NO = #{ memberNo }
+		   AND
+		       ALRAM_STATUS = 'Y'
+		 ORDER
+		    BY P.RECEIPT_DATE DESC
 	</select>
 	
 	<select id="alramReplyList" parameterType="_int" resultMap="replyResultSet">
-		select b.category, b.board_title, r.nickname, r.reply_content, r.reply_no, r.create_date
-	      from member m
-	      left join board b on(m.member_no = b.member_no)
-	      left join reply r on(r.board_no = b.board_no)
-	     where b.member_no = #{ memberNo }
-	       and r.member_no != #{ memberNo }
-	       and r.alram_status = 'Y'
-	     order by r.create_date desc
+		SELECT
+		       B.CATEGORY,
+		       B.BOARD_TITLE,
+		       R.NICKNAME,
+		       R.REPLY_CONTENT,
+		       R.REPLY_NO,
+		       R.CREATE_DATE
+		  FROM
+		       MEMBER M
+		  LEFT
+		  JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
+		  LEFT
+		  JOIN REPLY R ON(R.BOARD_NO = B.BOARD_NO)
+		 WHERE
+		       B.MEMBER_NO = #{ memberNo }
+		   AND
+		       R.MEMBER_NO != #{ memberNo }
+		   AND
+		       R.ALRAM_STATUS = 'Y'
+		 ORDER
+		    BY R.CREATE_DATE DESC
 	</select>
 	
 	<select id="alramNoticeList" parameterType="_int" resultMap="alramResultSet">
 		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO
 		  FROM
 		       (
-		        SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO
-		          FROM BOARD
-		         WHERE CATEGORY = 'QNA'
-		           AND QNA_YN = 'Y'
-		           AND MEMBER_NO = #{ memberNo }
-		           AND ALRAM_STATUS = 'Y'
+		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO
+		         FROM BOARD
+		        WHERE CATEGORY = 'QNA'
+		          AND QNA_YN = 'Y'
+		          AND MEMBER_NO = #{ memberNo }
+		          AND ALRAM_STATUS = 'Y'
 		        
-		        UNION ALL
+		       UNION ALL
 		        
-		        SELECT COUPON_NAME AS COLUMN_ALL, START_DATE DATE_ALL, C.COUPON_NO AS PRIMARY_NO
-		          FROM COUPON C
-		          LEFT 
-		          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
-		         WHERE SYSDATE BETWEEN START_DATE AND END_DATE
-		           AND MEMBER_NO = #{ memberNo }
-		           AND MC.ALRAM_STATUS = 'Y'
+		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE DATE_ALL, C.COUPON_NO AS PRIMARY_NO
+		         FROM COUPON C
+		         LEFT 
+		         JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
+		        WHERE SYSDATE BETWEEN START_DATE AND END_DATE
+		          AND MEMBER_NO = #{ memberNo }
+		          AND MC.ALRAM_STATUS = 'Y'
 		        )
-		 ORDER BY DATE_ALL DESC
+		 ORDER 
+		    BY DATE_ALL DESC
 	</select>
 	
 	<update id="deleteShippingAlram" parameterType="_int">
@@ -1095,13 +1116,13 @@
 	</insert>
 	
 	<update id="updateMyPet" parameterType="pet">
-	UPDATE PET
-	   SET GENDER = #{gender},
-	       SPECIES = #{species},
-	       PET_NAME = #{petName},
-	       AGE = #{age},
-	       WEIGHT = #{weight}
-	 WHERE MEMBER_NO = #{memberNo}
+		UPDATE PET
+		   SET GENDER = #{gender},
+		       SPECIES = #{species},
+		       PET_NAME = #{petName},
+		       AGE = #{age},
+		       WEIGHT = #{weight}
+		 WHERE MEMBER_NO = #{memberNo}
 	</update>
 
 </mapper>
