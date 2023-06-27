@@ -245,11 +245,10 @@ public class AjaxMyPageController {
 	@RequestMapping(value="selectOrderList.me", produces="apllication/json; charset=UTF-8")
 	public String selectOrderList(int memberNo, 
 								@RequestParam(value="currentPage", defaultValue="1" )int currentPage) {
-		System.out.println(currentPage);
-		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 3, 10);
+		
+		PageInfo pi = Pagination.getPageInfo(myPageService.orderListCount(memberNo),currentPage, 10, 10);
 		ArrayList<ProductReceipt> list = myPageService.selectOrderList(memberNo, pi);
 		HashMap<String, Object> receiptList = new HashMap<>(); 
-		System.out.println(list);
 		
 		if(!list.isEmpty()) {
 			receiptList.put("pi", pi);
@@ -263,8 +262,6 @@ public class AjaxMyPageController {
 	//구매확정 버튼 클릭시 상품 상태 변경 메소드
 	@PostMapping("updateShippingStatus.me")
 	public String updateShippingStatus(int receiptNo) {
-		System.out.println(receiptNo);
-		
 		return myPageService.updateShippingStatus(receiptNo) > 0?  "Secesse" :"Fail";
 	}
 	
