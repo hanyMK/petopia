@@ -507,9 +507,9 @@
 	
 	<!-- 쿠폰 리스트 -->
 	<select id="memberCouponList" resultMap="couponResultSet" parameterType="member">
-		SELECT 
+		       SELECT 
+                MEMBER_NO,
 		        C.COUPON_NO,
-		        MEMBER_NO,
 		        COUPON_NAME,
 		        COUPON_TYPE,
 		        DISCOUNT,
@@ -519,25 +519,29 @@
 		        MIN_PRICE
 		  FROM 
 		        COUPON C
-		  LEFT 
-		  JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
-		 WHERE 
-		        SYSDATE BETWEEN START_DATE AND END_DATE
-		<choose>
+          LEFT JOIN
+                (SELECT 
+                        MEMBER_NO,
+                        COUPON_NO,
+                        MEMBER_COUPON_STATUS
+                  FROM 
+                        MEMBER_COUPON
+                 WHERE 
+                        MEMBER_NO = #{memberNo}) MC ON  (MC.COUPON_NO = C.COUPON_NO)
+         WHERE 
+         <choose>
 			<when test="rating == 'VIP'">
-		 		 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
-		       		  COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
+		 		NOT REGEXP_LIKE(COUPON_NAME, 'SILVER|GOLD')
 			</when>
 			<when test="rating == 'GOLD'">
-	   			 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
-	         			COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+	   			NOT REGEXP_LIKE(COUPON_NAME, 'SILVER|VIP')
 			</when>
 			<otherwise>
-   				  AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
-        			   COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+   				NOT REGEXP_LIKE(COUPON_NAME, 'VIP|GOLD')
 			</otherwise>
 		</choose>
-		AND MEMBER_NO IS NULL OR MEMBER_NO = #{memberNo}
+           AND   
+                SYSDATE BETWEEN START_DATE AND END_DATE
 	</select>
 	
 	

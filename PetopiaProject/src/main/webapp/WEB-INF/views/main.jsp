@@ -32,6 +32,93 @@
         color : white;
         /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
     }
+    
+    	 /* 이미지 영역 사이즈 조절 */
+	 .swiper {
+        width: 1200px;
+        height: 500px;
+    }
+    /* 이미지 사이즈 조절 */
+    .swiper-slide>img {
+        width : 100%;
+        height : 100%;
+    }
+    /* 화살표 버튼색 변경 (기본색은 파란색) */
+    div[class^=swiper-button] {
+        color : white;
+        /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
+    }
+	#product_create_btn_div{
+		box-sizing: border-box;
+		width: 1200px;
+		height: 50px;
+		margin: auto;
+		padding: 4px;
+		padding-left: 1100px;
+	}
+	#product_create_btn{
+		width: 90px;
+		height: 40px;
+		font-size: 17px;
+		background-color: #007BFF;
+		color: white;
+		border: none;
+		border-radius: 5px;
+	}
+	#product_create_btn:hover{
+		cursor: pointer;
+		background-color: #248eff;
+	}
+	#product_select_category_div{
+		box-sizing: border-box;
+		width: 1200px;
+		height: 50px;
+		margin: auto;
+	}
+	#product_header{
+		box-sizing: border-box;
+		width: 1200px;
+		height: 30px;
+		margin: auto;
+	}
+	#product_content{
+		box-sizing: border-box;
+		width: 1200px;
+		margin: auto;
+		overflow:hidden;
+	}
+	.product{
+		box-sizing: border-box;
+		width: 25%;
+		height: 400px;
+		float: left;
+	}
+	.product_1{
+		box-sizing: border-box;
+		width: 90%;
+		height: 90%;
+		margin: 15px;
+	}
+	.product_1:hover{
+		cursor: pointer;
+		filter: opacity(0.9);
+	}
+	.product_1_1{
+		box-sizing: border-box;
+		width: 100%;
+		height: 85%;
+	}
+	.product_1_2{
+		box-sizing: border-box;
+		width: 100%;
+		height: 15%;
+	}
+	.product_upfile{
+		width: 100%;
+		height: 100%;
+	}
+
+</style>
 
 	
 </style>
@@ -41,16 +128,16 @@
 	<jsp:include page="common/header.jsp" />
 
 	
-	<div id="swiper-area">
+			<div id="content_1">
 		<!-- Slider main container -->
 		<div class="swiper">
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<!-- Slides -->
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-				<div class="swiper-slide"><img src="https://wallpaperaccess.com/full/2461292.jpg"></div>
-			   
+				<div class="swiper-slide"><img src="https://bananab2b.co.kr/data/bananab2b/editor/202305/RLGHLRWJS.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/1488452396974056.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/1623754862772.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/PCM20191015000073990_P2.jpg"></div>
 			</div>
 		
 			<!-- If we need pagination -->
@@ -63,23 +150,46 @@
 			<!-- If we need scrollbar -->
 			<div class="swiper-scrollbar"></div>
 		</div>
-	  </div>
-	
-	<div id="main">
-		<div id="main_left">
-		
-		</div>
-		<div id="main_center">
-			
-		</div>
-		<div id="main_right">
-		
-		</div>
-		
 	</div>
-		
-	
-	<jsp:include page="common/footer.jsp"/>
+
+	<div id="product_create_btn_div">
+		<c:set var="name" value="${sessionScope.loginMember.email}" />
+
+		<c:if test="${ name == 'admin@email.com' }">
+			<button id="product_create_btn">상품관리</button>
+		</c:if>
+	</div>
+
+	<div id="product_select_category_div">
+		<button id="all">전체</button>
+		<button id="goods">애견용품</button>
+		<button id="food">애견식품</button>
+		<button id="clothes">애견의류</button>
+
+		<input type="text" id="search_input"><button onclick="searchBtn();">검색</button>
+	</div>
+
+
+
+
+	<div id="product_header">
+		조회순 낮은가격순 높은가격순
+	</div>
+
+	<div id="product_content">
+		<!-- <div class="product">
+			<div class="product_1">
+				<div class="product_1_1">
+					<img id="product_upfile" src="https://mongliebe.com/web/product/medium/202304/a5566c293a82534a60fbe01ebf0ca966.png">
+				</div>
+				<div class="product_1_2">
+					안녕하세요.안녕하세요. <br>
+					12000원
+				</div>
+			</div>
+		</div> -->
+	</div>
+
 
 	<script>
 		const swiper = new Swiper('.swiper', {
@@ -98,6 +208,120 @@
           }
       }); 
 	</script>
+
+	<script>
+
+		let category = 'all';
+
+		$(function(){ // 화면에 오자마자 실행되는 함수 selectProductList()메소드 호출
+			selectProductList(); // AJAX List를 뜨워주는 메소드
+		})
+
+		function selectProductList(){ // AJAX List
+			$.ajax({
+				url : 'productAjax.pd',
+				data : {
+					category : category
+				},
+				success : function(list){
+					
+					var value = '';
+					
+					for(let i in list){
+						console.log(list[i].filePath + list[i].changeName)
+
+						value += '<div class="product">'
+							   + 	'<div class="product_1">'
+							   + 		'<div class="product_1_1">'
+							   +           '<div hidden class="bno">' + list[i].productNo + '</div>'
+							   + 			'<img class="product_upfile" src="'+ list[i].filePath + list[i].changeName +'">'
+							   + 		'</div>'
+							   + 		'<div class="product_1_2">'
+							   +       '<div>'+ list[i].productTitle +'</div>'
+							   +       '<div>가격 : '+ list[i].productPrice +'</div>'
+							   +        '<div>카테고리 : ' + list[i].categoryName + '</div>'
+							   + 		'</div>'
+							   + 	'</div>'
+							   + '</div>';
+					};
+					
+					$('#product_content').html(value);
+				},
+				error : function(){
+
+				}
+			});
+		}
+
+		function searchBtn(){
+			$.ajax({
+				url : 'selectSearch.pd',
+				data : {
+					keyword : $('#search_input').val()
+				},
+				success : function(list){
+					console.log(list);
+										
+					var value = '';
+					
+					for(let i in list){
+						console.log(list[i].filePath + list[i].changeName)
+
+						value += '<div class="product">'
+							   + 	'<div class="product_1">'
+							   + 		'<div class="product_1_1">'
+							   +           '<div hidden class="bno">' + list[i].productNo + '</div>'
+							   + 			'<img class="product_upfile" src="'+ list[i].filePath + list[i].changeName +'">'
+							   + 		'</div>'
+							   + 		'<div class="product_1_2">'
+							   +       '<div>'+ list[i].productTitle +'</div>'
+							   +       '<div>가격 : '+ list[i].productPrice +'</div>'
+							   +        '<div>카테고리 : ' + list[i].categoryName + '</div>'
+							   + 		'</div>'
+							   + 	'</div>'
+							   + '</div>';
+					};
+					
+					$('#product_content').html(value);
+				},
+				error : function(){
+
+				}
+			})
+		}
+	</script>
+
+	<script>
+		$('#product_create_btn').click(function(){
+			location.href='productManagement.pd';
+		});
+		$('#product_content').on('click', '.product_1' , (function(){
+		 	location.href='detail.pd?bno=' + $(this).find('.bno').html();
+		}));
+	</script>
+
+	<script>
+		$('#all').click(function(){
+			category = 'all';
+			selectProductList();
+		})
+		$('#goods').click(function(){
+			category = 'goods';
+			selectProductList();
+		})
+		$('#food').click(function(){
+			category = 'food';
+			selectProductList();
+		})
+		$('#clothes').click(function(){
+			category = 'clothes';
+			selectProductList();
+		})
+	</script>
+		
+	
+	<jsp:include page="common/footer.jsp"/>
+
 
 </body>
 </html>

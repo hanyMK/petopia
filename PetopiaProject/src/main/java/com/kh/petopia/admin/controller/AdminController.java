@@ -104,12 +104,12 @@ public class AdminController {
 		System.out.println(c);
 		
 		if(adminService.insertCoupon(c)> 0) {
-			mv.addObject("alertMsg", "쿠폰이 발급되었습니다")
-			.setViewName("redirect:/couponList.admin");
+			mv.addObject("alertMsg", "쿠폰이 발급되었습니다");
+			
 		}else {
-			mv.addObject("errorMsg", "쿠폰발급이 실패했습니다")
-			.setViewName("errorPage");
+			mv.addObject("alertMsg", "쿠폰발급이 실패했습니다");
 		}
+		mv.setViewName("redirect:couponList.ad");
 		return mv;
 	}
 	
@@ -123,8 +123,6 @@ public class AdminController {
 								ModelAndView mv) {
 		PageInfo pi = Pagination.getPageInfo(adminService.adminCouponListCount(), currentPage, 10, 10);
 		ArrayList<Coupon> couponList = adminService.adminCouponList(pi);
-		System.out.println(couponList);
-		System.out.println(pi);
 		if(!couponList.isEmpty()) {
 			mv.addObject("pi", pi)
 			.addObject("couponList",couponList )

@@ -149,7 +149,7 @@
                    	<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
                 		</c:when>
                 		<c:otherwise>
-                		<li class="page-item"><a class="page-link" href="list.bo?cPage=${pi.currentPage -1}">Previous</a></li>
+                		<li class="page-item"><a class="page-link" href="couponList.ad?cpage=${pi.currentPage -1}">Previous</a></li>
                 		</c:otherwise>
                 	</c:choose>
                 	
@@ -157,7 +157,7 @@
                 	<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
                 		<c:choose>
                 			<c:when test="${ pi.currentPage eq 1 }">
-                    			<li  class="page-item"><a class="page-link" href="list.bo?cPage=${p}">${p}</a></li>
+                    			<li  class="page-item"><a class="page-link" href="couponList.ad?cpage=${p}">${p}</a></li>
                 			</c:when>
                 		</c:choose>
                 	</c:forEach>

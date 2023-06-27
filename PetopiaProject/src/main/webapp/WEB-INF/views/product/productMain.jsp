@@ -106,10 +106,10 @@
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<!-- Slides -->
-				<div class="swiper-slide"><img src="https://bananab2b.co.kr/data/bananab2b/editor/202305/RLGHLRWJS.jpg"></div>
-				<div class="swiper-slide"><img src="resources/images/crong1.jpg"></div>
-				<div class="swiper-slide"><img src="resources/images/crong2.jpg"></div>
-				<div class="swiper-slide"><img src="resources/images/crong3.jpg"></div>
+					<div class="swiper-slide"><img src="https://bananab2b.co.kr/data/bananab2b/editor/202305/RLGHLRWJS.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/1488452396974056.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/1623754862772.jpg"></div>
+				<div class="swiper-slide"><img src="resources/images/PCM20191015000073990_P2.jpg"></div>
 			</div>
 		
 			<!-- If we need pagination -->

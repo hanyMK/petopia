@@ -64,7 +64,7 @@
         	<li><a href="adminShipping.ad"><h5><b>주문/배송 조회</b></h5></a></li>
         </ul>
         <ul class="myPage_navi_category">
-        	<li><a href="couponList.ad"><h6>관리자 쿠폰 발급</h6></a></li>
+        	<li><a href="couponList.ad"><h5><b>관리자 쿠폰 발급</b></h5></a></li>
         </ul>
             
     </div> 
