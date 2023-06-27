@@ -39,7 +39,7 @@
 				<h4 align="center">예약 정보</h4>
 				<ul style="list-style:none;">
 					<li>날짜/시간  : ${r.checkIn} / ${r.reservationTime}</li>
-					<li>담당자 : ${r.employeeName} </li>
+					<li>담당자 : 박미용 </li>
 					<li>예약자  : ${r.reservationName} </li>
 					<li>연락처  : ${r.reservationPhone} </li>
 				 </ul>
@@ -54,7 +54,7 @@
 					<li> 사용 쿠폰 : ${r.couponNo}</li>	
 					
 					<li> 
-						사용 적립금 : - 
+						사용 적립금 : 
 						<c:choose>
 							<c:when test="${ r.point != 0  }">
 								${r.point}
