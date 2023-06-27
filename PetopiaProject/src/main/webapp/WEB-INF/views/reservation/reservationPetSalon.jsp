@@ -353,6 +353,7 @@
 						<div>
 							<strong id="selectedEmployee"></strong>
 							<input type="hidden" name=employeeNo value="">
+							<input type="hidden" name=employeeName value="">
 						</div> 
 						
 						<br>

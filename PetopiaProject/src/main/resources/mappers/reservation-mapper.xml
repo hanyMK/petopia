@@ -49,6 +49,90 @@
 		AND CHECK_IN = #{checkIn}
 	</select>
 	
+	<insert id="insertReservation" parameterType="reservation">
+		INSERT 
+		  INTO
+				RESERVATION
+		VALUES 
+				(
+					SEQ_RNO.NEXTVAL,
+					#{petStoreNo},
+					#{memberNo},
+					#{checkIn},
+					NULL,
+					#{reservationTime},
+					#{employeeNo},
+					#{reservationName},
+					#{reservationPhone},
+					#{reservationFee}
+				)
+	</insert>
+	
+	<insert id="insertReservationReceipt" parameterType="reservation">
+		INSERT
+		 INTO
+		 		RESERVATION_RECEIPT
+		VALUES
+				(
+				SEQ_RNO.CURRVAL,
+				SYSDATE,
+				#{couponNo},
+				#{point},
+				'Y'
+				)
+	
+	</insert>
+	
+	<insert id="insertMinusPetPay" parameterType="reservation">
+		INSERT INTO
+		PETPAY
+		VALUES (
+				SEQ_PETPAY_NO.NEXTVAL,
+				- #{finalTotalFee},
+				SYSDATE,
+				'M',
+				#{memberNo}
+				)
+	</insert>
+	
+	<!-- 결제 시 포인트 차감에 사용되는 insert문 -->
+	<insert id="insertMinusPoint" parameterType="reservation">
+		INSERT INTO
+		POINT
+		VALUES (
+				SEQ_POINT_NO.NEXTVAL,
+				- #{point},
+				'PETPAY',
+				SYSDATE,
+				'P',
+				#{memberNo}
+				)
+	</insert>
+	
+	<!-- 결제시 쿠폰 상태 update -->
+	<update id="updateCouponStatus" parameterType="reservation">
+		UPDATE
+		MEMBER_COUPON
+		SET MEMBER_COUPON_STATUS = 'U'
+		WHERE MEMBER_NO = #{memberNo} 
+	</update>
+	<!--  -->
+	
+	<insert id="insertPlusPoint" parameterType="reservation">
+		INSERT INTO
+		POINT
+		VALUES (
+					SEQ_POINT_NO.NEXTVAL,
+					#{finalTotalFee} * 0.05,
+					'PETPAY',
+					SYSDATE,
+					'P',
+					#{memberNo}
+				)
+	</insert>
+	
+	
+	
 	
 
 

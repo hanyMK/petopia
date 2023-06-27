@@ -35,17 +35,18 @@
          
             <form action="payment3.ps" method="post" >
             
-            	<input type="hidden" name="checkIn">
-            	<input type="hidden" name="checkOut">
+            	<input type="hidden" name="checkIn" value="${r.checkIn}">
+            	<input type="hidden" name="reservationTime" value="${r.reservationTime}">
+            	<input type="hidden" name="employeeNo" value="${r.employeeNo }">
          
                <div id="reservation-info">
                   <h4> * 예약 정보</h4>
                   <ul style="list-style:none;">
                      <li>날짜/시간  : ${r.checkIn} / ${r.reservationTime}</li>
                      <li>마이펫 :  ${pet.petName}</li>
-                     <li>담당자 : 박미용 </li>
-                     <li>예약자  : <input value="${loginMember.memberName}" name=""></li>
-                     <li>연락처  : <input value="${loginMember.phone}" name="phone"></li>
+                     <li>담당자 : ${r.employeeNo} </li>
+                     <li>예약자  : <input value="${loginMember.memberName}" name="reservationName"></li>
+                     <li>연락처  : <input value="${loginMember.phone}" name="reservationPhone"></li>
                   </ul>
                </div>
             
@@ -55,26 +56,33 @@
                   <h4> * 쿠폰 / 적립금</h4>
             
                   <div id="coupon-area">
-                     쿠폰
-                     <select id="coupon">
-                        <option value="0" value1="0"> 사용 가능 쿠폰 ${avaCouponCount}장 / 보유 ${couponCount}장 </option>
+                    	 쿠폰
+                     <select id="coupon" name="couponNo">
+                     
+                       	<option name="couponNo" value="0" value1="0"> 사용 가능 쿠폰 ${avaCouponCount}장 / 보유 ${couponCount}장 </option>
+                       	
                         <c:forEach var="c" items="${requestScope.cList}">
-                           <c:choose>
-                              <c:when test="${c.couponType eq 1}">
-                                 <option name="coupon" value="${c.couponType}" value1="${c.discount}">${c.couponName}(${c.discount}원)</option>
-                              </c:when>
-                              <c:otherwise>
-                                 <option name="coupon" value="${c.couponType}" value1="${c.discount}">${c.couponName}(${c.discount}%)</option>
-                              </c:otherwise>
+                        
+                        	<option name="couponNo" value="${c.couponNo }"value1="${c.couponType}" value2="${c.discount}">
+                        	<c:choose>
+                            <c:when test="${c.couponType eq 1}">
+                                 ${c.couponName}(${c.discount}원)
+                             </c:when>
+                             <c:otherwise>
+                             	${c.couponName}(${c.discount}%)
+                             </c:otherwise>
                            </c:choose>
+                           </option>
+                           
                         </c:forEach>
+                        
                      </select>
                   </div>
                
                   <br>
                
                   <div id="point-area">
-                     적립금 
+                   	  적립금 
                      <input type="text" id="point" name="point" value="0" min="0" max="${point}"> 
                      <br>
                      <small>보유 적립금 : <span id="left-point">${point}</span>p</small>
@@ -91,8 +99,7 @@
                   <!-- 무게가 10kg이상이면 10000원 추가  -->
                   <!-- 펫 나이가 10살이상인 경우 5000원 추가  -->
                   기본금액 : <span id="reservationFee">${ r.reservationFee } 원 </span> <br>
-                  총예약 금액 :
-                  <span id="totalReservationFee">
+                  총예약 금액 : <span id="totalReservationFee">
                      <c:choose>
                         <c:when test="${pet.weight ge 10 && pet.age ge 10}">
                            <c:set var="totalFee" value="${ r.reservationFee + 10000 + 5000 }"/>
@@ -108,14 +115,19 @@
                         </c:otherwise>
                      </c:choose>
                   </span>
+                  
+                  <input type="hidden" name="reservationFee" value="${totalFee}">
+                  
                   <br>
-                  쿠폰 사용 : - <span id="usedCoupon">0</span> 원 <br>
-                  적립금 사용 : - <span id="usedPoint">0</span> 원 <br>
+			                  쿠폰 사용 : - <span id="usedCoupon">0</span> 원 <br>
+			                  적립금 사용 : - <span id="usedPoint">0</span> 원 <br>
                   <b> 최종 결제금액 : <span id="totalPayment">${totalFee}</span> 원 </b> <br>
+                  
+                  <input type="hidden" name="finalTotalFee" value="">
                   
                   <hr style="width: 95%;">
                   
-                  보유 펫페이 : <span>${petPay}</span> 원 
+                	보유 펫페이 : <span>${petPay}</span> 원 
                   
                   <button type="button" data-toggle="modal" data-target="#chargePetpay">충전</button>
 
@@ -211,8 +223,8 @@
          // 쿠폰 함수 
          useCoupon = () => {
             
-            couponType = Number($('#coupon > option:selected').attr("value"));   //쿠폰 타입  1, 2, 0 
-            discount = Number( $('#coupon > option:selected').attr("value1"));   // 할인금액 또는 할인 율    // 1000, 20
+            couponType = Number($('#coupon > option:selected').attr("value1"));   //쿠폰 타입  1, 2, 0 
+            discount = Number( $('#coupon > option:selected').attr("value2"));   // 할인금액 또는 할인 율    // 1000, 20
 
             calculate();
             
@@ -283,7 +295,10 @@
                   $('#left-point').text(point -  result[1]);
                   
                   finalTotalFee = result[2];
+                  
                   $('#totalPayment').text(finalTotalFee);
+                  
+                  $('input[name=finalTotalFee]').val(finalTotalFee);
                   
                },
                error : () => {
@@ -313,6 +328,7 @@
             }else{
                
                alert('결제를 취소하였습니다.');
+               return false;
                
             }
             

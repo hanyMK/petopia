@@ -24,4 +24,31 @@ public class ReservationDao {
 		return sqlSession.selectOne("reservationMapper.selectUsageFee",psno);
 	}
 
+	// --------------------------------------------------------------------
+	
+	public int insertReservation(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.insert("reservationMapper.insertReservation", r);
+	}
+
+	public int insertReservationReceipt(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.insert("reservationMapper.insertReservationReceipt",r);
+	}
+	
+	public int insertMinusPetPay(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.insert("reservationMapper.insertMinusPetPay",r);
+	}
+	
+	public int insertMinusPoint(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.insert("reservationMapper.insertMinusPoint",r);
+	}
+
+	public int updateCouponStatus(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.insert("reservationMapper.updateCouponStatus",r);
+	}
+
+	public int insertPlusPoint(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.insert("reservationMapper.insertPlusPoint",r);
+	}
+
+
 }

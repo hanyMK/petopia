@@ -9,6 +9,7 @@ public class ProductInfo {
 	private int[] amount;
 	private String[] size;
 	
+	private int memberNo;
 	private int pnoEl;
 	private int amountEl;
 	private String sizeEl;
