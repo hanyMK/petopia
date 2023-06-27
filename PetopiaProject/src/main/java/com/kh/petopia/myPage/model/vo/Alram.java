@@ -13,7 +13,7 @@ public class Alram {
 	private String dateAll;
 	
 	private String category;
-	private String boardTitle;
+	private String title;
 	private String nickname;
 	private String replyContent;
 	
@@ -24,4 +24,5 @@ public class Alram {
 	// 전체 PK
 	private int primaryNo;
 	
+	private int replyNo;
 }

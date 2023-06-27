@@ -243,7 +243,7 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title">펫페이 충전</h3>
-                        <button type="button" class="close" data-dismiss="modal" id="closePay">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" id="closePay1">&times;</button>
                     </div>
                         <!-- <form action="insertPetpay.pd" method="post" id="sign-form"> -->
                         <!-- Modal body -->
@@ -484,7 +484,7 @@
                     $('#payment_info_2').text($(this).find('.discount').text() + '원');
                 }
 
-                $('#modal_close').click();
+                //$('#modal_close').click();
                 calculate();
             });
         }
@@ -551,7 +551,6 @@
                 },
                 success : function(){
                     alert('충전이 완료되었습니다.');
-                    $('#closePay').click();
                     selectPetpay();
                 },
                 error : () => {
@@ -562,6 +561,7 @@
         }
 
         function selectPetpay(){
+            console.log('하이');
             $.ajax({
                 url : 'selectPetpay.pd',
                 success : function(result){
