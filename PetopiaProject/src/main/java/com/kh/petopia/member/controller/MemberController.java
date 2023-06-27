@@ -160,9 +160,7 @@ public class MemberController {
 			mv.addObject("title", "이메일 찾기")
 			.addObject("findTitle","가입한 닉네임 ")
 			.setViewName("member/findInfo");
-			
 			return mv;
-		
 		}
 
 		
@@ -174,7 +172,6 @@ public class MemberController {
 			.setViewName("member/findInfo");
 			
 			return mv;
-			
 		}
 		
 		/**
@@ -228,9 +225,6 @@ public class MemberController {
 			else session.setAttribute("alertMsg", "회원 정보 수정 실패") ;
 			
 			return "redirect:updateInfo.me";
-			
-
-			
 		}
 		
 		

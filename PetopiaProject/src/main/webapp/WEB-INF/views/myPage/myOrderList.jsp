@@ -104,13 +104,8 @@
 	<script>
 		let cpage = 1;
 		$(document).ready(() =>{
-			//var value='';
 			selectOrderList(cpage);
-			console.log(cpage);
-
-			//구매확정 버튼 클릭시 배송상태가 배송완료로 변경
 			$(document).on('click', '.myOrderList button', e =>{
-				
 				var receiptNo = $(e.target).attr('class');
 				$.ajax({
 					url: 'updateShippingStatus.me',
@@ -119,21 +114,17 @@
 					},
 					type : 'post',
 					success : result =>{
-						console.log(result);
 						$(e.target).remove();
 						selectOrderList(cpage);
 					},
 					error: () =>{
-						console.log('실퓨ㅐ');
+						console.log('실패');
 					}
 				})
 			})
-
 		})
 
 		$(()=>{
-
-			//배송상세 내역
 			$('#orderList').on('click', '.myOrderList > .list', function() {
 				var rno = $(this).find('.receiptNo1').val();
 				location.href = 'orderDetail.me?receiptNo=' +rno ;
@@ -142,7 +133,7 @@
 
 		
 		
-		//구매내역 조회 ajax
+		
 		function selectOrderList(cpage){
 			$.ajax({
 				url: 'selectOrderList.me',
@@ -155,11 +146,9 @@
 						value ='<h2 align="center"> 주문/ 배송 내역이 없습니다</h1>';
 							$('#orderList').html(value);
 					}else{
-						console.log(list);
-						var item = list.list;
-						var pi = list.pi;
+						let item = list.list;
+						let pi = list.pi;
 						let value = '';
-						console.log(pi);
 
 						let paging = '';
 							
@@ -169,9 +158,7 @@
 						let prev = cPage - 1;
 						let next = cPage + 1;
 						let max = pi.maxPage;
-						console.log(cPage);
 						for(var i in item) {
-							console.log(list);
 							value += '<div class="myOrderList">'	
 									+ 	'<div class="list" style="font-weight: 900px;">' 
 									+ 	'<input type="hidden" class="receiptNo1" name="receiptNo" value="' + item[i].receiptNo + '">'
@@ -179,15 +166,15 @@
 									+ 		'<b>결제 금액 : ' + item[i].resultPrice + '</b><br>'
 									+	'</div>' ;
 									if(item[i].shippingStatus =='배송중'){
-										value += '<div class="status" >' 
+										value += 	'<div class="status" >' 
 												+		'<h3>'+item[i].shippingStatus +'</h3><br>'
-												+ '<button class="'+ item[i].receiptNo +'">구매확정</button>'
-												+ '</div>' 
+												+ 		'<button class="'+ item[i].receiptNo +'">구매확정</button>'
+												+ 	'</div>' 
 												+ '</div><br>';
 									}else{
-										value += '<div class="status" >' 
+										value += 	'<div class="status" >' 
 												+		'<h3>'+item[i].shippingStatus +'</h3>'
-												+ '</div>' 
+												+ 	'</div>' 
 												+ '</div><br>';
 									}
 						};
@@ -203,10 +190,9 @@
 							if(i != cPage){
 								paging += '<li class="page-item"><a class="page-link" href="javascript:selectOrderList(' + i + ');">' + i + '</a></li>';
 							} else {
-								paging += '<li class="page-item"><a class="page-link" style="background-color:pink;" href="javascript:selectOrderList(' + i + ');">' + i + '</a></li>';
+								paging += '<li class="page-item"><a class="page-link" style="background-color:#FAC264;" href="javascript:selectOrderList(' + i + ');">' + i + '</a></li>';
 							}
 						}
-						
 						if(cPage == max){
 							paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
 						} else {
