@@ -166,7 +166,7 @@
 	</select>
 	
 	<select id="salesCheck2" resultType="_int">
-	  SELECT SUM(RESULT)
+	 SELECT SUM(RESULT)
                  FROM (
                        SELECT 
                               MEMBER_NO,
@@ -187,9 +187,8 @@
                         JOIN (
                               VIEW_RESERVATION_RECEIPT) RR ON (RR.RESERVATION_NO = R.RESERVATION_NO)
                         LEFT JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
-                       WHERE  MEMBER_NO = 22
-                           AND  TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
-                                AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))))) 
+                       WHERE TO_CHAR(RECEIPT_DATE) BETWEEN TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1))
+                                AND TO_CHAR(TRUNC (LAST_DAY( ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)))))
 	</select>
 	
 	<select id= "shippingListCount" resultType="_int">

@@ -53,7 +53,7 @@
 	var store = "${store}";
 	var reservation = "${reservation}";
 
-	
+	console.log(reservation);
 	
 	
 	var myChart = new Chart(context, {

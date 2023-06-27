@@ -47,6 +47,8 @@ public class AdminController {
 		int reservation = adminService.salesCheck2();
 		model.addAttribute("month", month);
 		model.addAttribute("store",store);
+		model.addAttribute("reservation",reservation);
+		
 		return "admin/adminSales";
 	}
 	
