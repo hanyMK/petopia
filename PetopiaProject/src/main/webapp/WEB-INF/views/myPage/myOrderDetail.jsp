@@ -150,7 +150,6 @@
                             <div id="product_receipt_content_4">
                                 <div id="product_receipt_detail_info4">
                                     <span id="detail_span">배송지</span>
-                                    
                                     <br>
                                     <br>
                                     <h1>${order[0].shippingStatus}</h1>
@@ -165,12 +164,10 @@
                                             <h2>배송메모 : ${order[0].shippingMessage}</h2>
                                         </c:otherwise>
                                     </c:choose>
-
                                     <c:if test="${order[0].shippingStatus eq '상품준비중'}">
                                         <button id="give_update" button type="button" data-toggle="modal" data-target="#shipping">배송지 정보 수정하기</button>
                                     </c:if>
                                     <hr>
-                                    
                                     <br>
                                 </div>
                             </div>
@@ -252,25 +249,17 @@
 	        new daum.Postcode({
 	            oncomplete: function(data) {
 				    var roadAddr = data.roadAddress; // 도로명 주소 변수
-
 	                document.getElementById('postcode').value = data.zonecode;
 	                document.getElementById('address').value = roadAddr;
 	            }
 	        }).open();
             $('#detailAddress').val('');
 	    }
-
-      
-        //주소입력
         var address = '${order[0].shippingAddress}'.split(',');
         console.log(address);
         $('#postcode').val(address[0]);
         $('#address').val(address[1]);
         $('#detailAddress').val(address[2]);
-
-        
-
-
 	</script>
     
 

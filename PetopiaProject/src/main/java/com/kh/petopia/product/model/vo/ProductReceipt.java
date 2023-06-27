@@ -36,4 +36,6 @@ public class ProductReceipt {
 	
 	private int bonusPt; // 결제금액의 5%
 	private int petPay; //보유 펫페이
+	
+	private int discount;
 }

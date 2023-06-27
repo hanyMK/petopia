@@ -68,6 +68,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public int salesCheck2() {
+		return adminDao.salesCheck2(sqlSession);
+	}
+	
+	@Override
 	public int shippingListCount() {
 		return adminDao.shippingListCount(sqlSession);
 	}
@@ -94,6 +99,8 @@ public class AdminServiceImpl implements AdminService {
 	public String bringKey() {
 		return adminDao.bringKey(sqlSession);
 	}
+
+	
 
 
 

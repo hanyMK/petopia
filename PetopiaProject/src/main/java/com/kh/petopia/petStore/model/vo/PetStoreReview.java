@@ -16,3 +16,4 @@ public class PetStoreReview {
 	private int rating;				// 평점
 	
 }
+

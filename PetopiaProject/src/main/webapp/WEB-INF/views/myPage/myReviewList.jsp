@@ -78,34 +78,31 @@
 						if(list[i].productNo != 0) {
 							if(list[i].productNo != list[i].reviewProductNo){
 							<!-- 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회-->
-							value += '<small style="color:green;">상품</small>'
+							value += '<small style="color:green;">상품</small><br>'
 								   + '상품 : ' + list[i].title + '<br>'
 								   + '결제금액 : ' + list[i].finalPrice + '<br>'
 								   + '결제일자 : ' + list[i].receiptDate + '<br>'
-								   + list[i].productNo + '---' + list[i].reviewProductNo + '----' + list[i].receiptNo + '<br>'
 								   + '<a href="productReviewForm.me?memberNo=' + ${ loginMember.memberNo } 
 								   											   + '&productNo=' + list[i].productNo 
-								   											   + '&receiptNo=' + list[i].receiptNo + '">'
-								   + '<h6>리뷰 작성하기</h6></a>';
+								   											   + '&receiptNo=' + list[i].receiptNo + '">';
 							}
 						} else {
 							<!-- 배송상태가 없으면 예약 리뷰 조회 -->
-							value += '<small style="color:orange;">예약</small>'
+							value += '<small style="color:orange;">예약</small><br>'
 								   + '예약 : ' + list[i].title + '<br>'
-								   + '예약금액 : ' + list[i].finalPrice + '  선생님 : ' + list[i].details  + '<br>';
+								   + '예약금액 : ' + list[i].finalPrice +'<br>';
 								   
 								   if( list[i].checkInOut != null) {
 									   <!-- 호텔, 훈련 예약인 경우 checkInOut -->
-									   value += '예약일자 : ' + list[i].checkInOut + '<br>'
-									          + '결제일자 : ' + list[i].receiptDate + '<br>';
-								   } else {
-									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
+									   value += '예약일자 : ' + list[i].checkInOut + '<br>';
+									          
 								   }
-							value += '<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } 
-																				   + '&receiptNo=' + list[i].receiptNo + '">'
-								   + '<h6>리뷰 작성하기</h6></a>';
+							value += '결제일자 : ' + list[i].receiptDate + '<br>'
+								   + '<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } 
+																				   + '&receiptNo=' + list[i].receiptNo + '">';
 						}
-						value += '</div><br>';
+						value += '<h6>리뷰 작성하기</h6></a>'
+						       + '</div><br>';
 					}
 				};
 				
@@ -132,28 +129,23 @@
 						if(list[i].productNo != 0) {
 							if(list[i].productNo == list[i].reviewProductNo) {
 							// 배송상태가 있으면 상품 리뷰 조회
-							value += '<small style="color:green;">상품</small>'
+							value += '<small style="color:green;">상품</small><br>'
 								   + '상품 : ' + list[i].title + '<br>'
-								   + '결제금액 : ' + list[i].finalPrice +'<br>'
-								   + '배송상태 : ' + list[i].shippingStatus + '<br>'
-								   + '결제일자 : ' + list[i].receiptDate + '<br>'
+								   + '결제금액 : ' + list[i].finalPrice +'<br>';
 							}
 						} else {
 							// 배송상태가 없으면 예약 리뷰 조회
-							value += '<small style="color:orange;">예약</small>'
+							value += '<small style="color:orange;">예약</small><br>'
 								   + '예약 : ' + list[i].title + '<br>'
-								   + '예약금액 : ' + list[i].finalPrice + '  선생님 : ' + list[i].details  + '<br>';
+								   + '예약금액 : ' + list[i].finalPrice + '<br>';
 								   
 								   if( list[i].checkInOut != null) {
 									   <!-- 호텔, 훈련 예약인 경우 checkInOut -->
-									   value += '예약일자 : ' + list[i].checkInOut + '<br>'
-									          + '결제일자 : ' + list[i].receiptDate + '<br>';
-								   } else {
-									   value += '결제일자 : ' + list[i].receiptDate + '<br>';
-								   }
-						   
+									   value += '예약일자 : ' + list[i].checkInOut + '<br>';
+								   } 
 						}
-						value += '</div><br>';
+						value += '결제일자 : ' + list[i].receiptDate + '<br>'
+							   + '</div><br>';
 					}
 				};
 				

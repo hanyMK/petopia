@@ -131,8 +131,10 @@
 				)
 	</insert>
 	
-	
-	
+	<select id="selectReservationNo" resultType="_int">
+		SELECT SEQ_RNO.NEXTVAL
+		FROM DUAL
+	</select>
 	
 
 
