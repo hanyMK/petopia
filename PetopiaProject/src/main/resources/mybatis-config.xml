@@ -21,7 +21,6 @@
 		<typeAlias type="com.kh.petopia.product.model.vo.Product" alias="product"/>
 		<typeAlias type="com.kh.petopia.product.model.vo.Cart" alias="cart"/> 
 		<typeAlias type="com.kh.petopia.petStore.model.vo.PetStore" alias="petStore"/>
-		<typeAlias type="com.kh.petopia.petStore.model.vo.PetStoreReview" alias="petStoreReview"/>
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Reservation" alias="reservation"/>
 		<typeAlias type="com.kh.petopia.reservation.model.vo.Employee" alias="employee"/>
 		<typeAlias type="com.kh.petopia.board.model.vo.Reply" alias="reply"/>
