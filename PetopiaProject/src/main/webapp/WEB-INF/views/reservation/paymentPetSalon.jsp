@@ -127,7 +127,7 @@
                   
                   <hr style="width: 95%;">
                   
-                	보유 펫페이 : <span>${petPay}</span> 원 
+                	보유 펫페이 : <span id="payAmount">${petPay}</span> 원 
                   
                   <button type="button" data-toggle="modal" data-target="#chargePetpay">충전</button>
 
@@ -156,7 +156,7 @@
                    <!-- Modal Header -->
                    <div class="modal-header">
                        <h3 class="modal-title">펫페이 충전</h3>
-                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                       <button type="button" class="close" data-dismiss="modal" id="closePay">&times;</button>
                    </div>
                         <form action="insertChargePetpay.me" method="post" id="sign-form">
    
@@ -190,7 +190,7 @@
                        </div>
                        <!-- Modal footer -->
                        <div class="modal-footer" align="center">
-                           <button type="submit" id="chargePetpayBtn" class="btn btn-danger">충전하기</button>
+                           <button type="button" id="chargePetpayBtn" class="btn btn-danger" onclick="petPay();">충전하기</button>
                            <button type="reset" class="btn btn-danger">초기화</button>
                        </div>
                    </form>
@@ -368,9 +368,10 @@
                error : () => {
                   console.log('AJAX통신 성공할줄 알았냐?? 케케케케켘');
                }
+               
             });
             
-         }
+         };
          
          // 결제 
          payment = () => {
@@ -400,10 +401,61 @@
          }
          
          
-
-         
-            
-            
+      </script>
+      
+      <script>
+      
+	      function petPay(){
+	    	  
+	    	  console.log('너 눌렀어?');
+	    	  
+			 var petpayAmount = Number($('#petpayAmount').val());
+			 var memberNo = ${r.memberNo};
+			 
+	    	  console.log(petpayAmount);
+	    	  console.log(memberNo);
+	    	  
+	    	  $.ajax({
+	    		  url : 'reservationPetPay.ps',
+	    		  type : 'get',
+	    		  data : {
+	    			  petpayAmount : petpayAmount,
+	    			  memberNo : memberNo
+	    		  },
+	    		  success : () =>{
+	    			  alert('충전이 완료되었습니다.');
+	                   $('#closePay').click();
+	                   selectPetpay();
+	    		  },
+	    		  error : () => {
+	    			  alert('충전 실패');
+	                   $('#closePay').click();
+	    			  
+	    		  }
+	    	  });
+	    	  
+	   
+	    	  
+	      };
+	      
+	      function selectPetpay(){
+	            $.ajax({
+	                url : 'selectPetpay.pd',
+	                success : function(result){
+	                    console.log(result);
+	                    let value = result
+	                    $('#payAmount').text(value);
+	                },
+	                error : function(){
+	                    console.log('안됨');
+	                }
+	            });
+	        };
+	      
+	      
+      
+     
+      
       </script>
          
          

@@ -59,11 +59,10 @@
 			
 			</div>
 			
-			<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo } 
-																				   + '&receiptNo=' +${r.reservationNo } + '">'
-								   + '<h6>리뷰 작성하기</h6></a>
+			<a href="reservationReviewForm.me?memberNo=' + ${ loginMember.memberNo }
+		   + '&receiptNo=' + ${r.reservationNo } + '">'
+		   + '<h6>리뷰 작성하기</h6></a>
 			
-			<a href="#">리뷰 작성하기</a>
 				
 		</div>
 		<%-- main_center 끝 --%>

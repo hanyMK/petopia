@@ -148,6 +148,8 @@ public class ReservationController {
 	     if( reservationService.insertReservation(r) > 0 ) {
 	    	 System.out.println("결제 성공!");
 	    	 
+	    	 Reservation result = reservationService.selectCompleteReservation();
+	    	 
 	    	 mv.addObject("r",r);
 	    	 mv.setViewName("reservation/completeReservation");
 	    	 
