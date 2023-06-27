@@ -7,6 +7,18 @@
 <meta charset="UTF-8">
 <title>여기는 애견 호텔 메인 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+   
+   #petHotel{
+      border : 1px solid black;
+      width : 60%;
+      margin : auto;
+      padding-bottom : 20px;
+      padding-left : 20px;
+   }
+
+</style>
+
 </head>
 <body>
 
@@ -18,31 +30,26 @@
 		
 		<div id="main_center">
 			
+			<h3 align="center"> petopia 애견 호텔 </h3>
+			
 			<!-- 애견 호텔 콘텐츠 시작 -->
-			<div id="petSalone-content">
-			
-				<h3> petopia 애견 호텔 </h3>
-			
-				<div>
-					* 애견 호텔 정보 * <br>
-					${petHotel.petStoreName} <br>
-					${petHotel.petStoreAddress} <br>
-					${petHotel.openTime} <br>
-					${petHotel.closeTime} <br>
-					${petHotel.offDay} <br>
-					${petHotel.petStoreCall} <br>
-					${petHotel.petStoreInfo} <br>
-					${petHotel.usageFee} <br>
+				<div id="wrap">
+				
+					<h4 align="center">* 애견 호텔  * </h4>
 					
-					<br>
+					<div id="petHotel">
+						${petHotel.petStoreName} <br>
+						위치 : ${petHotel.petStoreAddress} <br>
+						${petHotel.openTime} - ${petHotel.closeTime} <br>
+						정기 휴무일 : ${petHotel.offDay} <br>
+						☎ ${petHotel.petStoreCall} <br>
+						${petHotel.petStoreInfo} <br>
+						기본금액 : ${petHotel.usageFee} <br>
 					
-					<a href="reservation1.ps" style="color:lightgray;">예약</a>
-					
-					<br><br>
-					
-					<hr>
-					
-					*리뷰 영역*
+						<br>
+						
+						<a href="reservation1.ps" style="color:lightgray;">예약</a>
+					</div>
 					
 				</div>
 			
