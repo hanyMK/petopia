@@ -76,26 +76,21 @@ public class AjaxMyPageController {
 		return new Gson().toJson(myPageService.myReplyList(mno));
 	}
 	
-	//마이페이지 쿠폰 조회
+	
 	@RequestMapping(value="couponList.me", produces="application/json; charset=UTF-8")
 	public String selectMemberCouponList(HttpSession session) {
-		//회원번호를 가지고 실적을 조회 해 온다조회한 실적을 기준으로 쿠폰 발급 가능 유무를 판정한다
 		Member member = (Member)session.getAttribute("loginMember");
 		ArrayList<Coupon> cList = myPageService.memberCouponList(member);
-		System.out.println(cList);
 		return  new Gson().toJson(cList);
-		
-		
 	}
-	// 쿠폰발급
+	
+	
 	@RequestMapping("insertCoupon.me")
 	public String insertCouponToMember(int memberNo, int couponNo) {
 		Coupon coupon = new Coupon();
 		coupon.setMemberNo(memberNo);
 		coupon.setCouponNo(couponNo);
 		return (myPageService.insertCouponToMember(coupon) > 0)? "YES" : "NO"; 
-		
-		
 	}
 	
 	//회원등급에 따른 사용가능 쿠폰 조회
