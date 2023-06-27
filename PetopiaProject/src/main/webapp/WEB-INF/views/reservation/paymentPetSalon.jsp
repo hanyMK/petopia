@@ -123,11 +123,13 @@
 			                  적립금 사용 : - <span id="usedPoint">0</span> 원 <br>
                   <b> 최종 결제금액 : <span id="totalPayment">${totalFee}</span> 원 </b> <br>
                   
-                  <input type="hidden" name="finalTotalFee" value="">
+                  <input type="hidden" name="finalTotalFee" value="${totalFee}">
                   
                   <hr style="width: 95%;">
                   
-                	보유 펫페이 : <span id="payAmount">${petPay}</span> 원 
+                	보유 펫페이 : <span id="payAmount">
+			                	${petPay}
+			                	</span> 원 
                   
                   <button type="button" data-toggle="modal" data-target="#chargePetpay">충전</button>
 
