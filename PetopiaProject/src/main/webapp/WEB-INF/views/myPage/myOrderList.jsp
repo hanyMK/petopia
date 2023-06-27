@@ -102,16 +102,15 @@
 	</div>
 	
 	<script>
-		var cpage = 1;
-		var value='';
+		let cpage = 1;
 		$(document).ready(() =>{
+			//var value='';
 			selectOrderList(cpage);
+			console.log(cpage);
 
 			//구매확정 버튼 클릭시 배송상태가 배송완료로 변경
 			$(document).on('click', '.myOrderList button', e =>{
-				console.log("하이");
-				console.log($(e.target).attr('class'));
-				console.log(e);
+				
 				var receiptNo = $(e.target).attr('class');
 				$.ajax({
 					url: 'updateShippingStatus.me',
@@ -137,7 +136,6 @@
 			//배송상세 내역
 			$('#orderList').on('click', '.myOrderList > .list', function() {
 				var rno = $(this).find('.receiptNo1').val();
-				console.log(rno);
 				location.href = 'orderDetail.me?receiptNo=' +rno ;
 			})
 		})
@@ -153,65 +151,69 @@
 					currentPage: cpage
 				},
 				success : list =>{
-					console.log(list);
-					var item = list.list;
-					var pi = list.pi;
-					let value = '';
-
-					let paging = '';
-						
-					let cPage = pi.currentPage;
-					let startPage = pi.startPage;
-					let endPage = pi.endPage;
-					let prev = cPage - 1;
-					let next = cPage + 1;
-					let max = pi.maxPage;
-
-					for(var i in item) {
+					if(Object.keys(list).length == 0 ){
+						value ='<h2 align="center"> 주문/ 배송 내역이 없습니다</h1>';
+							$('#orderList').html(value);
+					}else{
 						console.log(list);
-						value += '<div class="myOrderList">'	
-								+ 	'<div class="list" style="font-weight: 900px;">' 
-								+ 	'<input type="hidden" class="receiptNo1" name="receiptNo" value="' + item[i].receiptNo + '">'
-								+ 		'<b>상품명 : ' + item[i].productTitle + '</b><br>'
-								+ 		'<b>결제 금액 : ' + item[i].resultPrice + '</b><br>'
-								+	'</div>' ;
-								if(item[i].shippingStatus =='배송중'){
-									value += '<div class="status" >' 
-											+		'<h3>'+item[i].shippingStatus +'</h3><br>'
-											+ '<button class="'+ item[i].receiptNo +'">구매확정</button>'
-											+ '</div>' 
-											+ '</div><br>';
-								}else{
-									value += '<div class="status" >' 
-											+		'<h3>'+item[i].shippingStatus +'</h3>'
-											+ '</div>' 
-											+ '</div><br>';
-								}
-					};
-					$('#orderList').html(value);
+						var item = list.list;
+						var pi = list.pi;
+						let value = '';
+						console.log(pi);
 
-					//페이징 처리
-					if(cPage == 1){
-						paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
-					} else {
-						paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + prev + ');">&lt;-</a></li>';
-					}
+						let paging = '';
+							
+						let cPage = pi.currentPage;
+						let startPage = pi.startPage;
+						let endPage = pi.endPage;
+						let prev = cPage - 1;
+						let next = cPage + 1;
+						let max = pi.maxPage;
+						console.log(cPage);
+						for(var i in item) {
+							console.log(list);
+							value += '<div class="myOrderList">'	
+									+ 	'<div class="list" style="font-weight: 900px;">' 
+									+ 	'<input type="hidden" class="receiptNo1" name="receiptNo" value="' + item[i].receiptNo + '">'
+									+ 		'<b>상품명 : ' + item[i].productTitle + '</b><br>'
+									+ 		'<b>결제 금액 : ' + item[i].resultPrice + '</b><br>'
+									+	'</div>' ;
+									if(item[i].shippingStatus =='배송중'){
+										value += '<div class="status" >' 
+												+		'<h3>'+item[i].shippingStatus +'</h3><br>'
+												+ '<button class="'+ item[i].receiptNo +'">구매확정</button>'
+												+ '</div>' 
+												+ '</div><br>';
+									}else{
+										value += '<div class="status" >' 
+												+		'<h3>'+item[i].shippingStatus +'</h3>'
+												+ '</div>' 
+												+ '</div><br>';
+									}
+						};
 					
-					for(let i = startPage; i <= endPage; i++){
-						if(i != cPage){
-							paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+						$('#orderList').html(value);						
+						if(cPage == 1){
+							paging += '<li class="page-item disabled"><a class="page-link" href="#">&lt;-</a></li>';                		
 						} else {
-							paging += '<li class="page-item"><a class="page-link" style="background-color:pink;" href="javascript:selectList(' + i + ');">' + i + '</a></li>';
+							paging += '<li class="page-item"><a class="page-link" href="javascript:selectOrderList(' + prev + ');">&lt;-</a></li>';
 						}
+						
+						for(let i = startPage; i <= endPage; i++){
+							if(i != cPage){
+								paging += '<li class="page-item"><a class="page-link" href="javascript:selectOrderList(' + i + ');">' + i + '</a></li>';
+							} else {
+								paging += '<li class="page-item"><a class="page-link" style="background-color:pink;" href="javascript:selectOrderList(' + i + ');">' + i + '</a></li>';
+							}
+						}
+						
+						if(cPage == max){
+							paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
+						} else {
+							paging += '<li class="page-item"><a class="page-link" href="javascript:selectOrderList(' + next + ');">-&gt;</a></li>';
+						}
+						$('.pagination').html(paging);
 					}
-					
-					if(cPage == max){
-						paging += '<li class="page-item disabled"><a class="page-link" href="#">-&gt;</a></li>';                		
-					} else {
-						paging += '<li class="page-item"><a class="page-link" href="javascript:selectList(' + next + ');">-&gt;</a></li>';
-					}
-					
-					$('.pagination').html(paging);
 				},
 				error: () =>{
 					console.log('실패');
