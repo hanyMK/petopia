@@ -51,6 +51,8 @@ public interface AdminService {
 	
 	// api 키 조회
 	String bringKey();
+
+	int salesCheck2();
 	
 	
 }

@@ -222,6 +222,7 @@
             left: 900px;
             right: 10px;
             border: 1px solid black;
+            width: 100px;
 
         }
 		
@@ -245,7 +246,12 @@
 			padding-top:10px;
 			padding-left:10px;
 		}
-		
+        #fixed_menu_content{
+            border: 1px solid black;
+            background-color:#FAC264;
+            width: 100px;
+            height: 100px;
+        }
 		
 	 
     </style>

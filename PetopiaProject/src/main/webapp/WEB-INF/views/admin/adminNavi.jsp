@@ -62,20 +62,8 @@
         	<li><a href="memberList.ad"><h5><b>회원조회</b></h5></a></li>
         	<li><a href="adminSales.ad"><h5><b>매출관리</b></h5></a></li>
         	<li><a href="adminShipping.ad"><h5><b>주문/배송 조회</b></h5></a></li>
-        	<li><a href=""><h6>펫페이/포인트 조회</h6></a></li>
         </ul>
         <ul class="myPage_navi_category">
-        	<li><a href=""><h5><b>혜택</b></h5></a></li>
-        	<li><a href=""><h6>쿠폰</h6></a></li>
-        </ul>
-        <ul class="myPage_navi_category">
-        	<li><a href=""><h5><b>마이페이지</b></h5></a></li>
-        	<li><a href=""><h6>알람 내역</h6></a></li>
-        	<li><a href="myReview.me?mno=${ loginMember.memberNo }"><h6>리뷰 관리</h6></a></li>
-        	<li><a href="myBoard.me?mno=${ loginMember.memberNo }"><h6>게시글 관리</h6></a></li>
-        	<li><a href="myReply.me?mno=${ loginMember.memberNo }"><h6>댓글 관리</h6></a></li>
-        	<li><a href=""><h6>1:1 문의</h6></a></li>
-        	<li><a href=""><h6>내 정보 수정</h6></a></li>
         	<li><a href="couponList.ad"><h6>관리자 쿠폰 발급</h6></a></li>
         </ul>
             
