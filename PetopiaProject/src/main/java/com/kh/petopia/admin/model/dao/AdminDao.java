@@ -56,6 +56,10 @@ public class AdminDao {
 	public int salesCheck(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.salesCheck");
 	}
+	
+	public int salesCheck2(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.salesCheck2");
+	}
 
 	public int shippingListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.shippingListCount");
@@ -76,6 +80,8 @@ public class AdminDao {
 	public String bringKey(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.bringKey");
 	}
+
+
 	
 	
 }

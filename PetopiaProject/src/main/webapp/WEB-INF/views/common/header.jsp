@@ -219,18 +219,23 @@
             left: 900px;
             right: 10px;
             border: 1px solid black;
+            width: 100px;
 
         }
 		
 		#fixed_menu_border{
 			position: fixed;
 			right: 0px;
-			left: 1500px;
-			top: 800px;
-			background-color:#FAC264;
-			width: 30px;
+			left: 1600px;
+			top: 700px;
+            text-align: center;
 		}
-		
+        #fixed_menu_content{
+            border: 1px solid black;
+            background-color:#FAC264;
+            width: 100px;
+            height: 100px;
+        }
 		
 	 
     </style>
@@ -357,7 +362,9 @@
 			
 			<div id="fixed_menu_border">
 			 <!--  <div id="chatMove_1">채팅</div> -->
-			  <a href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
+             <div id="fixed_menu_content">
+                <a href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;">채팅</a>
+             </div>
 			 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
 			
 			</div>
