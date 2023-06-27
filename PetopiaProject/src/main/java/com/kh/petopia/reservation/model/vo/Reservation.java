@@ -13,7 +13,7 @@ public class Reservation {
 	Date checkIn;			// CHECK_IN	DATE
 	Date checkOut;		// CHECK_OUT	DATE
 	String reservationTime;	// RESERVATION_TIME	VARCHAR2(20 BYTE)
-	int reservationFee;		// RESERVATION_FEE	NUMBER
+	int reservationFee;		// RESERVATION_FEE	NUMBER		// 총예약 금액 
 	int employeeNo;			// EMPLOYEE	NUMBER
 	
 	//
@@ -25,7 +25,8 @@ public class Reservation {
 	String reservationName;		// 예약자명
 	String reservationPhone;	// 예약자 연락처
 	
-	// INSERT RESERVATION_RECEIPT 테이블
+	// INSERT RESERVATION_RECEIPT 테이블에 필요한 컬럼 추가
+	int finalTotalFee;	
 	int couponNo;	// 결제 시 사용한 쿠폰
 	int point;		// 결제 시 사용한 적립금
 

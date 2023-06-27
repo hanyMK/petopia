@@ -157,6 +157,10 @@
         font-size: 20px;
         font-weight: bold;
     }
+    .petPay{
+        font-weight: bold;
+        font-size: 30px;
+    }
 </style>
 </head>
 <body>
@@ -309,7 +313,9 @@
                     <span class="payment_title">적립금 사용 : </span> <span id="payment_info_3"></span><br>
                     <span class="payment_title">총 결제 금액 : </span> <span id="payment_info_4"></span><br>
                     <br><hr><br>
-                    <h4 id="payAmount"></h4> <button data-toggle="modal" data-target="#chargePetpay">충전</button>
+                    <span class="petPay">보유 펫페이 : </span><span class="petPay" id="payAmount" ></span> <span class="petPay"> 원</span>
+                    <br><br>
+                    <button data-toggle="modal" data-target="#chargePetpay">충전</button>
                     <br>
                     <button onclick="insertPayment();">결제하기</button>
                 </div>
@@ -390,9 +396,6 @@
                 </div>
                 </div>
             </div>
-
-
-            <button onclick="check();">dddddddddddddddddddddddddddddddd</button>
 
 
         </div>
@@ -526,6 +529,7 @@
                     total : ${result},
                     coupon : $('#coupon_discount').text(),
                     point : $('#usePointInput').val(),
+                    size : sizeArr
                 },
                 success : function(value){
                     $('#payment_info_4').text(value);
@@ -562,7 +566,7 @@
                 url : 'selectPetpay.pd',
                 success : function(result){
                     console.log(result);
-                    let value = '보유 펫페이 : ' + result + ' 원'
+                    let value = result
                     $('#payAmount').text(value);
                 },
                 error : function(){
@@ -657,20 +661,20 @@
     </script>
 
     <script>
-
+        var pnoArr = [];
+        var sizeArr = [];
+        var amountArr = [];
+        for(var i = 0; i < $('.listProductNo').length; i++){
+            pnoArr[i] = $('.listProductNo')[i].value;
+            sizeArr[i] = $('.listSize')[i].value;
+            amountArr[i] = $('.listAmount')[i].value;
+        }
 
 
         var couponDiscount = $('#coupon_discount').text();
 
         function insertPayment(){
-            var pnoArr = [];
-            var sizeArr = [];
-            var amountArr = [];
-            for(var i = 0; i < $('.listProductNo').length; i++){
-                pnoArr[i] = $('.listProductNo')[i].value;
-                sizeArr[i] = $('.listSize')[i].value;
-                amountArr[i] = $('.listAmount')[i].value;
-            }
+          
             $.ajax({
                 url : 'insertPayment.pd',
                 type : 'post',
@@ -686,10 +690,17 @@
                 shippingAddress : $('#give_address').text(),
                 shippingMessage : $('#memo').val(),
                 phone : $('#give_phone').text(),
-                totalPrice : $('#payment_info_4').text()
+                totalPrice : $('#payment_info_4').text(),
+                petPay : $('#payAmount').text()
             },
             success : function(result){
-                console.log(result);
+                //console.log(result);
+                if(result != 0){
+                    alert('결제가 완료 되었습니다.');
+                    
+                } else {
+                    alert('결제할 금액보다 보유한 펫페이가 적습니다. 충전후 이용 부탁드립니다.');
+                }
             },
             error : function(){
 

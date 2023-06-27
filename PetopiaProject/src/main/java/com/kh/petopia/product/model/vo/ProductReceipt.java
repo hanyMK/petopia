@@ -27,7 +27,6 @@ public class ProductReceipt {
 	private String filePath; //파일 경로
 	
 	private int totalPrice;//최종금액
-	private int discount;//할인금액
 	private String couponType;//쿠폰 타입
 	
 	private String receiver;//RECEIVER,
@@ -35,5 +34,6 @@ public class ProductReceipt {
 	private String shippingMessage;//배송메모
 	private String phone;//번호
 	
-	private int bonusPt;
+	private int bonusPt; // 결제금액의 5%
+	private int petPay; //보유 펫페이
 }
