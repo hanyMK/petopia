@@ -276,7 +276,6 @@
 		          AND MC.ALRAM_STATUS = 'Y'
 		        )
 		 ORDER 
-		    BY DATE_ALL DESC
 	</select>
 	
 	<update id="deleteShippingAlram" parameterType="_int">
@@ -667,7 +666,7 @@
 	</insert>
 	
 	<select id="myReviewList" parameterType="_int" resultMap="allReviewsResultMap">
-		SELECT MEMBER_NO, TITLE, RECEIPT_NO, RECEIPT_DATE, REVIEW_PRODUCT_NO, PRODUCT_NO, REVIEW_NO, SHIPPING_STATUS, CEHCK_IN_OUT, FINAL_PRICE
+		SELECT MEMBER_NO, TITLE, RECEIPT_NO, RECEIPT_DATE, REVIEW_PRODUCT_NO, PRODUCT_NO, REVIEW_NO, CEHCK_IN_OUT, FINAL_PRICE
 	    FROM
 	    (
 		SELECT
@@ -679,7 +678,6 @@
 		       P.PRODUCT_NO,
 		       CASE WHEN (PRV.PRODUCT_NO = P.PRODUCT_NO AND PRV.RECEIPT_NO = PR.RECEIPT_NO)THEN PRV.PRODUCT_REVIEW_NO
 		       END AS REVIEW_NO,
-		       S.SHIPPING_STATUS,
 		       NULL AS CEHCK_IN_OUT,
 		       CASE 
 		       WHEN PR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
@@ -715,17 +713,16 @@
 	    SELECT 
 		        MEMBER_NO,
 		        CASE 
-		        WHEN PET_STORE = 1 THEN '호텔'
-		        WHEN PET_STORE = 2 THEN '유치원'
-		        WHEN PET_STORE = 3 THEN '미용, 선생님 : ' || EMPLOYEE
-		        WHEN PET_STORE = 4 THEN '훈련, 선생님 : ' || EMPLOYEE
+		        WHEN R.PET_STORE = 1 THEN '호텔'
+		        WHEN R.PET_STORE = 2 THEN '유치원'
+		        WHEN R.PET_STORE = 3 THEN '미용 | 선생님 : ' || E.EMPLOYEE_NAME
+		        WHEN R.PET_STORE = 4 THEN '훈련 | 선생님 : ' || E.EMPLOYEE_NAME
 		        END  TITLE,
 	            R.RESERVATION_NO RECEIPT_NO,
 	            RR.RECEIPT_DATE,
 	            NULL AS REVIEW_PRODUCT_NO,
 	            NULL AS PRODUCT_NO,
 	            REVIEW_NO,
-	            NULL AS SHIPPING_STATUS,
 	            CONCAT(CONCAT(CHECK_IN, ' ~ '), CHECK_OUT) AS CHECK_IN_OUT,
 	            CASE 
 		        WHEN RR.COUPON_NO !=0 AND C.COUPON_TYPE = 1
@@ -750,6 +747,8 @@
 		       JOIN COUPON C ON(C.COUPON_NO = RR.COUPON_NO)
 		  LEFT 
 		       JOIN PET_STORE_REVIEW PSR ON(PSR.RESERVATION_NO = RR.RESERVATION_NO)
+		  LEFT
+		       JOIN EMPLOYEE E ON(R.EMPLOYEE = E.EMPLOYEE_NO)
 		 WHERE
 		        MEMBER_NO = #{memberNo}
 		 )
@@ -1116,13 +1115,13 @@
 	</insert>
 	
 	<update id="updateMyPet" parameterType="pet">
-		UPDATE PET
-		   SET GENDER = #{gender},
-		       SPECIES = #{species},
-		       PET_NAME = #{petName},
-		       AGE = #{age},
-		       WEIGHT = #{weight}
-		 WHERE MEMBER_NO = #{memberNo}
+	UPDATE PET
+	   SET GENDER = #{gender},
+	       SPECIES = #{species},
+	       PET_NAME = #{petName},
+	       AGE = #{age},
+	       WEIGHT = #{weight}
+	 WHERE MEMBER_NO = #{memberNo}
 	</update>
 
 </mapper>
