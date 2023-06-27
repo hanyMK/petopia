@@ -197,6 +197,70 @@
                </div>
            </div>
        </div>
+       <!-- modal 끝 -->
+       
+       <!-- modal에 필요한 script -->
+       <script>
+	    function plusPay(plus) {
+	       
+	       console.log(plus);
+	       
+	       var input = $('#petpayAmount').val();
+	       
+	       if(plus == 1) {
+	         input = 10000;
+	       } else if(plus == 3) {
+	          input = 30000;
+	       } else if(plus == 5) {
+	          input = 50000;
+	       } else if(plus == 10) {
+	          input = 100000;
+	       }
+	       
+	       $('#petpayAmount').val(input);
+	       
+	    }
+       
+	      // 1만원 단위로 충전 가능, 백만원 이상 충전 못함
+	      $(function () {
+	         
+	         $('#petpayAmount').on('change', function() {
+	            var input = $(this).val();
+	            
+	            // 최대 가능 금액 백만원이 넘어가는 경우
+	            if(input > 1000000) {
+	               $('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+	               $('#chargePetpayBtn').attr('disabled', true);
+	               
+	            } else {
+	               $('#overPetpay').html('');
+	               $('#chargePetpayBtn').attr('disabled', false);
+	            }
+	            
+	            // 만원 단위로 입력을 안했을 경우
+	            if(input != Math.floor(input/10000) * 10000) {
+	               $('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
+	               input = Math.floor(input/10000) * 10000;
+	                                      
+	               // 만원 단위로 입력도 안하고 백만원 초과 시
+	               if(input > 1000000) {
+	                   $('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+	                   $('#chargePetpayBtn').attr('disabled', true);
+	                } else {
+	                   $('#overPetpay').remove();
+	                   $('#chargePetpayBtn').attr('disabled', false);
+	                }
+	            } else {
+	               $('#alertPetpay').html('');
+	            }
+	            
+	            $('#petpayAmount').val(input);
+	            
+	         });
+	      });
+	      
+	    </script>
+	     <!-- modal에 필요한 script 끝-->
 
       <!-- 쿠폰 및 적립금 사용 -->
       <script>

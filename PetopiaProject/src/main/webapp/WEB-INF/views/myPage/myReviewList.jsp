@@ -66,7 +66,6 @@
 	})
 	
 	function myReviewList() {
-		
 		$.ajax({
 			url : 'ajaxMyReviewList.me', 
 			type : 'post',
@@ -76,7 +75,7 @@
 				for(let i in list) {
 					if(list[i].reviewNo == 0) {
 						value += '<div id="myReviewList">';
-						if(list[i].shippingStatus == '배송완료') {
+						if(list[i].productNo != 0) {
 							if(list[i].productNo != list[i].reviewProductNo){
 							<!-- 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회-->
 							value += '<small style="color:green;">상품</small>'
@@ -130,7 +129,7 @@
 					if(list[i].reviewNo != 0) {
 						value += '<div id="myReviewList">';
 						
-						if(list[i].shippingStatus == '배송완료') {
+						if(list[i].productNo != 0) {
 							if(list[i].productNo == list[i].reviewProductNo) {
 							// 배송상태가 있으면 상품 리뷰 조회
 							value += '<small style="color:green;">상품</small>'

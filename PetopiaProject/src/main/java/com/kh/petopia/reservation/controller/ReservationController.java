@@ -134,7 +134,7 @@ public class ReservationController {
 	
 	   // 애견 미용 예약 step-3
 	   @RequestMapping("payment3.ps")
-	   public ModelAndView paymentPetSalon3(Reservation r) {
+	   public ModelAndView paymentPetSalon3(Reservation r,ModelAndView mv) {
 		   // 사용자가 예약결제를하려고 결제 버튼을 눌렀을 때 
 	      
 		  r.setPetStoreNo(petStoreNo);
@@ -148,11 +148,17 @@ public class ReservationController {
 	     if( reservationService.insertReservation(r) > 0 ) {
 	    	 System.out.println("결제 성공!");
 	    	 
+	    	 mv.addObject("r",r);
+	    	 mv.setViewName("reservation/completeReservation");
+	    	 
 	     }else {
 	    	 System.out.println("결제 실패");
+	    	 
+	    	 mv.addObject("errorMsg","결제에 오류가 발생하였습니다");
+	    	 mv.setViewName("errorPage");
 	     }
 	      
-	      return null;
+	      return mv;
 	      
 	   }
 	
