@@ -31,13 +31,7 @@ public interface MyPageService {
 	ArrayList<Alram> alramNoticeList(int mno);
 	
 	// 알람 삭제
-	int deleteShippingAlram(int delNo);
-	
-	int deleteReplyAlram(int delNo);
-
-	int deleteQnaAlram(int delNo);
-	
-	int deleteCouponAlram(int delNo);
+	int deleteAlram(HashMap<String, Object> map);
 	
 	// 마이페이지 - 게시글조회 - 댓글조회
 	ArrayList<Reply> myReplyList(int mno);

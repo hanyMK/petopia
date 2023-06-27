@@ -6,7 +6,6 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,21 +51,18 @@ public class AjaxMyPageController {
 	}
 	
 	@RequestMapping(value="deleteAlram.me", produces="application/json; charset=UTF-8")
-	public String deleteAlram(int delNo, String category) {
+	public String deleteAlram(String category, int delNo) {
+		System.out.println(category);
+		System.out.println(delNo);
 		
-		if(category.equals("배송")) {
-			System.out.println("배송왔어?");
-			return new Gson().toJson(myPageService.deleteShippingAlram(delNo));
-		} else if(category.equals("댓글")) {
-			System.out.println("주문왔냐구");
-			return new Gson().toJson(myPageService.deleteReplyAlram(delNo));
-		} else if(category.equals("문의")) {
-			return new Gson().toJson(myPageService.deleteQnaAlram(delNo));
-		} else if(category.equals("쿠폰")) {
-			return new Gson().toJson(myPageService.deleteCouponAlram(delNo));
-		} else {
-			return null;
-		}
+		HashMap<String, Object> map = new HashMap();
+		map.put("category", category);
+		map.put("delNo", delNo);
+		
+		System.out.println(map);
+		
+		return new Gson().toJson(myPageService.deleteAlram(map));
+		
 	}
 	
 	// 마이페이지 게시글 댓글 조회

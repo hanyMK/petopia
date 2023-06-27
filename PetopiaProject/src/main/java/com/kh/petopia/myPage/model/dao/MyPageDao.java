@@ -42,20 +42,10 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.alramNoticeList", memberNo);
 	}
 	
-	public int deleteShippingAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteShippingAlram", delNo);
-	}
-	
-	public int deleteReplyAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteReplyAlram", delNo);
-	}
-	
-	public int deleteQnaAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteQnaAlram", delNo);
-	}
-	
-	public int deleteCouponAlram(SqlSessionTemplate sqlSession, int delNo) {
-		return sqlSession.update("myPageMapper.deleteCouponAlram", delNo);
+	public int deleteAlram(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		System.out.println("dao");
+		System.out.println(map);
+		return sqlSession.update("myPageMapper.deleteAlram", map);
 	}
 	
 	public ArrayList<Reply> myReplyList(SqlSessionTemplate sqlSession, int memberNo) {

@@ -140,7 +140,7 @@
 			   R.REPLY_CONTENT,
 			   R.CREATE_DATE,
 			   B.CATEGORY,
-			   B.BOARD_NO
+			   R.BOARD_NO
 		  FROM
 		       BOARD B
 		  JOIN
@@ -200,7 +200,7 @@
 		        
 		       UNION ALL
 		        
-		       SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.REPLY_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
+		       SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.BOARD_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE, R.NICKNAME, R.REPLY_CONTENT
 		         FROM MEMBER M
 		         LEFT
 		         JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
@@ -236,8 +236,9 @@
 		       B.BOARD_TITLE,
 		       R.NICKNAME,
 		       R.REPLY_CONTENT,
-		       R.REPLY_NO,
-		       R.CREATE_DATE
+		       R.BOARD_NO,
+		       R.CREATE_DATE,
+		       R.REPLY_NO
 		  FROM
 		       MEMBER M
 		  LEFT
@@ -276,30 +277,14 @@
 		          AND MC.ALRAM_STATUS = 'Y'
 		        )
 		 ORDER 
+		    BY DATE_ALL DESC
 	</select>
 	
-	<update id="deleteShippingAlram" parameterType="_int">
-		UPDATE SHIPPING
-		   SET ALRAM_STATUS = 'N'
-		 WHERE SHIPPING_NO = #{delNo}
-	</update>
-	
-	<update id="deleteReplyAlram" parameterType="_int">
-		UPDATE REPLY
-		   SET ALRAM_STATUS = 'N'
-		 WHERE REPLY_NO = #{delNo}
-	</update>
-	
-	<update id="deleteQnaAlram" parameterType="_int">
-		UPDATE BOARD
-		   SET ALRAM_STATUS = 'N'
-		 WHERE BOARD_NO = #{delNo}
-	</update>
-	
-	<update id="deleteCouponAlram" parameterType="_int">
-		UPDATE MEMBER_COUPON
-		   SET ALRAM_STATUS = 'N'
-		 WHERE COUPON_NO = #{delNo}
+	<update id="deleteAlram" parameterType="hashmap">
+		
+				UPDATE REPLY
+				   SET ALRAM_STATUS = 'N'
+				 WHERE REPLY_NO = #{delNo}
 	</update>
 	
 	<select id="selectPet" parameterType="int" resultMap="petResultSet">
