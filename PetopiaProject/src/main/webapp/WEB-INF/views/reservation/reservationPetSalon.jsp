@@ -321,14 +321,14 @@
 			        }
 			
 			        // 이전달 버튼 클릭
-			        function prevCalendar() {
+			        function prevCalendar(eno,eName,closedDay) {
 			            nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-			            buildCalendar(eno,closedDay);    // 달력 다시 생성
+			            buildCalendar(eno,eName,closedDay)    // 달력 다시 생성
 			        }
 			        // 다음달 버튼 클릭
-			        function nextCalendar() {
+			        function nextCalendar(eno,eName,closedDay) {
 			            nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-			            buildCalendar(eno,closedDay);    // 달력 다시 생성
+			            buildCalendar(eno,eName,closedDay)    // 달력 다시 생성
 			        }
 			
 			        // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
