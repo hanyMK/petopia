@@ -111,7 +111,9 @@ public class ProductServiceImpl implements ProductService {
 				if(Integer.parseInt(pr.getCouponNo()) != 0) {
 					resultArr[3] = productDao.updateCoupon(sqlSession, pr);
 					if(resultArr[3] == 0) {
+						System.out.println("어디서 오류 1");
 						sqlSession.rollback();
+						return resultArr[10];
 					}
 				} else {
 					resultArr[3] = 1;
@@ -120,7 +122,9 @@ public class ProductServiceImpl implements ProductService {
 				if(Integer.parseInt(pr.getPoint()) != 0) {
 					resultArr[4] = productDao.insertPoint(sqlSession, pr);
 					if(resultArr[4] == 0) {
+						System.out.println("어디서 오류 2");
 						sqlSession.rollback();
+						return resultArr[10];
 					}
 				} else {
 					resultArr[4] = 1;
@@ -132,7 +136,9 @@ public class ProductServiceImpl implements ProductService {
 					resultArr[6] = productDao.insertBonusPoint(sqlSession, pr);
 					
 					if(resultArr[6] == 0) {
+						System.out.println("어디서 오류 3");
 						sqlSession.rollback();
+						return resultArr[10];
 					}
 				}
 				
@@ -141,26 +147,31 @@ public class ProductServiceImpl implements ProductService {
 				if(resultArr[7] != 0) {
 					resultArr[8] = productDao.insertUsePetPay(sqlSession, pr);
 					if(resultArr[8] == 0) {
+						System.out.println("어디서 오류 4");
 						sqlSession.rollback();
+						return resultArr[10];
 					}
 				}
 				
 				if(resultArr[8] != 0) {
 					resultArr[9] = productDao.deleteCart(sqlSession, hashCart);
 					if(resultArr[9] == 0) {
+						System.out.println("어디서 오류 5");
 						sqlSession.rollback();
+						return resultArr[10];
 					}
 				}
 				
 				return resultArr[9];
 				
 			} else {
-				
+				System.out.println("어디서 오류 6");
 				sqlSession.rollback();
 				return resultArr[2];
 			}
 			
 		} else {
+			System.out.println("어디서 오류 7");
 			sqlSession.rollback();
 			return resultArr[0];
 		}
