@@ -228,8 +228,8 @@
 		
 		#fixed_menu_border{
 			position: fixed;
-			left: 2000px;
-			top: 900px;
+			left: 1800px;
+			top: 800px;
 			right:0px;
 			text-align:center;
 		}
@@ -246,13 +246,6 @@
 			padding-top:10px;
 			padding-left:10px;
 		}
-        #fixed_menu_content{
-            border: 1px solid black;
-            background-color:#FAC264;
-            width: 100px;
-            height: 100px;
-        }
-		
 	 
     </style>
 
@@ -292,7 +285,7 @@
                       <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;
                       <c:choose>
                       	<c:when test="${ not empty sessionScope.loginMember and sessionScope.loginMember.memberNo eq 1 }">
-                      		<a href="adminPage.ad">관리자 페이지</a>
+                      		<a href="memberList.ad">관리자페이지</a>
                       	</c:when>
                       	<c:otherwise>
 		                     <a href="myPage.me?mno=${ sessionScope.loginMember.memberNo }">마이페이지</a>
@@ -379,9 +372,7 @@
 			
 			<div id="fixed_menu_border">
 				<div id="fixed_menu_content">
-				 <!--  <div id="chatMove_1">채팅</div> -->
 				  <a class="fa-brands fa-rocketchat" href="chatBot.ct" id="chatMove_1" onclick="window.open(this.href, '_blank', 'width=600, height=600 scrollbars=yes'); return false;"></a>
-				 <!--  <iframe src="chatBot.ct" scrolling="auto" id="chatOpen" background-color="white">채팅</iframe> -->
 				</div>
 			</div>
    	 

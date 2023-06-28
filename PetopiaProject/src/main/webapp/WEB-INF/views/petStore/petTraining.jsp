@@ -7,6 +7,18 @@
 <meta charset="UTF-8">
 <title>여기는 애견 훈련 메인 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+   
+   #petHotel{
+      border : 1px solid black;
+      width : 60%;
+      margin : auto;
+      padding-bottom : 20px;
+      padding-left : 20px;
+   }
+
+</style>
+
 </head>
 <body>
 
@@ -17,32 +29,28 @@
 		<div id="main_left"></div>
 		
 		<div id="main_center">
+		
+		<h3 align="center"> petopia 애견 훈련 </h3>
 			
 			<!-- 애견 훈련 콘텐츠 시작 -->
-			<div id="petSalone-content">
+			<div id="wrap">
 			
-				<h3> petopia 애견 훈련 </h3>
+				<h4 align="center">* 애견 훈련  * </h4>
 			
-				<div>
-					* 애견 호텔 정보 * <br>
+				<div id="petTraining">
 					${petTraining.petStoreName} <br>
-					${petTraining.petStoreAddress} <br>
-					${petTraining.openTime} <br>
-					${petTraining.closeTime} <br>
-					${petTraining.offDay} <br>
-					${petTraining.petStoreCall} <br>
+					위치 : ${petTraining.petStoreAddress} <br>
+					${petTraining.openTime} - ${petTraining.closeTime} <br>
+					정기 휴무일 : ${petTraining.offDay} <br>
+					☎ ${petTraining.petStoreCall} <br>
 					${petTraining.petStoreInfo} <br>
-					${petTraining.usageFee} <br>
+					기본금액 : ${petTraining.usageFee} <br>
 					
 					<br>
 					
-					<a href="reservation1.ps" style="color:lightgray;">예약</a>
+					<a href="reservation4.ps" style="color:lightgray;">예약</a>
 					
 					<br><br>
-					
-					<hr>
-					
-					*리뷰 영역*
 					
 				</div>
 			

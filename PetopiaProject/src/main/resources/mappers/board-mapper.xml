@@ -158,6 +158,7 @@
 	      	   ATTACHMENT ON(BOARD_NO = REF_NO)
 	     WHERE
 	           B.BOARD_NO = #{boardNo}
+	           AND ATTACHMENT.FILE_CATEGORY = 3  
 	       AND
 	       	   FILE_CATEGORY = 3
 	       AND

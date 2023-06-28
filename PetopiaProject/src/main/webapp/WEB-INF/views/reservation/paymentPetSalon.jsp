@@ -123,11 +123,13 @@
 			                  적립금 사용 : - <span id="usedPoint">0</span> 원 <br>
                   <b> 최종 결제금액 : <span id="totalPayment">${totalFee}</span> 원 </b> <br>
                   
-                  <input type="hidden" name="finalTotalFee" value="">
+                  <input type="hidden" name="finalTotalFee" value="${totalFee}">
                   
                   <hr style="width: 95%;">
                   
-                	보유 펫페이 : <span id="payAmount">${petPay}</span> 원 
+                	보유 펫페이 : <span id="payAmount">
+			                	${petPay}
+			                	</span> 원 
                   
                   <button type="button" data-toggle="modal" data-target="#chargePetpay">충전</button>
 
@@ -221,43 +223,52 @@
 	       
 	    }
        
-	      // 1만원 단위로 충전 가능, 백만원 이상 충전 못함
-	      $(function () {
-	         
-	         $('#petpayAmount').on('change', function() {
-	            var input = $(this).val();
-	            
-	            // 최대 가능 금액 백만원이 넘어가는 경우
-	            if(input > 1000000) {
-	               $('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
-	               $('#chargePetpayBtn').attr('disabled', true);
-	               
-	            } else {
-	               $('#overPetpay').html('');
-	               $('#chargePetpayBtn').attr('disabled', false);
-	            }
-	            
-	            // 만원 단위로 입력을 안했을 경우
-	            if(input != Math.floor(input/10000) * 10000) {
-	               $('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
-	               input = Math.floor(input/10000) * 10000;
-	                                      
-	               // 만원 단위로 입력도 안하고 백만원 초과 시
-	               if(input > 1000000) {
-	                   $('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
-	                   $('#chargePetpayBtn').attr('disabled', true);
-	                } else {
-	                   $('#overPetpay').remove();
-	                   $('#chargePetpayBtn').attr('disabled', false);
-	                }
-	            } else {
-	               $('#alertPetpay').html('');
-	            }
-	            
-	            $('#petpayAmount').val(input);
-	            
-	         });
-	      });
+	   	// 1만원 단위로 충전 가능, 백만원 이상 충전 못함
+	   	$(function () {
+	   		
+	   		$('#petpayAmount').on('change', function() {
+	   			
+	   			var input = $(this).val();
+	   			
+	   			console.log(input);
+	   			
+	   			// 0보다 작거나 같은 경우 충전하기 버튼 disabled
+	   			if(input <= 0) {
+	   				$('#chargePetpayBtn').attr('disabled', true);
+	   			} else {
+	   				// 금액이 0보다 큰 경우
+		   			// 최대 가능 금액 백만원이 넘어가는 경우
+		   			if(input > 1000000) {
+		   				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+		   				$('#chargePetpayBtn').attr('disabled', true);
+		   				
+		   			} else {
+		   				$('#overPetpay').html('');
+		   				$('#chargePetpayBtn').attr('disabled', false);
+		   			}
+		   			
+		   			// 만원 단위로 입력을 안했을 경우
+		   			if(input != Math.floor(input/10000) * 10000) {
+		   				$('#alertPetpay').html('<small>만원 단위로 충전이 가능합니다.</small>');
+		   				input = Math.floor(input/10000) * 10000;
+		   				                        
+		   				// 만원 단위로 입력도 안하고 백만원 초과 시
+		   				if(input > 1000000) {
+		       				$('#overPetpay').html('<small>최대 충전 가능 금액은 1,000,000원 입니다.</small>');
+		       				$('#chargePetpayBtn').attr('disabled', true);
+		       			} else {
+		       				$('#overPetpay').remove();
+		       				$('#chargePetpayBtn').attr('disabled', false);
+		       			}
+		   			} else {
+		   				$('#alertPetpay').html('');
+		   			}
+	   			}
+	   			
+	   			$('#petpayAmount').val(input);
+	   			
+	   		});
+	   	});
 	      
 	    </script>
 	     <!-- modal에 필요한 script 끝-->

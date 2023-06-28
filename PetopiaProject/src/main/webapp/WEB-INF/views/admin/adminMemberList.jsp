@@ -308,9 +308,7 @@
 		</div>
 		<div id="main_right">
 
-				<h1>
-				이쪽은 공백
-				</h1>
+				
 		</div>
 	
 	

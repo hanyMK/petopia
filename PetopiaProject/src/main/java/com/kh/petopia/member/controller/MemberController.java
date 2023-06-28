@@ -29,7 +29,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.petopia.common.model.vo.Attachment;
 import com.kh.petopia.common.template.MyFileRename;
-import com.kh.petopia.member.model.service.KakaoService;
 import com.kh.petopia.member.model.service.MemberService;
 import com.kh.petopia.member.model.vo.Member;
 import com.kh.petopia.member.model.vo.Pet;
