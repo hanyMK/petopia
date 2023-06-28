@@ -257,10 +257,13 @@ public class ProductController {
 		
 		pr.setBonusPt(bonusPt);
 		//포인트랑 쿠폰이 리시티에 인설트가 되었을 경우에 해줘야함
-		int[] resultArr = new int[10];
+		int[] resultArr = new int[11];
 		
 		// 인트형배열에 집어넣기
 		System.out.println("---------------------------------");
+		System.out.println(pr.getCouponNo());
+		System.out.println(pr.getMemberNo());
+		
 		
 		ArrayList<ProductInfo> list = new ArrayList();
 		for(int i = 0; i < pInfo.getPno().length; i++) {

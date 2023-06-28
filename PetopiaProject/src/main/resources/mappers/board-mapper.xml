@@ -160,6 +160,8 @@
 	           B.BOARD_NO = #{boardNo}
 	           AND ATTACHMENT.FILE_CATEGORY = 3  
 	       AND
+	       	   FILE_CATEGORY = 3
+	       AND
 	           B.STATUS = 'Y'	 	 		   	
 	 </select>
 	 
