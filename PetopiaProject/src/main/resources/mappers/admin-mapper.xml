@@ -140,7 +140,7 @@
 		        COUPON
 		  ORDER
 		    BY
-		        START_DATE DESC
+		        COUPON_NO DESC
 	</select>
 	
 	<select id="salesCheck" resultType="_int">

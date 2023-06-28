@@ -203,6 +203,7 @@ public class MemberController {
 
 			m.setMemberPwd(bcyptPasswordEncoder.encode(m.getMemberPwd()));
 			System.out.println(m);
+			
 			int updateMember = memberService.updateMember(m);
 			
 			System.out.println(memberAtt);
@@ -213,6 +214,7 @@ public class MemberController {
 				//기존파일 있으면
 				if(memberAtt != null) {
 					new File(session.getServletContext().getRealPath(memberAtt.substring(22))).delete();
+					attachment.setRefNo(m.getMemberNo());
 					updateMember = memberService.updateMember(attachment);
 				}else {
 					//기존파일이 없으면

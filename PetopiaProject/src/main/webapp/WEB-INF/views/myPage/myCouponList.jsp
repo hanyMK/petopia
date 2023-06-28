@@ -26,7 +26,7 @@
 		border: 1px solid black;
 		border-radius: 20px;
 		height: 180px;
-		width: 400px;
+		width: 300px;
 		margin: 20px;
 		margin-left: 50px;
 		text-align: center;

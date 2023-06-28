@@ -3,6 +3,8 @@ package com.kh.petopia.admin.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,6 @@ import com.kh.petopia.admin.model.vo.Coupon;
 import com.kh.petopia.common.model.vo.PageInfo;
 import com.kh.petopia.common.template.Pagination;
 import com.kh.petopia.myPage.model.service.MyPageService;
-import com.kh.petopia.myPage.model.service.MyPageServiceImpl;
 import com.kh.petopia.product.model.vo.ProductReceipt;
 
 @Controller
@@ -100,17 +101,17 @@ public class AdminController {
 	
 	//관리자 쿠폰 발급
 	@RequestMapping("insertCoupon.ad")
-	public ModelAndView insertCouponToAdmin(Coupon c, ModelAndView mv) {
+	public String insertCouponToAdmin(Coupon c, HttpSession session) {
 		System.out.println(c);
 		
 		if(adminService.insertCoupon(c)> 0) {
-			mv.addObject("alertMsg", "쿠폰이 발급되었습니다");
+			session.setAttribute("alertMsg", "쿠폰이 발급되었습니다");
 			
 		}else {
-			mv.addObject("alertMsg", "쿠폰발급이 실패했습니다");
+			session.setAttribute("alertMsg", "쿠폰발급이 실패했습니다");
 		}
-		mv.setViewName("redirect:couponList.ad");
-		return mv;
+		return "redirect:couponList.ad";
+		
 	}
 	
 	/**
@@ -126,7 +127,7 @@ public class AdminController {
 		if(!couponList.isEmpty()) {
 			mv.addObject("pi", pi)
 			.addObject("couponList",couponList )
-			.setViewName("admin/couponList");
+			.setViewName("admin/adminCouponList");
 		}
 		
 		return mv;

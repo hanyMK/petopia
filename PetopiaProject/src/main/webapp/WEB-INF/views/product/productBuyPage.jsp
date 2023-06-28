@@ -674,7 +674,7 @@
         var couponDiscount = $('#coupon_discount').text();
 
         function insertPayment(){
-          
+        
             $.ajax({
                 url : 'insertPayment.pd',
                 type : 'post',
