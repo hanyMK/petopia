@@ -48,7 +48,7 @@
 		background-color: #FAC264; 
 	}
 	#coupon_status {
-		padding-left: 380px;
+		padding-left: 280px;
 	}
 	
 
