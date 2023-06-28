@@ -60,6 +60,14 @@
 		display: none;
 	}
 	
+	#myList{
+		border: 1px solid black;
+		height: 30px;
+		width: 300px;
+		margin: auto;
+		text-align: center;
+	}
+	
 	
 	
 </style>
@@ -381,10 +389,10 @@
     			let value = "";
     			for(let i in list) {
     				value += '<div id="myList">'							
-    					   + list[i].petpayDate
-    					   + list[i].account
-    					   + list[i].petpayAmount
-    					   + list[i].petpayStatus
+    					   + '  ' + list[i].petpayDate
+    					   + '  ' + list[i].account
+    					   + '  <b>' + list[i].petpayAmount + '</b>'
+    					   + '  ' + list[i].petpayStatus
     					   + '</div><br>';
     				};
     			$('#petpayList_2').html(value);
