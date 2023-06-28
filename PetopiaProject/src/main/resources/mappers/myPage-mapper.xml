@@ -574,9 +574,11 @@
 	</select>
 	
 	<insert id="insertCouponToMember" parameterType="coupon">
-		INSERT INTO MEMBER_COUPON
+		INSERT INTO 
+		MEMBER_COUPON
 		(MEMBER_NO,COUPON_NO)
-		VALUES(#{memberNo}, #{couponNo})
+		VALUES
+		(#{memberNo}, #{couponNo})
 	</insert>
 	
 	

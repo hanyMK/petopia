@@ -105,6 +105,7 @@
 		let cpage = 1;
 		$(document).ready(() =>{
 			selectOrderList(cpage);
+			
 			$(document).on('click', '.myOrderList button', e =>{
 				var receiptNo = $(e.target).attr('class');
 				$.ajax({
@@ -122,6 +123,8 @@
 					}
 				})
 			})
+			
+			
 		})
 
 		$(()=>{

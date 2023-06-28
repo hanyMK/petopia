@@ -99,7 +99,6 @@
 					alert('이미 발급된 쿠폰입니다.');
 					location.href = 'memberCouponList.me';
 				}else{
-					console.log(couponNo);
 					$.ajax({
 						url : 'insertCoupon.me',
 						type : 'post',
