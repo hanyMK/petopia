@@ -148,7 +148,7 @@
 		  JOIN
 		       MEMBER M ON(M.MEMBER_NO = B.MEMBER_NO)
 		  JOIN 
-		       REPLY R ON(B.BOARD__NO = R.BOARD_NO)
+		       REPLY R ON(B.BOARD_NO = R.BOARD_NO)
 		 WHERE
 		       R.MEMBER_NO = #{ memberNo }
 		   AND
