@@ -10,7 +10,7 @@ public class Alram {
 	
 	// 전체 알림
 	private String columnAll;
-	private String dateAll;
+	private Date dateAll;
 	
 	private String category;
 	private String title;

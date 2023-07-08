@@ -28,7 +28,7 @@ public interface MyPageService {
 	
 	ArrayList<Board> alramReplyList(int memberNo);
 	
-	ArrayList<Alram> alramNoticeList(int mno);
+	ArrayList<Alram> alramCouponList(Member m);
 	
 	// 알람 삭제
 	int deleteAlram(HashMap<String, Object> map);

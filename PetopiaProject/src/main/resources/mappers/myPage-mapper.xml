@@ -158,61 +158,55 @@
 	</select>
 	
 	<select id="alramList" parameterType="member" resultMap="alramResultSet">
+		
 		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO, CATEGORY, TITLE, NICKNAME, REPLY_CONTENT, REPLY_NO
 		  FROM
 		       (
-		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
-		         FROM BOARD
-		        WHERE CATEGORY = 'QNA'
-		          AND QNA_YN = 'Y'
-		          AND MEMBER_NO = #{ memberNo }
-		      	  AND BOARD.ALRAM_STATUS = 'Y'
-		      	  
-		        UNION ALL
-		        
-		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, C.COUPON_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
-		         FROM COUPON C
-		         LEFT 
-		         JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
-		        WHERE SYSDATE BETWEEN START_DATE AND END_DATE
-		        <choose>
+		        SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, C.COUPON_NO AS PRIMARY_NO, NULL AS CATEGORY, NULL AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
+		          FROM COUPON C
+		          LEFT 
+		          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
+		         WHERE SYSDATE BETWEEN START_DATE AND END_DATE
+		         <choose>
 		            <when test="rating == 'VIP'">
-		                 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
-		                      COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
+		            	
+		                AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+		                     COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
 		            </when>
 		            <when test="rating == 'GOLD'">
-		                 AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
-		                        COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+		                AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+		                     COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
 		            </when>
 		            <otherwise>
-		                  AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
-		                       COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+		                AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
+		                     COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
 		            </otherwise>
 		         </choose>
-		            AND MEMBER_NO IS NULL OR MEMBER_NO = #{memberNo}
-		            AND MC.ALRAM_STATUS = 'Y'
+		           AND MEMBER_NO IS NULL OR MEMBER_NO = #{memberNo}
+		           AND MC.ALRAM_STATUS = 'Y'
+		           
 		               
-		       UNION ALL
+		        UNION ALL
 		        
-		       SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_DATE AS DATE_ALL, S.SHIPPING_NO AS PRIMARY_NO, NULL AS CATEGORY, PRODUCT_TITLE AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
-		         FROM PRODUCT_RECEIPT PR
-		         JOIN SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
-		         JOIN PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
-		         JOIN PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
-		        WHERE MEMBER_NO = #{ memberNo }
-		          AND S.ALRAM_STATUS = 'Y'
+		        SELECT S.SHIPPING_STATUS AS COLUMN_ALL, S.SHIPPING_DATE AS DATE_ALL, S.SHIPPING_NO AS PRIMARY_NO, NULL AS CATEGORY, PRODUCT_TITLE AS TITLE, NULL AS NICKNAME, NULL AS REPLY_CONTENT, NULL AS REPLY_NO
+		          FROM PRODUCT_RECEIPT PR
+		          JOIN SHIPPING S ON(S.SHIPPING_NO = PR.RECEIPT_NO)
+		          JOIN PRODUCT_BRIDGE PB ON (PB.RECEIPT_NO = PR.RECEIPT_NO)
+		          JOIN PRODUCT P ON(PB.PRODUCT_NO = P.PRODUCT_NO)
+		         WHERE MEMBER_NO = #{ memberNo }
+		           AND S.ALRAM_STATUS = 'Y'
 		        
-		       UNION ALL
+		        UNION ALL
 		        
-		       SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.BOARD_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE AS TITLE, R.NICKNAME, R.REPLY_CONTENT, R.REPLY_NO
-		         FROM MEMBER M
-		         LEFT
-		         JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
-		         LEFT
-		         JOIN REPLY R ON(R.BOARD_NO = B.BOARD_NO)
-		        WHERE B.MEMBER_NO = #{ memberNo }
-		          AND R.MEMBER_NO != #{ memberNo }
-		          AND R.ALRAM_STATUS = 'Y'
+		        SELECT NULL AS COLUMN_ALL, R.CREATE_DATE AS DATE_ALL, R.BOARD_NO AS PRIMARY_NO, B.CATEGORY, B.BOARD_TITLE AS TITLE, R.NICKNAME, R.REPLY_CONTENT, R.REPLY_NO
+		          FROM MEMBER M
+		          LEFT
+		          JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO)
+		          LEFT
+		          JOIN REPLY R ON(R.BOARD_NO = B.BOARD_NO)
+		         WHERE B.MEMBER_NO = #{ memberNo }
+		           AND R.MEMBER_NO != #{ memberNo }
+		           AND R.ALRAM_STATUS = 'Y'
 		       )
 		 ORDER
 		    BY DATE_ALL DESC
@@ -265,36 +259,58 @@
 		    BY R.CREATE_DATE DESC
 	</select>
 	
-	<select id="alramNoticeList" parameterType="_int" resultMap="alramResultSet">
-		SELECT COLUMN_ALL, DATE_ALL, PRIMARY_NO
-		  FROM
-		       (
-		       SELECT QNA_YN AS COLUMN_ALL, CREATE_DATE AS DATE_ALL, BOARD_NO AS PRIMARY_NO
-		         FROM BOARD
-		        WHERE CATEGORY = 'QNA'
-		          AND QNA_YN = 'Y'
-		          AND MEMBER_NO = #{ memberNo }
-		          AND ALRAM_STATUS = 'Y'
-		        
-		       UNION ALL
-		        
-		       SELECT COUPON_NAME AS COLUMN_ALL, START_DATE DATE_ALL, C.COUPON_NO AS PRIMARY_NO
-		         FROM COUPON C
-		         LEFT 
-		         JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
-		        WHERE SYSDATE BETWEEN START_DATE AND END_DATE
-		          AND MEMBER_NO = #{ memberNo }
-		          AND MC.ALRAM_STATUS = 'Y'
-		        )
+	<select id="alramCouponList" parameterType="member" resultMap="alramResultSet">
+        SELECT COUPON_NAME AS COLUMN_ALL, START_DATE AS DATE_ALL, C.COUPON_NO AS PRIMARY_NO
+          FROM COUPON C
+          LEFT 
+          JOIN MEMBER_COUPON MC ON (MC.COUPON_NO = C.COUPON_NO)
+         WHERE SYSDATE BETWEEN START_DATE AND END_DATE
+         <choose>
+             <when test="rating == 'VIP'">
+             	
+                AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+                     COUPON_NAME NOT LIKE '%'||'GOLD'||'%' )
+             </when>
+             <when test="rating == 'GOLD'">
+                AND (COUPON_NAME NOT LIKE '%'||'SILVER'||'%'  AND 
+                     COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+             </when>
+             <otherwise>
+                AND (COUPON_NAME NOT LIKE '%'||'GOLD'||'%'  AND 
+                     COUPON_NAME NOT LIKE '%'||'VIP'||'%' )
+             </otherwise>
+         </choose>
+           AND MEMBER_NO IS NULL OR MEMBER_NO = #{memberNo}
+           AND MC.ALRAM_STATUS = 'Y'
 		 ORDER 
 		    BY DATE_ALL DESC
 	</select>
 	
 	<update id="deleteAlram" parameterType="hashmap">
-		
-				UPDATE REPLY
+		<choose>
+			<when test="category == '배송'">
+		 		UPDATE SHIPPING
+				   SET ALRAM_STATUS = 'N'
+				 WHERE SHIPPING_NO = #{delNo}
+			</when>
+			<when test="category == '댓글'">
+	   			UPDATE REPLY
 				   SET ALRAM_STATUS = 'N'
 				 WHERE REPLY_NO = #{delNo}
+			</when>
+			<when test="category == '쿠폰'">
+	   			UPDATE MEMBER_COUPON
+				   SET ALRAM_STATUS = 'N'
+				 WHERE COUPON_NO = #{delNo}
+			</when>
+			<otherwise>
+   				UPDATE BOARD
+				   SET ALRAM_STATUS = 'N'
+				 WHERE BOARD_NO = #{delNo}
+			</otherwise>
+		</choose>
+		
+				
 	</update>
 	
 	<select id="selectPet" parameterType="int" resultMap="petResultSet">

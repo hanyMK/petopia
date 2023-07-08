@@ -77,7 +77,7 @@
 						value += '<div id="myReviewList">';
 						if(list[i].productNo != 0) {
 							if(list[i].productNo != list[i].reviewProductNo){
-							<!-- 배송상태가 있으면 and 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회-->
+							<!-- 배송상태가 있고, 리뷰의 상품번호랑 상품의 상품번호가 다르면 상품 리뷰 조회-->
 							value += '<small style="color:green;">상품</small><br>'
 								   + '상품 : ' + list[i].title + '<br>'
 								   + '결제금액 : ' + list[i].finalPrice + '<br>'

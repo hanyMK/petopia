@@ -38,8 +38,8 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.alramReplyList", memberNo);
 	}
 
-	public ArrayList<Alram> alramNoticeList(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("myPageMapper.alramNoticeList", memberNo);
+	public ArrayList<Alram> alramCouponList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.alramCouponList", m);
 	}
 	
 	public int deleteAlram(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {

@@ -22,32 +22,38 @@ import com.kh.petopia.product.model.vo.ProductReceipt;
 @RestController
 public class AjaxMyPageController {
 	
+	private Member m;
+	
 	@Autowired
 	private MyPageService myPageService;
 	
 	
 	@RequestMapping(value="ajaxAlram.me", produces="application/json; charset=UTF-8")
 	public String alramList( HttpSession session) {
-		Member m = (Member)session.getAttribute("loginMember");
+	public String alramList(HttpSession session) {
+		m = (Member)session.getAttribute("loginMember");
 		return new Gson().toJson(myPageService.alramList(m));
 	}
 	
 	
 	@RequestMapping(value="alramShipping.me", produces="application/json; charset=UTF-8")
-	public String alramShippingList(int mno) {
-		return new Gson().toJson(myPageService.alramShippingList(mno));
+	public String alramShippingList(HttpSession session) {
+		m = (Member)session.getAttribute("loginMember");
+		return new Gson().toJson(myPageService.alramShippingList(m.getMemberNo()));
 	}
 	
 
 	@RequestMapping(value="alramReply.me", produces="application/json; charset=UTF-8")
-	public String alramReplyList(int mno) {
-		return new Gson().toJson(myPageService.alramReplyList(mno));
+	public String alramReplyList(HttpSession session) {
+		m = (Member)session.getAttribute("loginMember");
+		return new Gson().toJson(myPageService.alramReplyList(m.getMemberNo()));
 	}
 	
 
-	@RequestMapping(value="alramNotice.me", produces="application/json; charset=UTF-8")
-	public String alramNoticeList(int mno) {
-		return new Gson().toJson(myPageService.alramNoticeList(mno));
+	@RequestMapping(value="alramCoupon.me", produces="application/json; charset=UTF-8")
+	public String alramCouponList(HttpSession session) {
+		Member m = (Member)session.getAttribute("loginMember");
+		return new Gson().toJson(myPageService.alramCouponList(m));
 	}
 	
 	@RequestMapping(value="deleteAlram.me", produces="application/json; charset=UTF-8")

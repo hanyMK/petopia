@@ -26,6 +26,8 @@ public class MyPageController {
 
 	private String filePath = "resources/uploadFiles/";
 	
+	private Member member;
+	
 	@Autowired
 	private MyPageService myPageService;
 	
@@ -83,7 +85,7 @@ public class MyPageController {
 	// 페이 iframe페이지
 	@RequestMapping("pay.me")
 	public ModelAndView payList(ModelAndView mv, HttpSession session) {
-		Member member = (Member)session.getAttribute("loginMember");
+		member = (Member)session.getAttribute("loginMember");
 		mv.addObject("petpayAmount", myPageService.selectMemberPetPay(member.getMemberNo())).setViewName("myPage/payList");
 		return mv;
 	}

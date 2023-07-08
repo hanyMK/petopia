@@ -315,12 +315,12 @@
 	                  	  <!-- 페이 아이콘-->
 		                  <button class="fa-regular fa-credit-card fa-2x" id="payIcon" onclick="payBtn();"></button>
 		                  <div id="pay_box" > 					               
-							<iframe src="pay.me" scrolling="auto" id="payIframe"></iframe>
+							<iframe src="pay.me" id="payIframe"></iframe>
 		                  </div>
 		                  <!-- 알람 아이콘-->
 		                  <button class="fa-regular fa-bell fa-2x" id="alramIcon" onclick="alramBtn();"></button>
 		                  <div id="alram_box" > 					               
-							<iframe src="alram.me" scrolling="auto" id="alramIframe"></iframe>
+							<iframe src="alram.me" id="alramIframe"></iframe>
 		                  </div>
 		               	  <button class="fa-solid fa-cart-shopping" id="cartIcon" onclick="goCart();"></button>
 	                  </c:otherwise>
@@ -394,21 +394,19 @@
     var payIcon = $("#payIcon");
     
     // 알람 버튼
-    function alramBtn () {
+    function alramBtn() {
         
         if(alram.css("display") === 'none' ) {
-        	// iframe 열기
         	pay.css("display", 'none'); 
         	alram.css("display", 'block');
         }
         else {
-        	// iframe 닫기
         	alram.css("display", 'none'); 
         }
     }
     
  	// 페이 버튼
-    function payBtn () {
+    function payBtn() {
        
         if(pay.css("display") === 'none' ) {
         	alram.css("display", 'none'); 
@@ -417,8 +415,7 @@
         }
         else {
         	pay.css("display", 'none'); 
-        }
-        
+        }   
     }
  	
  	// 영역 외 클릭 시 Icon의 iframe 닫기
