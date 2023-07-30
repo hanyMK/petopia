@@ -19,7 +19,7 @@ import com.kh.petopia.myPage.model.service.MyPageService;
 import com.kh.petopia.myPage.model.vo.AllReviews;
 import com.kh.petopia.myPage.model.vo.Petpay;
 import com.kh.petopia.myPage.model.vo.Point;
-import com.kh.petopia.product.model.vo.ProductReceipt;
+import com.kh.petopia.product.model.vo.ProductReceipt; 
 
 @Controller
 public class MyPageController {
