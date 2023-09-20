@@ -329,7 +329,13 @@
                <!-- 장바구니 아이콘-->
             </div>
         </div>
-
+		<div>
+			<form  action="search.daum" method="get">
+				<input name="searchKeyWord" type="text" id="search">
+					
+				<button onclick="search();" >검색</button>
+			</form>
+		</div>
 
 
         <div id="header_2">
@@ -441,6 +447,26 @@
  	$('#chatMove_1').click(function(){
  		$('#chatOpen').css('display', 'block');
  	})
+ 	
+ 	
+ 	
+ 	
+ 	//다음 REST API검색하기
+ 	function search(){
+ 		$ajax({
+ 			url : "search.daum",
+ 			type : "get",
+ 			data :{searchKeyWord : $('#searchKeyWord').text()},
+ 			success:(searchResult) =>{
+ 				consol.log(searchResult);
+ 			},
+ 			error: ()=>{
+ 				console.log('실패');
+ 			}
+ 		})
+ 	}
+ 	
+ 	
     </script>
 </body>
 </html>

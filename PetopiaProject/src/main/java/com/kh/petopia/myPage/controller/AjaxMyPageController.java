@@ -30,7 +30,6 @@ public class AjaxMyPageController {
 	
 	@RequestMapping(value="ajaxAlram.me", produces="application/json; charset=UTF-8")
 	public String alramList( HttpSession session) {
-	public String alramList(HttpSession session) {
 		m = (Member)session.getAttribute("loginMember");
 		return new Gson().toJson(myPageService.alramList(m));
 	}
