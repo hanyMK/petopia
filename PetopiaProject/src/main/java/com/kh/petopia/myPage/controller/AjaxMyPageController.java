@@ -26,6 +26,8 @@ public class AjaxMyPageController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	//흐음
+	//실험 테스튼
 	
 	
 	@RequestMapping(value="ajaxAlram.me", produces="application/json; charset=UTF-8")
