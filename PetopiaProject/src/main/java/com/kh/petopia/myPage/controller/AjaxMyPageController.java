@@ -27,10 +27,6 @@ public class AjaxMyPageController {
 	@Autowired
 	private MyPageService myPageService;
 
-
-
-
-
 	//e다시
 	//test
 	
