@@ -27,7 +27,9 @@ public class AjaxMyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	//흐음
-	//실험 테스튼 충돌 실험
+	//실험 테스튼
+	
+	//충돌 실험
 
 	//충돌
 	
