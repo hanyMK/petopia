@@ -30,6 +30,10 @@ public class AjaxMyPageController {
 	//e다시
 	//test
 	
+	//충돌 실험
+
+	//충돌
+	
 	
 	@RequestMapping(value="ajaxAlram.me", produces="application/json; charset=UTF-8")
 	public String alramList( HttpSession session) {
